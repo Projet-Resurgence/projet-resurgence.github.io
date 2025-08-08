@@ -75,7 +75,8 @@ class ResurgenceWebsite {
         const targetElement = document.querySelector(targetId);
 
         if (targetElement) {
-            const headerHeight = document.querySelector('.header')?.offsetHeight || 0;
+            // Use CSS variable instead of reading offsetHeight to avoid forced reflow
+            const headerHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 80;
             const targetPosition = targetElement.offsetTop - headerHeight;
 
             window.scrollTo({

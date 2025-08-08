@@ -46,10 +46,12 @@
     <link rel="canonical" href="https://projet-resurgence.github.io/regles.html">
 
     <!-- Resource hints for performance -->
+    <link rel="preconnect" href="https://discord.com" crossorigin>
+    <link rel="preconnect" href="https://discord.gg" crossorigin>
     <link rel="preload" href="./fonts/pressgothic.otf" as="font" type="font/otf" crossorigin="anonymous">
     <link rel="preload" href="./styles/main.css" as="style">
-    <link rel="preload" href="./images/final_logo_centered.webp" as="image" type="image/webp">
-    <link rel="preload" href="./images/final_logo_centered.png" as="image" type="image/png">
+    <link rel="preload" href="./images/final_logo_centered.webp" as="image" type="image/webp" fetchpriority="high">
+    <link rel="preload" href="./images/final_logo_centered.png" as="image" type="image/png" fetchpriority="high">
     <link rel="preload" href="./styles/main.js" as="script">
     <link rel="prefetch" href="./index.html">
     <link rel="prefetch" href="./guide.html">
@@ -101,7 +103,7 @@
                     <picture>
                         <source srcset="./images/final_logo_centered.webp" type="image/webp">
                         <img src="./images/final_logo_centered.png" alt="Logo Projet Résurgence" width="50" height="50"
-                            loading="eager" decoding="async">
+                            loading="eager" decoding="async" fetchpriority="high">
                     </picture>
                     <span class="logo-text">PROJET RÉSURGENCE</span>
                 </div>
@@ -380,8 +382,8 @@
 
     <!-- JavaScript -->
     <script src="./styles/main.js"></script>
-    <script src="./styles/seo-optimizer.js"></script>
-    <script src="./styles/performance-optimizer.js"></script>
+    <script src="./styles/seo-optimizer.js" defer></script>
+    <script src="./styles/performance-optimizer.js" defer></script>
 </body>
 
 </html>
