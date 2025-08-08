@@ -36,6 +36,15 @@
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://projet-resurgence.github.io/regles.html">
+
+    <!-- Resource hints for performance -->
+    <link rel="preload" href="./styles/main.css" as="style">
+    <link rel="preload" href="./images/final__logo_centered.png" as="image">
+    <link rel="preload" href="./styles/main.js" as="script">
+    <link rel="prefetch" href="./index.html">
+    <link rel="prefetch" href="./guide.html">
+    <link rel="dns-prefetch" href="//discord.gg">
+
     <link rel="stylesheet" href="./styles/main.css">
     <link rel="icon" type="image/png" href="./images/final__logo.png">
     <link rel="manifest" href="./manifest.json">
@@ -48,21 +57,33 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <img src="./images/final__logo_centered.png" alt="Logo Projet Résurgence">
+                    <img src="./images/final__logo_centered.png" alt="Logo Projet Résurgence" width="50" height="50"
+                        loading="eager" decoding="async">
                     <span class="logo-text">Projet Résurgence</span>
                 </div>
-                <nav class="nav">
-                    <ul class="nav-list">
-                        <li><a href="index.html" class="nav-link">Accueil</a></li>
-                        <li><a href="index.html#serveur" class="nav-link">Le Serveur</a></li>
-                        <li><a href="index.html#univers" class="nav-link">Univers</a></li>
-                        <li><a href="regles.html" class="nav-link active">Règles</a></li>
-                        <li><a href="guide.html" class="nav-link">Guide</a></li>
-                        <li><a href="index.html#rejoindre" class="nav-link">Rejoindre</a></li>
-                    </ul>
-                    <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
-                        🌙
+                <nav class="nav" role="navigation" aria-label="Navigation principale">
+                    <!-- Mobile menu button -->
+                    <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Ouvrir le menu de navigation"
+                        aria-expanded="false">
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
                     </button>
+
+                    <!-- Navigation menu -->
+                    <div class="nav-menu" id="navMenu">
+                        <ul class="nav-list">
+                            <li><a href="index.html" class="nav-link">Accueil</a></li>
+                            <li><a href="index.html#serveur" class="nav-link">Le Serveur</a></li>
+                            <li><a href="index.html#univers" class="nav-link">Univers</a></li>
+                            <li><a href="regles.html" class="nav-link active">Règles</a></li>
+                            <li><a href="guide.html" class="nav-link">Guide</a></li>
+                            <li><a href="index.html#rejoindre" class="nav-link">Rejoindre</a></li>
+                        </ul>
+                        <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+                            🌙
+                        </button>
+                    </div>
                 </nav>
             </div>
         </div>
@@ -315,6 +336,7 @@
     <!-- JavaScript -->
     <script src="./styles/main.js"></script>
     <script src="./styles/seo-optimizer.js"></script>
+    <script src="./styles/performance-optimizer.js"></script>
 </body>
 
 </html>

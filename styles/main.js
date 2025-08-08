@@ -19,6 +19,12 @@ class ResurgenceWebsite {
             themeToggle.addEventListener('click', this.toggleTheme.bind(this));
         }
 
+        // Mobile menu toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        if (mobileMenuToggle) {
+            mobileMenuToggle.addEventListener('click', this.toggleMobileMenu.bind(this));
+        }
+
         // Smooth scrolling for all anchor links
         document.querySelectorAll('a[href^="#"]').forEach(link => {
             link.addEventListener('click', this.smoothScroll.bind(this));
@@ -27,8 +33,16 @@ class ResurgenceWebsite {
         // Header scroll effect
         window.addEventListener('scroll', this.handleScroll.bind(this));
 
-        // Mobile menu toggle (if added later)
-        document.addEventListener('click', this.handleMobileMenu.bind(this));
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', this.handleOutsideClick.bind(this));
+
+        // Close mobile menu when clicking nav links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', this.closeMobileMenu.bind(this));
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', this.handleResize.bind(this));
     }
 
     initializeTheme() {
@@ -156,12 +170,71 @@ class ResurgenceWebsite {
     }
 
     handleMobileMenu(e) {
-        // Future mobile menu implementation
-        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-        const mobileMenu = document.querySelector('.mobile-menu');
+        // Legacy method - kept for compatibility
+        this.toggleMobileMenu();
+    }
 
-        if (mobileMenuToggle && e.target === mobileMenuToggle) {
-            mobileMenu?.classList.toggle('open');
+    toggleMobileMenu() {
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        if (mobileMenuToggle && navMenu) {
+            const isOpen = navMenu.classList.contains('active');
+
+            if (isOpen) {
+                this.closeMobileMenu();
+            } else {
+                this.openMobileMenu();
+            }
+        }
+    }
+
+    openMobileMenu() {
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        if (mobileMenuToggle && navMenu) {
+            navMenu.classList.add('active');
+            mobileMenuToggle.classList.add('active');
+            mobileMenuToggle.setAttribute('aria-expanded', 'true');
+            mobileMenuToggle.setAttribute('aria-label', 'Fermer le menu de navigation');
+
+            // Prevent body scroll when menu is open
+            document.body.style.overflow = 'hidden';
+        }
+    }
+
+    closeMobileMenu() {
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        if (mobileMenuToggle && navMenu) {
+            navMenu.classList.remove('active');
+            mobileMenuToggle.classList.remove('active');
+            mobileMenuToggle.setAttribute('aria-expanded', 'false');
+            mobileMenuToggle.setAttribute('aria-label', 'Ouvrir le menu de navigation');
+
+            // Restore body scroll
+            document.body.style.overflow = '';
+        }
+    }
+
+    handleOutsideClick(e) {
+        const navMenu = document.getElementById('navMenu');
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+
+        if (navMenu && navMenu.classList.contains('active')) {
+            // Check if click is outside the menu and toggle button
+            if (!navMenu.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+                this.closeMobileMenu();
+            }
+        }
+    }
+
+    handleResize() {
+        // Close mobile menu on window resize (when switching to desktop)
+        if (window.innerWidth > 768) {
+            this.closeMobileMenu();
         }
     }
 
