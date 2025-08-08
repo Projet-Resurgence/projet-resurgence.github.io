@@ -196,19 +196,17 @@ a:hover {
     display: flex;
     align-items: center;
     gap: var(--spacing-md);
-    height: var(--header-height);
 }
 
 .logo picture {
     display: flex;
     align-items: center;
-    justify-content: center;
 }
 
 .logo img {
     height: 50px;
     width: auto;
-    display: block;
+    vertical-align: middle;
 }
 
 .logo-text {

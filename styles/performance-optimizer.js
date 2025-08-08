@@ -15,49 +15,43 @@ class PerformanceOptimizer {
     }
 
     optimizeImages() {
-        // Use requestAnimationFrame to avoid forced reflows
-        requestAnimationFrame(() => {
-            // Optimize all images with better loading strategies
-            const images = document.querySelectorAll('img');
+        // Optimize all images with better loading strategies
+        const images = document.querySelectorAll('img');
 
-            // Batch DOM operations to prevent reflows
-            const fragment = document.createDocumentFragment();
+        images.forEach((img, index) => {
+            // Set loading attributes
+            if (!img.hasAttribute('loading')) {
+                this.setImageDimensions(img);
+            }
 
-            images.forEach((img, index) => {
-                // Avoid reading layout properties that cause reflows
-                if (!img.hasAttribute('loading')) {
-                    this.setImageDimensions(img);
-                }
+            // Optimize loading strategy
+            if (index < 3) {
+                // Critical images - load immediately
+                img.setAttribute('loading', 'eager');
+                img.setAttribute('fetchpriority', 'high');
+            } else {
+                // Non-critical images - lazy load
+                img.setAttribute('loading', 'lazy');
+                img.setAttribute('fetchpriority', 'low');
+            }
 
-                // Optimize loading strategy
-                if (index < 3) {
-                    // Critical images - load immediately
-                    img.setAttribute('loading', 'eager');
-                    img.setAttribute('fetchpriority', 'high');
-                } else {
-                    // Non-critical images - lazy load
-                    img.setAttribute('loading', 'lazy');
-                    img.setAttribute('fetchpriority', 'low');
-                }
+            // Add error handling
+            img.addEventListener('error', this.handleImageError.bind(this));
 
-                // Add error handling
-                img.addEventListener('error', this.handleImageError.bind(this));
+            // Add decode hint for better performance
+            if (!img.hasAttribute('decoding')) {
+                img.setAttribute('decoding', 'async');
+            }
+        });
 
-                // Add decode hint for better performance
-                if (!img.hasAttribute('decoding')) {
-                    img.setAttribute('decoding', 'async');
-                }
-            });
-
-            // Optimize picture elements specifically
-            const pictures = document.querySelectorAll('picture');
-            pictures.forEach((picture, index) => {
-                const img = picture.querySelector('img');
-                if (img && index < 3) {
-                    // Priority loading for critical picture elements
-                    img.setAttribute('fetchpriority', 'high');
-                }
-            });
+        // Optimize picture elements specifically
+        const pictures = document.querySelectorAll('picture');
+        pictures.forEach((picture, index) => {
+            const img = picture.querySelector('img');
+            if (img && index < 3) {
+                // Priority loading for critical picture elements
+                img.setAttribute('fetchpriority', 'high');
+            }
         });
     }
 
