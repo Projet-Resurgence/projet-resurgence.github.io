@@ -240,37 +240,68 @@ class ResurgenceWebsite {
     }
 
     trackEvent(eventName, properties = {}) {
-        // Enhanced analytics tracking for user behavior analysis
-        console.log('Event tracked:', eventName, properties);
-
-        // Google Analytics 4 with enhanced parameters
-        if (typeof gtag !== 'undefined') {
-            gtag('event', eventName, {
-                event_category: properties.category || 'User Interaction',
-                event_label: properties.label || '',
-                value: properties.value || 0,
-                custom_parameters: {
-                    section: properties.section || '',
-                    element_type: properties.element_type || '',
-                    page_section: properties.page_section || '',
-                    interaction_type: properties.interaction_type || '',
-                    timestamp: new Date().toISOString(),
-                    ...properties.custom
-                }
-            });
+        // Vérifier le consentement avant le tracking
+        if (!this.hasAnalyticsConsent()) {
+            console.log('📊 Analytics consent not granted, skipping tracking');
+            return;
         }
 
-        // Also push to dataLayer for GTM
+        // Préparer les données pour GTM
+        const eventData = {
+            event: 'custom_event',
+            eventName: eventName,
+            eventCategory: properties.category || 'User Interaction',
+            eventLabel: properties.label || '',
+            eventValue: properties.value || 0,
+            customParameters: {
+                section: properties.section || '',
+                element_type: properties.element_type || '',
+                page_section: properties.page_section || '',
+                interaction_type: properties.interaction_type || '',
+                timestamp: new Date().toISOString(),
+                page_url: window.location.href,
+                page_title: document.title,
+                user_agent: navigator.userAgent,
+                screen_resolution: `${screen.width}x${screen.height}`,
+                viewport_size: `${window.innerWidth}x${window.innerHeight}`,
+                ...properties.custom
+            }
+        };
+
+        // Push vers dataLayer pour GTM
         if (typeof dataLayer !== 'undefined') {
-            dataLayer.push({
-                event: 'custom_event',
-                eventName: eventName,
-                eventCategory: properties.category || 'User Interaction',
-                eventLabel: properties.label || '',
-                eventValue: properties.value || 0,
-                customParameters: properties.custom || {}
-            });
+            dataLayer.push(eventData);
+            console.log('📊 Event tracked via GTM:', eventName, eventData);
         }
+
+        // Backup direct GA4 si GTM n'est pas disponible
+        if (typeof gtag !== 'undefined' && typeof dataLayer === 'undefined') {
+            gtag('event', eventName, {
+                event_category: eventData.eventCategory,
+                event_label: eventData.eventLabel,
+                value: eventData.eventValue,
+                custom_parameters: eventData.customParameters
+            });
+            console.log('📊 Event tracked via direct GA4:', eventName);
+        }
+    }
+
+    // Nouvelle méthode pour vérifier le consentement
+    hasAnalyticsConsent() {
+        // Vérifier Axeptio
+        if (window.axeptio && window.axeptio.getUserConsent) {
+            const consent = window.axeptio.getUserConsent();
+            return consent && consent.google_analytics;
+        }
+
+        // Fallback - vérifier localStorage
+        const fallbackConsent = localStorage.getItem('fallback-consent');
+        if (fallbackConsent) {
+            const consent = JSON.parse(fallbackConsent);
+            return consent.analytics;
+        }
+
+        return false; // Par défaut, pas de consentement
     }
 
     setupAdvancedAnalytics() {
