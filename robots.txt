@@ -4,9 +4,6 @@ Allow: /
 # Sitemap
 Sitemap: https://projet-resurgence.github.io/sitemap.xml
 
-# Crawl delay (optional - for politeness)
-Crawl-delay: 1
-
 # Allow specific bots
 User-agent: Googlebot
 Allow: /
