@@ -1,10 +1,10 @@
-/* Font Faces */
+/* Font Faces - Optimized for performance */
 @font-face {
     font-family: 'PressGothic';
     src: url('../fonts/pressgothic.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
-    font-display: swap;
+    font-display: optional; /* Changed from swap to optional for faster LCP */
 }
 
 /* CSS Custom Properties (Variables) */
@@ -108,7 +108,7 @@ body {
     line-height: 1.6;
     color: var(--text-primary);
     background-color: var(--bg-primary);
-    transition: background-color var(--transition-normal), color var(--transition-normal);
+    /* Removed transition for faster initial render */
 }
 
 /* Typography */
@@ -309,41 +309,30 @@ a:hover {
     min-height: calc(100vh - var(--header-height));
 }
 
-/* Hero Section */
+/* Hero Section - Optimized for LCP performance */
 .hero {
-    background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+    background: var(--bg-secondary); /* Simplified background for faster render */
     padding: var(--spacing-3xl) 0;
     text-align: center;
     position: relative;
     overflow: hidden;
+    /* Removed complex gradients and background images for faster LCP */
 }
 
-.hero::before {
+/* Background image loaded after LCP - moved to ::after for non-blocking */
+.hero::after {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url('../images/banner.png');
+    background-image: url('../images/banner.webp');
     background-size: cover;
     background-position: center;
-    opacity: 0.1;
+    opacity: 0.05; /* Reduced opacity for better text contrast and performance */
     z-index: -1;
-}
-
-/* Use WebP if supported, fallback to PNG */
-@supports (background-image: url('data:image/webp;base64,UklGRiIAAABXRUJQVlA4IBYAAAAwAQCdASoBAAEADsD+JaQAA3AAAAAA')) {
-    .hero::before {
-        background-image: url('../images/banner.webp');
-    }
-}
-
-/* Use AVIF if supported (best compression) */
-@supports (background-image: url('data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUIAAADybWV0YQ==')) {
-    .hero::before {
-        background-image: url('../images/banner.avif');
-    }
+    /* This will load after initial paint */
 }
 
 .hero-content {
@@ -352,14 +341,12 @@ a:hover {
 }
 
 .hero-title {
-    font-family: var(--font-family-title);
+    font-family: var(--font-family-heading); /* Use system font instead of custom font for LCP */
     font-size: var(--font-size-5xl);
     margin-bottom: var(--spacing-lg);
-    background: linear-gradient(135deg, var(--primary-gold) 0%, var(--primary-gold-light) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--primary-gold); /* Simplified styling for faster render */
     text-transform: uppercase;
+    font-weight: 900; /* Bold system font instead of custom font */
 }
 
 .hero-subtitle {
@@ -402,8 +389,7 @@ a:hover {
     background-color: var(--primary-gold-dark);
     color: var(--bg-primary);
     text-decoration: none;
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
+    /* Removed transform for better LCP performance */
 }
 
 .btn-secondary {

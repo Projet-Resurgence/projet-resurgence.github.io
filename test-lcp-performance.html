@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LCP Performance Test</title>
+    <style>
+        body { margin: 0; padding: 20px; font-family: Arial, sans-serif; }
+        .performance-metrics { background: #f0f0f0; padding: 20px; margin: 20px 0; }
+        .metric { margin: 10px 0; }
+        .good { color: green; }
+        .needs-improvement { color: orange; }
+        .poor { color: red; }
+    </style>
+</head>
+<body>
+    <h1>LCP Performance Test</h1>
+    <div class="performance-metrics">
+        <h2>Core Web Vitals</h2>
+        <div id="lcp-metric" class="metric">LCP: Measuring...</div>
+        <div id="fid-metric" class="metric">FID: Measuring...</div>
+        <div id="cls-metric" class="metric">CLS: Measuring...</div>
+    </div>
+    
+    <div>
+        <h2>Recommendations Applied:</h2>
+        <ul>
+            <li>✅ Added critical CSS inlining for above-the-fold content</li>
+            <li>✅ Changed font-display to 'optional' for faster LCP</li>
+            <li>✅ Simplified hero background (removed complex gradients and multiple images)</li>
+            <li>✅ Used system fonts for hero title instead of custom font</li>
+            <li>✅ Removed render-blocking CSS by loading main.css asynchronously</li>
+            <li>✅ Deferred animations until after initial paint</li>
+            <li>✅ Removed complex hover transforms from critical buttons</li>
+            <li>✅ Moved background image loading to ::after pseudo-element</li>
+            <li>✅ Added defer to JavaScript loading</li>
+            <li>✅ Removed transitions from body for faster initial render</li>
+        </ul>
+    </div>
+
+    <div>
+        <h2>Expected Improvements:</h2>
+        <ul>
+            <li><strong>TTFB reduction:</strong> Critical CSS reduces blocking time</li>
+            <li><strong>Load Delay reduction:</strong> Async CSS loading and resource optimization</li>
+            <li><strong>Render Delay reduction:</strong> System fonts, simplified styling, deferred animations</li>
+            <li><strong>Overall LCP improvement:</strong> Should reduce from 25.54s to under 4s</li>
+        </ul>
+    </div>
+
+    <a href="index.html" style="display: inline-block; padding: 10px 20px; background: #D5B654; color: white; text-decoration: none; border-radius: 5px; margin: 20px 0;">Test Optimized Site</a>
+
+    <script>
+        // Simple performance monitoring
+        new PerformanceObserver((entryList) => {
+            for (const entry of entryList.getEntries()) {
+                if (entry.entryType === 'largest-contentful-paint') {
+                    const lcpTime = entry.startTime;
+                    const lcpElement = document.getElementById('lcp-metric');
+                    let lcpClass = 'good';
+                    if (lcpTime > 4000) lcpClass = 'poor';
+                    else if (lcpTime > 2500) lcpClass = 'needs-improvement';
+                    
+                    lcpElement.textContent = `LCP: ${lcpTime.toFixed(0)}ms`;
+                    lcpElement.className = `metric ${lcpClass}`;
+                }
+            }
+        }).observe({entryTypes: ['largest-contentful-paint']});
+
+        // CLS measurement
+        new PerformanceObserver((entryList) => {
+            let clsValue = 0;
+            for (const entry of entryList.getEntries()) {
+                if (!entry.hadRecentInput) {
+                    clsValue += entry.value;
+                }
+            }
+            const clsElement = document.getElementById('cls-metric');
+            let clsClass = 'good';
+            if (clsValue > 0.25) clsClass = 'poor';
+            else if (clsValue > 0.1) clsClass = 'needs-improvement';
+            
+            clsElement.textContent = `CLS: ${clsValue.toFixed(3)}`;
+            clsElement.className = `metric ${clsClass}`;
+        }).observe({entryTypes: ['layout-shift']});
+
+        // FID measurement
+        new PerformanceObserver((entryList) => {
+            for (const entry of entryList.getEntries()) {
+                const fidValue = entry.processingStart - entry.startTime;
+                const fidElement = document.getElementById('fid-metric');
+                let fidClass = 'good';
+                if (fidValue > 300) fidClass = 'poor';
+                else if (fidValue > 100) fidClass = 'needs-improvement';
+                
+                fidElement.textContent = `FID: ${fidValue.toFixed(0)}ms`;
+                fidElement.className = `metric ${fidClass}`;
+            }
+        }).observe({entryTypes: ['first-input']});
+    </script>
+</body>
+</html>
