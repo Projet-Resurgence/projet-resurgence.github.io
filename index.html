@@ -5,222 +5,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- 🍪 Axeptio Consent Management - PREMIER -->
     <script>
-    console.log('🚀 Initializing Axeptio...');
-    
     window.axeptioSettings = {
         clientId: "68963e315d089c7b7334b5d1",
         cookiesVersion: "projet-resurgence-fr-EU",
-        googleConsentMode: true
+        googleConsentMode: {
+            default: {
+            analytics_storage: "denied",
+            ad_storage: "denied",
+            ad_user_data: "denied",
+            ad_personalization: "denied",
+            wait_for_update: 500
+            }
+        }
     };
     
     (function(d, s) {
-        var t = d.getElementsByTagName(s)[0], e = d.createElement(s);
-        e.async = true; 
-        e.src = "https://static.axept.io/sdk.js";
-        
-        e.onload = function() {
-            console.log('✅ Axeptio SDK loaded successfully');
-        };
-        
-        e.onerror = function() {
-            console.error('❌ Axeptio SDK failed to load');
-            // Fallback consent
-            setTimeout(showFallbackConsent, 1000);
-        };
-        
-        t.parentNode.insertBefore(e, t);
+    var t = d.getElementsByTagName(s)[0], e = d.createElement(s);
+    e.async = true; e.src = "https://static.axept.io/sdk.js";
+    t.parentNode.insertBefore(e, t);
     })(document, "script");
     </script>
-
-    <!-- 📊 Google Analytics Setup -->
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5B3PEQ65HX"></script>
     <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    
-    // Set default consent to denied
-    gtag('consent', 'default', {
-        'analytics_storage': 'denied',
-        'ad_storage': 'denied',
-        'ad_user_data': 'denied',
-        'ad_personalization': 'denied',
-        'wait_for_update': 500
-    });
-    
     gtag('js', new Date());
-    gtag('config', 'G-5B3PEQ65HX');
-    </script>
-    
-    <!-- Load GA4 script -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5B3PEQ65HX"></script>
 
-    <!-- 🎯 Axeptio Event Listeners -->
-    <script>
-    // Listen for Axeptio consent events
-    window.addEventListener('axeptio_all_vendors', function(e) {
-        console.log('🔔 Axeptio consent event:', e.detail);
-        
-        if (e.detail.google_analytics) {
-            // Grant consent for analytics
-            gtag('consent', 'update', {
-                'analytics_storage': 'granted'
-            });
-            console.log('✅ Analytics consent GRANTED');
-            
-            // Track consent granted event
-            gtag('event', 'consent_granted', {
-                'event_category': 'Privacy',
-                'event_label': 'Google Analytics'
-            });
-        } else {
-            console.log('❌ Analytics consent DENIED');
-            
-            // Track consent denied event
-            gtag('event', 'consent_denied', {
-                'event_category': 'Privacy', 
-                'event_label': 'Google Analytics'
-            });
-        }
-    });
-    
-    // Check for existing consent on page load
-    document.addEventListener('DOMContentLoaded', function() {
-        setTimeout(function() {
-            if (window.axeptio && window.axeptio.isConsentGiven) {
-                const hasConsent = window.axeptio.isConsentGiven('google_analytics');
-                console.log('🔍 Existing consent check:', hasConsent);
-                
-                if (hasConsent) {
-                    gtag('consent', 'update', {
-                        'analytics_storage': 'granted'
-                    });
-                }
-            } else {
-                console.log('⏳ Axeptio not ready yet...');
-                // Show fallback if Axeptio doesn't load
-                setTimeout(function() {
-                    if (!window.axeptio) {
-                        console.log('🔄 Showing fallback consent');
-                        showFallbackConsent();
-                    }
-                }, 3000);
-            }
-        }, 2000);
-    });
-    
-    // 🆘 Fallback Consent Banner
-    function showFallbackConsent() {
-        // Check if already shown
-        if (document.getElementById('fallback-consent-banner') || localStorage.getItem('fallback-consent')) {
-            return;
-        }
-        
-        const banner = document.createElement('div');
-        banner.id = 'fallback-consent-banner';
-        banner.innerHTML = `
-            <div style="
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
-                color: white;
-                padding: 20px;
-                box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
-                z-index: 10000;
-                font-family: system-ui, sans-serif;
-                border-top: 3px solid #D5B654;
-                animation: slideUp 0.3s ease-out;
-            ">
-                <style>
-                @keyframes slideUp {
-                    from { transform: translateY(100%); }
-                    to { transform: translateY(0); }
-                }
-                </style>
-                <div style="max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
-                    <div style="flex: 1; min-width: 300px;">
-                        <h3 style="margin: 0 0 10px 0; color: #D5B654; font-size: 1.2em;">
-                            🍪 Cookies & Confidentialité
-                        </h3>
-                        <p style="margin: 0; font-size: 14px; line-height: 1.5; opacity: 0.9;">
-                            Nous utilisons Google Analytics pour améliorer votre expérience sur notre site. 
-                            Acceptez-vous l'utilisation de ces cookies ?
-                        </p>
-                    </div>
-                    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-                        <button onclick="handleFallbackConsent(true)" style="
-                            background: linear-gradient(135deg, #D5B654, #E6C76A);
-                            color: black;
-                            border: none;
-                            padding: 12px 24px;
-                            border-radius: 8px;
-                            cursor: pointer;
-                            font-weight: 600;
-                            font-size: 14px;
-                            transition: all 0.3s ease;
-                        " onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
-                            ✅ Accepter
-                        </button>
-                        <button onclick="handleFallbackConsent(false)" style="
-                            background: transparent;
-                            color: white;
-                            border: 2px solid #D5B654;
-                            padding: 10px 20px;
-                            border-radius: 8px;
-                            cursor: pointer;
-                            font-size: 14px;
-                            transition: all 0.3s ease;
-                        " onmouseover="this.style.backgroundColor='rgba(213, 182, 84, 0.1)'" onmouseout="this.style.backgroundColor='transparent'">
-                            ❌ Refuser
-                        </button>
-                    </div>
-                </div>
-            </div>
-        `;
-        
-        document.body.appendChild(banner);
-    }
-    
-    function handleFallbackConsent(accepted) {
-        const consent = {
-            analytics: accepted,
-            timestamp: new Date().toISOString(),
-            source: 'fallback'
-        };
-        
-        localStorage.setItem('fallback-consent', JSON.stringify(consent));
-        
-        if (accepted) {
-            gtag('consent', 'update', {
-                'analytics_storage': 'granted'
-            });
-            console.log('✅ Analytics consent granted (fallback)');
-            
-            gtag('event', 'consent_granted', {
-                'event_category': 'Privacy',
-                'event_label': 'Fallback Banner',
-                'consent_method': 'fallback'
-            });
-        } else {
-            console.log('❌ Analytics consent denied (fallback)');
-            
-            gtag('event', 'consent_denied', {
-                'event_category': 'Privacy',
-                'event_label': 'Fallback Banner',
-                'consent_method': 'fallback'
-            });
-        }
-        
-        // Remove banner
-        const banner = document.getElementById('fallback-consent-banner');
-        if (banner) {
-            banner.style.animation = 'slideDown 0.3s ease-out';
-            banner.style.transform = 'translateY(100%)';
-            setTimeout(() => banner.remove(), 300);
-        }
-    }
+    gtag('config', 'G-5B3PEQ65HX');
     </script>
 
     <!-- Critical CSS for above-the-fold content -->
@@ -454,69 +268,11 @@
 </head>
 
 <body>
-    <!-- 🔧 Enhanced Tracking Functions -->
-    <script>
-    // Enhanced event tracking helper
-    window.trackEvent = function (eventName, parameters = {}) {
-        // Only track if analytics consent is given
-        if (typeof gtag !== 'undefined') {
-            gtag('event', eventName, {
-                event_category: parameters.category || 'User Interaction',
-                event_label: parameters.label || '',
-                value: parameters.value || 0,
-                custom_parameters: {
-                    section: parameters.section || '',
-                    element_type: parameters.element_type || '',
-                    page_section: parameters.page_section || '',
-                    interaction_type: parameters.interaction_type || '',
-                    ...parameters.custom
-                }
-            });
-            console.log('📊 Event tracked:', eventName, parameters);
-        } else {
-            console.log('📊 Event blocked (no consent):', eventName);
-        }
-    };
-    
-    // Track Core Web Vitals when consent is given
-    function initializePerformanceTracking() {
-        if ('PerformanceObserver' in window) {
-            // LCP tracking
-            new PerformanceObserver((entryList) => {
-                for (const entry of entryList.getEntries()) {
-                    trackEvent('core_web_vitals', {
-                        category: 'Performance',
-                        label: 'LCP',
-                        value: Math.round(entry.startTime),
-                        custom: {
-                            metric_type: 'largest_contentful_paint',
-                            performance_grade: entry.startTime < 2500 ? 'good' : entry.startTime < 4000 ? 'needs_improvement' : 'poor'
-                        }
-                    });
-                }
-            }).observe({ entryTypes: ['largest-contentful-paint'] });
 
-            // Track page load time
-            const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
-            trackEvent('page_load_time', {
-                category: 'Performance',
-                label: 'Load Time',
-                value: loadTime,
-                custom: {
-                    load_time_ms: loadTime,
-                    load_time_grade: loadTime < 3000 ? 'fast' : loadTime < 7000 ? 'moderate' : 'slow'
-                }
-            });
-        }
-    }
-    
-    // Initialize performance tracking when consent is granted
-    window.addEventListener('axeptio_all_vendors', function(e) {
-        if (e.detail.google_analytics) {
-            setTimeout(initializePerformanceTracking, 1000);
-        }
-    });
-    </script>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WDG77HQC" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
     <!-- Header -->
     <header class="header">
