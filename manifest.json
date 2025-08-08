@@ -1,0 +1,35 @@
+{
+    "name": "Projet Résurgence - RP GeoPo Francophone",
+    "short_name": "Résurgence",
+    "description": "Serveur RP géopolitique francophone post-apocalyptique sur Discord",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#1a1a1a",
+    "theme_color": "#D5B654",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "./images/final__logo.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "./images/final__logo_centered.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ],
+    "lang": "fr",
+    "scope": "/",
+    "categories": ["games", "social"],
+    "screenshots": [
+        {
+            "src": "./images/banner.png",
+            "sizes": "1280x720",
+            "type": "image/png",
+            "label": "Bannière Projet Résurgence"
+        }
+    ]
+}
