@@ -7,19 +7,115 @@
 
     <!-- Critical CSS for above-the-fold content -->
     <style>
-        :root{--primary-gold:#D5B654;--bg-primary:#ffffff;--bg-primary-dark:#1a1a1a;--text-primary:#212529;--text-primary-dark:#ffffff}
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.6;color:var(--text-primary);background:var(--bg-primary);transition:all 0.3s ease}
-        [data-theme="dark"]{--bg-primary:#1a1a1a;--text-primary:#ffffff}
-        [data-theme="dark"] body{background:var(--bg-primary-dark);color:var(--text-primary-dark)}
-        .header{background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);position:fixed;top:0;width:100%;z-index:1000;border-bottom:1px solid rgba(213,182,84,0.2)}
-        .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;background:linear-gradient(135deg,rgba(213,182,84,0.1),rgba(213,182,84,0.05));background-size:cover;background-position:center}
-        .hero-content{text-align:center;max-width:800px;padding:2rem;z-index:2}
-        .hero-title{font-size:3.5rem;font-weight:700;margin-bottom:1.5rem;background:linear-gradient(135deg,var(--primary-gold),#E6C76A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-        .btn{display:inline-block;padding:1rem 2rem;margin:0.5rem;text-decoration:none;border-radius:50px;font-weight:600;transition:all 0.3s ease;border:none;cursor:pointer;font-size:1.1rem}
-        .btn-primary{background:linear-gradient(135deg,var(--primary-gold),#E6C76A);color:#000;box-shadow:0 4px 15px rgba(213,182,84,0.3)}
-        .container{max-width:1200px;margin:0 auto;padding:0 2rem}
-        @media(max-width:768px){.hero-title{font-size:2.5rem}.hero{min-height:80vh}.btn{padding:0.8rem 1.5rem;font-size:1rem}}
+        :root {
+            --primary-gold: #D5B654;
+            --bg-primary: #ffffff;
+            --bg-primary-dark: #1a1a1a;
+            --text-primary: #212529;
+            --text-primary-dark: #ffffff
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            transition: all 0.3s ease
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #1a1a1a;
+            --text-primary: #ffffff
+        }
+
+        [data-theme="dark"] body {
+            background: var(--bg-primary-dark);
+            color: var(--text-primary-dark)
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(213, 182, 84, 0.2)
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(135deg, rgba(213, 182, 84, 0.1), rgba(213, 182, 84, 0.05));
+            background-size: cover;
+            background-position: center
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            padding: 2rem;
+            z-index: 2
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-gold), #E6C76A);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            margin: 0.5rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-gold), #E6C76A);
+            color: #000;
+            box-shadow: 0 4px 15px rgba(213, 182, 84, 0.3)
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem
+        }
+
+        @media(max-width:768px) {
+            .hero-title {
+                font-size: 2.5rem
+            }
+
+            .hero {
+                min-height: 80vh
+            }
+
+            .btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem
+            }
+        }
     </style>
 
     <!-- Google Tag Manager -->
@@ -692,36 +788,6 @@
             });
         }
     </script>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Projet Résurgence</h3>
-                    <p>Serveur Discord de roleplay géopolitique francophone post-apocalyptique</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Navigation</h4>
-                    <ul class="footer-links">
-                        <li><a href="#accueil">Accueil</a></li>
-                        <li><a href="regles.html">Règles</a></li>
-                        <li><a href="guide.html">Guide</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Communauté</h4>
-                    <ul class="footer-links">
-                        <li><a href="https://discord.gg/NuwQqWGbHc" target="_blank" rel="noopener noreferrer">Discord</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Projet Résurgence. Tous droits réservés.</p>
-            </div>
-        </div>
-    </footer>
-
     <!-- External JavaScript -->
     <script src="./styles/main.js"></script>
     <script src="./styles/seo-optimizer.js"></script>
