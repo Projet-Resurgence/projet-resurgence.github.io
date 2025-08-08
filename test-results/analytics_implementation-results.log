@@ -5,7 +5,7 @@
 ========================================
 
 [0;34mTesting: GTM Script Present[0m
-[0;32m✅ PASS: GTM Script Present[0m
+[0;31m❌ FAIL: GTM Script Present[0m
 
 [0;34mTesting: GTM ID Configured[0m
 [0;32m✅ PASS: GTM ID Configured[0m
@@ -190,8 +190,8 @@ Analytics report saved to: analytics-report.txt
 [1;33m📊 ANALYTICS TEST SUMMARY[0m
 ========================================
 Total Tests: 45
-[0;32mPassed: 43[0m
-[0;31mFailed: 2[0m
+[0;32mPassed: 42[0m
+[0;31mFailed: 3[0m
 
-Analytics Implementation Score: 95%
+Analytics Implementation Score: 93%
 [0;32m🎯 Excellent analytics implementation![0m

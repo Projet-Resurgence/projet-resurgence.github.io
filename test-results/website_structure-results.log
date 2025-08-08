@@ -337,7 +337,7 @@ Command: grep -q '<footer' index.html
 ========================================
 
 [0;34mTesting: Index HTML under 100KB[0m
-Command: test 36027 -lt 100000
+Command: test 36336 -lt 100000
 [0;32m✅ PASS: Index HTML under 100KB[0m
 
 [0;34mTesting: CSS under 200KB[0m
@@ -345,7 +345,7 @@ Command: test 22910 -lt 200000
 [0;32m✅ PASS: CSS under 200KB[0m
 
 [0;34mTesting: JS under 100KB[0m
-Command: test 21956 -lt 100000
+Command: test 21886 -lt 100000
 [0;32m✅ PASS: JS under 100KB[0m
 
 [1;33m✅ SYNTAX VALIDATION TESTS[0m
