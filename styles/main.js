@@ -243,8 +243,12 @@ class ResurgenceWebsite {
         // Enhanced analytics tracking for user behavior analysis
         console.log('Event tracked:', eventName, properties);
 
-        // Google Analytics 4 with enhanced parameters
-        if (typeof gtag !== 'undefined') {
+        // Only track if consent is given and gtag is available
+        if (typeof gtag !== 'undefined' &&
+            window.axeptio &&
+            window.axeptio.isConsentGiven &&
+            window.axeptio.isConsentGiven('google_analytics')) {
+
             gtag('event', eventName, {
                 event_category: properties.category || 'User Interaction',
                 event_label: properties.label || '',
@@ -260,8 +264,12 @@ class ResurgenceWebsite {
             });
         }
 
-        // Also push to dataLayer for GTM
-        if (typeof dataLayer !== 'undefined') {
+        // Also push to dataLayer for GTM (only with consent)
+        if (typeof dataLayer !== 'undefined' &&
+            window.axeptio &&
+            window.axeptio.isConsentGiven &&
+            window.axeptio.isConsentGiven('google_analytics')) {
+
             dataLayer.push({
                 event: 'custom_event',
                 eventName: eventName,
@@ -274,23 +282,43 @@ class ResurgenceWebsite {
     }
 
     setupAdvancedAnalytics() {
-        // Track all clicks with detailed context
-        this.setupClickTracking();
+        // Only setup analytics if consent is given or wait for consent
+        const initAnalytics = () => {
+            if (window.axeptio &&
+                window.axeptio.isConsentGiven &&
+                window.axeptio.isConsentGiven('google_analytics')) {
 
-        // Track scroll behavior
-        this.setupScrollTracking();
+                // Track all clicks with detailed context
+                this.setupClickTracking();
 
-        // Track form interactions
-        this.setupFormTracking();
+                // Track scroll behavior
+                this.setupScrollTracking();
 
-        // Track navigation patterns
-        this.setupNavigationTracking();
+                // Track form interactions
+                this.setupFormTracking();
 
-        // Track engagement metrics
-        this.setupEngagementTracking();
+                // Track navigation patterns
+                this.setupNavigationTracking();
 
-        // Track feature usage
-        this.setupFeatureTracking();
+                // Track engagement metrics
+                this.setupEngagementTracking();
+
+                // Track feature usage
+                this.setupFeatureTracking();
+            }
+        };
+
+        // Initialize immediately if consent already given
+        initAnalytics();
+
+        // Listen for consent changes
+        if (typeof window !== 'undefined') {
+            window.addEventListener('axeptio_all_vendors', function (e) {
+                if (e.detail.google_analytics) {
+                    initAnalytics();
+                }
+            });
+        }
     }
 
     setupClickTracking() {

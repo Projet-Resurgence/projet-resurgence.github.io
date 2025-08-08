@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Consentement - Projet Résurgence</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .status {
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .granted {
+            background: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+
+        .denied {
+            background: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+
+        button {
+            background: #D5B654;
+            color: #000;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 0.5rem;
+        }
+
+        button:hover {
+            background: #B89A3D;
+        }
+
+        .test-buttons {
+            margin: 2rem 0;
+        }
+
+        #log {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 1rem;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 0.9em;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🧪 Test de Consentement Analytics</h1>
+    <p>Cette page teste l'implémentation du consentement Axeptio pour Google Analytics.</p>
+
+    <div id="consent-status" class="status denied">
+        <strong>Statut du consentement:</strong> <span id="status-text">En attente...</span>
+    </div>
+
+    <div class="test-buttons">
+        <h3>Tests Analytics:</h3>
+        <button onclick="testEvent()">🎯 Tester un événement</button>
+        <button onclick="testPageView()">📄 Tester page view</button>
+        <button onclick="testPerformance()">⚡ Tester performance</button>
+        <button onclick="checkConsent()">🔍 Vérifier consentement</button>
+        <button onclick="clearLog()">🧹 Vider le log</button>
+    </div>
+
+    <div>
+        <h3>Log des événements:</h3>
+        <div id="log"></div>
+    </div>
+
+    <!-- Axeptio Consent Management -->
+    <script>
+        window.axeptioSettings = {
+            clientId: "68963e315d089c7b7334b5d1",
+            cookiesVersion: "projet-resurgence-fr",
+            googleConsentMode: true
+        };
+
+        (function (d, s) {
+            var t = d.getElementsByTagName(s)[0], e = d.createElement(s);
+            e.async = true; e.src = "//static.axept.io/sdk.js";
+            t.parentNode.insertBefore(e, t);
+        })(document, "script");
+    </script>
+
+    <!-- Google Analytics with Consent -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+
+        // Set default consent
+        gtag('consent', 'default', {
+            'analytics_storage': 'denied',
+            'ad_storage': 'denied',
+            'wait_for_update': 500
+        });
+
+        let analyticsLoaded = false;
+
+        function loadGTM() {
+            if (analyticsLoaded) return;
+            (function (w, d, s, l, i) {
+                w[l] = w[l] || []; w[l].push({
+                    'gtm.start': new Date().getTime(), event: 'gtm.js'
+                }); var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', 'GTM-WDG77HQC');
+            analyticsLoaded = true;
+            log('📊 Google Tag Manager chargé');
+        }
+
+        function initializeAnalytics() {
+            gtag('js', new Date());
+            gtag('config', 'GTM-WDG77HQC', {
+                send_page_view: true,
+                custom_parameters: {
+                    content_group1: 'Test Page',
+                    content_group2: 'Consent Testing',
+                    content_group3: 'Development'
+                }
+            });
+            log('🚀 Google Analytics initialisé');
+        }
+
+        // Listen for consent events
+        window.addEventListener('axeptio_all_vendors', function (e) {
+            log('📋 Événement de consentement reçu: ' + JSON.stringify(e.detail));
+            if (e.detail.google_analytics) {
+                gtag('consent', 'update', {
+                    'analytics_storage': 'granted'
+                });
+                loadGTM();
+                initializeAnalytics();
+                updateConsentStatus(true);
+                log('✅ Consentement accordé - Analytics activé');
+            } else {
+                updateConsentStatus(false);
+                log('❌ Consentement refusé - Analytics désactivé');
+            }
+        });
+
+        // Check existing consent
+        document.addEventListener('DOMContentLoaded', function () {
+            setTimeout(function () {
+                checkConsent();
+            }, 2000);
+        });
+
+        // Test functions
+        function checkConsent() {
+            if (window.axeptio && window.axeptio.isConsentGiven) {
+                const hasConsent = window.axeptio.isConsentGiven('google_analytics');
+                updateConsentStatus(hasConsent);
+                log('🔍 Vérification consentement: ' + (hasConsent ? 'Accordé' : 'Refusé'));
+
+                if (hasConsent && !analyticsLoaded) {
+                    gtag('consent', 'update', {
+                        'analytics_storage': 'granted'
+                    });
+                    loadGTM();
+                    initializeAnalytics();
+                }
+            } else {
+                log('⏳ Axeptio pas encore chargé');
+                updateConsentStatus(false);
+            }
+        }
+
+        function updateConsentStatus(granted) {
+            const statusDiv = document.getElementById('consent-status');
+            const statusText = document.getElementById('status-text');
+
+            if (granted) {
+                statusDiv.className = 'status granted';
+                statusText.textContent = 'Accordé ✅';
+            } else {
+                statusDiv.className = 'status denied';
+                statusText.textContent = 'Refusé ❌';
+            }
+        }
+
+        function testEvent() {
+            const eventName = 'test_event_' + Date.now();
+            log('🎯 Test événement: ' + eventName);
+
+            if (window.axeptio && window.axeptio.isConsentGiven && window.axeptio.isConsentGiven('google_analytics')) {
+                gtag('event', eventName, {
+                    event_category: 'Test',
+                    event_label: 'Consent Test',
+                    value: 1,
+                    custom_parameters: {
+                        test_type: 'manual',
+                        timestamp: new Date().toISOString()
+                    }
+                });
+                log('✅ Événement envoyé à GA4: ' + eventName);
+            } else {
+                log('❌ Événement bloqué - pas de consentement');
+            }
+        }
+
+        function testPageView() {
+            log('📄 Test page view');
+            if (window.axeptio && window.axeptio.isConsentGiven && window.axeptio.isConsentGiven('google_analytics')) {
+                gtag('event', 'page_view', {
+                    page_title: 'Consent Test Page',
+                    page_location: window.location.href
+                });
+                log('✅ Page view envoyée à GA4');
+            } else {
+                log('❌ Page view bloquée - pas de consentement');
+            }
+        }
+
+        function testPerformance() {
+            log('⚡ Test métrique de performance');
+            if (window.axeptio && window.axeptio.isConsentGiven && window.axeptio.isConsentGiven('google_analytics')) {
+                const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+                gtag('event', 'page_load_time', {
+                    event_category: 'Performance',
+                    event_label: 'Test Load Time',
+                    value: loadTime,
+                    custom_parameters: {
+                        load_time_ms: loadTime,
+                        test_mode: true
+                    }
+                });
+                log('✅ Métrique performance envoyée: ' + loadTime + 'ms');
+            } else {
+                log('❌ Métrique bloquée - pas de consentement');
+            }
+        }
+
+        function log(message) {
+            const logDiv = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            logDiv.textContent += `[${timestamp}] ${message}\n`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+
+        function clearLog() {
+            document.getElementById('log').textContent = '';
+        }
+
+        // Initial log
+        log('🚀 Page de test chargée');
+    </script>
+</body>
+
+</html>
