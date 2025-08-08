@@ -46,6 +46,7 @@
     <link rel="canonical" href="https://projet-resurgence.github.io/guide.html">
 
     <!-- Resource hints for performance -->
+    <link rel="preload" href="./fonts/pressgothic.otf" as="font" type="font/otf" crossorigin="anonymous">
     <link rel="preload" href="./styles/main.css" as="style">
     <link rel="preload" href="./images/final_logo_centered.webp" as="image" type="image/webp">
     <link rel="preload" href="./images/final_logo_centered.png" as="image" type="image/png">
@@ -58,6 +59,43 @@
     <link rel="icon" type="image/png" href="./images/final_logo.png">
     <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#D5B654">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Guide du Débutant - Projet Résurgence",
+        "description": "Guide complet pour débuter sur Projet Résurgence. Apprenez à créer votre nation, comprendre l'économie et maîtriser le roleplay géopolitique francophone",
+        "url": "https://projet-resurgence.github.io/guide.html",
+        "inLanguage": "fr",
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": "Projet Résurgence",
+            "url": "https://projet-resurgence.github.io"
+        },
+        "about": {
+            "@type": "Game",
+            "name": "Projet Résurgence - RP Géopolitique",
+            "genre": "Role-playing game",
+            "gamePlatform": "Discord"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "Projet Résurgence"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Projet Résurgence"
+        },
+        "educationalUse": "Tutorial",
+        "typicalAgeRange": "16-99",
+        "audience": {
+            "@type": "Audience",
+            "audienceType": "French speakers interested in geopolitical roleplay"
+        }
+    }
+    </script>
 </head>
 
 <body>
@@ -71,7 +109,7 @@
                         <img src="./images/final_logo_centered.png" alt="Logo Projet Résurgence" width="50" height="50"
                             loading="eager" decoding="async">
                     </picture>
-                    <span class="logo-text">Projet Résurgence</span>
+                    <span class="logo-text">PROJET RÉSURGENCE</span>
                 </div>
                 <nav class="nav" role="navigation" aria-label="Navigation principale">
                     <!-- Mobile menu button -->
@@ -349,7 +387,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>Projet Résurgence</h3>
+                    <h3 class="project-title">PROJET RÉSURGENCE</h3>
                     <p>Serveur RP géopolitique francophone post-apocalyptique sur Discord.</p>
                 </div>
 

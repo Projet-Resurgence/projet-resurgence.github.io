@@ -46,6 +46,7 @@
     <link rel="canonical" href="https://projet-resurgence.github.io/regles.html">
 
     <!-- Resource hints for performance -->
+    <link rel="preload" href="./fonts/pressgothic.otf" as="font" type="font/otf" crossorigin="anonymous">
     <link rel="preload" href="./styles/main.css" as="style">
     <link rel="preload" href="./images/final_logo_centered.webp" as="image" type="image/webp">
     <link rel="preload" href="./images/final_logo_centered.png" as="image" type="image/png">
@@ -58,6 +59,37 @@
     <link rel="icon" type="image/png" href="./images/final_logo.png">
     <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#D5B654">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Règles et Règlement - Projet Résurgence",
+        "description": "Règles officielles du serveur Discord Projet Résurgence pour le roleplay géopolitique francophone post-apocalyptique",
+        "url": "https://projet-resurgence.github.io/regles.html",
+        "inLanguage": "fr",
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": "Projet Résurgence",
+            "url": "https://projet-resurgence.github.io"
+        },
+        "about": {
+            "@type": "Game",
+            "name": "Projet Résurgence - RP Géopolitique",
+            "genre": "Role-playing game",
+            "gamePlatform": "Discord"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "Projet Résurgence"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Projet Résurgence"
+        }
+    }
+    </script>
 </head>
 
 <body>
@@ -71,7 +103,7 @@
                         <img src="./images/final_logo_centered.png" alt="Logo Projet Résurgence" width="50" height="50"
                             loading="eager" decoding="async">
                     </picture>
-                    <span class="logo-text">Projet Résurgence</span>
+                    <span class="logo-text">PROJET RÉSURGENCE</span>
                 </div>
                 <nav class="nav" role="navigation" aria-label="Navigation principale">
                     <!-- Mobile menu button -->
@@ -108,7 +140,8 @@
             <div class="container">
                 <div class="hero-content">
                     <h1 class="hero-title">Règles & Règlement</h1>
-                    <p class="hero-subtitle">Projet Résurgence - RP Géopolitique</p>
+                    <p class="hero-subtitle" style="font-family: var(--font-family-title);"> PROJET RÉSURGENCE - RP
+                        Géopolitique</p>
                     <p class="hero-description">
                         Découvrez les règles qui régissent notre communauté et garantissent une expérience de roleplay
                         équitable et immersive pour tous.
@@ -305,7 +338,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>Projet Résurgence</h3>
+                    <h3 class="project-title">PROJET RÉSURGENCE</h3>
                     <p>Serveur RP géopolitique francophone post-apocalyptique sur Discord.</p>
                 </div>
 
