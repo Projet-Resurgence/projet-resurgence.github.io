@@ -19,8 +19,8 @@ class PerformanceOptimizer {
         const images = document.querySelectorAll('img');
 
         images.forEach((img, index) => {
-            // Add dimensions if missing
-            if (!img.hasAttribute('width') || !img.hasAttribute('height')) {
+            // Set loading attributes
+            if (!img.hasAttribute('loading')) {
                 this.setImageDimensions(img);
             }
 
@@ -35,11 +35,23 @@ class PerformanceOptimizer {
                 img.setAttribute('fetchpriority', 'low');
             }
 
-            // Add decoding optimization
-            img.setAttribute('decoding', 'async');
-
-            // Handle image load errors
+            // Add error handling
             img.addEventListener('error', this.handleImageError.bind(this));
+
+            // Add decode hint for better performance
+            if (!img.hasAttribute('decoding')) {
+                img.setAttribute('decoding', 'async');
+            }
+        });
+
+        // Optimize picture elements specifically
+        const pictures = document.querySelectorAll('picture');
+        pictures.forEach((picture, index) => {
+            const img = picture.querySelector('img');
+            if (img && index < 3) {
+                // Priority loading for critical picture elements
+                img.setAttribute('fetchpriority', 'high');
+            }
         });
     }
 

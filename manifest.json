@@ -26,25 +26,25 @@
     ],
     "icons": [
         {
-            "src": "./images/final__logo.png",
+            "src": "./images/final_logo.png",
             "sizes": "192x192",
             "type": "image/png",
             "purpose": "maskable"
         },
         {
-            "src": "./images/final__logo_centered.png",
+            "src": "./images/final_logo_centered.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any"
         },
         {
-            "src": "./images/final__logo.png",
+            "src": "./images/final_logo.png",
             "sizes": "144x144",
             "type": "image/png",
             "purpose": "any"
         },
         {
-            "src": "./images/final__logo.png",
+            "src": "./images/final_logo.png",
             "sizes": "96x96",
             "type": "image/png",
             "purpose": "any"

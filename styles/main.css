@@ -315,6 +315,20 @@ a:hover {
     z-index: -1;
 }
 
+/* Use WebP if supported, fallback to PNG */
+@supports (background-image: url('data:image/webp;base64,UklGRiIAAABXRUJQVlA4IBYAAAAwAQCdASoBAAEADsD+JaQAA3AAAAAA')) {
+    .hero::before {
+        background-image: url('../images/banner.webp');
+    }
+}
+
+/* Use AVIF if supported (best compression) */
+@supports (background-image: url('data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUIAAADybWV0YQ==')) {
+    .hero::before {
+        background-image: url('../images/banner.avif');
+    }
+}
+
 .hero-content {
     position: relative;
     z-index: 1;

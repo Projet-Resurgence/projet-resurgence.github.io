@@ -22,7 +22,11 @@
     <meta property="og:title" content="Règles et Règlement - Projet Résurgence">
     <meta property="og:description"
         content="Découvrez les règles officielles qui régissent notre communauté de roleplay géopolitique francophone.">
-    <meta property="og:image" content="https://projet-resurgence.github.io/images/banner.png">
+    <meta property="og:image" content="https://projet-resurgence.github.io/images/banner.jpg">
+    <meta property="og:image:width" content="1055">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Bannière des Règles et Règlement">
+    <meta property="og:image:type" content="image/jpeg">
     <meta property="og:site_name" content="Projet Résurgence">
     <meta property="og:locale" content="fr_FR">
 
@@ -32,21 +36,26 @@
     <meta property="twitter:title" content="Règles et Règlement - Projet Résurgence">
     <meta property="twitter:description"
         content="Consultez les règles officielles du serveur Discord Projet Résurgence.">
-    <meta property="twitter:image" content="https://projet-resurgence.github.io/images/banner.png">
+    <meta property="twitter:image" content="https://projet-resurgence.github.io/images/banner.jpg">
+    <meta property="twitter:image:width" content="1055">
+    <meta property="twitter:image:height" content="630">
+    <meta property="twitter:image:alt" content="Bannière des Règles et Règlement">
+    <meta property="twitter:image:type" content="image/jpeg">
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://projet-resurgence.github.io/regles.html">
 
     <!-- Resource hints for performance -->
     <link rel="preload" href="./styles/main.css" as="style">
-    <link rel="preload" href="./images/final__logo_centered.png" as="image">
+    <link rel="preload" href="./images/final_logo_centered.webp" as="image" type="image/webp">
+    <link rel="preload" href="./images/final_logo_centered.png" as="image" type="image/png">
     <link rel="preload" href="./styles/main.js" as="script">
     <link rel="prefetch" href="./index.html">
     <link rel="prefetch" href="./guide.html">
     <link rel="dns-prefetch" href="//discord.gg">
 
     <link rel="stylesheet" href="./styles/main.css">
-    <link rel="icon" type="image/png" href="./images/final__logo.png">
+    <link rel="icon" type="image/png" href="./images/final_logo.png">
     <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#D5B654">
 </head>
@@ -57,8 +66,11 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <img src="./images/final__logo_centered.png" alt="Logo Projet Résurgence" width="50" height="50"
-                        loading="eager" decoding="async">
+                    <picture>
+                        <source srcset="./images/final_logo_centered.webp" type="image/webp">
+                        <img src="./images/final_logo_centered.png" alt="Logo Projet Résurgence" width="50" height="50"
+                            loading="eager" decoding="async">
+                    </picture>
                     <span class="logo-text">Projet Résurgence</span>
                 </div>
                 <nav class="nav" role="navigation" aria-label="Navigation principale">

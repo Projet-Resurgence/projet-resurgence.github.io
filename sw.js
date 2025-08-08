@@ -21,9 +21,13 @@ const staticAssets = [
 
 // Images to cache
 const imageAssets = [
-    '/images/final__logo.png',
-    '/images/final__logo_centered.png',
-    '/images/banner.png'
+    '/images/final_logo.png',
+    '/images/final_logo.webp',
+    '/images/final_logo_centered.png',
+    '/images/final_logo_centered.webp',
+    '/images/banner.png',
+    '/images/banner.webp',
+    '/images/banner.avif'
 ];
 
 // Install event - cache static resources
@@ -223,8 +227,8 @@ self.addEventListener('push', (event) => {
     if (event.data) {
         const options = {
             body: event.data.text(),
-            icon: '/images/final__logo.png',
-            badge: '/images/final__logo.png',
+            icon: '/images/final_logo.png',
+            badge: '/images/final_logo.png',
             tag: 'resurgence-notification'
         };
 
