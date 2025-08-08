@@ -1,10 +1,10 @@
 Analytics Implementation Report
-Generated: Fri Aug  8 22:00:06 CEST 2025
+Generated: Fri Aug  8 19:29:11 CEST 2025
 
 GTM Configuration:
 - GTM ID: GTM-WDG77HQC
 - Pages with GTM: Index(3), Rules(3), Guide(3)
-- Analytics Scripts: 13
+- Analytics Scripts: 10
 
 Event Tracking:
 - Trackable Events: 14

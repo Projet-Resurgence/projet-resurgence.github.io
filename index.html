@@ -5,6 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5B3PEQ65HX"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-5B3PEQ65HX');
+    </script>
+
+
     <!-- Critical CSS for above-the-fold content -->
     <style>
         :root {
@@ -118,186 +130,128 @@
         }
     </style>
 
-    <!-- Axeptio Consent Management -->
-    <script>
-        window.axeptioSettings = {
-            clientId: "68963e315d089c7b7334b5d1",
-            cookiesVersion: "projet-resurgence-fr",
-            googleConsentMode: true
-        };
+    <!-- Google Tag Manager -->
+    <!-- <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-WDG77HQC');</script> -->
+    <!-- End Google Tag Manager -->
 
-        (function (d, s) {
-            var t = d.getElementsByTagName(s)[0], e = d.createElement(s);
-            e.async = true; e.src = "//static.axept.io/sdk.js";
-            t.parentNode.insertBefore(e, t);
-        })(document, "script");
-    </script>
-
-    <!-- Google Tag Manager (Conditional on Consent) -->
+    <!-- Enhanced Analytics Configuration -->
     <script>
-        // Initialize dataLayer before anything else
+        // Initialize dataLayer for enhanced event tracking
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-        // Set default consent state
-        gtag('consent', 'default', {
-            'analytics_storage': 'denied',
-            'ad_storage': 'denied',
-            'wait_for_update': 500
-        });
-
-        // Function to load Google Tag Manager after consent
-        function loadGTM() {
-            (function (w, d, s, l, i) {
-                w[l] = w[l] || []; w[l].push({
-                    'gtm.start': new Date().getTime(), event: 'gtm.js'
-                }); var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-            })(window, document, 'script', 'dataLayer', 'GTM-WDG77HQC');
-        }
-
-        // Listen for Axeptio consent events
-        window.addEventListener('axeptio_all_vendors', function (e) {
-            if (e.detail.google_analytics) {
-                // User accepted analytics cookies
-                gtag('consent', 'update', {
-                    'analytics_storage': 'granted'
-                });
-                loadGTM();
-                initializeAnalytics();
+        // Configure enhanced measurement
+        gtag('config', 'GTM-WDG77HQC', {
+            // Enhanced measurement settings for user behavior
+            send_page_view: true,
+            enhanced_measurement: {
+                scroll_events: true,
+                outbound_clicks: true,
+                site_search: true,
+                video_engagement: true,
+                file_downloads: true
+            },
+            // Custom tracking parameters
+            custom_parameters: {
+                content_group1: 'RP Geopolitique',
+                content_group2: 'Gaming Community',
+                content_group3: 'French Discord'
             }
         });
 
-        // Check if consent was already given (for returning visitors)
-        document.addEventListener('DOMContentLoaded', function () {
-            // Wait a bit for Axeptio to initialize
-            setTimeout(function () {
-                if (window.axeptio && window.axeptio.isConsentGiven && window.axeptio.isConsentGiven('google_analytics')) {
-                    gtag('consent', 'update', {
-                        'analytics_storage': 'granted'
-                    });
-                    loadGTM();
-                    initializeAnalytics();
-                }
-            }, 1000);
-        });
-    </script>
-
-    <!-- Enhanced Analytics Configuration (Conditional) -->
-    <script>
-        function initializeAnalytics() {
-            // Initialize only if consent is given
-            gtag('js', new Date());
-
-            // Configure enhanced measurement
-            gtag('config', 'GTM-WDG77HQC', {
-                // Enhanced measurement settings for user behavior
-                send_page_view: true,
-                enhanced_measurement: {
-                    scroll_events: true,
-                    outbound_clicks: true,
-                    site_search: true,
-                    video_engagement: true,
-                    file_downloads: true
-                },
-                // Custom tracking parameters
-                custom_parameters: {
-                    content_group1: 'RP Geopolitique',
-                    content_group2: 'Gaming Community',
-                    content_group3: 'French Discord'
-                }
-            });
-
-            // Track page performance metrics
-            window.addEventListener('load', function () {
-                // Track Core Web Vitals and page load metrics
-                if ('PerformanceObserver' in window) {
-                    // LCP tracking
-                    new PerformanceObserver((entryList) => {
-                        for (const entry of entryList.getEntries()) {
-                            trackEvent('core_web_vitals', {
-                                category: 'Performance',
-                                label: 'LCP',
-                                value: Math.round(entry.startTime),
-                                custom: {
-                                    metric_type: 'largest_contentful_paint',
-                                    performance_grade: entry.startTime < 2500 ? 'good' : entry.startTime < 4000 ? 'needs_improvement' : 'poor'
-                                }
-                            });
-                        }
-                    }).observe({ entryTypes: ['largest-contentful-paint'] });
-
-                    // FID tracking
-                    new PerformanceObserver((entryList) => {
-                        for (const entry of entryList.getEntries()) {
-                            const fidValue = entry.processingStart - entry.startTime;
-                            trackEvent('core_web_vitals', {
-                                category: 'Performance',
-                                label: 'FID',
-                                value: Math.round(fidValue),
-                                custom: {
-                                    metric_type: 'first_input_delay',
-                                    performance_grade: fidValue < 100 ? 'good' : fidValue < 300 ? 'needs_improvement' : 'poor'
-                                }
-                            });
-                        }
-                    }).observe({ entryTypes: ['first-input'] });
-
-                    // CLS tracking
-                    new PerformanceObserver((entryList) => {
-                        let clsValue = 0;
-                        for (const entry of entryList.getEntries()) {
-                            if (!entry.hadRecentInput) {
-                                clsValue += entry.value;
-                            }
-                        }
-                        if (clsValue > 0) {
-                            trackEvent('core_web_vitals', {
-                                category: 'Performance',
-                                label: 'CLS',
-                                value: Math.round(clsValue * 1000),
-                                custom: {
-                                    metric_type: 'cumulative_layout_shift',
-                                    performance_grade: clsValue < 0.1 ? 'good' : clsValue < 0.25 ? 'needs_improvement' : 'poor'
-                                }
-                            });
-                        }
-                    }).observe({ entryTypes: ['layout-shift'] });
-                }
-
-                // Track page load time
-                const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
-                trackEvent('page_load_time', {
-                    category: 'Performance',
-                    label: 'Load Time',
-                    value: loadTime,
-                    custom: {
-                        load_time_ms: loadTime,
-                        load_time_grade: loadTime < 3000 ? 'fast' : loadTime < 7000 ? 'moderate' : 'slow'
-                    }
-                });
-            });
-        }
-
-        // Make trackEvent available globally but only work with consent
+        // Enhanced event tracking helper
         window.trackEvent = function (eventName, parameters = {}) {
-            // Only track if analytics consent is given
-            if (window.axeptio && window.axeptio.isConsentGiven && window.axeptio.isConsentGiven('google_analytics')) {
-                gtag('event', eventName, {
-                    event_category: parameters.category || 'User Interaction',
-                    event_label: parameters.label || '',
-                    value: parameters.value || 0,
-                    custom_parameters: {
-                        section: parameters.section || '',
-                        element_type: parameters.element_type || '',
-                        page_section: parameters.page_section || '',
-                        interaction_type: parameters.interaction_type || '',
-                        ...parameters.custom
-                    }
-                });
-            }
+            gtag('event', eventName, {
+                event_category: parameters.category || 'User Interaction',
+                event_label: parameters.label || '',
+                value: parameters.value || 0,
+                custom_parameters: {
+                    section: parameters.section || '',
+                    element_type: parameters.element_type || '',
+                    page_section: parameters.page_section || '',
+                    interaction_type: parameters.interaction_type || '',
+                    ...parameters.custom
+                }
+            });
         };
+
+        // Track page performance metrics
+        window.addEventListener('load', function () {
+            // Track Core Web Vitals and page load metrics
+            if ('PerformanceObserver' in window) {
+                // LCP tracking
+                new PerformanceObserver((entryList) => {
+                    for (const entry of entryList.getEntries()) {
+                        trackEvent('core_web_vitals', {
+                            category: 'Performance',
+                            label: 'LCP',
+                            value: Math.round(entry.startTime),
+                            custom: {
+                                metric_type: 'largest_contentful_paint',
+                                performance_grade: entry.startTime < 2500 ? 'good' : entry.startTime < 4000 ? 'needs_improvement' : 'poor'
+                            }
+                        });
+                    }
+                }).observe({ entryTypes: ['largest-contentful-paint'] });
+
+                // FID tracking
+                new PerformanceObserver((entryList) => {
+                    for (const entry of entryList.getEntries()) {
+                        const fidValue = entry.processingStart - entry.startTime;
+                        trackEvent('core_web_vitals', {
+                            category: 'Performance',
+                            label: 'FID',
+                            value: Math.round(fidValue),
+                            custom: {
+                                metric_type: 'first_input_delay',
+                                performance_grade: fidValue < 100 ? 'good' : fidValue < 300 ? 'needs_improvement' : 'poor'
+                            }
+                        });
+                    }
+                }).observe({ entryTypes: ['first-input'] });
+
+                // CLS tracking
+                new PerformanceObserver((entryList) => {
+                    let clsValue = 0;
+                    for (const entry of entryList.getEntries()) {
+                        if (!entry.hadRecentInput) {
+                            clsValue += entry.value;
+                        }
+                    }
+                    if (clsValue > 0) {
+                        trackEvent('core_web_vitals', {
+                            category: 'Performance',
+                            label: 'CLS',
+                            value: Math.round(clsValue * 1000),
+                            custom: {
+                                metric_type: 'cumulative_layout_shift',
+                                performance_grade: clsValue < 0.1 ? 'good' : clsValue < 0.25 ? 'needs_improvement' : 'poor'
+                            }
+                        });
+                    }
+                }).observe({ entryTypes: ['layout-shift'] });
+            }
+
+            // Track page load time
+            const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+            trackEvent('page_load_time', {
+                category: 'Performance',
+                label: 'Load Time',
+                value: loadTime,
+                custom: {
+                    load_time_ms: loadTime,
+                    load_time_grade: loadTime < 3000 ? 'fast' : loadTime < 7000 ? 'moderate' : 'slow'
+                }
+            });
+        });
     </script>
 
     <!-- Primary Meta Tags -->
@@ -419,15 +373,9 @@
 
 <body>
 
-    <!-- Google Tag Manager (noscript) - Only loads if consent given -->
-    <noscript>
-        <script>
-            // Check if consent was given for noscript fallback
-            if (window.axeptio && window.axeptio.isConsentGiven && window.axeptio.isConsentGiven('google_analytics')) {
-                document.write('<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WDG77HQC" height="0" width="0" style="display:none;visibility:hidden"></iframe>');
-            }
-        </script>
-    </noscript>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WDG77HQC" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
     <!-- Header -->

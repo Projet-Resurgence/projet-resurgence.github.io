@@ -11,7 +11,6 @@
 [0;32m✅ PASS: GTM ID Configured[0m
 
 [0;34mTesting: GTM NoScript Fallback[0m
-Consider adding GTM noscript fallback
 [0;32m✅ PASS: GTM NoScript Fallback[0m
 
 [0;34mTesting: DataLayer Initialized[0m

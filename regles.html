@@ -5,94 +5,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Axeptio Consent Management -->
-    <script>
-        window.axeptioSettings = {
-            clientId: "68963e315d089c7b7334b5d1",
-            cookiesVersion: "projet-resurgence-fr",
-            googleConsentMode: true
-        };
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-WDG77HQC');</script>
+    <!-- End Google Tag Manager -->
 
-        (function (d, s) {
-            var t = d.getElementsByTagName(s)[0], e = d.createElement(s);
-            e.async = true; e.src = "//static.axept.io/sdk.js";
-            t.parentNode.insertBefore(e, t);
-        })(document, "script");
-    </script>
-
-    <!-- Google Tag Manager (Conditional on Consent) -->
+    <!-- Enhanced Analytics Configuration -->
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
-
-        gtag('consent', 'default', {
-            'analytics_storage': 'denied',
-            'ad_storage': 'denied',
-            'wait_for_update': 500
-        });
-
-        function loadGTM() {
-            (function (w, d, s, l, i) {
-                w[l] = w[l] || []; w[l].push({
-                    'gtm.start': new Date().getTime(), event: 'gtm.js'
-                }); var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-            })(window, document, 'script', 'dataLayer', 'GTM-WDG77HQC');
-        }
-
-        function initializeAnalytics() {
-            gtag('js', new Date());
-            gtag('config', 'GTM-WDG77HQC', {
-                send_page_view: true,
-                enhanced_measurement: {
-                    scroll_events: true,
-                    outbound_clicks: true,
-                    site_search: true,
-                    file_downloads: true
-                },
-                custom_parameters: {
-                    content_group1: 'Rules Page',
-                    content_group2: 'Documentation',
-                    content_group3: 'Policy Content'
-                }
-            });
-        }
-
-        window.addEventListener('axeptio_all_vendors', function (e) {
-            if (e.detail.google_analytics) {
-                gtag('consent', 'update', {
-                    'analytics_storage': 'granted'
-                });
-                loadGTM();
-                initializeAnalytics();
+        gtag('js', new Date());
+        gtag('config', 'GTM-WDG77HQC', {
+            send_page_view: true,
+            enhanced_measurement: {
+                scroll_events: true,
+                outbound_clicks: true,
+                site_search: true,
+                file_downloads: true
+            },
+            custom_parameters: {
+                content_group1: 'Rules Page',
+                content_group2: 'Documentation',
+                content_group3: 'Policy Content'
             }
-        });
-
-        document.addEventListener('DOMContentLoaded', function () {
-            setTimeout(function () {
-                if (window.axeptio && window.axeptio.isConsentGiven && window.axeptio.isConsentGiven('google_analytics')) {
-                    gtag('consent', 'update', {
-                        'analytics_storage': 'granted'
-                    });
-                    loadGTM();
-                    initializeAnalytics();
-                }
-            }, 1000);
         });
 
         window.trackEvent = function (eventName, parameters = {}) {
-            if (window.axeptio && window.axeptio.isConsentGiven && window.axeptio.isConsentGiven('google_analytics')) {
-                gtag('event', eventName, {
-                    event_category: parameters.category || 'User Interaction',
-                    event_label: parameters.label || '',
-                    value: parameters.value || 0,
-                    custom_parameters: {
-                        page_type: 'rules',
-                        ...parameters.custom
-                    }
-                });
-            }
+            gtag('event', eventName, {
+                event_category: parameters.category || 'User Interaction',
+                event_label: parameters.label || '',
+                value: parameters.value || 0,
+                custom_parameters: {
+                    page_type: 'rules',
+                    ...parameters.custom
+                }
+            });
         };
     </script>
 
@@ -186,14 +139,9 @@
 
 <body>
 
-    <!-- Google Tag Manager (noscript) - Only loads if consent given -->
-    <noscript>
-        <script>
-            if (window.axeptio && window.axeptio.isConsentGiven && window.axeptio.isConsentGiven('google_analytics')) {
-                document.write('<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WDG77HQC" height="0" width="0" style="display:none;visibility:hidden"></iframe>');
-            }
-        </script>
-    </noscript>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WDG77HQC" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
     <!-- Header -->
