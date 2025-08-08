@@ -21,10 +21,10 @@ const staticAssets = [
 
 // Images to cache
 const imageAssets = [
-    '/images/final_logo.png',
-    '/images/final_logo.webp',
-    '/images/final_logo_centered.png',
-    '/images/final_logo_centered.webp',
+    '/images/final_logo_little.png',
+    '/images/final_logo_little.webp',
+    '/images/final_logo_centered_little.png',
+    '/images/final_logo_centered_little.webp',
     '/images/banner.png',
     '/images/banner.webp',
     '/images/banner.avif'
