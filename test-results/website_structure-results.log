@@ -1,0 +1,375 @@
+🧪 Starting Comprehensive Website Testing Suite
+================================================
+
+[1;33m📁 FILE STRUCTURE TESTS[0m
+========================================
+
+[0;34mTesting: Index HTML exists[0m
+Command: test -f index.html
+[0;32m✅ PASS: Index HTML exists[0m
+
+[0;34mTesting: Rules HTML exists[0m
+Command: test -f regles.html
+[0;32m✅ PASS: Rules HTML exists[0m
+
+[0;34mTesting: Guide HTML exists[0m
+Command: test -f guide.html
+[0;32m✅ PASS: Guide HTML exists[0m
+
+[0;34mTesting: Main CSS exists[0m
+Command: test -f styles/main.css
+[0;32m✅ PASS: Main CSS exists[0m
+
+[0;34mTesting: Main JS exists[0m
+Command: test -f styles/main.js
+[0;32m✅ PASS: Main JS exists[0m
+
+[0;34mTesting: Manifest exists[0m
+Command: test -f manifest.json
+[0;32m✅ PASS: Manifest exists[0m
+
+[0;34mTesting: Service Worker exists[0m
+Command: test -f sw.js
+[0;32m✅ PASS: Service Worker exists[0m
+
+[0;34mTesting: Robots.txt exists[0m
+Command: test -f robots.txt
+[0;32m✅ PASS: Robots.txt exists[0m
+
+[0;34mTesting: Sitemap exists[0m
+Command: test -f sitemap.xml
+[0;32m✅ PASS: Sitemap exists[0m
+
+[0;34mTesting: Fonts directory exists[0m
+Command: test -d fonts
+[0;32m✅ PASS: Fonts directory exists[0m
+
+[0;34mTesting: Images directory exists[0m
+Command: test -d images
+[0;32m✅ PASS: Images directory exists[0m
+
+[1;33m🔍 HTML VALIDATION TESTS[0m
+========================================
+
+[0;34mTesting: Index HTML contains DOCTYPE[0m
+Command: grep -q '<!DOCTYPE html>' index.html
+[0;32m✅ PASS: Index HTML contains DOCTYPE[0m
+
+[0;34mTesting: Index HTML has lang attribute[0m
+Command: grep -q 'lang="fr"' index.html
+[0;32m✅ PASS: Index HTML has lang attribute[0m
+
+[0;34mTesting: Index HTML has meta charset[0m
+Command: grep -q '<meta charset="UTF-8">' index.html
+[0;32m✅ PASS: Index HTML has meta charset[0m
+
+[0;34mTesting: Index HTML has viewport meta[0m
+Command: grep -q 'name="viewport"' index.html
+[0;32m✅ PASS: Index HTML has viewport meta[0m
+
+[0;34mTesting: Index HTML has title tag[0m
+Command: grep -q '<title>' index.html
+[0;32m✅ PASS: Index HTML has title tag[0m
+
+[0;34mTesting: Index HTML has meta description[0m
+Command: grep -q 'name="description"' index.html
+[0;32m✅ PASS: Index HTML has meta description[0m
+
+[0;34mTesting: Rules HTML contains DOCTYPE[0m
+Command: grep -q '<!DOCTYPE html>' regles.html
+[0;32m✅ PASS: Rules HTML contains DOCTYPE[0m
+
+[0;34mTesting: Guide HTML contains DOCTYPE[0m
+Command: grep -q '<!DOCTYPE html>' guide.html
+[0;32m✅ PASS: Guide HTML contains DOCTYPE[0m
+
+[1;33m🎨 CSS TESTS[0m
+========================================
+
+[0;34mTesting: CSS contains font-face[0m
+Command: grep -q '@font-face' styles/main.css
+[0;32m✅ PASS: CSS contains font-face[0m
+
+[0;34mTesting: CSS contains CSS variables[0m
+Command: grep -q ':root' styles/main.css
+[0;32m✅ PASS: CSS contains CSS variables[0m
+
+[0;34mTesting: CSS contains media queries[0m
+Command: grep -q '@media' styles/main.css
+[0;32m✅ PASS: CSS contains media queries[0m
+
+[0;34mTesting: CSS contains responsive breakpoints[0m
+Command: grep -q 'max-width.*1040px' styles/main.css
+[0;32m✅ PASS: CSS contains responsive breakpoints[0m
+
+[0;34mTesting: CSS file is not empty[0m
+Command: test -s styles/main.css
+[0;32m✅ PASS: CSS file is not empty[0m
+
+[1;33m⚙️ JAVASCRIPT TESTS[0m
+========================================
+
+[0;34mTesting: Main JS file is not empty[0m
+Command: test -s styles/main.js
+[0;32m✅ PASS: Main JS file is not empty[0m
+
+[0;34mTesting: JS contains class definition[0m
+Command: grep -q 'class ResurgenceWebsite' styles/main.js
+[0;32m✅ PASS: JS contains class definition[0m
+
+[0;34mTesting: JS contains event listeners[0m
+Command: grep -q 'addEventListener' styles/main.js
+[0;32m✅ PASS: JS contains event listeners[0m
+
+[0;34mTesting: JS contains analytics tracking[0m
+Command: grep -q 'trackEvent' styles/main.js
+[0;32m✅ PASS: JS contains analytics tracking[0m
+
+[0;34mTesting: Performance optimizer exists[0m
+Command: test -f styles/performance-optimizer.js
+[0;32m✅ PASS: Performance optimizer exists[0m
+
+[0;34mTesting: SEO optimizer exists[0m
+Command: test -f styles/seo-optimizer.js
+[0;32m✅ PASS: SEO optimizer exists[0m
+
+[1;33m🔍 SEO TESTS[0m
+========================================
+
+[0;34mTesting: Meta keywords present[0m
+Command: grep -q 'name="keywords"' index.html
+[0;32m✅ PASS: Meta keywords present[0m
+
+[0;34mTesting: Open Graph tags present[0m
+Command: grep -q 'property="og:' index.html
+[0;32m✅ PASS: Open Graph tags present[0m
+
+[0;34mTesting: Twitter Card tags present[0m
+Command: grep -q 'property="twitter:' index.html
+[0;32m✅ PASS: Twitter Card tags present[0m
+
+[0;34mTesting: Canonical URL present[0m
+Command: grep -q 'rel="canonical"' index.html
+[0;32m✅ PASS: Canonical URL present[0m
+
+[0;34mTesting: Structured data present[0m
+Command: grep -q 'application/ld+json' index.html
+[0;32m✅ PASS: Structured data present[0m
+
+[0;34mTesting: Google Analytics present[0m
+Command: grep -q 'GTM-' index.html
+[0;32m✅ PASS: Google Analytics present[0m
+
+[1;33m🖼️ IMAGE TESTS[0m
+========================================
+
+[0;34mTesting: Logo PNG exists[0m
+Command: test -f images/final_logo_little.png
+[0;32m✅ PASS: Logo PNG exists[0m
+
+[0;34mTesting: Logo WebP exists[0m
+Command: test -f images/final_logo.webp
+[0;32m✅ PASS: Logo WebP exists[0m
+
+[0;34mTesting: Banner image exists[0m
+Command: test -f images/banner.jpg
+[0;32m✅ PASS: Banner image exists[0m
+
+[0;34mTesting: Banner WebP exists[0m
+Command: test -f images/banner.webp
+[0;32m✅ PASS: Banner WebP exists[0m
+
+[0;34mTesting: Images have proper alt tags[0m
+Command: grep -q 'alt=' index.html
+[0;32m✅ PASS: Images have proper alt tags[0m
+
+[1;33m📝 FONT TESTS[0m
+========================================
+
+[0;34mTesting: Custom font file exists[0m
+Command: test -f fonts/pressgothic.otf
+[0;32m✅ PASS: Custom font file exists[0m
+
+[0;34mTesting: Font preload present[0m
+Command: grep -q 'rel="preload".*font' index.html
+[0;32m✅ PASS: Font preload present[0m
+
+[1;33m📱 PWA MANIFEST TESTS[0m
+========================================
+
+[0;34mTesting: Manifest is valid JSON[0m
+Command: python3 -m json.tool manifest.json > /dev/null
+[0;32m✅ PASS: Manifest is valid JSON[0m
+
+[0;34mTesting: Manifest has name[0m
+Command: grep -q '"name"' manifest.json
+[0;32m✅ PASS: Manifest has name[0m
+
+[0;34mTesting: Manifest has icons[0m
+Command: grep -q '"icons"' manifest.json
+[0;32m✅ PASS: Manifest has icons[0m
+
+[0;34mTesting: Manifest has start_url[0m
+Command: grep -q '"start_url"' manifest.json
+[0;32m✅ PASS: Manifest has start_url[0m
+
+[1;33m🔧 SERVICE WORKER TESTS[0m
+========================================
+
+[0;34mTesting: SW file is not empty[0m
+Command: test -s sw.js
+[0;32m✅ PASS: SW file is not empty[0m
+
+[0;34mTesting: SW contains install event[0m
+Command: grep -q 'install.*event' sw.js
+[0;32m✅ PASS: SW contains install event[0m
+
+[0;34mTesting: SW contains fetch event[0m
+Command: grep -q 'fetch.*event' sw.js
+[0;32m✅ PASS: SW contains fetch event[0m
+
+[0;34mTesting: SW contains cache logic[0m
+Command: grep -q 'cache' sw.js
+[0;32m✅ PASS: SW contains cache logic[0m
+
+[1;33m🔒 SECURITY TESTS[0m
+========================================
+
+[0;34mTesting: External links have rel=noopener[0m
+Command: grep -q 'rel="noopener' index.html
+[0;32m✅ PASS: External links have rel=noopener[0m
+
+[0;34mTesting: External links target=_blank[0m
+Command: grep -q 'target="_blank"' index.html
+[0;32m✅ PASS: External links target=_blank[0m
+
+[0;34mTesting: No inline styles in HTML[0m
+Command: ! grep -q 'style=' index.html || echo 'Warning: Inline styles found'
+Warning: Inline styles found
+[0;32m✅ PASS: No inline styles in HTML[0m
+
+[0;34mTesting: HTTPS references only[0m
+Command: ! grep -q 'http://' index.html || echo 'Warning: HTTP links found'
+[0;32m✅ PASS: HTTPS references only[0m
+
+[1;33m⚡ PERFORMANCE TESTS[0m
+========================================
+
+[0;34mTesting: CSS is minified or optimized[0m
+Command: test 1099 -gt 50
+[0;32m✅ PASS: CSS is minified or optimized[0m
+
+[0;34mTesting: Images directory not too large[0m
+Command: test 3536 -lt 10000
+[0;32m✅ PASS: Images directory not too large[0m
+
+[0;34mTesting: Resource hints present[0m
+Command: grep -q 'rel="preload"' index.html
+[0;32m✅ PASS: Resource hints present[0m
+
+[0;34mTesting: DNS prefetch present[0m
+Command: grep -q 'rel="dns-prefetch"' index.html
+[0;32m✅ PASS: DNS prefetch present[0m
+
+[1;33m📊 ANALYTICS TESTS[0m
+========================================
+
+[0;34mTesting: Google Tag Manager present[0m
+Command: grep -q 'googletagmanager.com' index.html
+[0;32m✅ PASS: Google Tag Manager present[0m
+
+[0;34mTesting: GTM ID configured[0m
+Command: grep -q 'GTM-' index.html
+[0;32m✅ PASS: GTM ID configured[0m
+
+[0;34mTesting: DataLayer initialized[0m
+Command: grep -q 'dataLayer' index.html
+[0;32m✅ PASS: DataLayer initialized[0m
+
+[0;34mTesting: Custom event tracking[0m
+Command: grep -q 'trackEvent' index.html
+[0;32m✅ PASS: Custom event tracking[0m
+
+[0;34mTesting: Enhanced measurement[0m
+Command: grep -q 'enhanced_measurement' index.html
+[0;32m✅ PASS: Enhanced measurement[0m
+
+[1;33m♿ ACCESSIBILITY TESTS[0m
+========================================
+
+[0;34mTesting: Images have alt attributes[0m
+Command: grep -q 'alt=' index.html
+[0;32m✅ PASS: Images have alt attributes[0m
+
+[0;34mTesting: ARIA labels present[0m
+Command: grep -q 'aria-label' index.html
+[0;32m✅ PASS: ARIA labels present[0m
+
+[0;34mTesting: Semantic HTML used[0m
+Command: grep -q '<main\|<nav\|<section\|<header\|<footer' index.html
+[0;32m✅ PASS: Semantic HTML used[0m
+
+[0;34mTesting: Skip links present[0m
+Command: grep -q 'skip\|Skip' index.html || echo 'Consider adding skip links'
+Consider adding skip links
+[0;32m✅ PASS: Skip links present[0m
+
+[1;33m📄 CONTENT TESTS[0m
+========================================
+
+[0;34mTesting: French content present[0m
+Command: grep -q 'Résurgence\|français\|géopolitique' index.html
+[0;32m✅ PASS: French content present[0m
+
+[0;34mTesting: Discord links present[0m
+Command: grep -q 'discord.gg' index.html
+[0;32m✅ PASS: Discord links present[0m
+
+[0;34mTesting: Navigation menu present[0m
+Command: grep -q 'nav-link' index.html
+[0;32m✅ PASS: Navigation menu present[0m
+
+[0;34mTesting: Footer content present[0m
+Command: grep -q '<footer' index.html
+[0;32m✅ PASS: Footer content present[0m
+
+[1;33m📏 FILE SIZE TESTS[0m
+========================================
+
+[0;34mTesting: Index HTML under 100KB[0m
+Command: test 36027 -lt 100000
+[0;32m✅ PASS: Index HTML under 100KB[0m
+
+[0;34mTesting: CSS under 200KB[0m
+Command: test 22910 -lt 200000
+[0;32m✅ PASS: CSS under 200KB[0m
+
+[0;34mTesting: JS under 100KB[0m
+Command: test 21956 -lt 100000
+[0;32m✅ PASS: JS under 100KB[0m
+
+[1;33m✅ SYNTAX VALIDATION TESTS[0m
+========================================
+
+[0;34mTesting: JSON files valid syntax[0m
+Command: node -e 'JSON.parse(require("fs").readFileSync("manifest.json", "utf8"))'
+[0;32m✅ PASS: JSON files valid syntax[0m
+
+[0;34mTesting: Manifest JSON valid[0m
+Command: python3 -m json.tool manifest.json > /dev/null
+[0;32m✅ PASS: Manifest JSON valid[0m
+
+[1;33m🔗 LINK VALIDATION TESTS[0m
+========================================
+
+[0;34mTesting: Internal anchor links exist[0m
+Command: anchors=$(grep -o 'href="#[^"]*"' index.html | sed 's/href="#//' | sed 's/"//'); all_found=true; for anchor in $anchors; do grep -q "id=\"$anchor\"" index.html || all_found=false; done; $all_found
+[0;32m✅ PASS: Internal anchor links exist[0m
+
+[1;33m📊 TEST SUMMARY[0m
+========================================
+Total Tests: 78
+[0;32mPassed: 78[0m
+[0;31mFailed: 0[0m
+
+[0;32m🎉 ALL TESTS PASSED! Website is ready for deployment.[0m

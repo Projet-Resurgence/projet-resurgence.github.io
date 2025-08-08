@@ -96,7 +96,7 @@ class SEOOptimizer {
             "name": "Guide du Débutant - Projet Résurgence",
             "description": "Guide complet pour débuter sur le serveur de roleplay géopolitique Projet Résurgence",
             "url": "https://projet-resurgence.github.io/guide.html",
-            "image": "https://projet-resurgence.github.io/images/banner.png",
+            "image": "https://projet-resurgence.github.io/images/banner.jpg",
             "totalTime": "PT30M",
             "estimatedCost": {
                 "@type": "MonetaryAmount",
@@ -335,7 +335,7 @@ class SEOOptimizer {
         // Preload hero image
         const heroImageLink = document.createElement('link');
         heroImageLink.rel = 'preload';
-        heroImageLink.href = './images/banner.png';
+        heroImageLink.href = './images/banner.jpg';
         heroImageLink.as = 'image';
         document.head.appendChild(heroImageLink);
     }

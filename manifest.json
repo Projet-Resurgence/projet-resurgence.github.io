@@ -32,7 +32,7 @@
             "purpose": "maskable"
         },
         {
-            "src": "./images/final_logo_centered.png",
+            "src": "./images/final_logo_centered_little.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any"
@@ -52,7 +52,7 @@
     ],
     "screenshots": [
         {
-            "src": "./images/banner.png",
+            "src": "./images/banner.jpg",
             "sizes": "1280x720",
             "type": "image/png",
             "label": "Page d'accueil Projet Résurgence",

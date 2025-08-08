@@ -1,0 +1,12 @@
+🌐 Running Browser Compatibility Tests
+✅ index.html: Valid HTML structure
+✅ regles.html: Valid HTML structure
+✅ guide.html: Valid HTML structure
+✅ manifest.json: Valid JSON
+✅ styles/main.css: CSS syntax appears valid
+
+📊 Browser Test Summary:
+HTML Files: 3/3 passed
+JSON Files: 1/1 passed
+CSS Files: 1/1 passed
+Overall: 5/5 tests passed

@@ -6,12 +6,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-WDG77HQC');</script>
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-WDG77HQC');</script>
     <!-- End Google Tag Manager -->
+
+    <!-- Enhanced Analytics Configuration -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'GTM-WDG77HQC', {
+            send_page_view: true,
+            enhanced_measurement: {
+                scroll_events: true,
+                outbound_clicks: true,
+                site_search: true,
+                file_downloads: true
+            },
+            custom_parameters: {
+                content_group1: 'Rules Page',
+                content_group2: 'Documentation',
+                content_group3: 'Policy Content'
+            }
+        });
+
+        window.trackEvent = function (eventName, parameters = {}) {
+            gtag('event', eventName, {
+                event_category: parameters.category || 'User Interaction',
+                event_label: parameters.label || '',
+                value: parameters.value || 0,
+                custom_parameters: {
+                    page_type: 'rules',
+                    ...parameters.custom
+                }
+            });
+        };
+    </script>
 
 
     <!-- Primary Meta Tags -->
@@ -104,10 +140,10 @@
 <body>
 
     <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WDG77HQC"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WDG77HQC" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
-     
+
     <!-- Header -->
     <header class="header">
         <div class="container">
@@ -115,8 +151,8 @@
                 <div class="logo">
                     <picture>
                         <source srcset="./images/final_logo_centered_little.webp" type="image/webp">
-                        <img src="./images/final_logo_centered_little.png" alt="Logo Projet Résurgence" width="50" height="50"
-                            loading="eager" decoding="async">
+                        <img src="./images/final_logo_centered_little.png" alt="Logo Projet Résurgence" width="50"
+                            height="50" loading="eager" decoding="async">
                     </picture>
                     <span class="logo-text">PROJET RÉSURGENCE</span>
                 </div>

@@ -25,7 +25,7 @@ const imageAssets = [
     '/images/final_logo_little.webp',
     '/images/final_logo_centered_little.png',
     '/images/final_logo_centered_little.webp',
-    '/images/banner.png',
+    '/images/banner.jpg',
     '/images/banner.webp',
     '/images/banner.avif'
 ];
@@ -227,8 +227,8 @@ self.addEventListener('push', (event) => {
     if (event.data) {
         const options = {
             body: event.data.text(),
-            icon: '/images/final_logo.png',
-            badge: '/images/final_logo.png',
+            icon: '/images/final_logo_little.png',
+            badge: '/images/final_logo_little.png',
             tag: 'resurgence-notification'
         };
 

@@ -5,13 +5,146 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Critical CSS for above-the-fold content -->
+    <style>
+        :root{--primary-gold:#D5B654;--bg-primary:#ffffff;--bg-primary-dark:#1a1a1a;--text-primary:#212529;--text-primary-dark:#ffffff}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.6;color:var(--text-primary);background:var(--bg-primary);transition:all 0.3s ease}
+        [data-theme="dark"]{--bg-primary:#1a1a1a;--text-primary:#ffffff}
+        [data-theme="dark"] body{background:var(--bg-primary-dark);color:var(--text-primary-dark)}
+        .header{background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);position:fixed;top:0;width:100%;z-index:1000;border-bottom:1px solid rgba(213,182,84,0.2)}
+        .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;background:linear-gradient(135deg,rgba(213,182,84,0.1),rgba(213,182,84,0.05));background-size:cover;background-position:center}
+        .hero-content{text-align:center;max-width:800px;padding:2rem;z-index:2}
+        .hero-title{font-size:3.5rem;font-weight:700;margin-bottom:1.5rem;background:linear-gradient(135deg,var(--primary-gold),#E6C76A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .btn{display:inline-block;padding:1rem 2rem;margin:0.5rem;text-decoration:none;border-radius:50px;font-weight:600;transition:all 0.3s ease;border:none;cursor:pointer;font-size:1.1rem}
+        .btn-primary{background:linear-gradient(135deg,var(--primary-gold),#E6C76A);color:#000;box-shadow:0 4px 15px rgba(213,182,84,0.3)}
+        .container{max-width:1200px;margin:0 auto;padding:0 2rem}
+        @media(max-width:768px){.hero-title{font-size:2.5rem}.hero{min-height:80vh}.btn{padding:0.8rem 1.5rem;font-size:1rem}}
+    </style>
+
     <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-WDG77HQC');</script>
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-WDG77HQC');</script>
     <!-- End Google Tag Manager -->
+
+    <!-- Enhanced Analytics Configuration -->
+    <script>
+        // Initialize dataLayer for enhanced event tracking
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        // Configure enhanced measurement
+        gtag('config', 'GTM-WDG77HQC', {
+            // Enhanced measurement settings for user behavior
+            send_page_view: true,
+            enhanced_measurement: {
+                scroll_events: true,
+                outbound_clicks: true,
+                site_search: true,
+                video_engagement: true,
+                file_downloads: true
+            },
+            // Custom tracking parameters
+            custom_parameters: {
+                content_group1: 'RP Geopolitique',
+                content_group2: 'Gaming Community',
+                content_group3: 'French Discord'
+            }
+        });
+
+        // Enhanced event tracking helper
+        window.trackEvent = function (eventName, parameters = {}) {
+            gtag('event', eventName, {
+                event_category: parameters.category || 'User Interaction',
+                event_label: parameters.label || '',
+                value: parameters.value || 0,
+                custom_parameters: {
+                    section: parameters.section || '',
+                    element_type: parameters.element_type || '',
+                    page_section: parameters.page_section || '',
+                    interaction_type: parameters.interaction_type || '',
+                    ...parameters.custom
+                }
+            });
+        };
+
+        // Track page performance metrics
+        window.addEventListener('load', function () {
+            // Track Core Web Vitals and page load metrics
+            if ('PerformanceObserver' in window) {
+                // LCP tracking
+                new PerformanceObserver((entryList) => {
+                    for (const entry of entryList.getEntries()) {
+                        trackEvent('core_web_vitals', {
+                            category: 'Performance',
+                            label: 'LCP',
+                            value: Math.round(entry.startTime),
+                            custom: {
+                                metric_type: 'largest_contentful_paint',
+                                performance_grade: entry.startTime < 2500 ? 'good' : entry.startTime < 4000 ? 'needs_improvement' : 'poor'
+                            }
+                        });
+                    }
+                }).observe({ entryTypes: ['largest-contentful-paint'] });
+
+                // FID tracking
+                new PerformanceObserver((entryList) => {
+                    for (const entry of entryList.getEntries()) {
+                        const fidValue = entry.processingStart - entry.startTime;
+                        trackEvent('core_web_vitals', {
+                            category: 'Performance',
+                            label: 'FID',
+                            value: Math.round(fidValue),
+                            custom: {
+                                metric_type: 'first_input_delay',
+                                performance_grade: fidValue < 100 ? 'good' : fidValue < 300 ? 'needs_improvement' : 'poor'
+                            }
+                        });
+                    }
+                }).observe({ entryTypes: ['first-input'] });
+
+                // CLS tracking
+                new PerformanceObserver((entryList) => {
+                    let clsValue = 0;
+                    for (const entry of entryList.getEntries()) {
+                        if (!entry.hadRecentInput) {
+                            clsValue += entry.value;
+                        }
+                    }
+                    if (clsValue > 0) {
+                        trackEvent('core_web_vitals', {
+                            category: 'Performance',
+                            label: 'CLS',
+                            value: Math.round(clsValue * 1000),
+                            custom: {
+                                metric_type: 'cumulative_layout_shift',
+                                performance_grade: clsValue < 0.1 ? 'good' : clsValue < 0.25 ? 'needs_improvement' : 'poor'
+                            }
+                        });
+                    }
+                }).observe({ entryTypes: ['layout-shift'] });
+            }
+
+            // Track page load time
+            const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+            trackEvent('page_load_time', {
+                category: 'Performance',
+                label: 'Load Time',
+                value: loadTime,
+                custom: {
+                    load_time_ms: loadTime,
+                    load_time_grade: loadTime < 3000 ? 'fast' : loadTime < 7000 ? 'moderate' : 'slow'
+                }
+            });
+        });
+    </script>
 
     <!-- Primary Meta Tags -->
     <title>Projet Résurgence - Serveur RP Géopolitique Francophone Post-Apocalyptique | Discord</title>
@@ -68,7 +201,6 @@
     <link rel="preload" href="./fonts/pressgothic.otf" as="font" type="font/otf" crossorigin="anonymous">
     <link rel="preload" href="./styles/main.css" as="style">
     <link rel="preload" href="./images/final_logo_centered_little.webp" as="image" type="image/webp">
-    <link rel="preload" href="./images/final_logo_centered_little.png" as="image" type="image/png">
     <link rel="preload" href="./styles/main.js" as="script">
     <link rel="prefetch" href="./regles.html">
     <link rel="prefetch" href="./guide.html">
@@ -124,7 +256,7 @@
       "gamePlatform": "Discord",
       "inLanguage": "fr",
       "url": "https://projet-resurgence.github.io",
-      "image": "https://projet-resurgence.github.io/images/banner.png",
+      "image": "https://projet-resurgence.github.io/images/banner.jpg",
       "numberOfPlayers": "100+",
       "applicationCategory": "Game"
     }
@@ -134,10 +266,10 @@
 <body>
 
     <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WDG77HQC"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WDG77HQC" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
-     
+
     <!-- Header -->
     <header class="header">
         <div class="container">
@@ -145,8 +277,8 @@
                 <div class="logo">
                     <picture>
                         <source srcset="./images/final_logo_centered_little.webp" type="image/webp">
-                        <img src="./images/final_logo_centered_little.png" alt="Logo Projet Résurgence" width="50" height="50"
-                            loading="eager" decoding="async">
+                        <img src="./images/final_logo_centered_little.png" alt="Logo Projet Résurgence" width="50"
+                            height="50" loading="eager" decoding="async">
                     </picture>
                     <span class="logo-text">PROJET RÉSURGENCE</span>
                 </div>
@@ -560,6 +692,35 @@
             });
         }
     </script>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Projet Résurgence</h3>
+                    <p>Serveur Discord de roleplay géopolitique francophone post-apocalyptique</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Navigation</h4>
+                    <ul class="footer-links">
+                        <li><a href="#accueil">Accueil</a></li>
+                        <li><a href="regles.html">Règles</a></li>
+                        <li><a href="guide.html">Guide</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Communauté</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://discord.gg/NuwQqWGbHc" target="_blank" rel="noopener noreferrer">Discord</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Projet Résurgence. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
 
     <!-- External JavaScript -->
     <script src="./styles/main.js"></script>

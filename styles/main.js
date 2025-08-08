@@ -10,6 +10,7 @@ class ResurgenceWebsite {
         this.initializeTheme();
         this.setupAnimations();
         this.setupDiscordIntegration();
+        this.setupAdvancedAnalytics();
     }
 
     setupEventListeners() {
@@ -239,13 +240,347 @@ class ResurgenceWebsite {
     }
 
     trackEvent(eventName, properties = {}) {
-        // Analytics tracking (implement with your preferred analytics service)
+        // Enhanced analytics tracking for user behavior analysis
         console.log('Event tracked:', eventName, properties);
 
-        // Example: Google Analytics 4
+        // Google Analytics 4 with enhanced parameters
         if (typeof gtag !== 'undefined') {
-            gtag('event', eventName, properties);
+            gtag('event', eventName, {
+                event_category: properties.category || 'User Interaction',
+                event_label: properties.label || '',
+                value: properties.value || 0,
+                custom_parameters: {
+                    section: properties.section || '',
+                    element_type: properties.element_type || '',
+                    page_section: properties.page_section || '',
+                    interaction_type: properties.interaction_type || '',
+                    timestamp: new Date().toISOString(),
+                    ...properties.custom
+                }
+            });
         }
+
+        // Also push to dataLayer for GTM
+        if (typeof dataLayer !== 'undefined') {
+            dataLayer.push({
+                event: 'custom_event',
+                eventName: eventName,
+                eventCategory: properties.category || 'User Interaction',
+                eventLabel: properties.label || '',
+                eventValue: properties.value || 0,
+                customParameters: properties.custom || {}
+            });
+        }
+    }
+
+    setupAdvancedAnalytics() {
+        // Track all clicks with detailed context
+        this.setupClickTracking();
+
+        // Track scroll behavior
+        this.setupScrollTracking();
+
+        // Track form interactions
+        this.setupFormTracking();
+
+        // Track navigation patterns
+        this.setupNavigationTracking();
+
+        // Track engagement metrics
+        this.setupEngagementTracking();
+
+        // Track feature usage
+        this.setupFeatureTracking();
+    }
+
+    setupClickTracking() {
+        // Track all clickable elements
+        document.addEventListener('click', (e) => {
+            const element = e.target.closest('a, button, [role="button"], .clickable');
+            if (!element) return;
+
+            const elementType = element.tagName.toLowerCase();
+            const elementClass = element.className;
+            const elementId = element.id;
+            const elementText = element.textContent?.trim().substring(0, 50) || '';
+            const href = element.href || '';
+
+            // Determine click context
+            let clickContext = 'unknown';
+            let section = 'unknown';
+
+            if (element.closest('.hero')) section = 'hero';
+            else if (element.closest('.header')) section = 'header';
+            else if (element.closest('.features')) section = 'features';
+            else if (element.closest('.footer')) section = 'footer';
+            else if (element.closest('.nav')) section = 'navigation';
+
+            if (href.includes('discord.gg')) clickContext = 'discord_invite';
+            else if (href.includes('#')) clickContext = 'internal_anchor';
+            else if (href.includes('.html')) clickContext = 'internal_page';
+            else if (elementClass.includes('btn')) clickContext = 'button';
+            else if (elementClass.includes('nav-link')) clickContext = 'navigation';
+            else if (elementClass.includes('theme-toggle')) clickContext = 'theme_toggle';
+
+            this.trackEvent('click', {
+                category: 'User Clicks',
+                label: `${section}_${clickContext}`,
+                custom: {
+                    element_type: elementType,
+                    element_class: elementClass,
+                    element_id: elementId,
+                    element_text: elementText,
+                    href: href,
+                    section: section,
+                    click_context: clickContext,
+                    page_section: section,
+                    interaction_type: 'click'
+                }
+            });
+        });
+
+        // Track CTA button performance specifically
+        document.querySelectorAll('.btn-primary, .btn-secondary').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const btnText = btn.textContent?.trim();
+                const btnType = btn.classList.contains('btn-primary') ? 'primary' : 'secondary';
+
+                this.trackEvent('cta_click', {
+                    category: 'CTA Performance',
+                    label: btnText,
+                    custom: {
+                        button_type: btnType,
+                        button_text: btnText,
+                        button_position: this.getElementPosition(btn)
+                    }
+                });
+            });
+        });
+    }
+
+    setupScrollTracking() {
+        let scrollDepths = [25, 50, 75, 90, 100];
+        let triggeredDepths = new Set();
+
+        const trackScrollDepth = ResurgenceWebsite.throttle(() => {
+            const scrollPercent = Math.round(
+                (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100
+            );
+
+            scrollDepths.forEach(depth => {
+                if (scrollPercent >= depth && !triggeredDepths.has(depth)) {
+                    triggeredDepths.add(depth);
+                    this.trackEvent('scroll_depth', {
+                        category: 'User Engagement',
+                        label: `${depth}%`,
+                        value: depth,
+                        custom: {
+                            scroll_percentage: depth,
+                            page_height: document.documentElement.scrollHeight,
+                            viewport_height: window.innerHeight
+                        }
+                    });
+                }
+            });
+        }, 500);
+
+        window.addEventListener('scroll', trackScrollDepth);
+
+        // Track time spent in sections
+        this.trackSectionViews();
+    }
+
+    trackSectionViews() {
+        const sections = document.querySelectorAll('section[id], .hero, .features, .stats');
+        const sectionTimes = new Map();
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const sectionId = entry.target.id || entry.target.className.split(' ')[0];
+
+                if (entry.isIntersecting) {
+                    sectionTimes.set(sectionId, Date.now());
+                } else if (sectionTimes.has(sectionId)) {
+                    const timeSpent = Date.now() - sectionTimes.get(sectionId);
+                    sectionTimes.delete(sectionId);
+
+                    this.trackEvent('section_view_time', {
+                        category: 'User Engagement',
+                        label: sectionId,
+                        value: Math.round(timeSpent / 1000),
+                        custom: {
+                            section_id: sectionId,
+                            time_spent_ms: timeSpent,
+                            time_spent_seconds: Math.round(timeSpent / 1000)
+                        }
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        sections.forEach(section => observer.observe(section));
+    }
+
+    setupNavigationTracking() {
+        // Track navigation menu usage
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const linkText = link.textContent?.trim();
+                const href = link.getAttribute('href');
+
+                this.trackEvent('navigation_click', {
+                    category: 'Navigation',
+                    label: linkText,
+                    custom: {
+                        nav_item: linkText,
+                        nav_href: href,
+                        nav_type: href.startsWith('#') ? 'anchor' : 'page'
+                    }
+                });
+            });
+        });
+
+        // Track mobile menu usage
+        const mobileToggle = document.getElementById('mobileMenuToggle');
+        if (mobileToggle) {
+            mobileToggle.addEventListener('click', () => {
+                const isOpen = document.getElementById('navMenu')?.classList.contains('active');
+
+                this.trackEvent('mobile_menu_toggle', {
+                    category: 'Navigation',
+                    label: isOpen ? 'close' : 'open',
+                    custom: {
+                        action: isOpen ? 'close' : 'open',
+                        device_type: 'mobile'
+                    }
+                });
+            });
+        }
+    }
+
+    setupEngagementTracking() {
+        // Track page visibility changes
+        document.addEventListener('visibilitychange', () => {
+            this.trackEvent('page_visibility', {
+                category: 'User Engagement',
+                label: document.hidden ? 'hidden' : 'visible',
+                custom: {
+                    visibility_state: document.hidden ? 'hidden' : 'visible',
+                    timestamp: new Date().toISOString()
+                }
+            });
+        });
+
+        // Track time on page
+        let startTime = Date.now();
+        window.addEventListener('beforeunload', () => {
+            const timeOnPage = Date.now() - startTime;
+            this.trackEvent('time_on_page', {
+                category: 'User Engagement',
+                label: 'page_exit',
+                value: Math.round(timeOnPage / 1000),
+                custom: {
+                    time_spent_ms: timeOnPage,
+                    time_spent_seconds: Math.round(timeOnPage / 1000)
+                }
+            });
+        });
+
+        // Track rage clicks (multiple rapid clicks)
+        let clickCount = 0;
+        let clickTimer;
+
+        document.addEventListener('click', () => {
+            clickCount++;
+            clearTimeout(clickTimer);
+
+            clickTimer = setTimeout(() => {
+                if (clickCount >= 3) {
+                    this.trackEvent('rage_clicks', {
+                        category: 'User Frustration',
+                        label: 'rapid_clicks',
+                        value: clickCount,
+                        custom: {
+                            click_count: clickCount,
+                            potential_frustration: true
+                        }
+                    });
+                }
+                clickCount = 0;
+            }, 1000);
+        });
+    }
+
+    setupFeatureTracking() {
+        // Track theme toggle usage
+        const themeToggle = document.getElementById('themeToggle');
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+
+                this.trackEvent('theme_toggle', {
+                    category: 'Feature Usage',
+                    label: currentTheme === 'light' ? 'to_dark' : 'to_light',
+                    custom: {
+                        from_theme: currentTheme,
+                        to_theme: currentTheme === 'light' ? 'dark' : 'light'
+                    }
+                });
+            });
+        }
+
+        // Track Discord link clicks with more detail
+        document.querySelectorAll('a[href*="discord.gg"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const section = this.getElementSection(link);
+                const linkText = link.textContent?.trim();
+
+                this.trackEvent('discord_invite_click', {
+                    category: 'Conversion',
+                    label: section,
+                    custom: {
+                        link_text: linkText,
+                        link_section: section,
+                        conversion_funnel: 'discord_join',
+                        cta_type: 'discord_invite'
+                    }
+                });
+            });
+        });
+
+        // Track error states
+        window.addEventListener('error', (e) => {
+            this.trackEvent('javascript_error', {
+                category: 'Technical Issues',
+                label: e.error?.name || 'Unknown Error',
+                custom: {
+                    error_message: e.message,
+                    error_filename: e.filename,
+                    error_line: e.lineno,
+                    error_column: e.colno
+                }
+            });
+        });
+    }
+
+    getElementSection(element) {
+        if (element.closest('.hero')) return 'hero';
+        if (element.closest('.header')) return 'header';
+        if (element.closest('.features')) return 'features';
+        if (element.closest('.stats')) return 'stats';
+        if (element.closest('.footer')) return 'footer';
+        if (element.closest('.cta')) return 'cta';
+        return 'unknown';
+    }
+
+    getElementPosition(element) {
+        const rect = element.getBoundingClientRect();
+        return {
+            top: Math.round(rect.top + window.scrollY),
+            left: Math.round(rect.left + window.scrollX),
+            viewport_top: Math.round(rect.top),
+            viewport_left: Math.round(rect.left)
+        };
     }
 
     // Utility methods

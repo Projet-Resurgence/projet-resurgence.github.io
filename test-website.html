@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Testing Suite - Projet Résurgence</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+        }
+
+        .test-section.running {
+            border-color: #ffd700;
+            background: #fffbf0;
+        }
+
+        .test-section.passed {
+            border-color: #4caf50;
+            background: #f8fff8;
+        }
+
+        .test-section.failed {
+            border-color: #f44336;
+            background: #fff8f8;
+        }
+
+        .test-results {
+            margin-top: 15px;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+
+        .run-button {
+            background: #D5B654;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 14px;
+        }
+
+        .run-button:hover {
+            background: #B89A3D;
+        }
+
+        .run-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .metric {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .metric.good {
+            background: #4caf50;
+            color: white;
+        }
+
+        .metric.needs-improvement {
+            background: #ff9800;
+            color: white;
+        }
+
+        .metric.poor {
+            background: #f44336;
+            color: white;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4caf50, #D5B654);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🧪 Comprehensive Website Testing Suite</h1>
+        <p>Complete testing framework for Projet Résurgence website performance, functionality, and user experience.</p>
+
+        <div class="test-grid">
+            <button class="run-button" onclick="runAllTests()">🚀 Run All Tests</button>
+            <button class="run-button" onclick="runPerformanceTests()">⚡ Performance Tests</button>
+            <button class="run-button" onclick="runAccessibilityTests()">♿ Accessibility Tests</button>
+            <button class="run-button" onclick="runSEOTests()">🔍 SEO Tests</button>
+            <button class="run-button" onclick="runFunctionalTests()">⚙️ Functional Tests</button>
+            <button class="run-button" onclick="runAnalyticsTests()">📊 Analytics Tests</button>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="overallProgress"></div>
+        </div>
+        <div id="overallResults"></div>
+
+        <!-- Performance Tests -->
+        <div class="test-section" id="performanceTests">
+            <h2>⚡ Performance Tests</h2>
+            <p>Testing Core Web Vitals, load times, and performance metrics</p>
+            <button class="run-button" onclick="runPerformanceTests()">Run Performance Tests</button>
+            <div class="test-results" id="performanceResults"></div>
+        </div>
+
+        <!-- Accessibility Tests -->
+        <div class="test-section" id="accessibilityTests">
+            <h2>♿ Accessibility Tests</h2>
+            <p>Testing WCAG compliance, keyboard navigation, and screen reader compatibility</p>
+            <button class="run-button" onclick="runAccessibilityTests()">Run Accessibility Tests</button>
+            <div class="test-results" id="accessibilityResults"></div>
+        </div>
+
+        <!-- SEO Tests -->
+        <div class="test-section" id="seoTests">
+            <h2>🔍 SEO Tests</h2>
+            <p>Testing meta tags, structured data, sitemap, and search engine optimization</p>
+            <button class="run-button" onclick="runSEOTests()">Run SEO Tests</button>
+            <div class="test-results" id="seoResults"></div>
+        </div>
+
+        <!-- Functional Tests -->
+        <div class="test-section" id="functionalTests">
+            <h2>⚙️ Functional Tests</h2>
+            <p>Testing navigation, forms, interactive elements, and user flows</p>
+            <button class="run-button" onclick="runFunctionalTests()">Run Functional Tests</button>
+            <div class="test-results" id="functionalResults"></div>
+        </div>
+
+        <!-- Analytics Tests -->
+        <div class="test-section" id="analyticsTests">
+            <h2>📊 Analytics Tests</h2>
+            <p>Testing Google Analytics, event tracking, and data collection</p>
+            <button class="run-button" onclick="runAnalyticsTests()">Run Analytics Tests</button>
+            <div class="test-results" id="analyticsResults"></div>
+        </div>
+
+        <!-- Mobile Responsiveness Tests -->
+        <div class="test-section" id="mobileTests">
+            <h2>📱 Mobile Responsiveness Tests</h2>
+            <p>Testing responsive design, touch interactions, and mobile user experience</p>
+            <button class="run-button" onclick="runMobileTests()">Run Mobile Tests</button>
+            <div class="test-results" id="mobileResults"></div>
+        </div>
+
+        <!-- Security Tests -->
+        <div class="test-section" id="securityTests">
+            <h2>🔒 Security Tests</h2>
+            <p>Testing security headers, HTTPS, and common vulnerabilities</p>
+            <button class="run-button" onclick="runSecurityTests()">Run Security Tests</button>
+            <div class="test-results" id="securityResults"></div>
+        </div>
+
+        <!-- Cross-Browser Tests -->
+        <div class="test-section" id="browserTests">
+            <h2>🌐 Cross-Browser Compatibility Tests</h2>
+            <p>Testing compatibility across different browsers and versions</p>
+            <button class="run-button" onclick="runBrowserTests()">Run Browser Tests</button>
+            <div class="test-results" id="browserResults"></div>
+        </div>
+    </div>
+
+    <script src="./test-scripts/website-tests.js"></script>
+</body>
+
+</html>

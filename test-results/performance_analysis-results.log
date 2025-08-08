@@ -1,0 +1,163 @@
+⚡ Website Performance Testing Suite
+====================================
+
+[1;33m📏 FILE SIZE ANALYSIS[0m
+========================================
+
+[0;34mTesting: Index HTML Size[0m
+Threshold: 50 KB
+Actual: 35 KB
+[0;32m✅ PASS: Index HTML Size[0m
+
+[0;34mTesting: Rules HTML Size[0m
+Threshold: 50 KB
+Actual: 21 KB
+[0;32m✅ PASS: Rules HTML Size[0m
+
+[0;34mTesting: Guide HTML Size[0m
+Threshold: 50 KB
+Actual: 22 KB
+[0;32m✅ PASS: Guide HTML Size[0m
+
+[0;34mTesting: Main CSS Size[0m
+Threshold: 100 KB
+Actual: 22 KB
+[0;32m✅ PASS: Main CSS Size[0m
+
+[0;34mTesting: Main JS Size[0m
+Threshold: 50 KB
+Actual: 21 KB
+[0;32m✅ PASS: Main JS Size[0m
+
+[1;33m🖼️ IMAGE OPTIMIZATION ANALYSIS[0m
+========================================
+WebP images: 5
+PNG images: 2
+JPG images: 1
+
+[0;34mTesting: WebP Adoption Rate[0m
+Threshold: 50 %
+Actual: 62 %
+[0;31m❌ FAIL: WebP Adoption Rate[0m
+
+[0;34mTesting: Banner Image Size[0m
+Threshold: 500 KB
+Actual: 145 KB
+[0;32m✅ PASS: Banner Image Size[0m
+
+[1;33m📝 FONT OPTIMIZATION ANALYSIS[0m
+========================================
+
+[0;34mTesting: Custom Font Size[0m
+Threshold: 200 KB
+Actual: 95 KB
+[0;32m✅ PASS: Custom Font Size[0m
+[0;32m✅ Font-display optimization found[0m
+
+[1;33m🔗 RESOURCE HINTS ANALYSIS[0m
+========================================
+
+[0;34mTesting: Preload Resources[0m
+Threshold: 3 resources
+Actual: 4 resources
+[0;31m❌ FAIL: Preload Resources[0m
+
+[0;34mTesting: Prefetch Resources[0m
+Threshold: 2 resources
+Actual: 2 resources
+[0;32m✅ PASS: Prefetch Resources[0m
+
+[0;34mTesting: DNS Prefetch[0m
+Threshold: 1 domains
+Actual: 1 domains
+[0;32m✅ PASS: DNS Prefetch[0m
+
+[1;33m🎨 CRITICAL CSS ANALYSIS[0m
+========================================
+
+[0;34mTesting: Critical CSS Size[0m
+Threshold: 10 KB
+Actual: 1 KB
+[0;32m✅ PASS: Critical CSS Size[0m
+[0;32m✅ Critical CSS inlined[0m
+
+[1;33m⚙️ JAVASCRIPT OPTIMIZATION ANALYSIS[0m
+========================================
+
+[0;34mTesting: Deferred Scripts[0m
+Threshold: 2 0
+Actual: 0 0
+[0;32m✅ PASS: Deferred Scripts[0m
+./test-performance.sh: line 154: [: too many arguments
+[1;33m⚠️ Google Tag Manager could be optimized[0m
+
+[1;33m💾 CACHING STRATEGY ANALYSIS[0m
+========================================
+
+[0;34mTesting: Cache Strategies[0m
+Threshold: 3 strategies
+Actual: 44 strategies
+[0;31m❌ FAIL: Cache Strategies[0m
+[0;32m✅ Service Worker present[0m
+
+[1;33m🗜️ COMPRESSION ANALYSIS[0m
+========================================
+
+[0;34mTesting: CSS Compression Potential[0m
+Threshold: 60 %
+Actual: 80 %
+[0;31m❌ FAIL: CSS Compression Potential[0m
+
+[0;34mTesting: JS Compression Potential[0m
+Threshold: 60 %
+Actual: 78 %
+[0;31m❌ FAIL: JS Compression Potential[0m
+
+[1;33m💰 PERFORMANCE BUDGET ANALYSIS[0m
+========================================
+
+[0;34mTesting: Total Page Weight[0m
+Threshold: 1500 KB
+Actual: 3641 KB
+[0;31m❌ FAIL: Total Page Weight[0m
+
+[0;34mTesting: HTML Budget[0m
+Threshold: 150 KB
+Actual: 79 KB
+[0;32m✅ PASS: HTML Budget[0m
+
+[0;34mTesting: CSS Budget[0m
+Threshold: 100 KB
+Actual: 22 KB
+[0;32m✅ PASS: CSS Budget[0m
+
+[0;34mTesting: JS Budget[0m
+Threshold: 150 KB
+Actual: 21 KB
+[0;32m✅ PASS: JS Budget[0m
+
+[0;34mTesting: Images Budget[0m
+Threshold: 1000 KB
+Actual: 3518 KB
+[0;31m❌ FAIL: Images Budget[0m
+
+[1;33m💡 PERFORMANCE RECOMMENDATIONS[0m
+========================================
+./test-performance.sh: line 219: [: too many arguments
+📦 Page weight is high - consider optimizing assets
+
+[1;33m📊 PERFORMANCE TEST SUMMARY[0m
+========================================
+Total Tests: 25
+[0;32mPassed: 15[0m
+[0;31mFailed: 7[0m
+
+Performance Score: 60%
+[1;33m⚡ Good performance with room for improvement.[0m
+
+📋 Performance Budget Breakdown:
+HTML: 79 KB
+CSS: 22 KB
+JavaScript: 21 KB
+Images: 3518 KB
+Total: 3641 KB

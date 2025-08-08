@@ -38,9 +38,9 @@ resurgence-web/
 │   ├── main.css            # Styles principaux avec thème
 │   └── main.js             # JavaScript principal
 ├── images/
-│   ├── final_logo.png     # Logo principal
+│   ├── final_logo_little.png     # Logo principal
 │   ├── final_logo_centered.png # Logo centré
-│   └── banner.png          # Bannière
+│   └── banner.jpg          # Bannière
 └── README.md               # Documentation
 ```
 
