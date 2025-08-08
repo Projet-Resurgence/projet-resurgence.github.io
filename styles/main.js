@@ -280,9 +280,6 @@ class ResurgenceWebsite {
         // Track scroll behavior
         this.setupScrollTracking();
 
-        // Track form interactions
-        this.setupFormTracking();
-
         // Track navigation patterns
         this.setupNavigationTracking();
 
