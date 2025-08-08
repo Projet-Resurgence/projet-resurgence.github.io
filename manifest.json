@@ -23,7 +23,10 @@
     ],
     "lang": "fr",
     "scope": "/",
-    "categories": ["games", "social"],
+    "categories": [
+        "games",
+        "social"
+    ],
     "screenshots": [
         {
             "src": "./images/banner.png",

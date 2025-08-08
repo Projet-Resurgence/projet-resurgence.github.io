@@ -4,7 +4,7 @@ Site web officiel du serveur Discord RP géopolitique francophone **Projet Résu
 
 ## 🌍 Aperçu
 
-Ce site présente l'univers post-apocalyptique de Projet Résurgence et les fonctionnalités du bot NewEra qui gère le serveur Discord. Il s'agit d'une expérience de roleplay géopolitique immersive où les joueurs incarnent des nations émergentes dans un monde à reconstruire.
+Ce site présente le serveur Discord **Projet Résurgence**, une communauté de roleplay géopolitique francophone dans un univers post-apocalyptique. Les joueurs incarnent des forces émergentes (États, mouvements, idéologies) et participent à la reconstruction d'un monde où tout est à rebâtir.
 
 ## ✨ Fonctionnalités du Site
 
@@ -30,6 +30,8 @@ Ce site présente l'univers post-apocalyptique de Projet Résurgence et les fonc
 ```
 resurgence-web/
 ├── index.html              # Page principale
+├── regles.html             # Règles et règlement
+├── guide.html              # Guide du débutant
 ├── manifest.json           # Manifest PWA
 ├── sw.js                   # Service Worker
 ├── styles/
@@ -42,32 +44,28 @@ resurgence-web/
 └── README.md               # Documentation
 ```
 
-## 🎯 Sections du Site
+## 🎯 Pages du Site
 
-### 🏠 Accueil (Hero)
-- Présentation du serveur et de l'univers
-- Appels à l'action vers Discord
-- Bannière immersive avec overlay
+### 🏠 Accueil (index.html)
+- **Hero Section** : Présentation du serveur avec description immersive
+- **Le Serveur** : Ce qui attend les joueurs (gouvernance, économie, conflits, territoires)
+- **Univers** : Description de l'univers post-apocalyptique et de la communauté
+- **Statistiques** : Chiffres du serveur et de la communauté
+- **CTA** : Appels à l'action vers Discord
 
-### ⚙️ Fonctionnalités du Bot
-- **Système Gouvernemental** : Gestion des postes politiques
-- **Économie Multi-Devises** : Argent, points politiques/diplomatiques
-- **Militaire & Guerre** : Recrutement, batailles, infrastructure
-- **Système Géographique** : Cartographie interactive
-- **Assistance IA** : Integration Groq pour le RP
-- **Construction & Technologies** : Développement des nations
+### 📋 Règles (regles.html)
+- **Catégories** : Navigation par type de règles
+- **Règles Générales** : Respect, communication, sanctions
+- **Roleplay** : Directives pour le RP et création de nations
+- **Militaire & Conflits** : Règles de guerre et diplomatie
+- **Territorial** : Gestion des territoires et frontières
+- **HRP** : Règles hors roleplay
 
-### 🌍 Univers
-- Contexte post-apocalyptique (2045)
-- Liberté créative totale
-- Équilibre sérieux/créativité
-- Communauté francophone accueillante
-
-### 📊 Statistiques
-- Bot actif 24/7
-- Plus de 100 commandes
-- Possibilités RP infinies
-- Année RP : 2045
+### 📖 Guide (guide.html)
+- **Démarrage Rapide** : 5 étapes pour commencer
+- **Guides Détaillés** : Création de nation, économie, RP
+- **FAQ** : Réponses aux questions fréquentes
+- **Tutoriels** : Comment utiliser le bot et les systèmes
 
 ## 🛠️ Personnalisation
 
@@ -86,7 +84,7 @@ resurgence-web/
 Le site supporte automatiquement les modes clair et sombre :
 - **Mode Clair** : Fond blanc, texte sombre
 - **Mode Sombre** : Fond sombre, texte clair
-- **Persistance** : Choix sauvegardé dans localStorage
+- **Persistance** : Choix sauvegardé dans localStorage avec clé `resurgence-theme`
 
 ## 🚀 Déploiement
 
@@ -116,9 +114,10 @@ php -S localhost:8000
 ## 🔧 Maintenance
 
 ### Mise à Jour du Contenu
-- **Statistiques** : Modifier les valeurs dans la section stats
-- **Liens Discord** : Remplacer `https://discord.gg/votre-invite`
+- **Discord Invite** : Remplacer `https://discord.gg/NuwQqWGbHc` dans tous les fichiers
 - **Images** : Optimiser et remplacer dans `/images/`
+- **Règles** : Mettre à jour regles.html selon l'évolution du serveur
+- **Guide** : Actualiser guide.html avec les nouvelles fonctionnalités
 
 ### Performance
 - **Images** : Compresser avec TinyPNG ou similaire
@@ -130,7 +129,7 @@ php -S localhost:8000
 Le JavaScript inclut un système de tracking d'événements :
 - Clics sur liens Discord
 - Changements de thème
-- Interactions avec les fonctionnalités
+- Navigation entre pages
 
 Intégrer Google Analytics ou autre solution :
 ```html
@@ -149,8 +148,7 @@ Pour contribuer au site web :
 
 ## 📞 Support
 
-- **Discord** : [Serveur Projet Résurgence](https://discord.gg/votre-invite)
-- **GitHub** : [Issues & Bug Reports](https://github.com/Projet-Resurgence/issues)
+- **Discord** : [Serveur Projet Résurgence](https://discord.gg/NuwQqWGbHc)
 - **Email** : contact@projet-resurgence.fr
 
 ---
