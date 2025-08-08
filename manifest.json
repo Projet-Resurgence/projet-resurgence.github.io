@@ -1,12 +1,29 @@
 {
-    "name": "Projet Résurgence - RP GeoPo Francophone",
-    "short_name": "Résurgence",
-    "description": "Serveur RP géopolitique francophone post-apocalyptique sur Discord",
+    "name": "Projet Résurgence - RP Géopolitique Francophone Post-Apocalyptique",
+    "short_name": "Projet Résurgence",
+    "description": "Serveur Discord de roleplay géopolitique francophone post-apocalyptique. Créez votre nation et participez à la reconstruction du monde.",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#1a1a1a",
     "theme_color": "#D5B654",
     "orientation": "portrait-primary",
+    "dir": "ltr",
+    "lang": "fr",
+    "scope": "/",
+    "categories": [
+        "games",
+        "social",
+        "entertainment"
+    ],
+    "keywords": [
+        "roleplay",
+        "géopolitique",
+        "français",
+        "discord",
+        "nation",
+        "stratégie",
+        "post-apocalyptique"
+    ],
     "icons": [
         {
             "src": "./images/final__logo.png",
@@ -19,20 +36,35 @@
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any"
+        },
+        {
+            "src": "./images/final__logo.png",
+            "sizes": "144x144",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "./images/final__logo.png",
+            "sizes": "96x96",
+            "type": "image/png",
+            "purpose": "any"
         }
-    ],
-    "lang": "fr",
-    "scope": "/",
-    "categories": [
-        "games",
-        "social"
     ],
     "screenshots": [
         {
             "src": "./images/banner.png",
             "sizes": "1280x720",
             "type": "image/png",
-            "label": "Bannière Projet Résurgence"
+            "label": "Page d'accueil Projet Résurgence",
+            "form_factor": "wide"
         }
-    ]
+    ],
+    "related_applications": [
+        {
+            "platform": "web",
+            "url": "https://discord.gg/NuwQqWGbHc",
+            "id": "discord-projet-resurgence"
+        }
+    ],
+    "prefer_related_applications": false
 }
