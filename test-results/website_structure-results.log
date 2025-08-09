@@ -288,11 +288,11 @@ Command: grep -q 'dataLayer' index.html
 
 [0;34mTesting: Custom event tracking[0m
 Command: grep -q 'trackEvent' index.html
-[0;32m✅ PASS: Custom event tracking[0m
+[0;31m❌ FAIL: Custom event tracking[0m
 
 [0;34mTesting: Enhanced measurement[0m
 Command: grep -q 'enhanced_measurement' index.html
-[0;32m✅ PASS: Enhanced measurement[0m
+[0;31m❌ FAIL: Enhanced measurement[0m
 
 [1;33m♿ ACCESSIBILITY TESTS[0m
 ========================================
@@ -337,7 +337,7 @@ Command: grep -q '<footer' index.html
 ========================================
 
 [0;34mTesting: Index HTML under 100KB[0m
-Command: test 36336 -lt 100000
+Command: test 31400 -lt 100000
 [0;32m✅ PASS: Index HTML under 100KB[0m
 
 [0;34mTesting: CSS under 200KB[0m
@@ -345,7 +345,7 @@ Command: test 22910 -lt 200000
 [0;32m✅ PASS: CSS under 200KB[0m
 
 [0;34mTesting: JS under 100KB[0m
-Command: test 21886 -lt 100000
+Command: test 23077 -lt 100000
 [0;32m✅ PASS: JS under 100KB[0m
 
 [1;33m✅ SYNTAX VALIDATION TESTS[0m
@@ -369,7 +369,7 @@ Command: anchors=$(grep -o 'href="#[^"]*"' index.html | sed 's/href="#//' | sed 
 [1;33m📊 TEST SUMMARY[0m
 ========================================
 Total Tests: 78
-[0;32mPassed: 78[0m
-[0;31mFailed: 0[0m
+[0;32mPassed: 76[0m
+[0;31mFailed: 2[0m
 
-[0;32m🎉 ALL TESTS PASSED! Website is ready for deployment.[0m
+[0;31m⚠️  Some tests failed. Please review the issues above.[0m

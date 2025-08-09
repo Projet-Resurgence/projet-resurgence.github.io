@@ -20,28 +20,28 @@
 ========================================
 
 [0;34mTesting: GA4 Config Present[0m
-[0;32m✅ PASS: GA4 Config Present[0m
+[0;31m❌ FAIL: GA4 Config Present[0m
 
 [0;34mTesting: Enhanced Measurement[0m
-[0;32m✅ PASS: Enhanced Measurement[0m
+[0;31m❌ FAIL: Enhanced Measurement[0m
 
 [0;34mTesting: Custom Parameters[0m
-[0;32m✅ PASS: Custom Parameters[0m
+[0;31m❌ FAIL: Custom Parameters[0m
 
 [0;34mTesting: Content Groups[0m
-[0;32m✅ PASS: Content Groups[0m
+[0;31m❌ FAIL: Content Groups[0m
 
 [1;33m🎯 EVENT TRACKING TESTS[0m
 ========================================
 
 [0;34mTesting: trackEvent Function[0m
-[0;32m✅ PASS: trackEvent Function[0m
+[0;31m❌ FAIL: trackEvent Function[0m
 
 [0;34mTesting: Core Web Vitals Tracking[0m
-[0;32m✅ PASS: Core Web Vitals Tracking[0m
+[0;31m❌ FAIL: Core Web Vitals Tracking[0m
 
 [0;34mTesting: Performance Tracking[0m
-[0;32m✅ PASS: Performance Tracking[0m
+[0;31m❌ FAIL: Performance Tracking[0m
 
 [0;34mTesting: Click Tracking Setup[0m
 [0;32m✅ PASS: Click Tracking Setup[0m
@@ -92,10 +92,10 @@
 [0;32m✅ PASS: Rage Click Tracking[0m
 
 [0;34mTesting: Performance Observer[0m
-[0;32m✅ PASS: Performance Observer[0m
+[0;31m❌ FAIL: Performance Observer[0m
 
 [0;34mTesting: Layout Shift Tracking[0m
-[0;32m✅ PASS: Layout Shift Tracking[0m
+[0;31m❌ FAIL: Layout Shift Tracking[0m
 
 [1;33m📄 PAGE-SPECIFIC ANALYTICS TESTS[0m
 ========================================
@@ -169,7 +169,7 @@ Consider implementing consent framework
 ========================================
 
 [0;34mTesting: Analytics Script Count Reasonable[0m
-[0;31m❌ FAIL: Analytics Script Count Reasonable[0m
+[0;32m✅ PASS: Analytics Script Count Reasonable[0m
 
 [0;34mTesting: Analytics Scripts Load Async[0m
 ./test-analytics.sh: line 27: [: missing `]'
@@ -190,8 +190,8 @@ Analytics report saved to: analytics-report.txt
 [1;33m📊 ANALYTICS TEST SUMMARY[0m
 ========================================
 Total Tests: 45
-[0;32mPassed: 42[0m
-[0;31mFailed: 3[0m
+[0;32mPassed: 34[0m
+[0;31mFailed: 11[0m
 
-Analytics Implementation Score: 93%
-[0;32m🎯 Excellent analytics implementation![0m
+Analytics Implementation Score: 75%
+[1;33m📊 Good analytics setup with minor improvements needed.[0m

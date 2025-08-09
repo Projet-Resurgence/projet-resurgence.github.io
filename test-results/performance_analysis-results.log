@@ -6,7 +6,7 @@
 
 [0;34mTesting: Index HTML Size[0m
 Threshold: 50 KB
-Actual: 35 KB
+Actual: 30 KB
 [0;32m✅ PASS: Index HTML Size[0m
 
 [0;34mTesting: Rules HTML Size[0m
@@ -16,7 +16,7 @@ Actual: 21 KB
 
 [0;34mTesting: Guide HTML Size[0m
 Threshold: 50 KB
-Actual: 22 KB
+Actual: 23 KB
 [0;32m✅ PASS: Guide HTML Size[0m
 
 [0;34mTesting: Main CSS Size[0m
@@ -26,7 +26,7 @@ Actual: 22 KB
 
 [0;34mTesting: Main JS Size[0m
 Threshold: 50 KB
-Actual: 21 KB
+Actual: 22 KB
 [0;32m✅ PASS: Main JS Size[0m
 
 [1;33m🖼️ IMAGE OPTIMIZATION ANALYSIS[0m
@@ -117,12 +117,12 @@ Actual: 78 %
 
 [0;34mTesting: Total Page Weight[0m
 Threshold: 1500 KB
-Actual: 3641 KB
+Actual: 3638 KB
 [0;31m❌ FAIL: Total Page Weight[0m
 
 [0;34mTesting: HTML Budget[0m
 Threshold: 150 KB
-Actual: 79 KB
+Actual: 75 KB
 [0;32m✅ PASS: HTML Budget[0m
 
 [0;34mTesting: CSS Budget[0m
@@ -132,7 +132,7 @@ Actual: 22 KB
 
 [0;34mTesting: JS Budget[0m
 Threshold: 150 KB
-Actual: 21 KB
+Actual: 22 KB
 [0;32m✅ PASS: JS Budget[0m
 
 [0;34mTesting: Images Budget[0m
@@ -155,8 +155,8 @@ Performance Score: 64%
 [1;33m⚡ Good performance with room for improvement.[0m
 
 📋 Performance Budget Breakdown:
-HTML: 79 KB
+HTML: 75 KB
 CSS: 22 KB
-JavaScript: 21 KB
+JavaScript: 22 KB
 Images: 3518 KB
-Total: 3641 KB
+Total: 3638 KB

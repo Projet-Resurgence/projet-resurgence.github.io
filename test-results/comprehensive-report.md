@@ -1,6 +1,6 @@
 # Projet Résurgence - Website Testing Report
 
-**Generated:** Fri Aug  8 23:15:33 CEST 2025  
+**Generated:** Sat Aug  9 01:32:23 CEST 2025  
 **Test Duration:** Started at test initialization  
 **Total Test Suites:** 6  
 
@@ -8,9 +8,9 @@
 
 | Metric | Value |
 |--------|-------|
-| **Overall Score** | 100% |
-| **Passed Suites** | 6 |
-| **Failed Suites** | 0 |
+| **Overall Score** | 83% |
+| **Passed Suites** | 5 |
+| **Failed Suites** | 1 |
 | **Total Suites** | 6 |
 
 ## Test Suite Results
@@ -21,10 +21,10 @@
 - Analytics Implementation
 - Browser Compatibility
 - Security Testing
-- Accessibility Testing
+
 
 ### ❌ Failed Test Suites
-None! 🎉
+Check individual test logs for details.
 
 ## Detailed Results
 
@@ -52,7 +52,7 @@ None! 🎉
 ## Recommendations
 
 ### High Priority
-1. Website is production-ready!
+1. Address failed test suites immediately
 2. Monitor Core Web Vitals in production
 3. Regularly test analytics event firing
 4. Keep accessibility testing in CI/CD pipeline

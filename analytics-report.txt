@@ -1,0 +1,23 @@
+Analytics Implementation Report
+Generated: Sat Aug  9 01:32:23 CEST 2025
+
+GTM Configuration:
+- GTM ID: GTM-WDG77HQC
+- Pages with GTM: Index(1), Rules(3), Guide(3)
+- Analytics Scripts: 7
+
+Event Tracking:
+- Trackable Events: 14
+- Core Web Vitals: No
+- User Interactions: Yes
+- Performance Metrics: No
+
+Conversion Tracking:
+- Discord Invites: Yes
+- CTA Buttons: Yes
+- Navigation: Yes
+
+Implementation Quality:
+- Test Score: 75%
+- Passed Tests: 34
+- Failed Tests: 11
