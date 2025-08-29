@@ -185,6 +185,10 @@ a:hover {
     backdrop-filter: blur(10px);
 }
 
+.header .container {
+    height: 100%;
+}
+
 .header-content {
     display: flex;
     align-items: center;
