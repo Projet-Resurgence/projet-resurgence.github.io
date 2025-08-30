@@ -75,6 +75,13 @@
 	/* 2px */
 
 	/* === BREAKPOINTS === */
+	--breakpoint-xs: 400px;
+	--breakpoint-sm: 480px;
+	--breakpoint-md: 768px;
+	--breakpoint-lg: 1040px;
+	--breakpoint-xl: 1200px;
+
+	/* Legacy aliases */
 	--breakpoint-mobile: 480px;
 	--breakpoint-tablet: 768px;
 	--breakpoint-desktop: 1040px;
@@ -124,10 +131,13 @@
 	--card-min-width: 280px;
 	--card-standard-width: 300px;
 	--text-max-width: 600px;
-	
+
 	/* === UI COMPONENTS === */
 	/* Logo */
 	--logo-height: 50px;
+
+	/* Buttons */
+	--button-max-width: 300px;
 
 	/* Mobile menu toggle */
 	--mobile-toggle-width: 25px;

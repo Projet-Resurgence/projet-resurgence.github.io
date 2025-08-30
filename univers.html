@@ -54,83 +54,6 @@
 		});
 	</script>
 
-	<!-- Critical CSS for above-the-fold content -->
-	<style>
-		:root {
-			--primary-gold: #D5B654;
-			--bg-primary: #ffffff;
-			--bg-primary-dark: #1a1a1a;
-			--text-primary: #212529;
-			--text-primary-dark: #ffffff
-		}
-
-		* {
-			margin: 0;
-			padding: 0;
-			box-sizing: border-box
-		}
-
-		body {
-			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-			line-height: 1.6;
-			color: var(--text-primary);
-			background: var(--bg-primary);
-			transition: all 0.3s ease
-		}
-
-		.header {
-			background: rgba(255, 255, 255, 0.95);
-			backdrop-filter: blur(10px);
-			position: fixed;
-			top: 0;
-			width: 100%;
-			z-index: 1000;
-			border-bottom: 1px solid rgba(213, 182, 84, 0.2)
-		}
-
-		.hero {
-			min-height: 100vh;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			position: relative;
-			background: linear-gradient(135deg, rgba(213, 182, 84, 0.1), rgba(213, 182, 84, 0.05))
-		}
-
-		.hero-content {
-			text-align: center;
-			max-width: 800px;
-			padding: 2rem;
-			z-index: 2
-		}
-
-		.hero-title {
-			font-size: 3.5rem;
-			font-weight: 700;
-			margin-bottom: 1.5rem;
-			background: linear-gradient(135deg, var(--primary-gold), #E6C76A);
-			-webkit-background-clip: text;
-			-webkit-text-fill-color: transparent;
-			background-clip: text
-		}
-
-		.container {
-			max-width: 1200px;
-			margin: 0 auto;
-			padding: 0 2rem
-		}
-
-		@media(max-width:768px) {
-			.hero-title {
-				font-size: 2.5rem
-			}
-
-			.hero {
-				min-height: 80vh
-			}
-		}
-	</style>
-
 	<!-- Primary Meta Tags -->
 	<title>Univers et Chroniques - Projet Résurgence | Histoires du Monde Post-Apocalyptique</title>
 	<meta name="title" content="Univers et Chroniques - Projet Résurgence">
@@ -234,7 +157,7 @@
 	<!-- Main Content -->
 	<main class="main">
 		<!-- Hero Section -->
-		<section id="univers" class="universe-hero hero" role="banner">
+		<section id="univers" class="hero" role="banner">
 			<div class="container">
 				<div class="hero-content animate-fade-in-up">
 					<h1 class="hero-title">Chroniques de la Résurgence</h1>

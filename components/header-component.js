@@ -74,7 +74,7 @@ class ResurgenceHeader extends HTMLElement {
                     backdrop-filter: var(--blur-md);
                     box-shadow: var(--shadow-lg);
                 }
-
+                    
                 .container {
                     max-width: var(--container-max-width);
                     margin: 0 auto;
@@ -214,7 +214,7 @@ class ResurgenceHeader extends HTMLElement {
                 }
 
                 /* Mobile Responsive Design */
-                @media (max-width: var(--breakpoint-desktop)) {
+                @media (max-width: 1024px) {
                     .mobile-menu-toggle {
                         display: flex;
                     }
@@ -263,7 +263,7 @@ class ResurgenceHeader extends HTMLElement {
                     }
                 }
 
-                @media (max-width: var(--breakpoint-tablet)) {
+                @media (max-width: 768px) {
                     .container {
                         padding: 0 var(--spacing-md);
                     }
@@ -277,7 +277,7 @@ class ResurgenceHeader extends HTMLElement {
                     }
                 }
 
-                @media (max-width: var(--breakpoint-mobile)) {
+                @media (max-width: 480px) {
                     .logo-text {
                         display: none;
                     }

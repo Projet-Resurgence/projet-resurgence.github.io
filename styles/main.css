@@ -93,13 +93,6 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Container */
-.container {
-    max-width: var(--container-max-width);
-    margin: 0 auto;
-    padding: 0 var(--spacing-lg);
-}
-
 /* Header */
 .header {
     background-color: var(--bg-secondary);
@@ -155,40 +148,6 @@ a:hover {
     align-items: center;
     gap: var(--spacing-lg);
     position: relative;
-}
-
-/* Mobile menu button - hidden by default */
-.mobile-menu-toggle {
-    display: none;
-    flex-direction: column;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: var(--spacing-sm);
-    gap: 4px;
-    z-index: 1001;
-}
-
-.hamburger-line {
-    width: 25px;
-    height: 3px;
-    background-color: var(--primary-gold);
-    border-radius: 2px;
-    transition: all var(--transition-fast);
-    transform-origin: center;
-}
-
-/* Hamburger animation when open */
-.mobile-menu-toggle.active .hamburger-line:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-}
-
-.mobile-menu-toggle.active .hamburger-line:nth-child(2) {
-    opacity: 0;
-}
-
-.mobile-menu-toggle.active .hamburger-line:nth-child(3) {
-    transform: rotate(-45deg) translate(7px, -6px);
 }
 
 .nav-menu {
@@ -527,7 +486,7 @@ a:hover {
 }
 
 /* Responsive Design */
-@media (max-width: 1040px) {
+@media (max-width: var(--breakpoint-lg)) {
     :root {
         --spacing-3xl: 2rem;
         --spacing-2xl: 1.5rem;
@@ -643,7 +602,7 @@ a:hover {
 
     .btn {
         width: 100%;
-        max-width: 300px;
+        max-width: var(--button-max-width);
     }
 
     .features-grid {
@@ -655,11 +614,7 @@ a:hover {
     }
 }
 
-@media (max-width: 480px) {
-    .container {
-        padding: 0 var(--spacing-md);
-    }
-
+@media (max-width: var(--breakpoint-sm)) {
     .hero {
         padding: var(--spacing-2xl) 0;
     }
@@ -763,13 +718,6 @@ img {
 /* Rules Page Styles */
 .rules-hero {
     background: linear-gradient(135deg, var(--primary-gold) 0%, var(--primary-gold-dark) 100%);
-    color: white;
-}
-
-.rules-hero .hero-title,
-.rules-hero .hero-subtitle,
-.rules-hero .hero-description {
-    color: white;
 }
 
 .rules-content {
@@ -811,17 +759,6 @@ img {
     line-height: 1.6;
 }
 
-/* Guide Page Styles */
-.guide-hero {
-    background: linear-gradient(135deg, var(--accent-info) 0%, var(--accent-info-dark) 100%);
-    color: white;
-}
-
-.guide-hero .hero-title,
-.guide-hero .hero-subtitle,
-.guide-hero .hero-description {
-    color: white;
-}
 
 .step-timeline {
     display: flex;
@@ -969,7 +906,7 @@ img {
 }
 
 /* Responsive Design for New Pages */
-@media (max-width: 1040px) {
+@media (max-width: var(--breakpoint-lg)) {
     .step-item {
         flex-direction: column;
         text-align: center;
@@ -990,102 +927,9 @@ img {
     }
 }
 
-/* Footer */
-.footer {
-    background: var(--bg-secondary);
-    padding: 3rem 0 1rem;
-    margin-top: 4rem;
-    border-top: 1px solid var(--border-light);
-}
 
-.footer-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
-    margin-bottom: 2rem;
-}
-
-.footer-section h3,
-.footer-section h4 {
-    color: var(--primary-gold);
-    margin-bottom: 1rem;
-}
-
-.footer-links {
-    list-style: none;
-    padding: 0;
-}
-
-.footer-links li {
-    margin-bottom: 0.5rem;
-}
-
-.footer-links a {
-    color: var(--text-secondary);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.footer-links a:hover {
-    color: var(--primary-gold);
-}
-
-.footer-bottom {
-    text-align: center;
-    padding-top: 2rem;
-    border-top: 1px solid var(--border-light);
-    color: var(--text-muted);
-}
-
-@media (max-width: 768px) {
-    .footer-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-}
 
 /* Universe Page Styles */
-.universe-hero {
-    background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
-    padding: var(--spacing-3xl) 0;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-}
-
-.universe-hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url('../images/banner.jpg');
-    background-size: cover;
-    background-position: center;
-    opacity: 0.15;
-    z-index: -1;
-}
-
-.universe-hero .hero-title,
-.universe-hero .hero-subtitle,
-.universe-hero .hero-description {
-    position: relative;
-    z-index: 2;
-}
-
-.universe-hero .hero-subtitle {
-    font-size: var(--font-size-2xl);
-    color: var(--text-secondary);
-    margin-bottom: var(--spacing-lg);
-}
-
-.universe-hero .hero-description {
-    font-size: var(--font-size-lg);
-    color: var(--text-muted);
-    max-width: 800px;
-    margin: 0 auto;
-}
 
 /* Stories Section */
 .stories-section {
@@ -1290,6 +1134,8 @@ img {
     justify-content: center;
     gap: var(--spacing-sm);
     margin-top: var(--spacing-xl);
+    padding: var(--spacing-md);
+    overflow: visible;
 }
 
 .carousel-indicator {
@@ -1300,6 +1146,8 @@ img {
     border: none;
     cursor: pointer;
     transition: all var(--transition-fast);
+    box-sizing: border-box;
+    flex-shrink: 0;
 }
 
 .carousel-indicator.active {
@@ -1343,7 +1191,7 @@ img {
     position: relative;
     background: var(--bg-primary);
     border-radius: var(--radius-xl);
-    max-width: 800px;
+    max-width: 1400px;
     max-height: 90vh;
     overflow-y: auto;
     box-shadow: var(--shadow-xl);
@@ -1428,7 +1276,7 @@ img {
 }
 
 /* Responsive Design for Universe Page */
-@media (max-width: 1040px) {
+@media (max-width: var(--breakpoint-lg)) {
     .carousel-wrapper {
         flex-direction: column;
         gap: var(--spacing-md);
@@ -1477,15 +1325,7 @@ img {
     }
 }
 
-@media (max-width: 768px) {
-    .universe-hero .hero-title {
-        font-size: var(--font-size-4xl);
-    }
-
-    .universe-hero .hero-subtitle {
-        font-size: var(--font-size-xl);
-    }
-
+@media (max-width: var(--breakpoint-md)) {
     .carousel-container {
         margin: 0 calc(-1 * var(--spacing-lg));
         overflow: hidden;
@@ -1531,7 +1371,7 @@ img {
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: var(--breakpoint-sm)) {
     .stories-section {
         padding: var(--spacing-2xl) 0;
     }
@@ -1589,7 +1429,7 @@ img {
 }
 
 /* Specific styles for very small screens (Samsung S20 and similar) */
-@media (max-width: 400px) {
+@media (max-width: var(--breakpoint-xs)) {
     .story-card {
         height: 220px;
     }

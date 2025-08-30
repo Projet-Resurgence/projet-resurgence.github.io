@@ -66,7 +66,6 @@ class ResurgenceFooter extends HTMLElement {
                     border-top: var(--border-thin) solid var(--bg-tertiary);
                     padding: var(--spacing-2xl) 0;
                     text-align: center;
-                    color: var(--text-primary);
                 }
 
                 .container {
@@ -75,12 +74,11 @@ class ResurgenceFooter extends HTMLElement {
                     padding: 0 var(--spacing-lg);
                 }
 
-                                .footer-grid {
+                .footer-content {
                     display: grid;
                     grid-template-columns: repeat(auto-fit, minmax(var(--content-min-width), 1fr));
                     gap: var(--spacing-xl);
                     margin-bottom: var(--spacing-xl);
-                    text-align: left;
                 }
 
                 .footer-section h3 {
@@ -184,19 +182,19 @@ class ResurgenceFooter extends HTMLElement {
                             <h3>Liens Rapides</h3>
                             <ul>
                                 <li><a href="https://discord.gg/NuwQqWGbHc" target="_blank" rel="noopener noreferrer">Discord</a></li>
-                                <li><a href="/regles.html">Règles</a></li>
-                                <li><a href="/guide.html">Guide du Débutant</a></li>
-                                <li><a href="/univers.html">Univers</a></li>
+                                <li><a href="regles.html">Règles</a></li>
+                                <li><a href="guide.html">Guide du Débutant</a></li>
+                                <li><a href="#univers">Univers</a></li>
                             </ul>
                         </div>
 
                         <div class="footer-section">
                             <h3>Support</h3>
                             <ul>
-                                <li><a href="/guide.html">Comment Commencer</a></li>
+                                <li><a href="guide.html">Comment Commencer</a></li>
                                 <li><a href="https://discord.gg/NuwQqWGbHc" target="_blank" rel="noopener noreferrer">Aide Discord</a></li>
                                 <li><a href="mailto:contact@projet-resurgence.fr">Contact</a></li>
-                                <li><a href="/regles.html">Documentation</a></li>
+                                <li><a href="regles.html">Documentation</a></li>
                             </ul>
                         </div>
 
@@ -204,9 +202,9 @@ class ResurgenceFooter extends HTMLElement {
                             <h3>Communauté</h3>
                             <ul>
                                 <li><a href="https://discord.gg/NuwQqWGbHc" target="_blank" rel="noopener noreferrer">Rejoindre Discord</a></li>
-                                <li><a href="/univers.html">Découvrir l'Univers</a></li>
-                                <li><a href="/guide.html">Premiers Pas</a></li>
-                                <li><a href="/regles.html">Règlement</a></li>
+                                <li><a href="#univers">Découvrir l'Univers</a></li>
+                                <li><a href="guide.html">Premiers Pas</a></li>
+                                <li><a href="regles.html">Règlement</a></li>
                             </ul>
                         </div>
                     </div>

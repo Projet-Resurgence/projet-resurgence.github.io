@@ -65,7 +65,7 @@ resurgence-header {
 	font-size: var(--font-size-2xl);
 	color: var(--text-secondary);
 	margin-bottom: var(--spacing-xl);
-	max-width: 800px;
+	max-width: var(--content-max-width);
 	margin-left: auto;
 	margin-right: auto
 }
@@ -73,7 +73,7 @@ resurgence-header {
 .hero-description {
 	font-size: var(--font-size-lg);
 	color: var(--text-muted);
-	max-width: 600px;
+	max-width: var(--text-max-width);
 	margin: 0 auto var(--spacing-xl)
 }
 
@@ -106,7 +106,7 @@ resurgence-header {
 .btn-secondary {
 	background-color: transparent;
 	color: var(--primary-gold);
-	border: 2px solid var(--primary-gold)
+	border: var(--border-width-thick) solid var(--primary-gold)
 }
 
 .btn-secondary:hover {
@@ -123,12 +123,12 @@ resurgence-header {
 }
 
 .container {
-	max-width: 1200px;
+	max-width: var(--container-max-width);
 	margin: 0 auto;
 	padding: 0 var(--spacing-lg)
 }
 
-@media(max-width:1040px) {
+@media(max-width: var(--breakpoint-lg)) {
 	.btn-group {
 		flex-direction: column;
 		align-items: center
@@ -136,11 +136,11 @@ resurgence-header {
 
 	.btn {
 		width: 100%;
-		max-width: 300px
+		max-width: var(--button-max-width)
 	}
 }
 
-@media(max-width:768px) {
+@media(max-width: var(--breakpoint-md)) {
 	.hero-title {
 		font-size: var(--font-size-3xl)
 	}
@@ -158,7 +158,7 @@ resurgence-header {
 	}
 }
 
-@media(max-width:480px) {
+@media(max-width: var(--breakpoint-sm)) {
 	.hero-title {
 		font-size: var(--font-size-2xl)
 	}
