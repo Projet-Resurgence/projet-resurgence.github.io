@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Google Tag Manager -->
+	<script>(function (w, d, s, l, i) {
+			w[l] = w[l] || []; w[l].push({
+				'gtm.start':
+					new Date().getTime(), event: 'gtm.js'
+			}); var f = d.getElementsByTagName(s)[0],
+				j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+					'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-WDG77HQC');</script>
+	<!-- End Google Tag Manager -->
+
+	<script>
+		window.axeptioSettings = {
+			clientId: "68963e315d089c7b7334b5d1",
+			cookiesVersion: "projet-resurgence-fr-EU",
+			googleConsentMode: {
+				default: {
+					analytics_storage: "denied",
+					ad_storage: "denied",
+					ad_user_data: "denied",
+					ad_personalization: "denied",
+					wait_for_update: 500
+				}
+			}
+		};
+
+		(function (d, s) {
+			var t = d.getElementsByTagName(s)[0], e = d.createElement(s);
+			e.async = true; e.src = "//static.axept.io/sdk.js";
+			t.parentNode.insertBefore(e, t);
+		})(document, "script");
+	</script>
+
+	<!-- Enhanced Analytics Configuration -->
+	<script>
+		// Configuration avancée pour les événements personnalisés
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		// Configuration GA4 avec paramètres personnalisés
+		gtag('config', 'G-5B3PEQ65HX', {
+			custom_map: {
+				'custom_parameter_1': 'page_section',
+				'custom_parameter_2': 'interaction_type'
+			}
+		});
+	</script>
+
+	<!-- Critical CSS for above-the-fold content -->
+	<style>
+		:root {
+			--primary-gold: #D5B654;
+			--bg-primary: #ffffff;
+			--bg-primary-dark: #1a1a1a;
+			--text-primary: #212529;
+			--text-primary-dark: #ffffff
+		}
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box
+		}
+
+		body {
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+			line-height: 1.6;
+			color: var(--text-primary);
+			background: var(--bg-primary);
+			transition: all 0.3s ease
+		}
+
+		[data-theme="dark"] {
+			--bg-primary: #1a1a1a;
+			--text-primary: #ffffff
+		}
+
+		[data-theme="dark"] body {
+			background: var(--bg-primary-dark);
+			color: var(--text-primary-dark)
+		}
+
+		.header {
+			background: rgba(255, 255, 255, 0.95);
+			backdrop-filter: blur(10px);
+			position: fixed;
+			top: 0;
+			width: 100%;
+			z-index: 1000;
+			border-bottom: 1px solid rgba(213, 182, 84, 0.2)
+		}
+
+		.hero {
+			min-height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			position: relative;
+			background: linear-gradient(135deg, rgba(213, 182, 84, 0.1), rgba(213, 182, 84, 0.05))
+		}
+
+		.hero-content {
+			text-align: center;
+			max-width: 800px;
+			padding: 2rem;
+			z-index: 2
+		}
+
+		.hero-title {
+			font-size: 3.5rem;
+			font-weight: 700;
+			margin-bottom: 1.5rem;
+			background: linear-gradient(135deg, var(--primary-gold), #E6C76A);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 0 2rem
+		}
+
+		@media(max-width:768px) {
+			.hero-title {
+				font-size: 2.5rem
+			}
+
+			.hero {
+				min-height: 80vh
+			}
+		}
+	</style>
+
+	<!-- Primary Meta Tags -->
+	<title>Univers et Chroniques - Projet Résurgence | Histoires du Monde Post-Apocalyptique</title>
+	<meta name="title" content="Univers et Chroniques - Projet Résurgence">
+	<meta name="description"
+		content="Explorez l'univers post-apocalyptique de Projet Résurgence à travers les chroniques et histoires de nos héros. Découvrez les territoires reconquis et les aventures épiques de la reconstruction.">
+	<meta name="keywords"
+		content="univers projet résurgence, chroniques RP, histoires post-apocalyptique, roleplay français, monde virtuel, territoires RP, héros survivants, reconstruction civilisation">
+	<meta name="robots" content="index, follow">
+	<meta name="language" content="French">
+	<meta name="author" content="Projet Résurgence">
+
+	<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://projet-resurgence.github.io/univers.html">
+	<meta property="og:title" content="Univers et Chroniques - Projet Résurgence">
+	<meta property="og:description"
+		content="Découvrez l'univers post-apocalyptique à travers les chroniques et histoires de reconstruction de notre communauté RP.">
+	<meta property="og:image" content="https://projet-resurgence.github.io/images/banner.jpg">
+	<meta property="og:image:width" content="1055">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="Bannière de l'Univers Projet Résurgence">
+	<meta property="og:image:type" content="image/jpeg">
+	<meta property="og:site_name" content="Projet Résurgence">
+	<meta property="og:locale" content="fr_FR">
+
+	<!-- Twitter -->
+	<meta property="twitter:card" content="summary_large_image">
+	<meta property="twitter:url" content="https://projet-resurgence.github.io/univers.html">
+	<meta property="twitter:title" content="Univers et Chroniques - Projet Résurgence">
+	<meta property="twitter:description"
+		content="Explorez l'univers post-apocalyptique à travers les chroniques de reconstruction.">
+	<meta property="twitter:image" content="https://projet-resurgence.github.io/images/banner.jpg">
+
+	<!-- Additional Meta Tags -->
+	<meta name="revisit-after" content="7 days">
+	<meta name="distribution" content="global">
+	<meta name="rating" content="general">
+
+	<!-- Canonical URL -->
+	<link rel="canonical" href="https://projet-resurgence.github.io/univers.html">
+
+	<!-- Hreflang for internationalization -->
+	<link rel="alternate" hreflang="fr" href="https://projet-resurgence.github.io/univers.html">
+	<link rel="alternate" hreflang="x-default" href="https://projet-resurgence.github.io/univers.html">
+
+	<!-- Resource hints for performance -->
+	<link rel="preload" href="./fonts/pressgothic.otf" as="font" type="font/otf" crossorigin="anonymous">
+	<link rel="preload" href="./styles/main.css" as="style">
+	<link rel="preload" href="./images/final_logo_centered_little.webp" as="image" type="image/webp">
+	<link rel="preload" href="./styles/main.js" as="script">
+	<link rel="preload" href="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.min.js" as="script">
+	<link rel="prefetch" href="./index.html">
+	<link rel="prefetch" href="./regles.html">
+	<link rel="prefetch" href="./guide.html">
+	<link rel="dns-prefetch" href="//discord.gg">
+
+	<link rel="stylesheet" href="./styles/main.css">
+	<link rel="icon" type="image/png" href="./images/final_logo_little.png">
+	<link rel="manifest" href="./manifest.json">
+	<meta name="theme-color" content="#D5B654">
+
+	<!-- Handlebars CDN -->
+	<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.min.js"></script>
+
+	<!-- Structured Data (JSON-LD) -->
+	<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Univers et Chroniques - Projet Résurgence",
+      "description": "Explorez l'univers post-apocalyptique de Projet Résurgence à travers les chroniques et histoires de nos héros",
+      "url": "https://projet-resurgence.github.io/univers.html",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Projet Résurgence",
+        "url": "https://projet-resurgence.github.io"
+      },
+      "about": {
+        "@type": "Game",
+        "name": "Projet Résurgence - RP Géopolitique",
+        "genre": "Role-playing game"
+      }
+    }
+    </script>
+</head>
+
+<body>
+
+	<!-- Google Tag Manager (noscript) -->
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WDG77HQC" height="0" width="0"
+			style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- End Google Tag Manager (noscript) -->
+
+	<!-- Header -->
+	<header class="header">
+		<div class="container">
+			<div class="header-content">
+				<div class="logo">
+					<picture>
+						<source srcset="./images/final_logo_centered_little.webp" type="image/webp">
+						<img src="./images/final_logo_centered_little.png" alt="Logo Projet Résurgence" width="50"
+							height="50" loading="eager" decoding="async" fetchpriority="high">
+					</picture>
+					<span class="logo-text">PROJET RÉSURGENCE</span>
+				</div>
+				<nav class="nav" role="navigation" aria-label="Navigation principale">
+					<!-- Mobile menu button -->
+					<button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Ouvrir le menu de navigation"
+						aria-expanded="false">
+						<span class="hamburger-line"></span>
+						<span class="hamburger-line"></span>
+						<span class="hamburger-line"></span>
+					</button>
+
+					<!-- Navigation menu -->
+					<div class="nav-menu" id="navMenu">
+						<ul class="nav-list">
+							<li><a href="index.html" class="nav-link" aria-label="Retour à l'accueil">Accueil</a></li>
+							<li><a href="index.html#serveur" class="nav-link" aria-label="Découvrir le serveur">Le
+									Serveur</a></li>
+							<li><a href="#univers" class="nav-link active" aria-label="Explorer l'univers">Univers</a>
+							</li>
+							<li><a href="regles.html" class="nav-link" aria-label="Consulter les règles">Règles</a></li>
+							<li><a href="guide.html" class="nav-link" aria-label="Lire le guide du débutant">Guide</a>
+							</li>
+							<li><a href="index.html#rejoindre" class="nav-link"
+									aria-label="Nous rejoindre">Rejoindre</a></li>
+						</ul>
+						<button class="theme-toggle" id="themeToggle" aria-label="Passer au mode clair">☀️</button>
+					</div>
+				</nav>
+			</div>
+		</div>
+	</header>
+
+	<!-- Main Content -->
+	<main class="main">
+		<!-- Hero Section -->
+		<section id="univers" class="universe-hero hero" role="banner">
+			<div class="container">
+				<div class="hero-content animate-fade-in-up">
+					<h1 class="hero-title">Chroniques de la Résurgence</h1>
+					<h2 class="hero-subtitle">Explorez l'Univers Post-Apocalyptique</h2>
+					<p class="hero-description">
+						Découvrez les territoires reconquis, les héros de la reconstruction et les histoires épiques
+						qui façonnent notre monde renaissant. Chaque chronique révèle un fragment de l'humanité
+						qui refuse de s'éteindre.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Stories Carousel Section -->
+		<section class="stories-section">
+			<div class="container">
+				<h2 class="section-title">Les Territoires et Leurs Héros</h2>
+				<p class="section-description">
+					Parcourez les récits de ceux qui osent reconstruire dans un monde en ruines.
+					Chaque histoire est un témoignage de courage, d'ingéniosité et d'espoir.
+				</p>
+
+				<!-- Carousel Container -->
+				<div class="carousel-container">
+					<div class="carousel-wrapper">
+						<button class="carousel-btn carousel-btn-prev" id="prevBtn" aria-label="Histoire précédente">
+							<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+								xmlns="http://www.w3.org/2000/svg">
+								<path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+									stroke-linejoin="round" />
+							</svg>
+						</button>
+
+						<div class="carousel-track-container">
+							<ul class="carousel-track" id="carouselTrack">
+								<!-- Stories will be inserted here by JavaScript -->
+							</ul>
+						</div>
+
+						<button class="carousel-btn carousel-btn-next" id="nextBtn" aria-label="Histoire suivante">
+							<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+								xmlns="http://www.w3.org/2000/svg">
+								<path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+									stroke-linejoin="round" />
+							</svg>
+						</button>
+					</div>
+
+					<!-- Carousel Indicators -->
+					<div class="carousel-indicators" id="carouselIndicators">
+						<!-- Indicators will be inserted here by JavaScript -->
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Story Modal -->
+		<div class="story-modal" id="storyModal">
+			<div class="story-modal-overlay" id="storyModalOverlay"></div>
+			<div class="story-modal-content">
+				<button class="story-modal-close" id="storyModalClose" aria-label="Fermer l'histoire">
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+							stroke-linejoin="round" />
+					</svg>
+				</button>
+				<div class="story-modal-body" id="storyModalBody">
+					<!-- Story content will be inserted here -->
+				</div>
+			</div>
+		</div>
+
+		<!-- Call to Action -->
+		<section class="cta">
+			<div class="container">
+				<h2>Écrivez Votre Propre Légende</h2>
+				<p>
+					Rejoignez notre communauté et créez vos propres chroniques dans l'univers de Projet Résurgence.
+					Votre histoire commence maintenant.
+				</p>
+				<div class="btn-group">
+					<a href="https://discord.gg/NuwQqWGbHc" class="btn btn-secondary" target="_blank"
+						rel="noopener noreferrer">
+						Rejoindre Discord
+					</a>
+					<a href="guide.html" class="btn btn-secondary">
+						Commencer l'Aventure
+					</a>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<!-- Footer -->
+	<footer class="footer">
+		<div class="container">
+			<div class="footer-content">
+				<div class="footer-section">
+					<h3 class="project-title">Projet Résurgence</h3>
+					<p>La communauté francophone de roleplay géopolitique post-apocalyptique. Construisons ensemble la
+						nouvelle ère.</p>
+				</div>
+
+				<div class="footer-section">
+					<h4>Navigation</h4>
+					<ul class="footer-links">
+						<li><a href="index.html">Accueil</a></li>
+						<li><a href="regles.html">Règles</a></li>
+						<li><a href="guide.html">Guide</a></li>
+						<li><a href="#univers">Univers</a></li>
+					</ul>
+				</div>
+
+				<div class="footer-section">
+					<h4>Communauté</h4>
+					<ul class="footer-links">
+						<li><a href="https://discord.gg/NuwQqWGbHc" target="_blank"
+								rel="noopener noreferrer">Discord</a></li>
+						<li><a href="#" rel="noopener noreferrer">Support</a></li>
+						<li><a href="#" rel="noopener noreferrer">Feedback</a></li>
+					</ul>
+				</div>
+
+				<div class="footer-section">
+					<h4>Liens Utiles</h4>
+					<ul class="footer-links">
+						<li><a href="consent-test.html">Cookies</a></li>
+						<li><a href="seo-meta.html">Mentions</a></li>
+						<li><a href="sitemap.xml">Plan du site</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="footer-bottom">
+				<p>&copy; 2025 Projet Résurgence. Construit avec ❤️ pour la communauté RP géopolitique francophone.</p>
+				<p>Explorez l'univers post-apocalyptique et créez votre propre histoire de reconstruction</p>
+			</div>
+		</div>
+	</footer>
+
+	<!-- Handlebars Templates -->
+	<script id="story-card-template" type="text/x-handlebars-template">
+        <li class="carousel-slide" data-story-index="{{index}}">
+            <div class="story-card" data-story="{{fileName}}">
+                <div class="story-image-container">
+                    <img src="{{image_url_from_root}}" alt="{{story_name}} - {{hero_name}}" 
+                         class="story-image" loading="lazy" decoding="async">
+                    <div class="story-overlay">
+                        <div class="story-info">
+                            <h3 class="story-title">{{story_name}}</h3>
+                            <p class="story-hero">{{hero_name}}</p>
+                            <button class="story-read-btn">Lire l'Histoire</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </script>
+
+	<script id="story-modal-template" type="text/x-handlebars-template">
+        <div class="story-modal-header">
+            <h2 class="story-modal-title">{{story_name}}</h2>
+            <p class="story-modal-hero">Chroniques de {{hero_name}}</p>
+        </div>
+        <div class="story-modal-text">
+            {{#each textParagraphs}}
+                <p>{{this}}</p>
+            {{/each}}
+        </div>
+    </script>
+
+	<!-- JavaScript -->
+	<script>
+		// Initialize carousel and stories when DOM is loaded
+		document.addEventListener('DOMContentLoaded', function () {
+			// Initialize existing website functionality
+			if (typeof ResurgenceWebsite !== 'undefined') {
+				new ResurgenceWebsite();
+			}
+
+			// Initialize story carousel
+			initializeStoriesCarousel();
+		});
+	</script>
+
+	<!-- External JavaScript -->
+	<script src="./styles/main.js"></script>
+	<script src="./styles/universe-carousel.js"></script>
+	<script src="./styles/seo-optimizer.js"></script>
+	<script src="./styles/performance-optimizer.js"></script>
+</body>
+
+</html>
