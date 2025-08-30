@@ -61,14 +61,6 @@ class ResurgenceWebsite {
         // Header scroll effect
         window.addEventListener('scroll', this.handleScroll.bind(this));
 
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', this.handleOutsideClick.bind(this));
-
-        // Close mobile menu when clicking nav links
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', this.closeMobileMenu.bind(this));
-        });
-
         // Handle window resize
         window.addEventListener('resize', this.handleResize.bind(this));
 
@@ -106,6 +98,18 @@ class ResurgenceWebsite {
         } else {
             // Light theme specific JavaScript logic
             console.log('Light theme activated');
+        }
+    }
+
+    handleScroll() {
+        // Handle scroll events - can be used for animations, header effects, etc.
+        const scrollY = window.scrollY;
+        
+        // Add scroll-based classes or effects here if needed
+        if (scrollY > 100) {
+            document.body.classList.add('scrolled');
+        } else {
+            document.body.classList.remove('scrolled');
         }
     }
 

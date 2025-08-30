@@ -24,7 +24,6 @@ class ComponentManager {
 
 			// Initialize component utilities
 			this.setupGlobalEventListeners();
-			this.handleThemeSystem();
 
 			this.isInitialized = true;
 			console.log('Projet Résurgence Components initialized');
