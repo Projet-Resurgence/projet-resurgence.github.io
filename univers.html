@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="light">
+<html lang="fr" data-theme="dark">
 
 <head>
 	<meta charset="UTF-8">
@@ -76,16 +76,6 @@
 			color: var(--text-primary);
 			background: var(--bg-primary);
 			transition: all 0.3s ease
-		}
-
-		[data-theme="dark"] {
-			--bg-primary: #1a1a1a;
-			--text-primary: #ffffff
-		}
-
-		[data-theme="dark"] body {
-			background: var(--bg-primary-dark);
-			color: var(--text-primary-dark)
 		}
 
 		.header {
@@ -188,6 +178,10 @@
 
 	<!-- Resource hints for performance -->
 	<link rel="preload" href="./fonts/pressgothic.otf" as="font" type="font/otf" crossorigin="anonymous">
+	<link rel="preload" href="./styles/critical.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<noscript>
+		<link rel="stylesheet" href="./styles/critical.css">
+	</noscript>
 	<link rel="preload" href="./styles/main.css" as="style">
 	<link rel="preload" href="./images/final_logo_centered_little.webp" as="image" type="image/webp">
 	<link rel="preload" href="./styles/main.js" as="script">
@@ -234,47 +228,8 @@
 			style="display:none;visibility:hidden"></iframe></noscript>
 	<!-- End Google Tag Manager (noscript) -->
 
-	<!-- Header -->
-	<header class="header">
-		<div class="container">
-			<div class="header-content">
-				<div class="logo">
-					<picture>
-						<source srcset="./images/final_logo_centered_little.webp" type="image/webp">
-						<img src="./images/final_logo_centered_little.png" alt="Logo Projet Résurgence" width="50"
-							height="50" loading="eager" decoding="async" fetchpriority="high">
-					</picture>
-					<span class="logo-text">PROJET RÉSURGENCE</span>
-				</div>
-				<nav class="nav" role="navigation" aria-label="Navigation principale">
-					<!-- Mobile menu button -->
-					<button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Ouvrir le menu de navigation"
-						aria-expanded="false">
-						<span class="hamburger-line"></span>
-						<span class="hamburger-line"></span>
-						<span class="hamburger-line"></span>
-					</button>
-
-					<!-- Navigation menu -->
-					<div class="nav-menu" id="navMenu">
-						<ul class="nav-list">
-							<li><a href="index.html" class="nav-link" aria-label="Retour à l'accueil">Accueil</a></li>
-							<li><a href="index.html#serveur" class="nav-link" aria-label="Découvrir le serveur">Le
-									Serveur</a></li>
-							<li><a href="#univers" class="nav-link active" aria-label="Explorer l'univers">Univers</a>
-							</li>
-							<li><a href="regles.html" class="nav-link" aria-label="Consulter les règles">Règles</a></li>
-							<li><a href="guide.html" class="nav-link" aria-label="Lire le guide du débutant">Guide</a>
-							</li>
-							<li><a href="index.html#rejoindre" class="nav-link"
-									aria-label="Nous rejoindre">Rejoindre</a></li>
-						</ul>
-						<button class="theme-toggle" id="themeToggle" aria-label="Passer au mode clair">☀️</button>
-					</div>
-				</nav>
-			</div>
-		</div>
-	</header>
+	<!-- Header Component -->
+	<resurgence-header current-page="universe"></resurgence-header>
 
 	<!-- Main Content -->
 	<main class="main">
@@ -373,52 +328,8 @@
 		</section>
 	</main>
 
-	<!-- Footer -->
-	<footer class="footer">
-		<div class="container">
-			<div class="footer-content">
-				<div class="footer-section">
-					<h3 class="project-title">Projet Résurgence</h3>
-					<p>La communauté francophone de roleplay géopolitique post-apocalyptique. Construisons ensemble la
-						nouvelle ère.</p>
-				</div>
-
-				<div class="footer-section">
-					<h4>Navigation</h4>
-					<ul class="footer-links">
-						<li><a href="index.html">Accueil</a></li>
-						<li><a href="regles.html">Règles</a></li>
-						<li><a href="guide.html">Guide</a></li>
-						<li><a href="#univers">Univers</a></li>
-					</ul>
-				</div>
-
-				<div class="footer-section">
-					<h4>Communauté</h4>
-					<ul class="footer-links">
-						<li><a href="https://discord.gg/NuwQqWGbHc" target="_blank"
-								rel="noopener noreferrer">Discord</a></li>
-						<li><a href="#" rel="noopener noreferrer">Support</a></li>
-						<li><a href="#" rel="noopener noreferrer">Feedback</a></li>
-					</ul>
-				</div>
-
-				<div class="footer-section">
-					<h4>Liens Utiles</h4>
-					<ul class="footer-links">
-						<li><a href="consent-test.html">Cookies</a></li>
-						<li><a href="seo-meta.html">Mentions</a></li>
-						<li><a href="sitemap.xml">Plan du site</a></li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="footer-bottom">
-				<p>&copy; 2025 Projet Résurgence. Construit avec ❤️ pour la communauté RP géopolitique francophone.</p>
-				<p>Explorez l'univers post-apocalyptique et créez votre propre histoire de reconstruction</p>
-			</div>
-		</div>
-	</footer>
+	<!-- Footer Component -->
+	<resurgence-footer></resurgence-footer>
 
 	<!-- Handlebars Templates -->
 	<script id="story-card-template" type="text/x-handlebars-template">
@@ -466,6 +377,10 @@
 	</script>
 
 	<!-- External JavaScript -->
+	<!-- Web Components -->
+	<script type="module" src="./components/components.js"></script>
+
+	<!-- Application Scripts -->
 	<script src="./styles/main.js"></script>
 	<script src="./styles/universe-carousel.js"></script>
 	<script src="./styles/seo-optimizer.js"></script>

@@ -1,4 +1,5 @@
 // Additional JavaScript functionality for Projet Résurgence website
+// Note: Header functionality is now handled by the ResurgenceHeader web component
 
 class ResurgenceWebsite {
     constructor() {
@@ -7,25 +8,51 @@ class ResurgenceWebsite {
 
     init() {
         this.setupEventListeners();
-        this.initializeTheme();
         this.setupAnimations();
         this.setupDiscordIntegration();
         this.setupAdvancedAnalytics();
+        this.setupComponentIntegration();
+        this.setupSmoothScrolling();
+        this.setupHeaderScrollEffect();
     }
 
+    setupSmoothScrolling() {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(anchor.getAttribute('href'));
+                if (target) {
+                    // Use the web component header height
+                    const header = document.querySelector('resurgence-header');
+                    const headerHeight = header ? header.offsetHeight : 80;
+                    const targetPosition = target.offsetTop - headerHeight;
+
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    }
+
+    setupHeaderScrollEffect() {
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('resurgence-header');
+            if (header) {
+                // The header component handles its own styling
+                // This is just for any additional scroll effects if needed
+                if (window.scrollY > 100) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            }
+        });
+    }
+
+
     setupEventListeners() {
-        // Theme toggle
-        const themeToggle = document.getElementById('themeToggle');
-        if (themeToggle) {
-            themeToggle.addEventListener('click', this.toggleTheme.bind(this));
-        }
-
-        // Mobile menu toggle
-        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-        if (mobileMenuToggle) {
-            mobileMenuToggle.addEventListener('click', this.toggleMobileMenu.bind(this));
-        }
-
         // Smooth scrolling for all anchor links
         document.querySelectorAll('a[href^="#"]').forEach(link => {
             link.addEventListener('click', this.smoothScroll.bind(this));
@@ -44,29 +71,41 @@ class ResurgenceWebsite {
 
         // Handle window resize
         window.addEventListener('resize', this.handleResize.bind(this));
+
+        // Listen for theme changes from header component
+        document.addEventListener('theme-changed', this.handleThemeChange.bind(this));
     }
 
-    initializeTheme() {
-        const savedTheme = localStorage.getItem('resurgence-theme') || 'light';
-        this.setTheme(savedTheme);
+    setupComponentIntegration() {
+        // Wait for components to be ready
+        if (window.ResurgenceComponents) {
+            this.onComponentsReady();
+        } else {
+            document.addEventListener('DOMContentLoaded', () => {
+                setTimeout(() => this.onComponentsReady(), 100);
+            });
+        }
     }
 
-    toggleTheme() {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-        this.setTheme(newTheme);
+    onComponentsReady() {
+        // Handle any integration needed with web components
+        console.log('Components ready, integrating with main application');
     }
 
-    setTheme(theme) {
-        document.documentElement.setAttribute('data-theme', theme);
-        localStorage.setItem('resurgence-theme', theme);
+    handleThemeChange(event) {
+        // Handle theme changes triggered by the header component
+        const theme = event.detail.theme;
+        this.applyThemeSpecificLogic(theme);
+    }
 
-        const themeToggle = document.getElementById('themeToggle');
-        if (themeToggle) {
-            themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
-            themeToggle.setAttribute('aria-label',
-                theme === 'light' ? 'Passer au mode sombre' : 'Passer au mode clair'
-            );
+    applyThemeSpecificLogic(theme) {
+        // Apply any theme-specific logic that's not handled by CSS
+        if (theme === 'dark') {
+            // Dark theme specific JavaScript logic
+            console.log('Dark theme activated');
+        } else {
+            // Light theme specific JavaScript logic
+            console.log('Light theme activated');
         }
     }
 
@@ -76,7 +115,7 @@ class ResurgenceWebsite {
         const targetElement = document.querySelector(targetId);
 
         if (targetElement) {
-            const headerHeight = document.querySelector('.header')?.offsetHeight || 0;
+            const headerHeight = document.querySelector('resurgence-header')?.offsetHeight || 80;
             const targetPosition = targetElement.offsetTop - headerHeight;
 
             window.scrollTo({
@@ -84,14 +123,6 @@ class ResurgenceWebsite {
                 behavior: 'smooth'
             });
         }
-    }
-
-    handleScroll() {
-        const header = document.querySelector('.header');
-        if (!header) return;
-
-        const scrolled = window.scrollY > 100;
-        header.classList.toggle('scrolled', scrolled);
     }
 
     setupAnimations() {
@@ -170,73 +201,9 @@ class ResurgenceWebsite {
         });
     }
 
-    handleMobileMenu(e) {
-        // Legacy method - kept for compatibility
-        this.toggleMobileMenu();
-    }
-
-    toggleMobileMenu() {
-        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-        const navMenu = document.getElementById('navMenu');
-
-        if (mobileMenuToggle && navMenu) {
-            const isOpen = navMenu.classList.contains('active');
-
-            if (isOpen) {
-                this.closeMobileMenu();
-            } else {
-                this.openMobileMenu();
-            }
-        }
-    }
-
-    openMobileMenu() {
-        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-        const navMenu = document.getElementById('navMenu');
-
-        if (mobileMenuToggle && navMenu) {
-            navMenu.classList.add('active');
-            mobileMenuToggle.classList.add('active');
-            mobileMenuToggle.setAttribute('aria-expanded', 'true');
-            mobileMenuToggle.setAttribute('aria-label', 'Fermer le menu de navigation');
-
-            // Prevent body scroll when menu is open
-            document.body.style.overflow = 'hidden';
-        }
-    }
-
-    closeMobileMenu() {
-        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-        const navMenu = document.getElementById('navMenu');
-
-        if (mobileMenuToggle && navMenu) {
-            navMenu.classList.remove('active');
-            mobileMenuToggle.classList.remove('active');
-            mobileMenuToggle.setAttribute('aria-expanded', 'false');
-            mobileMenuToggle.setAttribute('aria-label', 'Ouvrir le menu de navigation');
-
-            // Restore body scroll
-            document.body.style.overflow = '';
-        }
-    }
-
-    handleOutsideClick(e) {
-        const navMenu = document.getElementById('navMenu');
-        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-
-        if (navMenu && navMenu.classList.contains('active')) {
-            // Check if click is outside the menu and toggle button
-            if (!navMenu.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
-                this.closeMobileMenu();
-            }
-        }
-    }
-
     handleResize() {
-        // Close mobile menu on window resize (when switching to desktop)
-        if (window.innerWidth > 768) {
-            this.closeMobileMenu();
-        }
+        // Handle any application-specific resize logic
+        console.log('Window resized');
     }
 
     trackEvent(eventName, properties = {}) {
@@ -338,7 +305,7 @@ class ResurgenceWebsite {
             let section = 'unknown';
 
             if (element.closest('.hero')) section = 'hero';
-            else if (element.closest('.header')) section = 'header';
+            else if (element.closest('resurgence-header')) section = 'header';
             else if (element.closest('.features')) section = 'features';
             else if (element.closest('.footer')) section = 'footer';
             else if (element.closest('.nav')) section = 'navigation';
@@ -593,7 +560,7 @@ class ResurgenceWebsite {
 
     getElementSection(element) {
         if (element.closest('.hero')) return 'hero';
-        if (element.closest('.header')) return 'header';
+        if (element.closest('resurgence-header')) return 'header';
         if (element.closest('.features')) return 'features';
         if (element.closest('.stats')) return 'stats';
         if (element.closest('.footer')) return 'footer';

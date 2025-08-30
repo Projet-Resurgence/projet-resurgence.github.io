@@ -174,7 +174,7 @@ echo -e "\n${BOLD}${BLUE}🔄 Running Security Tests${NC}"
 echo "============================================"
 
 # Basic security tests
-cat > security-test.sh << 'EOF'
+cat > test-scripts/security-test.sh << 'EOF'
 #!/bin/bash
 echo "🔒 Security Testing"
 passed=0
@@ -212,9 +212,9 @@ echo "Security Tests: $passed/$total passed"
 exit $([ $passed -eq $total ] && echo 0 || echo 1)
 EOF
 
-chmod +x security-test.sh
+chmod +x test-scripts/security-test.sh
 
-if bash security-test.sh > test-results/security-tests-results.log 2>&1; then
+if bash test-scripts/security-test.sh > test-results/security-tests-results.log 2>&1; then
     echo -e "${GREEN}✅ Security_Tests: PASSED${NC}"
     PASSED_SUITES=$((PASSED_SUITES + 1))
 else
@@ -223,13 +223,13 @@ else
 fi
 TOTAL_SUITES=$((TOTAL_SUITES + 1))
 
-rm security-test.sh
+rm test-scripts/security-test.sh
 
 # 6. Accessibility Tests
 echo -e "\n${BOLD}${BLUE}🔄 Running Accessibility Tests${NC}"
 echo "============================================"
 
-cat > accessibility-test.sh << 'EOF'
+cat > test-scripts/accessibility-test.sh << 'EOF'
 #!/bin/bash
 echo "♿ Accessibility Testing"
 passed=0
@@ -281,9 +281,9 @@ echo "Accessibility Tests: $passed/$total passed"
 exit $([ $passed -eq $total ] && echo 0 || echo 1)
 EOF
 
-chmod +x accessibility-test.sh
+chmod +x test-scripts/accessibility-test.sh
 
-if bash accessibility-test.sh > test-results/accessibility-tests-results.log 2>&1; then
+if bash test-scripts/accessibility-test.sh > test-results/accessibility-tests-results.log 2>&1; then
     echo -e "${GREEN}✅ Accessibility_Tests: PASSED${NC}"
     PASSED_SUITES=$((PASSED_SUITES + 1))
 else
@@ -292,7 +292,7 @@ else
 fi
 TOTAL_SUITES=$((TOTAL_SUITES + 1))
 
-rm accessibility-test.sh
+rm test-scripts/accessibility-test.sh
 
 # Generate Comprehensive Report
 echo -e "\n${BOLD}${BLUE}📋 Generating Comprehensive Report${NC}"

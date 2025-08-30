@@ -1,0 +1,279 @@
+/* 
+ * Centralized Theme System for Projet Résurgence
+ * Dark theme as default - the superior theme for post-apocalyptic aesthetics
+ * All theme variables consolidated here to eliminate duplication
+ */
+
+:root {
+	/* === BRAND COLORS === */
+	--primary-gold: #D5B654;
+	--primary-gold-dark: #B89A3D;
+	--primary-gold-light: #E6C76A;
+
+	/* === DARK THEME (DEFAULT) === */
+	/* Background colors - darkest to lightest */
+	--bg-primary: #0f0f0f;
+	/* Main background */
+	--bg-secondary: #1a1a1a;
+	/* Cards, headers */
+	--bg-tertiary: #2d2d2d;
+	/* Borders, subtle elements */
+
+	/* Backdrop overlays for scrolled header */
+	--bg-backdrop-dark: rgba(26, 26, 26, 0.95);
+	--bg-backdrop-light: rgba(255, 255, 255, 0.95);
+
+	/* Text colors - lightest to darkest */
+	--text-primary: #f8f9fa;
+	/* Main text */
+	--text-secondary: #e0e0e0;
+	/* Secondary text */
+	--text-muted: #a0a0a0;
+	/* Muted text */
+
+	/* === ACCENT COLORS === */
+	--accent-danger: #dc2626;
+	--accent-success: #16a34a;
+	--accent-warning: #d97706;
+	--accent-info: #2563eb;
+	--accent-info-dark: #1e40af;
+
+	/* === LIGHT THEME VARIABLES (for override) === */
+	--bg-primary-light: #f7f8f9;
+	--bg-secondary-light: #ffffff;
+	--bg-tertiary-light: #e9ecef;
+	--text-primary-light: #1a202c;
+	--text-secondary-light: #4a5568;
+	--text-muted-light: #718096;
+
+	/* Dark Mode Colors */
+	--bg-primary-dark: #1a1a1a;
+	--bg-secondary-dark: #2d2d2d;
+	--bg-tertiary-dark: #404040;
+	--text-primary-dark: #ffffff;
+	--text-secondary-dark: #cccccc;
+	--text-muted-dark: #888888;
+
+	/* === SPACING SYSTEM === */
+	--spacing-xs: 0.25rem;
+	/* 4px */
+	--spacing-sm: 0.5rem;
+	/* 8px */
+	--spacing-md: 1rem;
+	/* 16px */
+	--spacing-lg: 1.5rem;
+	/* 24px */
+	--spacing-xl: 2rem;
+	/* 32px */
+	--spacing-2xl: 3rem;
+	/* 48px */
+	--spacing-3xl: 4rem;
+	/* 64px */
+
+	/* Micro spacing for fine adjustments */
+	--spacing-micro: 0.125rem;
+	/* 2px */
+
+	/* === BREAKPOINTS === */
+	--breakpoint-mobile: 480px;
+	--breakpoint-tablet: 768px;
+	--breakpoint-desktop: 1040px;
+	--breakpoint-wide: 1200px;
+
+	/* === TYPOGRAPHY === */
+	--font-family-base: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+	--font-family-title: 'PressGothic', 'Impact', sans-serif;
+
+	--font-size-xs: 0.75rem;
+	/* 12px */
+	--font-size-sm: 0.875rem;
+	/* 14px */
+	--font-size-base: 1rem;
+	/* 16px */
+	--font-size-lg: 1.125rem;
+	/* 18px */
+	--font-size-xl: 1.25rem;
+	/* 20px */
+	--font-size-2xl: 1.5rem;
+	/* 24px */
+	--font-size-3xl: 1.875rem;
+	/* 30px */
+	--font-size-4xl: 2.25rem;
+	/* 36px */
+	--font-size-5xl: 3rem;
+	/* 48px */
+
+	--font-weight-normal: 400;
+	--font-weight-medium: 500;
+	--font-weight-semibold: 600;
+	--font-weight-bold: 700;
+
+	--line-height-tight: 1.25;
+	--line-height-normal: 1.5;
+	--line-height-relaxed: 1.75;
+
+	--letter-spacing-tight: -0.025em;
+	--letter-spacing-normal: 0;
+	--letter-spacing-wide: 0.025em;
+
+	/* === LAYOUT === */
+	--header-height: 80px;
+	--container-max-width: 1200px;
+	--content-max-width: 800px;
+	--content-min-width: 250px;
+	--card-min-width: 280px;
+	--card-standard-width: 300px;
+	--text-max-width: 600px;
+	
+	/* === UI COMPONENTS === */
+	/* Logo */
+	--logo-height: 50px;
+
+	/* Mobile menu toggle */
+	--mobile-toggle-width: 25px;
+	--mobile-toggle-height: 3px;
+	--mobile-toggle-small-height: 40px;
+
+	/* Border widths */
+	--border-thin: 1px;
+
+	/* Blur effects */
+	--blur-sm: blur(10px);
+	--blur-md: blur(15px);
+
+	/* === BORDERS & RADIUS === */
+	--border-width: 1px;
+	--border-width-thick: 2px;
+
+	--radius-sm: 0.25rem;
+	/* 4px */
+	--radius-md: 0.5rem;
+	/* 8px */
+	--radius-lg: 0.75rem;
+	/* 12px */
+	--radius-xl: 1rem;
+	/* 16px */
+	--radius-full: 9999px;
+
+	/* === SHADOWS === */
+	--shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+	--shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -1px rgb(0 0 0 / 0.06);
+	--shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.05);
+	--shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 10px 10px -5px rgb(0 0 0 / 0.04);
+
+	/* === TRANSITIONS === */
+	--transition-fast: 0.15s ease-in-out;
+	--transition-normal: 0.3s ease-in-out;
+	--transition-slow: 0.5s ease-in-out;
+
+	/* === Z-INDEX SCALE === */
+	--z-dropdown: 1000;
+	--z-sticky: 1020;
+	--z-fixed: 1030;
+	--z-modal-backdrop: 1040;
+	--z-modal: 1050;
+	--z-popover: 1060;
+	--z-tooltip: 1070;
+}
+
+/* === LIGHT THEME OVERRIDE === */
+/* Only activated when explicitly set - dark is superior and default */
+[data-theme="light"] {
+	--bg-primary: var(--bg-primary-light);
+	--bg-secondary: var(--bg-secondary-light);
+	--bg-tertiary: var(--bg-tertiary-light);
+	--text-primary: var(--text-primary-light);
+	--text-secondary: var(--text-secondary-light);
+	--text-muted: var(--text-muted-light);
+}
+
+/* === BASE STYLES === */
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	font-family: var(--font-family-base);
+	font-size: var(--font-size-base);
+	line-height: var(--line-height-normal);
+	color: var(--text-primary);
+	background-color: var(--bg-primary);
+	transition: background-color var(--transition-normal), color var(--transition-normal);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* === COMPONENT BASE STYLES === */
+resurgence-header {
+	display: block;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: var(--z-fixed);
+}
+
+resurgence-footer {
+	display: block;
+}
+
+/* === ACCESSIBILITY === */
+@media (prefers-reduced-motion: reduce) {
+
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}
+
+/* === FOCUS STYLES === */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+	outline: var(--border-width-thick) solid var(--primary-gold);
+	outline-offset: 2px;
+}
+
+/* === UTILITY CLASSES === */
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+.container {
+	max-width: var(--container-max-width);
+	margin: 0 auto;
+	padding: 0 var(--spacing-lg);
+}
+
+@media (max-width: 768px) {
+	.container {
+		padding: 0 var(--spacing-md);
+	}
+}
+
+.main {
+	margin-top: var(--header-height);
+	min-height: calc(100vh - var(--header-height));
+}

@@ -12,8 +12,11 @@ const staticAssets = [
     '/index.html',
     '/regles.html',
     '/guide.html',
+    '/univers.html',
     '/styles/main.css',
     '/styles/main.js',
+    '/styles/index.js',
+    '/styles/universe-carousel.js',
     '/styles/seo-optimizer.js',
     '/styles/performance-optimizer.js',
     '/manifest.json'

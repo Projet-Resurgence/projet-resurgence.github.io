@@ -1,3 +1,6 @@
+/* Import centralized theme system */
+@import './theme.css';
+
 /* Font Faces */
 @font-face {
     font-family: 'PressGothic';
@@ -5,80 +8,6 @@
     font-weight: normal;
     font-style: normal;
     font-display: swap;
-}
-
-/* CSS Custom Properties (Variables) */
-:root {
-    /* Primary Colors */
-    --primary-gold: #D5B654;
-    --primary-gold-dark: #B89A3D;
-    --primary-gold-light: #E6C76A;
-
-    /* Theme Colors - Light Mode */
-    --bg-primary: #ffffff;
-    --bg-secondary: #f8f9fa;
-    --bg-tertiary: #e9ecef;
-    --text-primary: #212529;
-    --text-secondary: #6c757d;
-    --text-muted: #9ca3af;
-
-    /* Dark Mode Colors */
-    --bg-primary-dark: #1a1a1a;
-    --bg-secondary-dark: #2d2d2d;
-    --bg-tertiary-dark: #404040;
-    --text-primary-dark: #ffffff;
-    --text-secondary-dark: #cccccc;
-    --text-muted-dark: #888888;
-
-    /* Accent Colors */
-    --accent-danger: #dc2626;
-    --accent-success: #16a34a;
-    --accent-warning: #d97706;
-    --accent-info: #2563eb;
-
-    /* Spacing */
-    --spacing-xs: 0.25rem;
-    --spacing-sm: 0.5rem;
-    --spacing-md: 1rem;
-    --spacing-lg: 1.5rem;
-    --spacing-xl: 2rem;
-    --spacing-2xl: 3rem;
-    --spacing-3xl: 4rem;
-
-    /* Typography */
-    --font-family-base: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    --font-family-heading: Georgia, 'Times New Roman', Times, serif;
-    --font-family-title: 'PressGothic', sans-serif;
-    --font-size-xs: 0.75rem;
-    --font-size-sm: 0.875rem;
-    --font-size-base: 1rem;
-    --font-size-lg: 1.125rem;
-    --font-size-xl: 1.25rem;
-    --font-size-2xl: 1.5rem;
-    --font-size-3xl: 1.875rem;
-    --font-size-4xl: 2.25rem;
-    --font-size-5xl: 3rem;
-
-    /* Border Radius */
-    --radius-sm: 0.25rem;
-    --radius-md: 0.5rem;
-    --radius-lg: 0.75rem;
-    --radius-xl: 1rem;
-
-    /* Shadows */
-    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -1px rgb(0 0 0 / 0.06);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.05);
-    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 10px 10px -5px rgb(0 0 0 / 0.04);
-
-    /* Transitions */
-    --transition-fast: 0.15s ease-in-out;
-    --transition-normal: 0.3s ease-in-out;
-    --transition-slow: 0.5s ease-in-out;
-
-    /* Layout */
-    --container-max-width: 1200px;
-    --header-height: 80px;
 }
 
 /* Dark Theme Override */
@@ -332,7 +261,7 @@ a:hover {
     background-image: url('../images/banner.jpg');
     background-size: cover;
     background-position: center;
-    opacity: 0.1;
+    opacity: 0.15;
     z-index: -1;
 }
 
@@ -370,15 +299,19 @@ a:hover {
     font-size: var(--font-size-2xl);
     color: var(--text-secondary);
     margin-bottom: var(--spacing-xl);
-    max-width: 800px;
+    max-width: var(--content-max-width);
     margin-left: auto;
     margin-right: auto;
+}
+
+.hero-subtitle-branded {
+    font-family: var(--font-family-title);
 }
 
 .hero-description {
     font-size: var(--font-size-lg);
     color: var(--text-muted);
-    max-width: 600px;
+    max-width: var(--text-max-width);
     margin: 0 auto var(--spacing-xl);
 }
 
@@ -440,9 +373,17 @@ a:hover {
     margin-bottom: var(--spacing-2xl);
 }
 
+.section-subtitle {
+    text-align: center;
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-xl);
+}
+
 .features-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(var(--card-standard-width), 1fr));
     gap: var(--spacing-xl);
     margin-top: var(--spacing-2xl);
 }
@@ -872,7 +813,7 @@ img {
 
 /* Guide Page Styles */
 .guide-hero {
-    background: linear-gradient(135deg, var(--accent-info) 0%, #1e40af 100%);
+    background: linear-gradient(135deg, var(--accent-info) 0%, var(--accent-info-dark) 100%);
     color: white;
 }
 
@@ -1122,7 +1063,7 @@ img {
     background-image: url('../images/banner.jpg');
     background-size: cover;
     background-position: center;
-    opacity: 0.1;
+    opacity: 0.15;
     z-index: -1;
 }
 

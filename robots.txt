@@ -1,6 +1,10 @@
 User-agent: *
 Allow: /
 
+# Disallow internal testing tools
+Disallow: /test-website.html
+Disallow: /test-*
+
 # Sitemap
 Sitemap: https://projet-resurgence.github.io/sitemap.xml
 
