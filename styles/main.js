@@ -104,7 +104,7 @@ class ResurgenceWebsite {
     handleScroll() {
         // Handle scroll events - can be used for animations, header effects, etc.
         const scrollY = window.scrollY;
-        
+
         // Add scroll-based classes or effects here if needed
         if (scrollY > 100) {
             document.body.classList.add('scrolled');

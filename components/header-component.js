@@ -222,8 +222,11 @@ class ResurgenceHeader extends HTMLElement {
                     .nav-menu {
                         position: fixed;
                         top: var(--header-height);
-                        left: 0;
-                        right: 0;
+                        right: var(--spacing-lg);
+                        left: auto;
+                        width: auto;
+                        min-width: 200px;
+                        max-width: 300px;
                         background-color: var(--bg-secondary);
                         flex-direction: column;
                         padding: var(--spacing-xl);
@@ -232,9 +235,11 @@ class ResurgenceHeader extends HTMLElement {
                         opacity: 0;
                         visibility: hidden;
                         transition: all var(--transition-normal);
-                        border-bottom: var(--border-thin) solid var(--bg-tertiary);
+                        border: var(--border-thin) solid var(--bg-tertiary);
+                        border-radius: var(--radius-lg);
                         backdrop-filter: var(--blur-sm);
                         z-index: 999;
+                        box-shadow: var(--shadow-xl);
                     }
 
                     .nav-menu.active {
@@ -251,14 +256,14 @@ class ResurgenceHeader extends HTMLElement {
 
                     .nav-link {
                         padding: var(--spacing-md);
-                        text-align: center;
+                        text-align: right;
                         border-radius: var(--radius-md);
                         width: 100%;
                         display: block;
                     }
 
                     .theme-toggle {
-                        align-self: center;
+                        align-self: flex-end;
                         margin-top: var(--spacing-md);
                     }
                 }
@@ -284,6 +289,8 @@ class ResurgenceHeader extends HTMLElement {
 
                     .nav-menu {
                         padding: var(--spacing-lg);
+                        right: var(--spacing-md);
+                        min-width: 180px;
                     }
                 }
             </style>

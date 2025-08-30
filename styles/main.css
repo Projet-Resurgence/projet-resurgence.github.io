@@ -506,11 +506,6 @@ a:hover {
         margin-top: var(--header-height);
     }
 
-    /* Show mobile menu button */
-    .mobile-menu-toggle {
-        display: flex;
-    }
-
     /* Hide desktop navigation by default */
     .nav-menu {
         position: fixed;
