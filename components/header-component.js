@@ -2,41 +2,41 @@
 // Provides a reusable, self-contained header with navigation and theme toggle
 
 class ResurgenceHeader extends HTMLElement {
-	constructor() {
-		super();
-		this.attachShadow({ mode: 'open' });
-		this.currentPage = this.getAttribute('current-page') || '';
-		this.isInitialized = false;
-	}
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+        this.currentPage = this.getAttribute('current-page') || '';
+        this.isInitialized = false;
+    }
 
-	connectedCallback() {
-		if (!this.isInitialized) {
-			this.render();
-			this.setupEventListeners();
-			this.initializeTheme();
-			this.isInitialized = true;
-		}
-	}
+    connectedCallback() {
+        if (!this.isInitialized) {
+            this.render();
+            this.setupEventListeners();
+            this.initializeTheme();
+            this.isInitialized = true;
+        }
+    }
 
-	disconnectedCallback() {
-		this.cleanup();
-	}
+    disconnectedCallback() {
+        this.cleanup();
+    }
 
-	static get observedAttributes() {
-		return ['current-page'];
-	}
+    static get observedAttributes() {
+        return ['current-page'];
+    }
 
-	attributeChangedCallback(name, oldValue, newValue) {
-		if (name === 'current-page' && oldValue !== newValue) {
-			this.currentPage = newValue;
-			if (this.isInitialized) {
-				this.updateActiveNavigation();
-			}
-		}
-	}
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (name === 'current-page' && oldValue !== newValue) {
+            this.currentPage = newValue;
+            if (this.isInitialized) {
+                this.updateActiveNavigation();
+            }
+        }
+    }
 
-	render() {
-		this.shadowRoot.innerHTML = `
+    render() {
+        this.shadowRoot.innerHTML = `
             <style>
                 /* Header Component - Uses centralized theme variables */
                 :host {
@@ -342,273 +342,273 @@ class ResurgenceHeader extends HTMLElement {
                 </div>
             </header>
         `;
-	}
+    }
 
-	setupEventListeners() {
-		const mobileMenuToggle = this.shadowRoot.getElementById('mobileMenuToggle');
-		const navMenu = this.shadowRoot.getElementById('navMenu');
-		const themeToggle = this.shadowRoot.getElementById('themeToggle');
-		const navLinks = this.shadowRoot.querySelectorAll('.nav-link');
+    setupEventListeners() {
+        const mobileMenuToggle = this.shadowRoot.getElementById('mobileMenuToggle');
+        const navMenu = this.shadowRoot.getElementById('navMenu');
+        const themeToggle = this.shadowRoot.getElementById('themeToggle');
+        const navLinks = this.shadowRoot.querySelectorAll('.nav-link');
 
-		// Mobile menu toggle
-		if (mobileMenuToggle) {
-			mobileMenuToggle.addEventListener('click', () => {
-				this.toggleMobileMenu();
-			});
-		}
+        // Mobile menu toggle
+        if (mobileMenuToggle) {
+            mobileMenuToggle.addEventListener('click', () => {
+                this.toggleMobileMenu();
+            });
+        }
 
-		// Theme toggle
-		if (themeToggle) {
-			themeToggle.addEventListener('click', () => {
-				this.toggleTheme();
-			});
-		}
+        // Theme toggle
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                this.toggleTheme();
+            });
+        }
 
-		// Close mobile menu when clicking nav links
-		navLinks.forEach(link => {
-			link.addEventListener('click', () => {
-				this.closeMobileMenu();
-			});
-		});
+        // Close mobile menu when clicking nav links
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                this.closeMobileMenu();
+            });
+        });
 
-		// Close mobile menu when clicking outside
-		document.addEventListener('click', (e) => {
-			if (!this.contains(e.target)) {
-				this.closeMobileMenu();
-			}
-		});
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!this.contains(e.target)) {
+                this.closeMobileMenu();
+            }
+        });
 
-		// Handle window resize
-		window.addEventListener('resize', () => {
-			if (window.innerWidth > 1040) {
-				this.closeMobileMenu();
-			}
-		});
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 1040) {
+                this.closeMobileMenu();
+            }
+        });
 
-		// Smooth scroll for anchor links
-		navLinks.forEach(link => {
-			const href = link.getAttribute('href');
-			if (href && href.includes('#')) {
-				link.addEventListener('click', (e) => {
-					this.handleSmoothScroll(e, href);
-				});
-			}
-		});
+        // Smooth scroll for anchor links
+        navLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href && href.includes('#')) {
+                link.addEventListener('click', (e) => {
+                    this.handleSmoothScroll(e, href);
+                });
+            }
+        });
 
-		// Update active navigation on load
-		this.updateActiveNavigation();
-	}
+        // Update active navigation on load
+        this.updateActiveNavigation();
+    }
 
-	toggleMobileMenu() {
-		const mobileMenuToggle = this.shadowRoot.getElementById('mobileMenuToggle');
-		const navMenu = this.shadowRoot.getElementById('navMenu');
+    toggleMobileMenu() {
+        const mobileMenuToggle = this.shadowRoot.getElementById('mobileMenuToggle');
+        const navMenu = this.shadowRoot.getElementById('navMenu');
 
-		if (mobileMenuToggle && navMenu) {
-			const isActive = navMenu.classList.contains('active');
+        if (mobileMenuToggle && navMenu) {
+            const isActive = navMenu.classList.contains('active');
 
-			if (isActive) {
-				this.closeMobileMenu();
-			} else {
-				this.openMobileMenu();
-			}
-		}
-	}
+            if (isActive) {
+                this.closeMobileMenu();
+            } else {
+                this.openMobileMenu();
+            }
+        }
+    }
 
-	openMobileMenu() {
-		const mobileMenuToggle = this.shadowRoot.getElementById('mobileMenuToggle');
-		const navMenu = this.shadowRoot.getElementById('navMenu');
+    openMobileMenu() {
+        const mobileMenuToggle = this.shadowRoot.getElementById('mobileMenuToggle');
+        const navMenu = this.shadowRoot.getElementById('navMenu');
 
-		if (mobileMenuToggle && navMenu) {
-			mobileMenuToggle.classList.add('active');
-			navMenu.classList.add('active');
-			mobileMenuToggle.setAttribute('aria-expanded', 'true');
+        if (mobileMenuToggle && navMenu) {
+            mobileMenuToggle.classList.add('active');
+            navMenu.classList.add('active');
+            mobileMenuToggle.setAttribute('aria-expanded', 'true');
 
-			// Prevent body scroll when menu is open
-			document.body.style.overflow = 'hidden';
-		}
-	}
+            // Prevent body scroll when menu is open
+            document.body.style.overflow = 'hidden';
+        }
+    }
 
-	closeMobileMenu() {
-		const mobileMenuToggle = this.shadowRoot.getElementById('mobileMenuToggle');
-		const navMenu = this.shadowRoot.getElementById('navMenu');
+    closeMobileMenu() {
+        const mobileMenuToggle = this.shadowRoot.getElementById('mobileMenuToggle');
+        const navMenu = this.shadowRoot.getElementById('navMenu');
 
-		if (mobileMenuToggle && navMenu) {
-			mobileMenuToggle.classList.remove('active');
-			navMenu.classList.remove('active');
-			mobileMenuToggle.setAttribute('aria-expanded', 'false');
+        if (mobileMenuToggle && navMenu) {
+            mobileMenuToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+            mobileMenuToggle.setAttribute('aria-expanded', 'false');
 
-			// Restore body scroll
-			document.body.style.overflow = '';
-		}
-	}
+            // Restore body scroll
+            document.body.style.overflow = '';
+        }
+    }
 
-	toggleTheme() {
-		const currentTheme = this.getCurrentTheme();
-		const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    toggleTheme() {
+        const currentTheme = this.getCurrentTheme();
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
-		this.setTheme(newTheme);
-	}
+        this.setTheme(newTheme);
+    }
 
-	setTheme(theme) {
-		// Validate theme
-		if (theme !== 'dark' && theme !== 'light') {
-			console.warn('Invalid theme:', theme, 'defaulting to dark');
-			theme = 'dark';
-		}
+    setTheme(theme) {
+        // Validate theme
+        if (theme !== 'dark' && theme !== 'light') {
+            console.warn('Invalid theme:', theme, 'defaulting to dark');
+            theme = 'dark';
+        }
 
-		// Update document theme (for global styles)
-		document.documentElement.setAttribute('data-theme', theme);
+        // Update document theme (for global styles)
+        document.documentElement.setAttribute('data-theme', theme);
 
-		// Update body theme (for backward compatibility)
-		document.body.setAttribute('data-theme', theme);
+        // Update body theme (for backward compatibility)
+        document.body.setAttribute('data-theme', theme);
 
-		// Update component theme (for component internal styles)
-		this.setAttribute('data-theme', theme);
+        // Update component theme (for component internal styles)
+        this.setAttribute('data-theme', theme);
 
-		// Save theme preference
-		localStorage.setItem('resurgence-theme', theme);
+        // Save theme preference
+        localStorage.setItem('resurgence-theme', theme);
 
-		// Update theme toggle button
-		this.updateThemeToggleButton(theme);
+        // Update theme toggle button
+        this.updateThemeToggleButton(theme);
 
-		// Dispatch theme change event for other components and scripts
-		this.dispatchThemeChangeEvent(theme);
+        // Dispatch theme change event for other components and scripts
+        this.dispatchThemeChangeEvent(theme);
 
-		// Update any theme-dependent styles
-		this.updateThemeStyles(theme);
-	}
+        // Update any theme-dependent styles
+        this.updateThemeStyles(theme);
+    }
 
-	updateThemeToggleButton(theme) {
-		const themeToggle = this.shadowRoot.getElementById('themeToggle');
-		if (themeToggle) {
-			themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
-			themeToggle.setAttribute('aria-label',
-				theme === 'dark' ? 'Passer au mode clair' : 'Passer au mode sombre'
-			);
-			themeToggle.setAttribute('title',
-				theme === 'dark' ? 'Passer au mode clair' : 'Passer au mode sombre'
-			);
-		}
-	}
+    updateThemeToggleButton(theme) {
+        const themeToggle = this.shadowRoot.getElementById('themeToggle');
+        if (themeToggle) {
+            themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+            themeToggle.setAttribute('aria-label',
+                theme === 'dark' ? 'Passer au mode clair' : 'Passer au mode sombre'
+            );
+            themeToggle.setAttribute('title',
+                theme === 'dark' ? 'Passer au mode clair' : 'Passer au mode sombre'
+            );
+        }
+    }
 
-	dispatchThemeChangeEvent(theme) {
-		// Dispatch from component
-		this.dispatchEvent(new CustomEvent('theme-changed', {
-			detail: { theme },
-			bubbles: true,
-			composed: true
-		}));
+    dispatchThemeChangeEvent(theme) {
+        // Dispatch from component
+        this.dispatchEvent(new CustomEvent('theme-changed', {
+            detail: { theme },
+            bubbles: true,
+            composed: true
+        }));
 
-		// Dispatch globally for other scripts
-		document.dispatchEvent(new CustomEvent('theme-changed', {
-			detail: { theme }
-		}));
+        // Dispatch globally for other scripts
+        document.dispatchEvent(new CustomEvent('theme-changed', {
+            detail: { theme }
+        }));
 
-		// Dispatch on window for backward compatibility
-		window.dispatchEvent(new CustomEvent('global-theme-change', {
-			detail: { theme }
-		}));
-	}
+        // Dispatch on window for backward compatibility
+        window.dispatchEvent(new CustomEvent('global-theme-change', {
+            detail: { theme }
+        }));
+    }
 
-	updateThemeStyles(theme) {
-		// Force style recalculation by temporarily changing and restoring a property
-		const header = this.shadowRoot.querySelector('.header');
-		if (header) {
-			// Trigger reflow to ensure theme changes apply immediately
-			header.style.opacity = '0.999';
-			requestAnimationFrame(() => {
-				header.style.opacity = '';
-			});
-		}
-	}
+    updateThemeStyles(theme) {
+        // Force style recalculation by temporarily changing and restoring a property
+        const header = this.shadowRoot.querySelector('.header');
+        if (header) {
+            // Trigger reflow to ensure theme changes apply immediately
+            header.style.opacity = '0.999';
+            requestAnimationFrame(() => {
+                header.style.opacity = '';
+            });
+        }
+    }
 
-	initializeTheme() {
-		// Check for saved theme preference, system preference, or default to dark
-		let savedTheme = localStorage.getItem('resurgence-theme');
+    initializeTheme() {
+        // Check for saved theme preference, system preference, or default to dark
+        let savedTheme = localStorage.getItem('resurgence-theme');
 
-		// If no saved theme, check system preference
-		if (!savedTheme) {
-			if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-				savedTheme = 'light';
-			} else {
-				savedTheme = 'dark'; // Default to dark theme
-			}
-		}
+        // If no saved theme, check system preference
+        if (!savedTheme) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+                savedTheme = 'light';
+            } else {
+                savedTheme = 'dark'; // Default to dark theme
+            }
+        }
 
-		// Validate and set theme
-		savedTheme = (savedTheme === 'light' || savedTheme === 'dark') ? savedTheme : 'dark';
-		this.setTheme(savedTheme);
+        // Validate and set theme
+        savedTheme = (savedTheme === 'light' || savedTheme === 'dark') ? savedTheme : 'dark';
+        this.setTheme(savedTheme);
 
-		// Listen for system theme changes
-		if (window.matchMedia) {
-			const mediaQuery = window.matchMedia('(prefers-color-scheme: light)');
-			mediaQuery.addEventListener('change', (e) => {
-				// Only auto-switch if no manual preference is saved
-				if (!localStorage.getItem('resurgence-theme')) {
-					this.setTheme(e.matches ? 'light' : 'dark');
-				}
-			});
-		}
-	}
+        // Listen for system theme changes
+        if (window.matchMedia) {
+            const mediaQuery = window.matchMedia('(prefers-color-scheme: light)');
+            mediaQuery.addEventListener('change', (e) => {
+                // Only auto-switch if no manual preference is saved
+                if (!localStorage.getItem('resurgence-theme')) {
+                    this.setTheme(e.matches ? 'light' : 'dark');
+                }
+            });
+        }
+    }
 
-	getCurrentTheme() {
-		// Check component attribute first, then document, then localStorage, then default
-		return this.getAttribute('data-theme') ||
-			document.documentElement.getAttribute('data-theme') ||
-			localStorage.getItem('resurgence-theme') ||
-			'dark';
-	}
+    getCurrentTheme() {
+        // Check component attribute first, then document, then localStorage, then default
+        return this.getAttribute('data-theme') ||
+            document.documentElement.getAttribute('data-theme') ||
+            localStorage.getItem('resurgence-theme') ||
+            'dark';
+    }
 
-	updateActiveNavigation() {
-		const navLinks = this.shadowRoot.querySelectorAll('.nav-link');
+    updateActiveNavigation() {
+        const navLinks = this.shadowRoot.querySelectorAll('.nav-link');
 
-		navLinks.forEach(link => {
-			link.classList.remove('active');
+        navLinks.forEach(link => {
+            link.classList.remove('active');
 
-			const page = link.getAttribute('data-page');
-			if (page === this.currentPage) {
-				link.classList.add('active');
-			}
-		});
-	}
+            const page = link.getAttribute('data-page');
+            if (page === this.currentPage) {
+                link.classList.add('active');
+            }
+        });
+    }
 
-	handleSmoothScroll(e, href) {
-		const [path, hash] = href.split('#');
-		const currentPath = window.location.pathname;
+    handleSmoothScroll(e, href) {
+        const [path, hash] = href.split('#');
+        const currentPath = window.location.pathname;
 
-		// If it's the same page and has a hash, handle smooth scrolling
-		if ((path === '' || currentPath.includes(path)) && hash) {
-			const targetElement = document.getElementById(hash);
-			if (targetElement) {
-				e.preventDefault();
-				targetElement.scrollIntoView({
-					behavior: 'smooth',
-					block: 'start'
-				});
-			}
-		}
-	}
+        // If it's the same page and has a hash, handle smooth scrolling
+        if ((path === '' || currentPath.includes(path)) && hash) {
+            const targetElement = document.getElementById(hash);
+            if (targetElement) {
+                e.preventDefault();
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+    }
 
-	cleanup() {
-		// Remove event listeners and clean up resources
-		const mobileMenuToggle = this.shadowRoot.getElementById('mobileMenuToggle');
-		const themeToggle = this.shadowRoot.getElementById('themeToggle');
+    cleanup() {
+        // Remove event listeners and clean up resources
+        const mobileMenuToggle = this.shadowRoot.getElementById('mobileMenuToggle');
+        const themeToggle = this.shadowRoot.getElementById('themeToggle');
 
-		if (mobileMenuToggle) {
-			mobileMenuToggle.removeEventListener('click', this.toggleMobileMenu);
-		}
+        if (mobileMenuToggle) {
+            mobileMenuToggle.removeEventListener('click', this.toggleMobileMenu);
+        }
 
-		if (themeToggle) {
-			themeToggle.removeEventListener('click', this.toggleTheme);
-		}
-	}
+        if (themeToggle) {
+            themeToggle.removeEventListener('click', this.toggleTheme);
+        }
+    }
 
-	// Public API methods
-	setActivePage(page) {
-		this.currentPage = page;
-		this.setAttribute('current-page', page);
-		this.updateActiveNavigation();
-	}
+    // Public API methods
+    setActivePage(page) {
+        this.currentPage = page;
+        this.setAttribute('current-page', page);
+        this.updateActiveNavigation();
+    }
 }
 
 // Register the custom element
