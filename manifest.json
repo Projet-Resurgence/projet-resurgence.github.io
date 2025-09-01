@@ -1,6 +1,6 @@
 {
     "name": "Projet Résurgence - RP Géopolitique Francophone Post-Apocalyptique",
-    "short_name": "Projet Résurgence",
+    "short_name": "Resurgence",
     "description": "Serveur Discord de roleplay géopolitique francophone post-apocalyptique. Créez votre nation et participez à la reconstruction du monde.",
     "start_url": "/",
     "display": "standalone",
@@ -26,16 +26,16 @@
     ],
     "icons": [
         {
-            "src": "./images/final_logo_little.png",
+            "src": "/favicon/web-app-manifest-192x192.png",
             "sizes": "192x192",
             "type": "image/png",
             "purpose": "maskable"
         },
         {
-            "src": "./images/final_logo_centered_little.png",
+            "src": "/favicon/web-app-manifest-512x512.png",
             "sizes": "512x512",
             "type": "image/png",
-            "purpose": "any"
+            "purpose": "maskable"
         },
         {
             "src": "./images/final_logo_little.png",
