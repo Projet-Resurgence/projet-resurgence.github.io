@@ -1,0 +1,21 @@
+{
+	"story_name": "Mystère et boule de gomme",
+	"hero_name": "Dr. Mackenzie",
+	"text": [
+		"La lampe de bureau illuminait d'un jaune pâle le bureau étroit où Mackenzie était occupé à feuilleter des notes. Dans le bourdonnement électrique de la lampe halogène, il s'entendait à peine penser. Il se grattait le haut de la tête furieusement, comme exacerbé par ses recherches.",
+		"    Il prit un vieux stylo bille et une feuille de papier jaunie et commença à écrire quelques lignes…",
+		"    Dr. Mackenzie, chef de la division de recherche, Cheyenne Mountain.",
+		"    Notes de recherche N°134",
+		"    Causes possibles de la fin du 21e siècle - Etudes des températures et des sols",
+		"    Dans mes précédentes notes, j'ai expliqué comment le réchauffement climatique avait pu être une des causes. Aujourd'hui je vais m'étendre sur ce thème grâce aux dernières analyses de mon équipe sur le sujet.",
+		"    Il y a un mois de cela, une équipe dirigée par le Sergent Jefferson a été envoyée à ma demande pour récolter des échantillons de sols autour de Colorado Springs. Cette curieuse demande a fait suite à ma récupération des relevés de température moyens de la base après sa \"recolonisation\" de 2138.",
+		"    J'ai pu noter de fortes températures à cette date, suite à un croisement avec des données récupérées dans un vieux centre météorologique d'avant crise, j'ai pu déterminer que nos températures se trouvaient à près de 3.8°C au-dessus des moyennes d'autrefois.",
+		"    J'ai observé aussi une baisse faible mais constante de ces températures, probablement due à la fin de l'activité humaine sur le globe ? A creuser dans une prochaine étude.",
+		"    Cependant j'ai découvert une période, que j'ai nommée le pic glacial de 2180. Les températures de cette période indiquent une baisse comprise entre 4 et 5 degrés pendant près d'une dizaine d'années. Cette anomalie s'est dissipée au fil du temps sur les 100 dernières années.",
+		"    Venons-en désormais à l'équipe du Sergent Jefferson. J'ai étudié les carottes de sol dans mon labo et j'ai pu noter plusieurs choses. Tout d'abord, une petite couche de plastique, une légère couche de mycélium et pour une période qui semble correspondre au Pic Glacial, une couche de cendre sur 1.2 centimètres.",
+		"    Je vais devoir creuser cette hypothèse à l'avenir, mais j'ai plusieurs pistes, les fortes températures du 21e siècle pourraient avoir amené à une recrudescence presque apocalyptique des feux de forêt et incendies divers. Une seconde hypothèse mène à penser qu'un évènement cataclysmique d'ordre extra-terrestre ou volcanique pourrait avoir eu lieu.",
+		"    Je vais envoyer d'autres équipes dans les prochains jours pour étayer ces hypothèses.",
+		"    Il posa son stylo bille, souffla un coup la poussière du bureau et vint presser l'interrupteur de sa lampe, plongeant la pièce dans la pénombre…"
+	],
+	"image_url_from_root": "/images/colorado_clear.png"
+}
