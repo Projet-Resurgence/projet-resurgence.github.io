@@ -8,6 +8,7 @@ commands
 *txt
 !*requirements.txt
 *json
+!context_datas/*.json
 *config*
 mapping-library/
 gnd_archives/

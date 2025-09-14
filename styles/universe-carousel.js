@@ -95,7 +95,7 @@ class UniverseCarousel {
 	async loadStories() {
 		try {
 			// List of story files to load
-			const storyFiles = ['hollande.json', 'vladivostok.json', 'aral.json', 'colorado.json', 'eglise.json', 'naples.json', 'ouganda.json', 'shanghai.json', 'suede.json'];
+			const storyFiles = ['vladivostok.json','suede.json','aral.json',  'hollande.json', 'shanghai.json', 'ouganda.json', 'eglise.json', 'naples.json', 'colorado.json'];
 			const loadPromises = storyFiles.map(file => this.loadStory(file));
 
 			const results = await Promise.allSettled(loadPromises);
