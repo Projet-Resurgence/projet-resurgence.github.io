@@ -90,6 +90,7 @@
 	/* === TYPOGRAPHY === */
 	--font-family-base: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 	--font-family-title: 'PressGothic', 'Impact', sans-serif;
+	--font-family-heading: 'PressGothic', 'Impact', sans-serif;
 
 	--font-size-xs: 0.75rem;
 	/* 12px */

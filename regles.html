@@ -128,6 +128,7 @@
     <link rel="dns-prefetch" href="//discord.gg">
 
     <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="./styles/rules.css">
     <link rel="icon" type="image/png" href="./images/final_logo_little.png">
     <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#D5B654">
@@ -198,169 +199,15 @@
         <!-- Rules Categories -->
         <section class="features">
             <div class="container">
-                <h2 class="section-title">Catégories de Règles</h2>
-
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <span class="feature-icon">📋</span>
-                        <h3 class="feature-title">Règles Générales</h3>
-                        <p class="feature-description">Règles de base du serveur, comportement attendu et sanctions.</p>
-                        <a href="#regles-generales" class="btn btn-secondary">Consulter</a>
-                    </div>
-
-                    <div class="feature-card">
-                        <span class="feature-icon">🎭</span>
-                        <h3 class="feature-title">Roleplay</h3>
-                        <p class="feature-description">Directives pour le roleplay, création de nations et interactions
-                            RP.</p>
-                        <a href="#roleplay" class="btn btn-secondary">Consulter</a>
-                    </div>
-
-                    <div class="feature-card">
-                        <span class="feature-icon">⚔️</span>
-                        <h3 class="feature-title">Militaire & Conflits</h3>
-                        <p class="feature-description">Règles concernant les guerres, batailles et opérations
-                            militaires.</p>
-                        <a href="#militaire" class="btn btn-secondary">Consulter</a>
-                    </div>
-
-                    <div class="feature-card">
-                        <span class="feature-icon">🗺️</span>
-                        <h3 class="feature-title">Territorial</h3>
-                        <p class="feature-description">Gestion des territoires, frontières et expansions géographiques.
-                        </p>
-                        <a href="#territorial" class="btn btn-secondary">Consulter</a>
-                    </div>
-
-                    <div class="feature-card">
-                        <span class="feature-icon">💬</span>
-                        <h3 class="feature-title">HRP (Hors Roleplay)</h3>
-                        <p class="feature-description">Règles pour les discussions hors roleplay et la modération.</p>
-                        <a href="#hrp" class="btn btn-secondary">Consulter</a>
-                    </div>
-
-                    <div class="feature-card">
-                        <span class="feature-icon">📢</span>
-                        <h3 class="feature-title">Annonces</h3>
-                        <p class="feature-description">Protocoles pour les annonces officielles et communications.</p>
-                        <a href="#annonces" class="btn btn-secondary">Consulter</a>
-                    </div>
+                <!-- Dynamic Rules Content Container -->
+                <div id="rules-dynamic-content">
+                    <!-- Content will be loaded dynamically -->
                 </div>
             </div>
         </section>
 
         <!-- Detailed Rules Sections -->
-        <section class="rules-content">
-            <div class="container">
-                <!-- General Rules -->
-                <div id="regles-generales" class="rule-section">
-                    <h2 class="section-title">📋 Règles Générales</h2>
-                    <div class="rules-grid">
-                        <div class="rule-card">
-                            <h3>Respect et Courtoisie</h3>
-                            <p>Le respect mutuel est la base de notre communauté. Aucune forme de harcèlement,
-                                discrimination ou comportement toxique ne sera tolérée.</p>
-                        </div>
-                        <div class="rule-card">
-                            <h3>Langue et Communication</h3>
-                            <p>Le français est la langue principale du serveur. Utilisez un langage approprié et évitez
-                                le spam ou les messages répétitifs.</p>
-                        </div>
-                        <div class="rule-card">
-                            <h3>Contenu Approprié</h3>
-                            <p>Partagez uniquement du contenu approprié. Aucun contenu NSFW, violent ou offensant ne
-                                sera autorisé.</p>
-                        </div>
-                        <div class="rule-card">
-                            <h3>Sanctions</h3>
-                            <p>Les violations peuvent entraîner des avertissements, mutes temporaires, kicks ou
-                                bannissements selon la gravité.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Roleplay Rules -->
-                <div id="roleplay" class="rule-section">
-                    <h2 class="section-title">🎭 Règles de Roleplay</h2>
-                    <div class="rules-grid">
-                        <div class="rule-card">
-                            <h3>Création de Nation</h3>
-                            <p>Chaque joueur peut créer une nation unique avec une histoire, culture et gouvernement
-                                cohérents avec l'univers post-apocalyptique.</p>
-                        </div>
-                        <div class="rule-card">
-                            <h3>Réalisme et Cohérence</h3>
-                            <p>Les actions doivent être réalistes et cohérentes avec le contexte RP. Évitez le
-                                power-gaming et le meta-gaming.</p>
-                        </div>
-                        <div class="rule-card">
-                            <h3>Interactions Diplomatiques</h3>
-                            <p>Les négociations et accords doivent être formalisés. Respectez les traités signés et les
-                                engagements pris.</p>
-                        </div>
-                        <div class="rule-card">
-                            <h3>Développement Narratif</h3>
-                            <p>Contribuez au développement de l'histoire collective. Vos actions ont des conséquences
-                                sur l'univers partagé.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Military Rules -->
-                <div id="militaire" class="rule-section">
-                    <h2 class="section-title">⚔️ Règles Militaires</h2>
-                    <div class="rules-grid">
-                        <div class="rule-card">
-                            <h3>Déclarations de Guerre</h3>
-                            <p>Les guerres doivent être déclarées officiellement avec des justifications RP valides.
-                                Aucune attaque surprise sans contexte.</p>
-                        </div>
-                        <div class="rule-card">
-                            <h3>Batailles et Combats</h3>
-                            <p>Les combats sont résolus par le système automatisé du bot. Respectez les résultats et
-                                jouez les conséquences.</p>
-                        </div>
-                        <div class="rule-card">
-                            <h3>Alliances Militaires</h3>
-                            <p>Les alliances doivent être formalisées par traité. Les obligations d'assistance mutuelle
-                                doivent être respectées.</p>
-                        </div>
-                        <div class="rule-card">
-                            <h3>Infrastructures Militaires</h3>
-                            <p>La construction d'infrastructures militaires suit les règles économiques. Planifiez vos
-                                investissements stratégiquement.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Territorial Rules -->
-                <div id="territorial" class="rule-section">
-                    <h2 class="section-title">🗺️ Règles Territoriales</h2>
-                    <div class="rules-grid">
-                        <div class="rule-card">
-                            <h3>Revendications Territoriales</h3>
-                            <p>Les nouvelles revendications doivent être justifiées RP et approuvées par le staff.
-                                Aucune expansion arbitraire.</p>
-                        </div>
-                        <div class="rule-card">
-                            <h3>Gestion des Frontières</h3>
-                            <p>Les frontières sont définies clairement sur la carte. Les modifications nécessitent un
-                                accord ou une victoire militaire.</p>
-                        </div>
-                        <div class="rule-card">
-                            <h3>Ressources Naturelles</h3>
-                            <p>L'exploitation des ressources est liée au territoire contrôlé. Développez vos régions
-                                pour maximiser les bénéfices.</p>
-                        </div>
-                        <div class="rule-card">
-                            <h3>Occupation et Libération</h3>
-                            <p>Les territoires occupés peuvent être libérés. Les populations locales influencent la
-                                stabilité des régions.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- This section is now handled dynamically by the JavaScript -->
 
         <!-- Call to Action -->
         <section class="cta">
@@ -384,6 +231,9 @@
     <!-- JavaScript -->
     <!-- Web Components -->
     <script type="module" src="./components/components.js"></script>
+
+    <!-- Rules System -->
+    <script src="./scripts/markdown-parser.js"></script>
 
     <!-- Application Scripts -->
     <script src="./styles/main.js"></script>

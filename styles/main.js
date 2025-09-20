@@ -163,8 +163,8 @@ class ResurgenceWebsite {
 
             if (text.includes('100+')) {
                 this.animateNumber(stat, 0, 100, '+', 2000);
-            } else if (text === '2045') {
-                this.animateNumber(stat, 2020, 2045, '', 3000);
+            } else if (text === '2303') {
+                this.animateNumber(stat, 2020, 2303, '', 3000);
             }
             // 24/7 and ∞ remain static
         });
