@@ -3,6 +3,7 @@
 ## 1. Matériel et Personnel
 
 ### 1.1 Le matériel de départ
+
 À la création de votre pays, vous disposez tout de même d'un minimum de matériel et de forces armées.
 
 - 2.000 armes à feu de votre choix sans composant électronique et de niveau 11 max. Chaque arme est fournie avec 2 chargeurs.
@@ -10,6 +11,7 @@
 - 500 chevaux
 
 ### 1.2 La gestion des conflits et batailles
+
 Afin de faciliter la gestion des guerres, le système utilisé est un système de tour par tour.
 
 Pour chaque conflit, un expert militaire neutre sera chargé des bilans. L'expert est le maître du jeu et donne la main à chaque camp du conflit, il peut en venir à demander en privé des précisions supplémentaires aux joueurs, ou de rédiger des actions rapidement.
@@ -21,6 +23,7 @@ Si au bout de 4 mois RP, le joueur ayant la main n'a posté aucune action, alors
 Il est à prendre en compte, que chaque action a des conséquences, autant territoriales, que sur les infrastructures, le matériel ou vos hommes.
 
 ### 1.3 Recrutement et salaires
+
 Chaque personnel, qu'il soit de l'armée, de la police ou des services secrets à un coût de recrutement ainsi qu'un salaire à payer tous les ans.
 
 Les coûts de recrutement et les salaires sont dans le Forum RP.
@@ -49,16 +52,19 @@ On vous conseille d'utiliser le Site https://www.map.army/ pour vos opérations
 ## 2. Les bâtiments militaires
 
 ### 2.1 Les bases militaires
+
 Les bases militaires sont des structures qui vous permettent de loger vos soldats. Ils représentent donc la limite de soldats que vous pouvez avoir.
 
 Les prix et capacités sont affichés dans le Forum RP.
 
 ### 2.2 Les écoles militaires
+
 À l'instar des bases militaires, les écoles, elles, définissent le nombre de soldats que vous pouvez recruter en même temps.
 
 Les prix et capacités sont affichés dans le Forum RP.
 
 ### 2.3 Les usines militaires
+
 Les usines militaires permettent de produire du matériel militaire selon vos brevets développés.
 
 Le détail des prix est affiché dans le Forum RP.

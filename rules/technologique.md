@@ -3,6 +3,7 @@
 ## 1. Les mécaniques
 
 ### 1.1 Les compétences technologiques
+
 La technologie dans le RP est séparée en plusieurs compétences, toutes limitées par le Niveau technologique général.
 
 Il y a comme compétence :
@@ -57,6 +58,7 @@ Pour les compétences "Technologie Générale", "Balistique et Spatial" et "Arme
 Pour les autres compétences, il faut dépenser 1 point technologique par niveau.
 
 ### 1.2 Les technocentres
+
 Les technocentres sont les bâtiments qui vous permettent de rechercher les différents brevets militaires.
 
 Ce sont aussi le centre de stockage des brevets, il est donc important de les protéger pour éviter tout vol ou sabotage.
@@ -83,11 +85,13 @@ Voici les prix de chaque niveau :
 Pour augmenter de niveau, il faut payer la différence entre les prix des niveaux
 
 ### 1.3 Le ruissellement technologique
+
 Il existe un système d'équilibrage organique permettant à certains pays d'obtenir de l'expérience technologique.
 
 L'équilibrage se base sur le niveau de "Technologie Générale". Lorsqu'un pays possède une technologie générale supérieure aux autres, un ruissellement a lieu.
 
 ### 1.4 L'expérience technologique et les limites d'expérience
+
 À des fins d'équilibres, il existe des limites d'expérience obtenable.
 
 **Les brevets militaires :**
@@ -118,6 +122,7 @@ Plus de détails dans le forum RP.
 ## 2. Développement et les recherches
 
 ### 2.1 Les brevets militaires
+
 Les brevets militaires sont une action de recherche permettant d'acquérir des technologies militaires de différents types.
 
 Chaque brevet possède un coût et une durée de développement variable selon le type de technologie recherché. Il est également donné le coût de production et l'occupation des lignes d'assemblages appelé "Slot".
@@ -131,6 +136,7 @@ La seule limite pour le nombre de brevets que vous pouvez développer sera votre
 Pour considérer le niveau d'un brevet, seule la mise en service de sa technologie d'inspiration est prise en compte.
 
 ### 2.2 Les variantes
+
 Il est possible de développer des variantes de technologies.
 
 Ce système peut être utilisé par les joueurs pour économiser du temps et de l'argent en utilisant une base technologique déjà existante.
@@ -138,6 +144,7 @@ Ce système peut être utilisé par les joueurs pour économiser du temps et de 
 En clair, chaque variante d'une technologie doit avoir son propre brevet militaire.
 
 ### 2.3 Les brevets civils
+
 Les brevets civils sont comme les brevets militaires, à l'exception que ce sont des technologies ne possédant pas d'armes ou d'éléments militaires.
 
 Le temps de développement, le coût de développement et de production sont définis par le joueur, mais doivent respecter le barème présent dans le forum RP.
@@ -145,6 +152,7 @@ Le temps de développement, le coût de développement et de production sont dé
 Les brevets civils non pertinents (coupe-ongle par exemple) n'apportent aucune expérience technologique.
 
 ### 2.4 La technologie nucléaire civile
+
 Le nucléaire civil comme militaire sont des éléments très importants pour un pays, que ce soit pour son développement économique ou sa dissuasion nucléaire.
 
 Afin de pouvoir posséder la technologie nucléaire civile et pouvoir réaliser des centrales nucléaires ou des engins utilisant l'énergie nucléaire il faut réaliser certaines actions :
@@ -156,6 +164,7 @@ Afin de pouvoir posséder la technologie nucléaire civile et pouvoir réaliser 
 - Avoir construit un centre d'enrichissement d'uranium
 
 ### 2.5 La technologie nucléaire militaire
+
 Tout comme le nucléaire civil, il est nécessaire de réaliser certaines actions.
 
 Pour pouvoir développer l'arme nucléaire et produire des têtes nucléaires il faut :
@@ -169,6 +178,7 @@ Pour pouvoir développer l'arme nucléaire et produire des têtes nucléaires il
 ## 3. Actions technologiques
 
 ### 3.1 Les actions technologiques
+
 Les actions technologiques sont des actions qui se concentrent sur un domaine de votre économie/pays en lien directe avec la technologie et la recherche (Développement d'université par exemple).
 
 Ce type d'action est l'un des moyens les plus efficaces d'obtenir des points d'expérience technologique, cependant il faut que l'action soit pertinente.
@@ -176,6 +186,7 @@ Ce type d'action est l'un des moyens les plus efficaces d'obtenir des points d'e
 Les résultats de l'action dépendent également de l'investissement.
 
 ### 3.2 Le spatial
+
 Le spatial et la course à l'espace sont pris en compte dans le RP.
 
 Il est possible d'explorer notre système solaire et de mener des actions de conquête spatiale sur d'autres lunes ou planètes.
@@ -189,11 +200,13 @@ Les points d'expérience technologique obtenables sont affichés dans le Forum R
 ## 4. Les autres mécaniques liées à la technologie
 
 ### 4.1 Les accords et ventes de technologie
+
 Le domaine de la recherche pouvant être très coûteux, il vous est possible de réaliser des accords spécifiques.
 
 On y inclut la vente de brevets et les recherches partagées entre plusieurs pays.
 
 ### 4.2 La rétroingénierie
+
 Il existe une mécanique de rétroingénierie. Il vous est possible d'obtenir une technologie en étudiant un matériel appartenant à un autre pays.
 
 Afin de pouvoir entamer une rétroingénierie, il vous faut avoir un technocentre de libre.
@@ -214,6 +227,7 @@ Voici le tableau des chances de rétroingénierie :
 - Autre = 5% + 5% à chaque tentative échouée
 
 ### 4.3 Le vol de brevets
+
 Le deuxième moyen de copier la technologie d'un autre pays est de tout simplement voler le brevet.
 
 Les brevets technologiques de chaque pays sont stockés dans les technocentre où la recherche a eu lieu. Cependant certains pays peuvent décider soit de renforcer la sécurité des technocentres, soit de mettre les brevets dans un autre endroit.
