@@ -1368,6 +1368,75 @@ img {
     }
 }
 
+@media (max-width: 360px) {
+    /* Use full viewport width */
+    .carousel-container {
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        margin-right: calc(-50vw + 50%);
+    }
+    
+    /* Remove all slide padding to maximize width */
+    .carousel-slide {
+        padding: 0; /* Remove all padding for maximum width */
+    }
+    
+    /* Force story card to use maximum available width */
+    .story-card {
+        max-width: none; /* Remove width restriction */
+        width: calc(100vw - 4px); /* Use almost full viewport width */
+        margin: 0; /* Remove auto margins */
+        border-radius: var(--radius-md); /* Reduce border radius for more space */
+    }
+    
+    /* Minimize story overlay padding to maximize text space */
+    .story-overlay {
+        padding: var(--spacing-xs) 2px; /* Absolute minimal horizontal padding */
+    }
+    
+    /* Optimize text layout for maximum width usage */
+    .story-info {
+        width: 100%;
+        max-width: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    /* Override any container restrictions */
+    .stories-section .container {
+        padding: 0; /* Remove container padding on this section */
+        max-width: none; /* Remove container width limit */
+    }
+    
+    /* Ensure track uses full width */
+    .carousel-track-container {
+        width: 100%;
+        max-width: none;
+        border-radius: 0; /* Remove border radius for full width */
+    }
+    
+    /* Make text more compact but readable */
+    .story-title {
+        font-size: var(--font-size-lg);
+        line-height: 1.1;
+        margin-bottom: calc(var(--spacing-xs) / 2);
+        letter-spacing: 0;
+        word-wrap: break-word;
+        hyphens: auto;
+    }
+    
+    .story-hero {
+        font-size: var(--font-size-base);
+        margin-bottom: var(--spacing-xs);
+    }
+    
+    .story-read-btn {
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: var(--font-size-xs);
+        letter-spacing: 0;
+    }
+}
+
 @media (max-width: var(--breakpoint-sm)) {
     .stories-section {
         padding: var(--spacing-2xl) 0;
