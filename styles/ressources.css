@@ -1,0 +1,334 @@
+/* ==========================================================================
+   Ressources Page Styles - Projet Résurgence
+   Modular resource cards with hover effects and responsive design
+   ========================================================================== */
+
+/* Hero Section Override */
+.resources-hero {
+    background: linear-gradient(135deg, 
+        rgba(var(--bg-primary-rgb), 0.95) 0%, 
+        rgba(var(--bg-secondary-rgb), 0.98) 100%),
+        url('../images/banner.jpg') center/cover no-repeat;
+    min-height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.resources-hero .hero-title {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    margin-bottom: var(--spacing-md);
+}
+
+.resources-hero .hero-subtitle {
+    color: var(--primary-gold);
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    margin-bottom: var(--spacing-lg);
+}
+
+/* Resources Section */
+.resources-section {
+    padding: var(--spacing-3xl) 0;
+}
+
+.resources-section .section-title {
+    text-align: center;
+    margin-bottom: var(--spacing-2xl);
+}
+
+/* Resources Grid - Modular System */
+.resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--spacing-xl);
+    margin-top: var(--spacing-xl);
+}
+
+/* Individual Resource Card */
+.resource-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-secondary);
+    border: 1px solid var(--bg-tertiary);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-xl);
+    text-decoration: none;
+    color: inherit;
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+.resource-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-gold), var(--primary-gold-light));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition-normal);
+}
+
+.resource-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--primary-gold);
+}
+
+.resource-card:hover::before {
+    transform: scaleX(1);
+}
+
+/* Resource Icon */
+.resource-icon {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, 
+        rgba(var(--primary-gold-rgb), 0.1) 0%, 
+        rgba(var(--primary-gold-rgb), 0.05) 100%);
+    border-radius: var(--radius-lg);
+    transition: all var(--transition-normal);
+}
+
+.resource-card:hover .resource-icon {
+    transform: scale(1.1);
+    background: linear-gradient(135deg, 
+        rgba(var(--primary-gold-rgb), 0.2) 0%, 
+        rgba(var(--primary-gold-rgb), 0.1) 100%);
+}
+
+/* Resource Content */
+.resource-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.resource-title {
+    font-family: var(--font-family-title);
+    font-size: var(--font-size-2xl);
+    color: var(--text-primary);
+    margin: 0 0 var(--spacing-md);
+    transition: color var(--transition-normal);
+}
+
+.resource-card:hover .resource-title {
+    color: var(--primary-gold);
+}
+
+.resource-description {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin: 0 0 var(--spacing-lg);
+    flex: 1;
+}
+
+/* Resource Meta Tags */
+.resource-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-top: auto;
+}
+
+.resource-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+    transition: all var(--transition-normal);
+}
+
+.resource-card:hover .resource-tag {
+    background: rgba(var(--primary-gold-rgb), 0.15);
+    color: var(--primary-gold);
+}
+
+/* Resource Arrow */
+.resource-arrow {
+    position: absolute;
+    bottom: var(--spacing-xl);
+    right: var(--spacing-xl);
+    font-size: 1.5rem;
+    color: var(--text-muted);
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all var(--transition-normal);
+}
+
+.resource-card:hover .resource-arrow {
+    opacity: 1;
+    transform: translateX(0);
+    color: var(--primary-gold);
+}
+
+/* Info Cards Section */
+.info-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-xl);
+    margin-top: var(--spacing-xl);
+}
+
+.info-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--bg-tertiary);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    transition: all var(--transition-normal);
+}
+
+.info-card:hover {
+    border-color: var(--primary-gold);
+    box-shadow: var(--shadow-lg);
+}
+
+.info-card h3 {
+    font-family: var(--font-family-title);
+    font-size: var(--font-size-xl);
+    color: var(--primary-gold);
+    margin: 0 0 var(--spacing-md);
+}
+
+.info-card p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin: 0;
+}
+
+/* Card Specific Theming - Map */
+.resource-card[data-resource="map"] .resource-icon {
+    background: linear-gradient(135deg, 
+        rgba(76, 175, 80, 0.15) 0%, 
+        rgba(76, 175, 80, 0.05) 100%);
+}
+
+.resource-card[data-resource="map"]:hover .resource-icon {
+    background: linear-gradient(135deg, 
+        rgba(76, 175, 80, 0.25) 0%, 
+        rgba(76, 175, 80, 0.1) 100%);
+}
+
+/* Card Specific Theming - Calculator */
+.resource-card[data-resource="calculator"] .resource-icon {
+    background: linear-gradient(135deg, 
+        rgba(33, 150, 243, 0.15) 0%, 
+        rgba(33, 150, 243, 0.05) 100%);
+}
+
+.resource-card[data-resource="calculator"]:hover .resource-icon {
+    background: linear-gradient(135deg, 
+        rgba(33, 150, 243, 0.25) 0%, 
+        rgba(33, 150, 243, 0.1) 100%);
+}
+
+/* Card Specific Theming - Discord */
+.resource-card[data-resource="discord"] .resource-icon {
+    background: linear-gradient(135deg, 
+        rgba(114, 137, 218, 0.15) 0%, 
+        rgba(114, 137, 218, 0.05) 100%);
+}
+
+.resource-card[data-resource="discord"]:hover .resource-icon {
+    background: linear-gradient(135deg, 
+        rgba(114, 137, 218, 0.25) 0%, 
+        rgba(114, 137, 218, 0.1) 100%);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .resources-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+    }
+
+    .resource-card {
+        padding: var(--spacing-lg);
+    }
+
+    .resource-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 2rem;
+    }
+
+    .resource-arrow {
+        display: none;
+    }
+
+    .info-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .resources-hero {
+        min-height: 40vh;
+    }
+
+    .resource-title {
+        font-size: var(--font-size-xl);
+    }
+
+    .resource-meta {
+        flex-direction: column;
+    }
+
+    .resource-tag {
+        justify-content: center;
+    }
+}
+
+/* Animation on scroll (optional enhancement) */
+@media (prefers-reduced-motion: no-preference) {
+    .resource-card {
+        animation: fadeInUp 0.6s ease-out forwards;
+        opacity: 0;
+    }
+
+    .resource-card:nth-child(1) { animation-delay: 0.1s; }
+    .resource-card:nth-child(2) { animation-delay: 0.2s; }
+    .resource-card:nth-child(3) { animation-delay: 0.3s; }
+    .resource-card:nth-child(4) { animation-delay: 0.4s; }
+    .resource-card:nth-child(5) { animation-delay: 0.5s; }
+    .resource-card:nth-child(6) { animation-delay: 0.6s; }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+/* Light theme adjustments */
+[data-theme="light"] .resource-card {
+    background: var(--bg-primary);
+    box-shadow: var(--shadow-sm);
+}
+
+[data-theme="light"] .resource-card:hover {
+    box-shadow: var(--shadow-xl);
+}
+
+[data-theme="light"] .info-card {
+    background: var(--bg-primary);
+    box-shadow: var(--shadow-sm);
+}

@@ -88,6 +88,8 @@ class ComponentManager {
 			currentPage = 'guide';
 		} else if (pathname.includes('univers.html')) {
 			currentPage = 'universe';
+		} else if (pathname.includes('ressources.html')) {
+			currentPage = 'resources';
 		} else if (pathname.includes('index.html') || pathname === '/') {
 			// Check for hash to determine specific section
 			const hash = window.location.hash;
