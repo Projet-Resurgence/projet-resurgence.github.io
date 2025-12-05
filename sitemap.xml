@@ -5,28 +5,28 @@
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
     <url>
-        <loc>https://projet-resurgence.github.io/</loc>
+        <loc>https://projet-resurgence.fr/</loc>
         <lastmod>2025-08-31T01:29:56+00:00</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
 
     <url>
-        <loc>https://projet-resurgence.github.io/univers.html</loc>
+        <loc>https://projet-resurgence.fr/univers.html</loc>
         <lastmod>2025-08-31T01:29:56+00:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
 
     <url>
-        <loc>https://projet-resurgence.github.io/regles.html</loc>
+        <loc>https://projet-resurgence.fr/regles.html</loc>
         <lastmod>2025-08-31T01:29:56+00:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
 
     <url>
-        <loc>https://projet-resurgence.github.io/guide.html</loc>
+        <loc>https://projet-resurgence.fr/guide.html</loc>
         <lastmod>2025-08-31T01:29:56+00:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>

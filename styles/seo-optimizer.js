@@ -74,11 +74,11 @@ class SEOOptimizer {
             "@type": "WebPage",
             "name": "Règles et Règlement - Projet Résurgence",
             "description": "Règles officielles du serveur Discord Projet Résurgence pour le roleplay géopolitique",
-            "url": "https://projet-resurgence.github.io/regles.html",
+            "url": "https://projet-resurgence.fr/regles.html",
             "isPartOf": {
                 "@type": "WebSite",
                 "name": "Projet Résurgence",
-                "url": "https://projet-resurgence.github.io"
+                "url": "https://projet-resurgence.fr"
             },
             "about": {
                 "@type": "Game",
@@ -95,8 +95,8 @@ class SEOOptimizer {
             "@type": "HowTo",
             "name": "Guide du Débutant - Projet Résurgence",
             "description": "Guide complet pour débuter sur le serveur de roleplay géopolitique Projet Résurgence",
-            "url": "https://projet-resurgence.github.io/guide.html",
-            "image": "https://projet-resurgence.github.io/images/banner.jpg",
+            "url": "https://projet-resurgence.fr/guide.html",
+            "image": "https://projet-resurgence.fr/images/banner.jpg",
             "totalTime": "PT30M",
             "estimatedCost": {
                 "@type": "MonetaryAmount",
@@ -205,7 +205,7 @@ class SEOOptimizer {
                     "@type": "ListItem",
                     "position": 1,
                     "name": "Accueil",
-                    "item": "https://projet-resurgence.github.io/"
+                    "item": "https://projet-resurgence.fr/"
                 }
             ]
         };
@@ -215,14 +215,14 @@ class SEOOptimizer {
                 "@type": "ListItem",
                 "position": 2,
                 "name": "Règles",
-                "item": "https://projet-resurgence.github.io/regles.html"
+                "item": "https://projet-resurgence.fr/regles.html"
             });
         } else if (currentPage.includes('guide')) {
             breadcrumbData.itemListElement.push({
                 "@type": "ListItem",
                 "position": 2,
                 "name": "Guide",
-                "item": "https://projet-resurgence.github.io/guide.html"
+                "item": "https://projet-resurgence.fr/guide.html"
             });
         }
 

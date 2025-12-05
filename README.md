@@ -91,7 +91,7 @@ Le site supporte automatiquement les modes clair et sombre :
 ### GitHub Pages
 1. Push vers le repository `projet-resurgence.github.io`
 2. Activer GitHub Pages dans les paramètres
-3. Le site sera disponible à `https://projet-resurgence.github.io`
+3. Le site sera disponible à `https://projet-resurgence.fr`
 
 ### Serveur Web Local
 ```bash
