@@ -209,7 +209,6 @@ class PerformanceOptimizer {
     addCriticalResourceHints() {
         // Add resource hints for critical resources
         const hints = [
-            { rel: 'preconnect', href: 'https://discord.gg' },
             { rel: 'dns-prefetch', href: '//cdn.discordapp.com' }
         ];
 
@@ -258,7 +257,7 @@ class PerformanceOptimizer {
         const prefetchUrls = [
             './regles.html',
             './guide.html',
-            'https://discord.gg/NuwQqWGbHc'
+            'https://discord.projet-resurgence.fr/'
         ];
 
         prefetchUrls.forEach(url => {

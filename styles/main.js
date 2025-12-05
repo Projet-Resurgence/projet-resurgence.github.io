@@ -193,7 +193,7 @@ class ResurgenceWebsite {
 
     setupDiscordIntegration() {
         // Discord invite handling
-        const discordLinks = document.querySelectorAll('a[href*="discord.gg"]');
+        const discordLinks = document.querySelectorAll('a[href*="discord.projet-resurgence.fr"], a[href*="discord.gg"]');
 
         discordLinks.forEach(link => {
             link.addEventListener('click', (e) => {
@@ -314,7 +314,7 @@ class ResurgenceWebsite {
             else if (element.closest('.footer')) section = 'footer';
             else if (element.closest('.nav')) section = 'navigation';
 
-            if (href.includes('discord.gg')) clickContext = 'discord_invite';
+            if (href.includes('discord.projet-resurgence.fr') || href.includes('discord.gg')) clickContext = 'discord_invite';
             else if (href.includes('#')) clickContext = 'internal_anchor';
             else if (href.includes('.html')) clickContext = 'internal_page';
             else if (elementClass.includes('btn')) clickContext = 'button';
@@ -529,7 +529,7 @@ class ResurgenceWebsite {
         }
 
         // Track Discord link clicks with more detail
-        document.querySelectorAll('a[href*="discord.gg"]').forEach(link => {
+        document.querySelectorAll('a[href*="discord.projet-resurgence.fr"], a[href*="discord.gg"]').forEach(link => {
             link.addEventListener('click', (e) => {
                 const section = this.getElementSection(link);
                 const linkText = link.textContent?.trim();

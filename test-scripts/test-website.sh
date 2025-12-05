@@ -187,7 +187,7 @@ echo -e "\n${YELLOW}📄 CONTENT TESTS${NC}"
 echo "========================================"
 
 run_test "French content present" "grep -q 'Résurgence\|français\|géopolitique' index.html"
-run_test "Discord links present" "grep -q 'discord.gg' index.html"
+run_test "Discord links present" "grep -q 'discord.projet-resurgence.fr' index.html"
 run_test "Navigation menu present" "grep -q 'nav-link' index.html"
 run_test "Footer content present" "grep -q '<footer' index.html"
 

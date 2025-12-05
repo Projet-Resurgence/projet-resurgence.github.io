@@ -181,7 +181,7 @@ class ResurgenceFooter extends HTMLElement {
                         <div class="footer-section">
                             <h3>Liens Rapides</h3>
                             <ul>
-                                <li><a href="https://discord.gg/NuwQqWGbHc" target="_blank" rel="noopener noreferrer">Discord</a></li>
+                                <li><a href="https://discord.projet-resurgence.fr/" target="_blank" rel="noopener noreferrer">Discord</a></li>
                                 <li><a href="regles.html">Règles</a></li>
                                 <li><a href="guide.html">Guide du Débutant</a></li>
                                 <li><a href="#univers">Univers</a></li>
@@ -192,7 +192,7 @@ class ResurgenceFooter extends HTMLElement {
                             <h3>Support</h3>
                             <ul>
                                 <li><a href="guide.html">Comment Commencer</a></li>
-                                <li><a href="https://discord.gg/NuwQqWGbHc" target="_blank" rel="noopener noreferrer">Aide Discord</a></li>
+                                <li><a href="https://discord.projet-resurgence.fr/" target="_blank" rel="noopener noreferrer">Aide Discord</a></li>
                                 <li><a href="mailto:contact@projet-resurgence.fr">Contact</a></li>
                                 <li><a href="regles.html">Documentation</a></li>
                             </ul>
@@ -201,7 +201,7 @@ class ResurgenceFooter extends HTMLElement {
                         <div class="footer-section">
                             <h3>Communauté</h3>
                             <ul>
-                                <li><a href="https://discord.gg/NuwQqWGbHc" target="_blank" rel="noopener noreferrer">Rejoindre Discord</a></li>
+                                <li><a href="https://discord.projet-resurgence.fr/" target="_blank" rel="noopener noreferrer">Rejoindre Discord</a></li>
                                 <li><a href="#univers">Découvrir l'Univers</a></li>
                                 <li><a href="guide.html">Premiers Pas</a></li>
                                 <li><a href="regles.html">Règlement</a></li>

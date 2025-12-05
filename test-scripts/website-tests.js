@@ -671,7 +671,7 @@ class WebsiteTestSuite {
     }
 
     testConversionTracking() {
-        const discordLinks = document.querySelectorAll('a[href*="discord.gg"]');
+        const discordLinks = document.querySelectorAll('a[href*="discord.projet-resurgence.fr"], a[href*="discord.gg"]');
         this.log('Conversion Tracking Setup', discordLinks.length > 0,
             `${discordLinks.length} Discord conversion links found`);
     }

@@ -114,7 +114,6 @@ php -S localhost:8000
 ## 🔧 Maintenance
 
 ### Mise à Jour du Contenu
-- **Discord Invite** : Remplacer `https://discord.gg/NuwQqWGbHc` dans tous les fichiers
 - **Images** : Optimiser et remplacer dans `/images/`
 - **Règles** : Mettre à jour regles.html selon l'évolution du serveur
 - **Guide** : Actualiser guide.html avec les nouvelles fonctionnalités
@@ -148,7 +147,7 @@ Pour contribuer au site web :
 
 ## 📞 Support
 
-- **Discord** : [Serveur Projet Résurgence](https://discord.gg/NuwQqWGbHc)
+- **Discord** : [Serveur Projet Résurgence](https://discord.projet-resurgence.fr/)
 - **Email** : contact@projet-resurgence.fr
 
 ---
