@@ -231,7 +231,7 @@ class SEOOptimizer {
 
     optimizeInternalLinking() {
         // Add rel attributes to external links
-        const externalLinks = document.querySelectorAll('a[href^="http"]:not([href*="projet-resurgence.github.io"])');
+        const externalLinks = document.querySelectorAll('a[href^="http"]:not([href*="projet-resurgence.fr"])');
 
         externalLinks.forEach(link => {
             if (!link.hasAttribute('rel')) {
