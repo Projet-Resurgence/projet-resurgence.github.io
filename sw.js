@@ -1,10 +1,10 @@
 // Service Worker for Projet Résurgence Website
 // Provides offline functionality and advanced caching strategies
 
-const CACHE_NAME = 'resurgence-v1.1.0';
-const STATIC_CACHE = 'static-v1.1.0';
-const DYNAMIC_CACHE = 'dynamic-v1.1.0';
-const IMAGE_CACHE = 'images-v1.1.0';
+const CACHE_NAME = 'resurgence-v1.3.0';
+const STATIC_CACHE = 'static-v1.3.0';
+const DYNAMIC_CACHE = 'dynamic-v1.3.0';
+const IMAGE_CACHE = 'images-v1.3.0';
 
 // Static resources to cache immediately
 const staticAssets = [
@@ -19,6 +19,11 @@ const staticAssets = [
     '/styles/universe-carousel.js',
     '/styles/seo-optimizer.js',
     '/styles/performance-optimizer.js',
+    '/components/components.js',
+    '/components/header-component.js',
+    '/components/footer-component.js',
+    '/rp-geopolitique.html',
+    '/ressources.html',
     '/manifest.json'
 ];
 
@@ -88,7 +93,10 @@ self.addEventListener('fetch', (event) => {
     }
 
     // Different strategies for different types of requests
-    if (request.destination === 'image') {
+    if (url.pathname.startsWith('/components/') || url.pathname === '/sw.js') {
+        // Web components and SW itself always use network-first
+        event.respondWith(networkFirstStrategy(request, DYNAMIC_CACHE));
+    } else if (request.destination === 'image') {
         event.respondWith(cacheFirstStrategy(request, IMAGE_CACHE));
     } else if (request.destination === 'script' || request.destination === 'style') {
         event.respondWith(cacheFirstStrategy(request, STATIC_CACHE));

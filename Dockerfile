@@ -27,6 +27,19 @@ RUN printf 'server {\n\
         try_files $uri $uri/ =404;\n\
     }\n\
 \n\
+    # Service Worker must never be cached\n\
+    location = /sw.js {\n\
+        add_header Cache-Control "no-cache, no-store, must-revalidate";\n\
+        add_header Pragma "no-cache";\n\
+        expires 0;\n\
+    }\n\
+\n\
+    # Web components must revalidate\n\
+    location /components/ {\n\
+        add_header Cache-Control "no-cache, must-revalidate";\n\
+        expires 0;\n\
+    }\n\
+\n\
     # Cache static assets aggressively\n\
     location ~* \\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot|webp|avif)$ {\n\
         expires 1y;\n\

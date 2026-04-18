@@ -5,6 +5,27 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+	<!-- Force SW cache purge and update -->
+	<script>
+	(function() {
+		if (!('serviceWorker' in navigator)) return;
+		var SW_VERSION = 'v1.3.0';
+		var lastSW = localStorage.getItem('sw-version');
+		if (lastSW !== SW_VERSION) {
+			caches.keys().then(function(names) {
+				return Promise.all(names.map(function(n) { return caches.delete(n); }));
+			}).then(function() {
+				return navigator.serviceWorker.getRegistration();
+			}).then(function(reg) {
+				if (reg) return reg.unregister();
+			}).then(function() {
+				localStorage.setItem('sw-version', SW_VERSION);
+				location.reload();
+			});
+		}
+	})();
+	</script>
+
 	<!-- Google Tag Manager -->
 	<script>(function (w, d, s, l, i) {
 			w[l] = w[l] || []; w[l].push({
@@ -13,7 +34,7 @@
 			}); var f = d.getElementsByTagName(s)[0],
 				j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
 					'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-		})(window, document, 'script', 'dataLayer', 'GTM-WDG77HQC');</script>
+		})(window, document, 'script', 'dataLayer', 'GTM-PKRZXV9B');</script>
 	<!-- End Google Tag Manager -->
 
 	<script>
@@ -150,7 +171,7 @@
 <body>
 
 	<!-- Google Tag Manager (noscript) -->
-	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WDG77HQC" height="0" width="0"
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PKRZXV9B" height="0" width="0"
 			style="display:none;visibility:hidden"></iframe></noscript>
 	<!-- End Google Tag Manager (noscript) -->
 

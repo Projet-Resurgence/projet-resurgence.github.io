@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Force SW cache purge and update -->
+	<script>
+	(function() {
+		if (!('serviceWorker' in navigator)) return;
+		var SW_VERSION = 'v1.3.0';
+		var lastSW = localStorage.getItem('sw-version');
+		if (lastSW !== SW_VERSION) {
+			caches.keys().then(function(names) {
+				return Promise.all(names.map(function(n) { return caches.delete(n); }));
+			}).then(function() {
+				return navigator.serviceWorker.getRegistration();
+			}).then(function(reg) {
+				if (reg) return reg.unregister();
+			}).then(function() {
+				localStorage.setItem('sw-version', SW_VERSION);
+				location.reload();
+			});
+		}
+	})();
+	</script>
+
+	<!-- Google Tag Manager -->
+	<script>(function (w, d, s, l, i) {
+			w[l] = w[l] || []; w[l].push({
+				'gtm.start':
+					new Date().getTime(), event: 'gtm.js'
+			}); var f = d.getElementsByTagName(s)[0],
+				j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+					'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-PKRZXV9B');</script>
+	<!-- End Google Tag Manager -->
+
+	<script>
+		window.axeptioSettings = {
+			clientId: "68963e315d089c7b7334b5d1",
+			cookiesVersion: "projet-resurgence-fr-EU",
+			googleConsentMode: {
+				default: {
+					analytics_storage: "denied",
+					ad_storage: "denied",
+					ad_user_data: "denied",
+					ad_personalization: "denied",
+					wait_for_update: 500
+				}
+			}
+		};
+
+		(function (d, s) {
+			var t = d.getElementsByTagName(s)[0], e = d.createElement(s);
+			e.async = true; e.src = "//static.axept.io/sdk.js";
+			t.parentNode.insertBefore(e, t);
+		})(document, "script");
+	</script>
+
+	<!-- Enhanced Analytics Configuration -->
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+		gtag('config', 'G-5B3PEQ65HX', {
+			custom_map: {
+				'custom_parameter_1': 'page_section',
+				'custom_parameter_2': 'interaction_type'
+			}
+		});
+	</script>
+
+	<!-- Primary Meta Tags -->
+	<title>RP Géopolitique sur Discord : New Era, Moderne & Cold War | Guide Complet</title>
+	<meta name="title" content="RP Géopolitique sur Discord : New Era, Moderne & Cold War | Guide Complet">
+	<meta name="description"
+		content="Découvrez les différents types de RP géopolitique sur Discord : New Era RP, RP moderne et RP Cold War. Comprenez leurs différences et trouvez le format qui vous correspond.">
+	<meta name="keywords"
+		content="RP géopolitique, Discord RP géopolitique, New Era RP, RP moderne, RP Cold War, roleplay géopolitique Discord, serveur RP géopolitique, simulation politique Discord, jeu de rôle géopolitique, RP nation Discord">
+	<meta name="robots" content="index, follow">
+	<meta name="language" content="French">
+	<meta name="author" content="Projet Résurgence">
+
+	<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="article">
+	<meta property="og:url" content="https://projet-resurgence.fr/rp-geopolitique.html">
+	<meta property="og:title" content="RP Géopolitique sur Discord : New Era, Moderne & Cold War">
+	<meta property="og:description"
+		content="Guide complet des formats de RP géopolitique sur Discord. Comparez New Era RP, RP moderne et RP Cold War pour trouver celui qui vous convient.">
+	<meta property="og:image" content="https://projet-resurgence.fr/images/banner.jpg">
+	<meta property="og:image:width" content="1055">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="RP Géopolitique sur Discord - Guide des formats">
+	<meta property="og:image:type" content="image/jpeg">
+	<meta property="og:site_name" content="Projet Résurgence">
+	<meta property="og:locale" content="fr_FR">
+
+	<!-- Twitter -->
+	<meta property="twitter:card" content="summary_large_image">
+	<meta property="twitter:url" content="https://projet-resurgence.fr/rp-geopolitique.html">
+	<meta property="twitter:title" content="RP Géopolitique sur Discord : New Era, Moderne & Cold War">
+	<meta property="twitter:description"
+		content="Découvrez les différents types de RP géopolitique sur Discord et trouvez le format qui vous correspond.">
+	<meta property="twitter:image" content="https://projet-resurgence.fr/images/banner.jpg">
+	<meta property="twitter:image:width" content="1055">
+	<meta property="twitter:image:height" content="630">
+	<meta property="twitter:image:alt" content="RP Géopolitique sur Discord - Guide des formats">
+	<meta property="twitter:image:type" content="image/jpeg">
+
+	<!-- Additional Meta Tags -->
+	<meta name="revisit-after" content="7 days">
+	<meta name="distribution" content="global">
+	<meta name="rating" content="general">
+
+	<!-- Canonical URL -->
+	<link rel="canonical" href="https://projet-resurgence.fr/rp-geopolitique.html">
+
+	<!-- Hreflang for internationalization -->
+	<link rel="alternate" hreflang="fr" href="https://projet-resurgence.fr/rp-geopolitique.html">
+	<link rel="alternate" hreflang="x-default" href="https://projet-resurgence.fr/rp-geopolitique.html">
+
+	<!-- Resource hints for performance -->
+	<link rel="preload" href="./fonts/pressgothic.otf" as="font" type="font/otf" crossorigin="anonymous">
+	<link rel="preload" href="./styles/critical.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<noscript>
+		<link rel="stylesheet" href="./styles/critical.css">
+	</noscript>
+	<link rel="preload" href="./styles/main.css" as="style">
+	<link rel="preload" href="./images/final_logo_centered_little.webp" as="image" type="image/webp">
+	<link rel="preload" href="./styles/main.js" as="script">
+	<link rel="prefetch" href="./index.html">
+	<link rel="prefetch" href="./guide.html">
+
+	<link rel="stylesheet" href="./styles/main.css">
+	<link rel="icon" type="image/png" href="./images/final_logo_little.png">
+	<link rel="manifest" href="./manifest.json">
+	<meta name="theme-color" content="#D5B654">
+	<link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+	<link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+	<link rel="shortcut icon" href="/favicon/favicon.ico" />
+	<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+	<meta name="apple-mobile-web-app-title" content="Projet Resurgence" />
+
+	<!-- Structured Data (JSON-LD) -->
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "Article",
+		"headline": "RP Géopolitique sur Discord : Les différents formats expliqués",
+		"description": "Guide complet des types de RP géopolitique sur Discord : New Era RP, RP moderne et RP Cold War. Différences, gameplay et conseils pour choisir.",
+		"url": "https://projet-resurgence.fr/rp-geopolitique.html",
+		"inLanguage": "fr",
+		"author": {
+			"@type": "Organization",
+			"name": "Projet Résurgence",
+			"url": "https://projet-resurgence.fr"
+		},
+		"publisher": {
+			"@type": "Organization",
+			"name": "Projet Résurgence",
+			"logo": {
+				"@type": "ImageObject",
+				"url": "https://projet-resurgence.fr/images/final_logo_centered_little.png"
+			}
+		},
+		"image": "https://projet-resurgence.fr/images/banner.jpg",
+		"datePublished": "2026-04-18",
+		"dateModified": "2026-04-18",
+		"mainEntityOfPage": {
+			"@type": "WebPage",
+			"@id": "https://projet-resurgence.fr/rp-geopolitique.html"
+		},
+		"about": [
+			{ "@type": "Thing", "name": "RP géopolitique" },
+			{ "@type": "Thing", "name": "Discord RP géopolitique" },
+			{ "@type": "Thing", "name": "New Era RP" }
+		]
+	}
+	</script>
+
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "FAQPage",
+		"mainEntity": [
+			{
+				"@type": "Question",
+				"name": "Qu'est-ce que le RP géopolitique sur Discord ?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Le RP géopolitique sur Discord est une forme de jeu de rôle textuel où chaque joueur incarne un État ou un dirigeant. Les participants gèrent la diplomatie, l'économie, l'armée et la politique intérieure de leur nation à travers des canaux Discord dédiés."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Quelle est la différence entre New Era RP, RP moderne et RP Cold War ?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Le New Era RP se déroule dans un futur fictif ou post-apocalyptique avec des nations inventées. Le RP moderne reproduit le monde contemporain avec les pays réels. Le RP Cold War se concentre sur la période 1947-1991 avec les dynamiques bipolaires de la Guerre froide."
+				}
+			},
+			{
+				"@type": "Question",
+				"name": "Quel type de RP géopolitique choisir pour débuter ?",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "Le RP moderne est souvent recommandé pour les débutants car il s'appuie sur des connaissances du monde réel. Le New Era RP offre plus de liberté créative. Le RP Cold War convient aux passionnés d'histoire."
+				}
+			}
+		]
+	}
+	</script>
+
+	<style>
+		/* Article-specific styles */
+		.article-content {
+			max-width: 820px;
+			margin: 0 auto;
+			line-height: 1.8;
+		}
+
+		.article-content h2 {
+			color: var(--primary-gold);
+			font-size: var(--font-size-2xl);
+			margin-top: var(--spacing-3xl);
+			margin-bottom: var(--spacing-lg);
+			padding-bottom: var(--spacing-sm);
+			border-bottom: 2px solid var(--bg-tertiary);
+		}
+
+		.article-content h3 {
+			color: var(--text-primary);
+			font-size: var(--font-size-xl);
+			margin-top: var(--spacing-2xl);
+			margin-bottom: var(--spacing-md);
+		}
+
+		.article-content p {
+			color: var(--text-secondary);
+			margin-bottom: var(--spacing-lg);
+			font-size: var(--font-size-base);
+		}
+
+		.article-content strong {
+			color: var(--text-primary);
+		}
+
+		.comparison-table {
+			width: 100%;
+			border-collapse: collapse;
+			margin: var(--spacing-2xl) 0;
+			font-size: var(--font-size-sm);
+		}
+
+		.comparison-table th {
+			background: var(--bg-tertiary);
+			color: var(--primary-gold);
+			padding: var(--spacing-md) var(--spacing-lg);
+			text-align: left;
+			font-weight: var(--font-weight-bold);
+			border-bottom: 2px solid var(--primary-gold);
+		}
+
+		.comparison-table td {
+			padding: var(--spacing-md) var(--spacing-lg);
+			border-bottom: 1px solid var(--bg-tertiary);
+			color: var(--text-secondary);
+			vertical-align: top;
+		}
+
+		.comparison-table tr:hover td {
+			background: var(--bg-secondary);
+		}
+
+		.article-intro {
+			font-size: var(--font-size-lg);
+			color: var(--text-primary);
+			border-left: 3px solid var(--primary-gold);
+			padding-left: var(--spacing-lg);
+			margin-bottom: var(--spacing-2xl);
+		}
+
+		.article-conclusion {
+			background: var(--bg-secondary);
+			border-radius: var(--radius-lg);
+			padding: var(--spacing-xl);
+			margin-top: var(--spacing-3xl);
+			border: 1px solid var(--bg-tertiary);
+		}
+
+		.article-conclusion h2 {
+			border-bottom: none;
+			margin-top: 0;
+		}
+
+		@media (max-width: 768px) {
+			.comparison-table {
+				display: block;
+				overflow-x: auto;
+				-webkit-overflow-scrolling: touch;
+			}
+
+			.comparison-table th,
+			.comparison-table td {
+				padding: var(--spacing-sm) var(--spacing-md);
+				font-size: var(--font-size-xs);
+			}
+		}
+	</style>
+</head>
+
+<body>
+
+	<!-- Google Tag Manager (noscript) -->
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PKRZXV9B" height="0" width="0"
+			style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- End Google Tag Manager (noscript) -->
+
+	<!-- Header Component -->
+	<resurgence-header current-page="rp-geopolitique"></resurgence-header>
+
+	<!-- Main Content -->
+	<main class="main">
+		<!-- Hero Section -->
+		<section class="hero" role="banner">
+			<div class="container">
+				<div class="hero-content animate-fade-in-up">
+					<h1 class="hero-title">RP Géopolitique sur Discord</h1>
+					<p class="hero-subtitle">Comprendre les différents formats de roleplay géopolitique</p>
+					<p class="hero-description">
+						New Era, Moderne, Cold War… Le RP géopolitique sur Discord prend de nombreuses formes.
+						Ce guide vous présente les principaux formats pour vous aider à trouver celui qui vous correspond.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Article Content -->
+		<section class="features">
+			<div class="container">
+				<article class="article-content">
+
+					<p class="article-intro">
+						Le <strong>RP géopolitique</strong> est un genre de jeu de rôle textuel dans lequel chaque
+						participant incarne un État, un gouvernement ou un dirigeant. Sur <strong>Discord</strong>,
+						ce format a trouvé un terrain fertile : des dizaines de serveurs francophones proposent
+						des expériences variées, allant de la simulation réaliste du monde actuel à des univers
+						entièrement fictifs. Mais entre les différents formats, il n'est pas toujours facile de s'y
+						retrouver. Voici un tour d'horizon des trois grands courants du <strong>Discord RP
+							géopolitique</strong>.
+					</p>
+
+					<!-- New Era RP -->
+					<h2>New Era RP : la liberté créative au cœur du jeu</h2>
+
+					<p>
+						Le <strong>New Era RP</strong> désigne les serveurs de RP géopolitique dont l'action se déroule
+						dans un futur fictif, un monde alternatif ou un contexte post-apocalyptique. Les nations réelles
+						n'existent plus — ou ont été profondément transformées — et chaque joueur crée son propre pays
+						de toutes pièces : nom, système politique, culture, histoire, économie.
+					</p>
+
+					<h3>Ce qui caractérise le New Era RP</h3>
+					<p>
+						La grande force de ce format réside dans la <strong>liberté créative</strong>. Aucun joueur n'est
+						contraint par les données du monde réel. On peut imaginer une théocratie technologique en
+						Sibérie, une fédération marchande dans le Sahara reconquis, ou une dictature militaire sur
+						les ruines de l'Europe. Le worldbuilding — la construction de l'univers — est une composante
+						centrale du jeu.
+					</p>
+					<p>
+						En pratique, les serveurs New Era RP intègrent souvent des <strong>systèmes mécaniques</strong>
+						plus développés : gestion économique chiffrée, arbres technologiques, production industrielle,
+						recrutement militaire avec des données précises. Ces mécaniques encadrent les interactions et
+						donnent de la profondeur stratégique aux décisions des joueurs. La diplomatie y est d'autant
+						plus imprévisible que personne ne peut s'appuyer sur des alliances historiques préexistantes.
+					</p>
+					<p>
+						Ce format attire les joueurs qui veulent <strong>construire un récit original</strong>, qui
+						apprécient les systèmes de jeu structurés et qui aiment développer un pays unique sur la durée.
+					</p>
+
+					<!-- RP Moderne -->
+					<h2>RP géopolitique moderne : simuler le monde d'aujourd'hui</h2>
+
+					<p>
+						Le <strong>RP moderne</strong> — parfois appelé RP contemporain — reproduit le monde tel qu'il
+						existe aujourd'hui, ou dans un passé très récent. Chaque joueur incarne un pays réel : la
+						France, les États-Unis, la Chine, le Brésil… avec ses forces armées, son économie, ses
+						alliances et ses tensions diplomatiques actuelles.
+					</p>
+
+					<h3>Ce qui caractérise le RP moderne</h3>
+					<p>
+						L'intérêt principal est l'<strong>ancrage dans le réel</strong>. Les joueurs partent d'une base
+						connue : ils connaissent la géographie, les rapports de force, les enjeux économiques. Cela
+						rend le jeu immédiatement accessible, même pour les débutants. Pas besoin de lire des pages
+						de lore pour comprendre les tensions entre deux nations.
+					</p>
+					<p>
+						Le RP moderne met fortement l'accent sur la <strong>diplomatie et la politique
+							internationale</strong>. Les discussions en conseil de sécurité, les traités commerciaux,
+						les sommets bilatéraux et les crises géopolitiques constituent le cœur du gameplay. Les
+						systèmes mécaniques sont généralement plus légers que dans le New Era : la priorité va à
+						l'écriture et à la cohérence des actions par rapport au contexte réel.
+					</p>
+					<p>
+						Ce format convient aux joueurs passionnés d'<strong>actualité internationale</strong>, qui
+						aiment débattre, négocier et imaginer des scénarios « et si ? » à partir du monde contemporain.
+					</p>
+
+					<!-- RP Cold War -->
+					<h2>RP Cold War : revivre les tensions de la Guerre froide</h2>
+
+					<p>
+						Le <strong>RP Cold War</strong> se concentre sur la période de la Guerre froide, généralement
+						entre 1947 et 1991. Les joueurs incarnent les grandes puissances ou les États satellites de
+						cette époque bipolaire, avec ses blocs idéologiques, ses guerres par procuration et sa course
+						aux armements.
+					</p>
+
+					<h3>Ce qui caractérise le RP Cold War</h3>
+					<p>
+						Ce format séduit les <strong>passionnés d'histoire</strong>. La Guerre froide offre un cadre
+						narratif riche : décolonisation, course à l'espace, crises nucléaires, espionnage, révolutions
+						et contre-révolutions. Chaque décision s'inscrit dans un contexte historique précis, ce qui
+						donne une profondeur particulière aux interactions.
+					</p>
+					<p>
+						Le gameplay repose sur un <strong>équilibre délicat entre deux blocs</strong>. Les joueurs
+						doivent composer avec la logique bipolaire : chaque alliance, chaque intervention militaire,
+						chaque accord commercial a des répercussions sur l'équilibre mondial. La menace nucléaire
+						plane en permanence, ajoutant une tension unique aux négociations.
+					</p>
+					<p>
+						Les serveurs de RP Cold War intègrent souvent des <strong>mécaniques historiques</strong> :
+						progression technologique par décennie, événements scriptés (crise de Cuba, guerre du Vietnam,
+						chute du mur…), et contraintes idéologiques pour les nations de chaque bloc.
+					</p>
+					<p>
+						Ce format est idéal pour les joueurs qui aiment l'<strong>histoire du XXe siècle</strong>,
+						les jeux de pouvoir à grande échelle et les scénarios où chaque faux pas peut mener à
+						l'escalade.
+					</p>
+
+					<!-- Comparaison -->
+					<h2>Comparaison des formats de RP géopolitique</h2>
+
+					<p>
+						Chaque type de <strong>RP géopolitique</strong> sur Discord offre une expérience différente.
+						Le tableau ci-dessous résume les principales distinctions pour vous aider à choisir.
+					</p>
+
+					<table class="comparison-table">
+						<thead>
+							<tr>
+								<th>Critère</th>
+								<th>New Era RP</th>
+								<th>RP Moderne</th>
+								<th>RP Cold War</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><strong>Époque</strong></td>
+								<td>Futur fictif / post-apo</td>
+								<td>Monde contemporain</td>
+								<td>1947 – 1991</td>
+							</tr>
+							<tr>
+								<td><strong>Nations</strong></td>
+								<td>Entièrement inventées</td>
+								<td>Pays réels actuels</td>
+								<td>Pays réels historiques</td>
+							</tr>
+							<tr>
+								<td><strong>Liberté créative</strong></td>
+								<td>Très élevée</td>
+								<td>Modérée</td>
+								<td>Limitée par l'histoire</td>
+							</tr>
+							<tr>
+								<td><strong>Mécaniques de jeu</strong></td>
+								<td>Souvent développées</td>
+								<td>Légères à modérées</td>
+								<td>Modérées, historiques</td>
+							</tr>
+							<tr>
+								<td><strong>Accessibilité</strong></td>
+								<td>Moyenne (lore à lire)</td>
+								<td>Élevée (monde connu)</td>
+								<td>Moyenne (connaissances historiques)</td>
+							</tr>
+							<tr>
+								<td><strong>Focus principal</strong></td>
+								<td>Worldbuilding & stratégie</td>
+								<td>Diplomatie & écriture</td>
+								<td>Histoire & tensions</td>
+							</tr>
+							<tr>
+								<td><strong>Profil de joueur</strong></td>
+								<td>Créatifs, stratèges</td>
+								<td>Diplomates, auteurs</td>
+								<td>Historiens, tacticiens</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<p>
+						Il n'existe pas de format « meilleur » qu'un autre. Le choix dépend avant tout de ce que
+						vous recherchez : la liberté de créer un monde, le réalisme du monde actuel, ou la richesse
+						d'une période historique fascinante. Beaucoup de joueurs de <strong>Discord RP
+							géopolitique</strong> passent d'un format à l'autre au fil du temps, et cette diversité
+						fait la richesse de la communauté.
+					</p>
+
+					<!-- Conclusion -->
+					<div class="article-conclusion">
+						<h2>Et Projet Résurgence dans tout ça ?</h2>
+						<p>
+							Projet Résurgence est, pour l'instant, un serveur orienté <strong>New Era RP</strong>.
+							L'action se déroule en 2303, dans un monde post-apocalyptique où les anciennes nations
+							ont disparu et où de nouveaux États émergent sur les ruines de la civilisation. Les joueurs
+							créent leur propre pays, gèrent une économie, développent des technologies et interagissent
+							à travers un système de jeu structuré.
+						</p>
+						<p>
+							Ce cadre offre une grande liberté aux participants tout en proposant des mécaniques
+							concrètes pour encadrer le jeu. Si le format New Era vous intéresse — ou si vous êtes
+							simplement curieux de découvrir le <strong>RP géopolitique</strong> sur Discord — vous
+							êtes les bienvenus.
+						</p>
+						<div style="margin-top: var(--spacing-xl); text-align: center;">
+							<a href="guide.html" class="btn btn-secondary" aria-label="Lire le guide du débutant">Guide
+								du Débutant</a>
+							<a href="https://discord.projet-resurgence.fr/" class="btn btn-primary"
+								aria-label="Rejoindre le serveur Discord">Rejoindre le Discord</a>
+						</div>
+					</div>
+
+				</article>
+			</div>
+		</section>
+	</main>
+
+	<!-- Footer Component -->
+	<resurgence-footer></resurgence-footer>
+
+	<!-- JavaScript -->
+	<!-- Web Components -->
+	<script type="module" src="./components/components.js"></script>
+
+	<!-- Application Scripts -->
+	<script src="./styles/main.js"></script>
+	<script src="./styles/seo-optimizer.js"></script>
+	<script src="./styles/performance-optimizer.js"></script>
+</body>
+
+</html>
