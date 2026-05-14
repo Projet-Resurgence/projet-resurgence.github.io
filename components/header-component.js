@@ -166,18 +166,20 @@ class ResurgenceHeader extends HTMLElement {
                 .nav-list {
                     display: flex;
                     list-style: none;
-                    gap: var(--spacing-lg);
+                    gap: var(--spacing-xs);
                     margin: 0;
                     padding: 0;
                 }
 
                 .nav-link {
                     color: var(--text-secondary);
+                    font-size: var(--font-size-sm);
                     font-weight: var(--font-weight-medium);
-                    padding: var(--spacing-sm) var(--spacing-md);
+                    padding: var(--spacing-xs) var(--spacing-sm);
                     border-radius: var(--radius-md);
-                    transition: all var(--transition-fast);
+                    transition: color var(--transition-fast), background-color var(--transition-fast), font-weight var(--transition-fast);
                     text-decoration: none;
+                    white-space: nowrap;
                 }
 
                 .nav-link:hover {
@@ -185,14 +187,12 @@ class ResurgenceHeader extends HTMLElement {
                     background-color: var(--bg-primary);
                     text-decoration: none;
                     font-weight: var(--font-weight-bold);
-                    font-size: calc(var(--font-size-base) * 1.15);
                 }
 
                 .nav-link.active {
                     color: var(--primary-gold);
                     background-color: var(--bg-primary);
                     font-weight: var(--font-weight-bold);
-                    font-size: calc(var(--font-size-base) * 1.15);
                 }
 
                 /* Theme Toggle */
@@ -214,7 +214,7 @@ class ResurgenceHeader extends HTMLElement {
                 }
 
                 /* Mobile Responsive Design */
-                @media (max-width: 1024px) {
+                @media (max-width: 1280px) {
                     .mobile-menu-toggle {
                         display: flex;
                     }
@@ -331,7 +331,7 @@ class ResurgenceHeader extends HTMLElement {
                                     <li><a href="univers.html" class="nav-link" data-page="universe" aria-label="Explorer l'univers">Univers</a></li>
                                     <li><a href="regles.html" class="nav-link" data-page="rules" aria-label="Consulter les règles">Règles</a></li>
                                     <li><a href="guide.html" class="nav-link" data-page="guide" aria-label="Lire le guide du débutant">Guide</a></li>
-                                    <li><a href="rp.html" class="nav-link" data-page="rp-geopolitique" aria-label="Les types de RP géopolitique">RP Géopolitique</a></li>
+                                    <li><a href="rp-geopolitique.html" class="nav-link" data-page="rp-geopolitique" aria-label="Les types de RP géopolitique">RP Géopolitique</a></li>
                                     <li><a href="ressources.html" class="nav-link" data-page="resources" aria-label="Liens utiles et outils">Ressources</a></li>
                                     <li><a href="index.html#rejoindre" class="nav-link" data-page="join" aria-label="Nous rejoindre">Rejoindre</a></li>
                                 </ul>
@@ -382,7 +382,7 @@ class ResurgenceHeader extends HTMLElement {
 
         // Handle window resize
         window.addEventListener('resize', () => {
-            if (window.innerWidth > 1040) {
+            if (window.innerWidth > 1280) {
                 this.closeMobileMenu();
             }
         });

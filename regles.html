@@ -9,7 +9,7 @@
     <script>
     (function() {
         if (!('serviceWorker' in navigator)) return;
-        var SW_VERSION = 'v1.3.0';
+        var SW_VERSION = 'v1.4.0';
         var lastSW = localStorage.getItem('sw-version');
         if (lastSW !== SW_VERSION) {
             caches.keys().then(function(names) {
@@ -140,14 +140,14 @@
     <noscript>
         <link rel="stylesheet" href="./styles/critical.css">
     </noscript>
-    <link rel="preload" href="./styles/main.css" as="style">
+    <link rel="preload" href="./styles/main.css?v=1.4.0" as="style">
     <link rel="preload" href="./images/final_logo_centered_little.webp" as="image" type="image/webp">
     <link rel="preload" href="./images/final_logo_centered_little.png" as="image" type="image/png">
-    <link rel="preload" href="./styles/main.js" as="script">
+    <link rel="preload" href="./styles/main.js?v=1.4.0" as="script">
     <link rel="prefetch" href="./index.html">
     <link rel="prefetch" href="./guide.html">
     
-    <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="./styles/main.css?v=1.4.0">
     <link rel="stylesheet" href="./styles/rules.css">
     <link rel="icon" type="image/png" href="./images/final_logo_little.png">
     <link rel="manifest" href="./manifest.json">
@@ -190,6 +190,8 @@
 </head>
 
 <body>
+
+    <intersite-navbar current-site="home"></intersite-navbar>
 
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PKRZXV9B" height="0" width="0"
@@ -250,13 +252,13 @@
 
     <!-- JavaScript -->
     <!-- Web Components -->
-    <script type="module" src="./components/components.js"></script>
+    <script type="module" src="./components/components.js?v=1.6.0"></script>
 
     <!-- Rules System -->
     <script src="./scripts/markdown-parser.js"></script>
 
     <!-- Application Scripts -->
-    <script src="./styles/main.js"></script>
+    <script src="./styles/main.js?v=1.4.0"></script>
     <script src="./styles/seo-optimizer.js"></script>
     <script src="./styles/performance-optimizer.js"></script>
 </body>
