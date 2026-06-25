@@ -340,6 +340,21 @@ a:hover {
     margin-bottom: var(--spacing-xl);
 }
 
+.section-cta-link {
+    text-align: center;
+    margin-top: var(--spacing-2xl);
+}
+
+.section-cta-link a {
+    color: var(--primary-gold);
+    font-weight: var(--font-weight-bold);
+    text-decoration: none;
+}
+
+.section-cta-link a:hover {
+    text-decoration: underline;
+}
+
 .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(var(--card-standard-width), 1fr));

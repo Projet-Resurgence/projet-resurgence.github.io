@@ -13,10 +13,10 @@ class ComponentManager {
 
 		try {
 			// Load header component
-			const { default: ResurgenceHeader } = await import('./header-component.js?v=1.5.0');
+			const { default: ResurgenceHeader } = await import('./header-component.js?v=1.6.0');
 
 			// Load footer component
-			const { default: ResurgenceFooter } = await import('./footer-component.js?v=1.5.0');
+			const { default: ResurgenceFooter } = await import('./footer-component.js?v=1.6.0');
 
 			// Load intersite navbar
 			await import('./intersite-navbar.js?v=1.0.0');
@@ -93,6 +93,10 @@ class ComponentManager {
 			currentPage = 'universe';
 		} else if (pathname.includes('ressources.html')) {
 			currentPage = 'resources';
+		} else if (pathname.includes('rp-geopolitique.html')) {
+			currentPage = 'rp-geopolitique';
+		} else if (pathname.includes('mecaniques.html')) {
+			currentPage = 'mecaniques';
 		} else if (pathname.includes('index.html') || pathname === '/') {
 			// Check for hash to determine specific section
 			const hash = window.location.hash;

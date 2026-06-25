@@ -27,6 +27,12 @@ RUN printf 'server {\n\
         try_files $uri $uri/ =404;\n\
     }\n\
 \n\
+    # Custom branded 404 page (real 404 status, not a 200 fallback)\n\
+    error_page 404 /404.html;\n\
+    location = /404.html {\n\
+        internal;\n\
+    }\n\
+\n\
     # Service Worker must never be cached\n\
     location = /sw.js {\n\
         add_header Cache-Control "no-cache, no-store, must-revalidate";\n\

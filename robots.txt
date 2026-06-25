@@ -6,7 +6,7 @@ Disallow: /test-website.html
 Disallow: /test-*
 
 # Sitemap
-Sitemap: https://projet-resurgence.github.io/sitemap.xml
+Sitemap: https://projet-resurgence.fr/sitemap.xml
 
 # Allow specific bots
 User-agent: Googlebot

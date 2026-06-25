@@ -159,14 +159,22 @@ class ResurgenceWebsite {
         const statNumbers = document.querySelectorAll('.stat-number');
 
         statNumbers.forEach(stat => {
-            const text = stat.textContent;
+            // data-stat cards come from styles/stats-loader.js (live API numbers,
+            // or the static fallback already in the HTML if the fetch hasn't
+            // resolved yet) — animate from 0 up to whatever value is current.
+            if (stat.dataset.stat) {
+                const target = parseInt(stat.dataset.statValue || stat.textContent, 10);
+                if (!isNaN(target)) {
+                    this.animateNumber(stat, 0, target, '+', 2000);
+                }
+                return;
+            }
 
-            if (text.includes('100+')) {
-                this.animateNumber(stat, 0, 100, '+', 2000);
-            } else if (text === '2303') {
+            const text = stat.textContent;
+            if (text === '2303') {
                 this.animateNumber(stat, 2020, 2303, '', 3000);
             }
-            // 24/7 and ∞ remain static
+            // 24/7 remains static
         });
     }
 

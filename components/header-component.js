@@ -332,6 +332,7 @@ class ResurgenceHeader extends HTMLElement {
                                     <li><a href="regles.html" class="nav-link" data-page="rules" aria-label="Consulter les règles">Règles</a></li>
                                     <li><a href="guide.html" class="nav-link" data-page="guide" aria-label="Lire le guide du débutant">Guide</a></li>
                                     <li><a href="rp-geopolitique.html" class="nav-link" data-page="rp-geopolitique" aria-label="Les types de RP géopolitique">RP Géopolitique</a></li>
+                                    <li><a href="mecaniques.html" class="nav-link" data-page="mecaniques" aria-label="Les mécaniques et systèmes du jeu">Mécaniques</a></li>
                                     <li><a href="ressources.html" class="nav-link" data-page="resources" aria-label="Liens utiles et outils">Ressources</a></li>
                                     <li><a href="index.html#rejoindre" class="nav-link" data-page="join" aria-label="Nous rejoindre">Rejoindre</a></li>
                                 </ul>

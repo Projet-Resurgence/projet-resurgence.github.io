@@ -14,15 +14,17 @@ Official website for Projet Résurgence Discord RP server. Static HTML/CSS/JS si
 
 ```
 resurgence-web/
-├── index.html                  # Home page (hero, features, stats, universe, FAQ, CTA)
-├── regles.html                 # Game rules
+├── index.html                  # Home page (hero, features, live stats, universe, FAQ, CTA)
+├── regles.html                 # Game rules (static, anchor-linkable per category)
+├── mecaniques.html             # Game systems/mechanics showcase (differentiation page)
 ├── guide.html                  # Player guide
 ├── ressources.html             # Resources/tools page
 ├── rp-geopolitique.html        # Geopolitical RP page
 ├── univers.html                # Universe/lore page
+├── 404.html                    # Custom branded 404 page (served via nginx error_page)
 ├── sw.js                       # Service Worker (v1.3.0)
 ├── manifest.json               # PWA manifest
-├── sitemap.xml                 # XML sitemap (5 URLs)
+├── sitemap.xml                 # XML sitemap (7 URLs)
 ├── robots.txt                  # Robots directives
 ├── CNAME                       # GitHub Pages domain mapping
 ├── Dockerfile                  # nginx:alpine deployment
@@ -38,12 +40,14 @@ resurgence-web/
 │   ├── index.js                # IndexPage class (SW registration, IntersectionObserver)
 │   ├── guide.css               # Guide page styles
 │   ├── rules.css               # Rules page styles
+│   ├── mecaniques.css          # Mécaniques page styles
 │   ├── ressources.css          # Resources page styles
+│   ├── stats-loader.js         # Fetches live counts from PR_API into [data-stat] elements
 │   ├── seo-optimizer.js        # SEO utilities
 │   ├── performance-optimizer.js # Performance utilities
 │   └── universe-carousel.js    # Universe page carousel
 ├── scripts/
-│   └── markdown-parser.js      # Markdown parsing utility
+│   └── build-rules.mjs         # One-off authoring tool: rules/*.md -> static HTML pasted into regles.html
 ├── images/                     # Logos, banners (png/webp/avif)
 ├── fonts/
 │   └── pressgothic.otf         # Custom title font
@@ -142,9 +146,11 @@ All CSS variables defined in `styles/theme.css`:
 ### SEO
 
 - **Meta:** Full Open Graph + Twitter Card + JSON-LD (Organization, WebSite, Game schemas)
-- **Sitemap:** 5 URLs (index, univers, regles, guide, rp-geopolitique)
-- **robots.txt:** Allows all, disallows `/test-*`
+- **Sitemap:** 7 URLs (index, univers, regles, guide, rp-geopolitique, mecaniques, ressources)
+- **robots.txt:** Allows all, disallows `/test-*`. Sitemap URL points to `https://projet-resurgence.fr/sitemap.xml` (NOT the old GitHub Pages domain)
 - **Resource hints:** `preload` for font, main.css, logo, main.js; `prefetch` for regles.html, guide.html
+- **Rules page (`regles.html`):** All 6 categories (hrp, rp, economique, technologique, militaire, territorial) are static HTML in the page itself — not fetched/rendered client-side. Deep-linkable via `#hrp #rp #economique #technologique #militaire #territorial`. Regenerate content with `node scripts/build-rules.mjs` after editing a `rules/*.md` file, then paste the printed HTML back into `regles.html`
+- **Live stats (`styles/stats-loader.js`):** fetches `https://api.projet-resurgence.fr/statistics/public-overview` and fills any `[data-stat]` element (used on `index.html`'s stats grid and `mecaniques.html`'s tech section). Falls back silently to the static number already in the HTML on fetch failure — never leave `[data-stat]` elements without a static fallback value
 - **Google site verification:** `LMfrQYr-Zjgp6F8FUXlE1wKl0ItR2UIGTg6-TUhgy30`
 - **Canonical:** `https://projet-resurgence.fr/`
 - **Hreflang:** `fr` + `x-default`
@@ -179,7 +185,7 @@ All CSS variables defined in `styles/theme.css`:
 2. **SW version** is `v1.3.0` in both `sw.js` (CACHE_NAME) and inline script in `index.html`. Update both together when changing SW
 3. **Web components use Shadow DOM** – Styles inside components are scoped. Use CSS custom properties (`var(--*)`) for theming across shadow boundaries
 4. **Theme localStorage key** is `resurgence-theme` (values: `dark` | `light`)
-5. **Header component** uses `current-page` attribute for active nav highlighting. Page values: `home`, `server`, `universe`, `rules`, `guide`, `rp-geopolitique`, `resources`, `join`
+5. **Header component** uses `current-page` attribute for active nav highlighting. Page values: `home`, `server`, `universe`, `rules`, `guide`, `rp-geopolitique`, `mecaniques`, `resources`, `join`
 6. **Font file** is `pressgothic.otf` – preload with `as="font" type="font/otf" crossorigin`
 7. **Dockerfile removes** `.git`, `.vscode`, `test-results`, `test-scripts`, `CNAME`, `LICENSE`, `README.md`, `verify-seo.sh`, `analytics-report.txt` during build
 8. **All analytics requires Axeptio consent** – `hasAnalyticsConsent()` checks `window.axeptio.getUserConsent()` before any tracking

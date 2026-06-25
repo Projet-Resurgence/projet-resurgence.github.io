@@ -183,6 +183,7 @@ class ResurgenceFooter extends HTMLElement {
                             <ul>
                                 <li><a href="https://discord.projet-resurgence.fr/" target="_blank" rel="noopener noreferrer">Discord</a></li>
                                 <li><a href="regles.html">Règles</a></li>
+                                <li><a href="mecaniques.html">Mécaniques</a></li>
                                 <li><a href="guide.html">Guide du Débutant</a></li>
                                 <li><a href="#univers">Univers</a></li>
                             </ul>

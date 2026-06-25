@@ -1,0 +1,25 @@
+/* Mécaniques page — extends .features/.feature-card from main.css */
+
+.mecaniques-grid .feature-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.mecaniques-grid .feature-description {
+    flex-grow: 1;
+}
+
+.feature-tool-link {
+    display: inline-block;
+    margin-top: var(--spacing-md);
+    color: var(--primary-gold);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    text-decoration: none;
+    border-top: 1px solid var(--bg-tertiary);
+    padding-top: var(--spacing-sm);
+}
+
+.feature-tool-link:hover {
+    text-decoration: underline;
+}

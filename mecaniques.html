@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Force SW cache purge and update -->
+    <script>
+    (function() {
+        if (!('serviceWorker' in navigator)) return;
+        var SW_VERSION = 'v1.4.0';
+        var lastSW = localStorage.getItem('sw-version');
+        if (lastSW !== SW_VERSION) {
+            caches.keys().then(function(names) {
+                return Promise.all(names.map(function(n) { return caches.delete(n); }));
+            }).then(function() {
+                return navigator.serviceWorker.getRegistration();
+            }).then(function(reg) {
+                if (reg) return reg.unregister();
+            }).then(function() {
+                localStorage.setItem('sw-version', SW_VERSION);
+                location.reload();
+            });
+        }
+    })();
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-PKRZXV9B');</script>
+    <!-- End Google Tag Manager -->
+
+    <script>
+        window.axeptioSettings = {
+            clientId: "68963e315d089c7b7334b5d1",
+            cookiesVersion: "fr-08-08-2025_fr-EU",
+            googleConsentMode: {
+                default: {
+                    analytics_storage: "denied",
+                    ad_storage: "denied",
+                    ad_user_data: "denied",
+                    ad_personalization: "denied",
+                    wait_for_update: 500
+                }
+            }
+        };
+
+        (function (d, s) {
+            var t = d.getElementsByTagName(s)[0], e = d.createElement(s);
+            e.async = true; e.src = "//static.axept.io/sdk.js";
+            t.parentNode.insertBefore(e, t);
+        })(document, "script");
+    </script>
+
+    <!-- Enhanced Analytics Configuration -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-5B3PEQ65HX', {
+            send_page_view: true,
+            enhanced_measurement: {
+                scroll_events: true,
+                outbound_clicks: true,
+                site_search: true,
+                file_downloads: true
+            },
+            custom_parameters: {
+                content_group1: 'Mechanics Page',
+                content_group2: 'Documentation',
+                content_group3: 'Game Systems'
+            }
+        });
+
+        window.trackEvent = function (eventName, parameters = {}) {
+            gtag('event', eventName, {
+                event_category: parameters.category || 'User Interaction',
+                event_label: parameters.label || '',
+                value: parameters.value || 0,
+                custom_parameters: {
+                    page_type: 'mecaniques',
+                    ...parameters.custom
+                }
+            });
+        };
+    </script>
+
+    <!-- Primary Meta Tags -->
+    <title>Mécaniques & Systèmes de Jeu - Projet Résurgence | RP Géopolitique Francophone</title>
+    <meta name="title" content="Mécaniques & Systèmes de Jeu - Projet Résurgence">
+    <meta name="description"
+        content="Économie simulée avec inflation et chômage réels, arbre technologique à 12 niveaux, carte automatisée, gestion de territoire, guerre au tour par tour : découvrez les systèmes concrets qui font de Projet Résurgence bien plus qu'un simple RP géopolitique Discord.">
+    <meta name="keywords"
+        content="mécaniques projet résurgence, systèmes RP géopolitique, économie simulée discord, arbre technologique RP, gestion territoriale RP, outils RP géopolitique, simulation politique francophone">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="French">
+    <meta name="author" content="Projet Résurgence">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://projet-resurgence.fr/mecaniques.html">
+    <meta property="og:title" content="Mécaniques & Systèmes de Jeu - Projet Résurgence">
+    <meta property="og:description"
+        content="Découvrez les systèmes concrets (économie simulée, technologie, territoire, guerre, logistique...) qui distinguent Projet Résurgence des autres serveurs RP géopolitiques.">
+    <meta property="og:image" content="https://projet-resurgence.fr/images/banner.jpg">
+    <meta property="og:image:width" content="1055">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Bannière des Mécaniques de Projet Résurgence">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:site_name" content="Projet Résurgence">
+    <meta property="og:locale" content="fr_FR">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://projet-resurgence.fr/mecaniques.html">
+    <meta property="twitter:title" content="Mécaniques & Systèmes de Jeu - Projet Résurgence">
+    <meta property="twitter:description"
+        content="Économie simulée, arbre technologique, territoire automatisé, guerre au tour par tour : les systèmes qui font la profondeur de Projet Résurgence.">
+    <meta property="twitter:image" content="https://projet-resurgence.fr/images/banner.jpg">
+    <meta property="twitter:image:width" content="1055">
+    <meta property="twitter:image:height" content="630">
+    <meta property="twitter:image:alt" content="Bannière des Mécaniques de Projet Résurgence">
+    <meta property="twitter:image:type" content="image/jpeg">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://projet-resurgence.fr/mecaniques.html">
+
+    <!-- Resource hints for performance -->
+    <link rel="preload" href="./fonts/pressgothic.otf" as="font" type="font/otf" crossorigin="anonymous">
+    <link rel="preload" href="./styles/critical.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="./styles/critical.css">
+    </noscript>
+    <link rel="preload" href="./styles/main.css?v=1.4.0" as="style">
+    <link rel="preload" href="./images/final_logo_centered_little.webp" as="image" type="image/webp">
+    <link rel="preload" href="./images/final_logo_centered_little.png" as="image" type="image/png">
+    <link rel="preload" href="./styles/main.js?v=1.4.0" as="script">
+    <link rel="prefetch" href="./regles.html">
+    <link rel="prefetch" href="./index.html">
+
+    <link rel="stylesheet" href="./styles/main.css?v=1.4.0">
+    <link rel="stylesheet" href="./styles/mecaniques.css">
+    <link rel="icon" type="image/png" href="./images/final_logo_little.png">
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#D5B654">
+    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Projet Resurgence" />
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Mécaniques & Systèmes de Jeu - Projet Résurgence",
+        "description": "Présentation des systèmes de jeu de Projet Résurgence : économie simulée, technologie, territoire, diplomatie, guerre, logistique et progression long terme.",
+        "url": "https://projet-resurgence.fr/mecaniques.html",
+        "inLanguage": "fr",
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": "Projet Résurgence",
+            "url": "https://projet-resurgence.fr"
+        },
+        "about": {
+            "@type": "Game",
+            "name": "Projet Résurgence - RP Géopolitique",
+            "genre": "Role-playing game",
+            "gamePlatform": "Discord"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "Projet Résurgence"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Projet Résurgence"
+        }
+    }
+    </script>
+</head>
+
+<body>
+
+    <intersite-navbar current-site="home"></intersite-navbar>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PKRZXV9B" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <!-- Header Component -->
+    <resurgence-header current-page="mecaniques"></resurgence-header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Hero Section -->
+        <section id="mecaniques" class="mecaniques-hero hero" role="banner">
+            <div class="container">
+                <div class="hero-content animate-fade-in-up">
+                    <h1 class="hero-title">Mécaniques & Systèmes</h1>
+                    <p class="hero-subtitle">Ce qui distingue réellement Projet Résurgence</p>
+                    <p class="hero-description">
+                        Beaucoup de serveurs RP géopolitiques se contentent d'un salon de RP et d'une feuille de
+                        calcul. Projet Résurgence fait tourner une économie simulée avec ses propres indices, un
+                        arbre technologique à 12 niveaux, une carte automatisée mise à jour chaque jour, et quatre
+                        outils web dédiés (carte interactive, calculateur économique, panel technologique, catalogue
+                        militaire) — tous connectés à la même base de données que le bot Discord.
+                        Voici comment ça fonctionne, concrètement.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mechanics Grid -->
+        <section class="features">
+            <div class="container">
+                <h2 class="section-title">11 Systèmes, Une Seule Base de Données</h2>
+                <p class="section-subtitle">
+                    Du gouvernement à la logistique militaire, chaque mécanique ci-dessous s'appuie sur les mêmes
+                    données que celles affichées par le bot Discord et les outils web du projet.
+                </p>
+                <div class="features-grid mecaniques-grid">
+
+                    <div class="feature-card">
+                        <span class="feature-icon">🏛️</span>
+                        <h3 class="feature-title">Gestion d'États</h3>
+                        <p class="feature-description">
+                            Chaque pays est dirigé par un gouvernement de 1 à 5 postes, avec des permissions
+                            individuelles et granulaires : qui peut dépenser l'argent, signer des traités, recruter,
+                            produire ou déclarer la guerre. Pas de rôle Discord générique : un membre du gouvernement
+                            peut avoir accès aux finances sans avoir le droit de déclarer la guerre, et inversement.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <span class="feature-icon">💰</span>
+                        <h3 class="feature-title">Économie Simulée</h3>
+                        <p class="feature-description">
+                            La croissance, l'inflation, le chômage et la pauvreté sont des indices calculés, pas des
+                            chiffres choisis à la main. L'inflation a des paliers nommés (normale entre 0,2 % et 2 %,
+                            haute jusqu'à 50 %, hyperinflation au-delà), et dépend de l'équilibre entre vos secteurs
+                            primaire, secondaire et tertiaire. Les emprunts sont plafonnés à 50 % du PIB, à un taux
+                            qui dépend du rang de puissance de votre pays.
+                        </p>
+                        <a href="https://calc.projet-resurgence.fr" class="feature-tool-link" target="_blank" rel="noopener">
+                            Outil : Calculateur Économique →
+                        </a>
+                    </div>
+
+                    <div class="feature-card">
+                        <span class="feature-icon">🔬</span>
+                        <h3 class="feature-title">Système Technologique</h3>
+                        <p class="feature-description">
+                            La technologie est séparée en 6 compétences (terrestre, aérien, naval, balistique/spatial,
+                            armes non conventionnelles, industrie) limitées par 12 paliers historiques, de "1919 et
+                            moins" à "2020 et plus". Chaque technocentre a un coût de mise à niveau précis (de 15M à
+                            1,5 milliard), et il est possible de voler ou de rétroingénierer la technologie d'un
+                            adversaire, avec des taux de réussite différents selon le type de matériel étudié.
+                            <br><br>
+                            <strong><span data-stat="technologies">200+</span> technologies</strong> sont
+                            actuellement développées ou en développement à travers le monde de Résurgence.
+                        </p>
+                        <a href="https://tech.projet-resurgence.fr" class="feature-tool-link" target="_blank" rel="noopener">
+                            Outil : Panel Technologique →
+                        </a>
+                    </div>
+
+                    <div class="feature-card">
+                        <span class="feature-icon">🏗️</span>
+                        <h3 class="feature-title">Développement Industriel</h3>
+                        <p class="feature-description">
+                            Usines, bases, écoles, logements et technocentres sont des structures distinctes, chacune
+                            avec son propre rôle, et qui se construisent région par région. Douze types de centrales
+                            électriques (éolien, solaire, nucléaire occidental ou oriental, charbon, géothermie...)
+                            déterminent votre production énergétique — ne pas couvrir la consommation de votre
+                            population pénalise directement votre PIB.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <span class="feature-icon">🗺️</span>
+                        <h3 class="feature-title">Gestion Territoriale</h3>
+                        <p class="feature-description">
+                            La carte du monde est automatisée et republiée chaque jour. Annexer une région se fait
+                            via des points diplomatiques qui ouvrent des négociations — pas une prise immédiate — et
+                            plusieurs pays peuvent négocier la même région en même temps sans le savoir. Un pays peut
+                            aussi créer un État satellite à partir d'une région, avec son propre budget et le risque
+                            réel de soulèvement si l'exploitation devient excessive.
+                        </p>
+                        <a href="https://map.projet-resurgence.fr" class="feature-tool-link" target="_blank" rel="noopener">
+                            Outil : Carte Interactive →
+                        </a>
+                    </div>
+
+                    <div class="feature-card">
+                        <span class="feature-icon">🤝</span>
+                        <h3 class="feature-title">Diplomatie</h3>
+                        <p class="feature-description">
+                            Traités, alliances et fusions entre pays suivent des règles concrètes : une fusion avec
+                            un pays non joué exige un groupe culturel proche, un régime similaire, des accords
+                            économiques d'au moins deux ans, une frontière commune et un PIB cinq fois supérieur à
+                            celui de la cible. Les fusions, comme les conquêtes militaires, intègrent 25 % du PIB
+                            absorbé à votre budget.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <span class="feature-icon">⚔️</span>
+                        <h3 class="feature-title">Guerre</h3>
+                        <p class="feature-description">
+                            Les conflits se jouent au tour par tour, arbitrés par un expert militaire neutre qui rend
+                            les bilans. Recruter une armée trop nombreuse a un coût réel : au-delà de 3 % de votre
+                            population enrôlée, vous subissez un malus de croissance économique qui grimpe par
+                            paliers jusqu'à -40 % (et -15 % de PIB de base) au-delà de 20 %. La dissuasion a un prix,
+                            littéralement.
+                        </p>
+                        <a href="https://catalog.projet-resurgence.fr" class="feature-tool-link" target="_blank" rel="noopener">
+                            Outil : Catalogue Militaire →
+                        </a>
+                    </div>
+
+                    <div class="feature-card">
+                        <span class="feature-icon">⚡</span>
+                        <h3 class="feature-title">Infrastructures</h3>
+                        <p class="feature-description">
+                            Routes, voies ferrées et leurs versions électrifiées ou souterraines ont un prix au
+                            kilomètre fixé par l'administration, tout comme la production et la consommation
+                            électrique. Ce ne sont pas des décors : une infrastructure insuffisante ou une électricité
+                            manquante se répercute directement sur vos indices économiques.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <span class="feature-icon">👥</span>
+                        <h3 class="feature-title">Population & Civils</h3>
+                        <p class="feature-description">
+                            Le chômage et la pauvreté sont influencés par l'inflation, l'accès à l'emploi, à la
+                            santé, à l'éducation et par la présence ou non d'aides sociales et d'un salaire minimum.
+                            Les brevets civils (non militaires) contribuent eux aussi à l'expérience technologique de
+                            votre nation, dans une limite annuelle fixe.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <span class="feature-icon">🚚</span>
+                        <h3 class="feature-title">Logistique</h3>
+                        <p class="feature-description">
+                            Sept types de personnel (soldats actifs, réservistes, forces spéciales, mercenaires,
+                            policiers, agents secrets, ingénieurs militaires) ont chacun un coût de recrutement et un
+                            salaire annuel propre. Vos bases et écoles militaires plafonnent respectivement le nombre
+                            de soldats logés et le nombre recrutable simultanément — la logistique limite la force
+                            avant même le combat.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <span class="feature-icon">📈</span>
+                        <h3 class="feature-title">Progression Long Terme</h3>
+                        <p class="feature-description">
+                            Chaque bilan de fin d'année convertit vos résultats en points politiques, diplomatiques
+                            et technologiques pour l'année suivante. Certains projets, comme le nucléaire civil (1 an
+                            et 6 mois, plus de 10 milliards investis) ou militaire (3 ans, 50 milliards), se
+                            construisent sur plusieurs années RP — la progression n'est jamais instantanée.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="cta">
+            <div class="container">
+                <h2>Envie de Voir Ces Systèmes en Action ?</h2>
+                <p>
+                    Le règlement complet détaille chacune de ces mécaniques, chiffres à l'appui. Le Discord, lui,
+                    vous permet de les tester directement.
+                </p>
+                <div class="btn-group">
+                    <a href="regles.html" class="btn btn-primary">Consulter le Règlement</a>
+                    <a href="https://discord.projet-resurgence.fr/" class="btn btn-secondary">Rejoindre Discord</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Component -->
+    <resurgence-footer></resurgence-footer>
+
+    <!-- JavaScript -->
+    <!-- Web Components -->
+    <script type="module" src="./components/components.js?v=1.6.0"></script>
+
+    <!-- Application Scripts -->
+    <script src="./styles/main.js?v=1.4.0"></script>
+    <script src="./styles/stats-loader.js"></script>
+    <script src="./styles/seo-optimizer.js"></script>
+    <script src="./styles/performance-optimizer.js"></script>
+</body>
+
+</html>
