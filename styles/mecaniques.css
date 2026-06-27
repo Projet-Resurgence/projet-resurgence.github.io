@@ -23,3 +23,78 @@
 .feature-tool-link:hover {
     text-decoration: underline;
 }
+
+/* Honest Comparison */
+.comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-2xl);
+    margin-top: var(--spacing-2xl);
+}
+
+.comparison-column {
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-md);
+    background: var(--bg-secondary);
+    border-left: 4px solid;
+}
+
+.comparison-column--before {
+    border-left-color: var(--accent-danger);
+}
+
+.comparison-column--after {
+    border-left-color: var(--primary-gold);
+}
+
+.comparison-column-title {
+    margin: 0 0 var(--spacing-lg) 0;
+    font-size: var(--font-size-lg);
+}
+
+.comparison-column--before .comparison-column-title {
+    color: var(--accent-danger);
+}
+
+.comparison-column--after .comparison-column-title {
+    color: var(--primary-gold);
+}
+
+.comparison-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.comparison-list li {
+    position: relative;
+    padding-left: 1.75rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.comparison-list li::before {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-weight: var(--font-weight-bold);
+}
+
+.comparison-column--before .comparison-list li::before {
+    content: "✗";
+    color: var(--accent-danger);
+}
+
+.comparison-column--after .comparison-list li::before {
+    content: "✓";
+    color: var(--primary-gold);
+}
+
+@media (max-width: 768px) {
+    .comparison-grid {
+        grid-template-columns: 1fr;
+    }
+}

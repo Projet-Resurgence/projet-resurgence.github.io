@@ -23,6 +23,8 @@
     top: calc(var(--header-height, 80px) + 1.5rem);
     max-height: calc(100vh - var(--header-height, 80px) - 3rem);
     overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(213, 182, 84, 0.5) rgba(213, 182, 84, 0.08);
 }
 
 .rules-sidebar-link {
@@ -156,6 +158,30 @@
     top: 2rem;
     max-height: 70vh;
     overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(213, 182, 84, 0.5) rgba(213, 182, 84, 0.08);
+}
+
+.table-of-contents::-webkit-scrollbar,
+.rules-sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.table-of-contents::-webkit-scrollbar-track,
+.rules-sidebar::-webkit-scrollbar-track {
+    background: rgba(213, 182, 84, 0.08);
+    border-radius: 8px;
+}
+
+.table-of-contents::-webkit-scrollbar-thumb,
+.rules-sidebar::-webkit-scrollbar-thumb {
+    background: rgba(213, 182, 84, 0.5);
+    border-radius: 8px;
+}
+
+.table-of-contents::-webkit-scrollbar-thumb:hover,
+.rules-sidebar::-webkit-scrollbar-thumb:hover {
+    background: rgba(213, 182, 84, 0.8);
 }
 
 .table-of-contents h3 {
