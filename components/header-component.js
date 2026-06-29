@@ -53,7 +53,7 @@ class ResurgenceHeader extends HTMLElement {
                     height: var(--header-height);
                     position: fixed;
                     top: 0;
-                    left: 0;
+                    left: var(--intersite-navbar-offset, 34px);
                     right: 0;
                     z-index: var(--z-fixed);
                     transition: background-color var(--transition-normal), backdrop-filter var(--transition-normal);

@@ -27,7 +27,7 @@ resurgence-header {
 	display: block;
 	position: fixed;
 	top: 0;
-	left: var(--intersite-navbar-offset, 34px);
+	left: 0;
 	right: 0;
 	z-index: 1000
 }
