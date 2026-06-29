@@ -227,7 +227,7 @@ resurgence-header {
 	display: block;
 	position: fixed;
 	top: 0;
-	left: 0;
+	left: var(--intersite-navbar-offset, 34px);
 	right: 0;
 	z-index: var(--z-fixed);
 }

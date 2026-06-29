@@ -1,4 +1,4 @@
-const s = [
+const o = [
   {
     id: "home",
     label: "Site Principal",
@@ -49,7 +49,7 @@ const s = [
     description: "Communauté & RP",
     external: !0
   }
-], l = "pr-intersite-navbar-open", p = `
+], l = "pr-intersite-navbar-open", g = `
 :host {
   all: initial;
   display: block;
@@ -303,57 +303,76 @@ const s = [
 @media (max-width: 480px) {
   :host {
     --panel-width: 210px;
+    --tab-width: 30px;
   }
 }
-`;
-class c extends HTMLElement {
+`, d = "intersite-navbar-offset-style", h = "--intersite-navbar-offset";
+function b() {
+  if (document.getElementById(d)) return;
+  const r = document.createElement("style");
+  r.id = d, r.textContent = `
+html body {
+  margin-left: var(${h}, 34px);
+  transition: margin-left 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+`, document.head.appendChild(r);
+}
+function c(r) {
+  const e = getComputedStyle(r).getPropertyValue("--tab-width").trim() || "34px";
+  document.documentElement.style.setProperty(h, e);
+}
+class u extends HTMLElement {
   constructor() {
     super(), this.attachShadow({ mode: "open" }), this._isOpen = localStorage.getItem(l) === "true", this._rendered = !1;
   }
   static get observedAttributes() {
     return ["current-site"];
   }
-  attributeChangedCallback(t, e, i) {
-    e !== i && this._rendered && this._updateActive();
+  attributeChangedCallback(e, t, i) {
+    t !== i && this._rendered && this._updateActive();
   }
   connectedCallback() {
-    this._render(), this._rendered = !0, this._bindEvents();
+    this._render(), this._rendered = !0, this._bindEvents(), this._bindHostOffset();
   }
   disconnectedCallback() {
     this._cleanup();
   }
+  // ── Reserve space on the host page so the tab/panel never overlaps it ──
+  _bindHostOffset() {
+    b(), c(this), this._mq = window.matchMedia("(max-width: 480px)"), this._onMqChange = () => c(this), this._mq.addEventListener("change", this._onMqChange);
+  }
   // ── Detect which site is active ──
   _detectCurrentSite() {
-    const t = this.getAttribute("current-site");
-    if (t) return t;
+    const e = this.getAttribute("current-site");
+    if (e) return e;
     try {
-      const e = window.location.hostname;
-      for (const i of s)
-        if (new URL(i.url).hostname === e) return i.id;
+      const t = window.location.hostname;
+      for (const i of o)
+        if (new URL(i.url).hostname === t) return i.id;
     } catch {
     }
     return null;
   }
   // ── Render into Shadow DOM ──
   _render() {
-    const t = this._detectCurrentSite(), e = this._isOpen, i = s.map((r) => {
-      const a = t === r.id, o = r.external ? ' target="_blank" rel="noopener noreferrer"' : "";
+    const e = this._detectCurrentSite(), t = this._isOpen, i = o.map((a) => {
+      const n = e === a.id, s = a.external ? ' target="_blank" rel="noopener noreferrer"' : "";
       return `
-        <li class="site-item${a ? " active" : ""}">
-          <a href="${r.url}" class="site-link"${o}${a ? ' aria-current="page"' : ""}>
-            <span class="site-icon" aria-hidden="true">${r.icon}</span>
+        <li class="site-item${n ? " active" : ""}">
+          <a href="${a.url}" class="site-link"${s}${n ? ' aria-current="page"' : ""}>
+            <span class="site-icon" aria-hidden="true">${a.icon}</span>
             <span class="site-content">
-              <span class="site-label">${r.label}</span>
-              <span class="site-desc">${r.description}</span>
+              <span class="site-label">${a.label}</span>
+              <span class="site-desc">${a.description}</span>
             </span>
             <span class="active-dot" aria-hidden="true"></span>
           </a>
         </li>`;
     }).join("");
     this.shadowRoot.innerHTML = `
-      <style>${p}</style>
-      <div class="wrapper${e ? " open" : ""}" id="wrapper">
-        <div class="panel" id="panel" role="navigation" aria-label="Navigation inter-sites" aria-hidden="${!e}">
+      <style>${g}</style>
+      <div class="wrapper${t ? " open" : ""}" id="wrapper">
+        <div class="panel" id="panel" role="navigation" aria-label="Navigation inter-sites" aria-hidden="${!t}">
           <div class="panel-header">
             <span class="header-emblem" aria-hidden="true">⚜</span>
             <span class="header-text">
@@ -367,8 +386,8 @@ class c extends HTMLElement {
           </div>
         </div>
         <button class="toggle-tab" id="toggleBtn"
-          aria-label="${e ? "Fermer" : "Ouvrir"} la navigation inter-sites"
-          aria-expanded="${e}"
+          aria-label="${t ? "Fermer" : "Ouvrir"} la navigation inter-sites"
+          aria-expanded="${t}"
           aria-controls="panel">
           <span class="tab-arrow" aria-hidden="true">›</span>
           <span class="tab-label" aria-hidden="true">Sites</span>
@@ -377,26 +396,27 @@ class c extends HTMLElement {
   }
   // ── Update active item without full re-render ──
   _updateActive() {
-    const t = this._detectCurrentSite();
-    this.shadowRoot.querySelectorAll(".site-item").forEach((e, i) => {
-      var o;
-      const r = ((o = s[i]) == null ? void 0 : o.id) === t;
-      e.classList.toggle("active", r);
-      const a = e.querySelector(".site-link");
-      r ? a == null || a.setAttribute("aria-current", "page") : a == null || a.removeAttribute("aria-current");
+    const e = this._detectCurrentSite();
+    this.shadowRoot.querySelectorAll(".site-item").forEach((t, i) => {
+      var s;
+      const a = ((s = o[i]) == null ? void 0 : s.id) === e;
+      t.classList.toggle("active", a);
+      const n = t.querySelector(".site-link");
+      a ? n == null || n.setAttribute("aria-current", "page") : n == null || n.removeAttribute("aria-current");
     });
   }
   // ── Event binding ──
   _bindEvents() {
-    const t = this.shadowRoot.getElementById("toggleBtn");
-    t == null || t.addEventListener("click", () => this.toggle()), this._onDocClick = (e) => {
-      this._isOpen && !this.contains(e.target) && this.close();
-    }, document.addEventListener("click", this._onDocClick), this._onKeyDown = (e) => {
-      e.altKey && (e.key === "n" || e.key === "N") && (e.preventDefault(), this.toggle()), e.key === "Escape" && this._isOpen && this.close();
+    const e = this.shadowRoot.getElementById("toggleBtn");
+    e == null || e.addEventListener("click", () => this.toggle()), this._onDocClick = (t) => {
+      this._isOpen && !this.contains(t.target) && this.close();
+    }, document.addEventListener("click", this._onDocClick), this._onKeyDown = (t) => {
+      t.altKey && (t.key === "n" || t.key === "N") && (t.preventDefault(), this.toggle()), t.key === "Escape" && this._isOpen && this.close();
     }, document.addEventListener("keydown", this._onKeyDown);
   }
   _cleanup() {
-    document.removeEventListener("click", this._onDocClick), document.removeEventListener("keydown", this._onKeyDown);
+    var e;
+    document.removeEventListener("click", this._onDocClick), document.removeEventListener("keydown", this._onKeyDown), (e = this._mq) == null || e.removeEventListener("change", this._onMqChange);
   }
   // ── Public API ──
   toggle() {
@@ -404,40 +424,40 @@ class c extends HTMLElement {
   }
   open() {
     this._isOpen = !0, localStorage.setItem(l, "true");
-    const t = this.shadowRoot.getElementById("wrapper"), e = this.shadowRoot.getElementById("panel"), i = this.shadowRoot.getElementById("toggleBtn");
-    t == null || t.classList.add("open"), e == null || e.setAttribute("aria-hidden", "false"), i == null || i.setAttribute("aria-expanded", "true"), i == null || i.setAttribute("aria-label", "Fermer la navigation inter-sites"), this.dispatchEvent(new CustomEvent("navbar-open", { bubbles: !0, composed: !0 }));
+    const e = this.shadowRoot.getElementById("wrapper"), t = this.shadowRoot.getElementById("panel"), i = this.shadowRoot.getElementById("toggleBtn");
+    e == null || e.classList.add("open"), t == null || t.setAttribute("aria-hidden", "false"), i == null || i.setAttribute("aria-expanded", "true"), i == null || i.setAttribute("aria-label", "Fermer la navigation inter-sites"), this.dispatchEvent(new CustomEvent("navbar-open", { bubbles: !0, composed: !0 }));
   }
   close() {
     this._isOpen = !1, localStorage.setItem(l, "false");
-    const t = this.shadowRoot.getElementById("wrapper"), e = this.shadowRoot.getElementById("panel"), i = this.shadowRoot.getElementById("toggleBtn");
-    t == null || t.classList.remove("open"), e == null || e.setAttribute("aria-hidden", "true"), i == null || i.setAttribute("aria-expanded", "false"), i == null || i.setAttribute("aria-label", "Ouvrir la navigation inter-sites"), this.dispatchEvent(new CustomEvent("navbar-close", { bubbles: !0, composed: !0 }));
+    const e = this.shadowRoot.getElementById("wrapper"), t = this.shadowRoot.getElementById("panel"), i = this.shadowRoot.getElementById("toggleBtn");
+    e == null || e.classList.remove("open"), t == null || t.setAttribute("aria-hidden", "true"), i == null || i.setAttribute("aria-expanded", "false"), i == null || i.setAttribute("aria-label", "Ouvrir la navigation inter-sites"), this.dispatchEvent(new CustomEvent("navbar-close", { bubbles: !0, composed: !0 }));
   }
   get isOpen() {
     return this._isOpen;
   }
 }
-customElements.get("intersite-navbar") || customElements.define("intersite-navbar", c);
-function d() {
-  document.querySelectorAll("[data-intersite-navbar]:not([data-in-initialized])").forEach((n) => {
-    const t = document.createElement("intersite-navbar"), e = n.getAttribute("data-current-site");
-    e && t.setAttribute("current-site", e), document.body.appendChild(t), n.setAttribute("data-in-initialized", "");
+customElements.get("intersite-navbar") || customElements.define("intersite-navbar", u);
+function p() {
+  document.querySelectorAll("[data-intersite-navbar]:not([data-in-initialized])").forEach((r) => {
+    const e = document.createElement("intersite-navbar"), t = r.getAttribute("data-current-site");
+    t && e.setAttribute("current-site", t), document.body.appendChild(e), r.setAttribute("data-in-initialized", "");
   });
 }
-document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", d) : d();
+document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", p) : p();
 typeof window < "u" && (window.IntersiteNavbar = {
-  IntersiteNavbar: c,
-  SITES: s,
+  IntersiteNavbar: u,
+  SITES: o,
   /**
    * Programmatically mount the navbar.
    * @param {{ currentSite?: string }} options
    * @returns {IntersiteNavbar}
    */
-  create(n = {}) {
-    const t = document.createElement("intersite-navbar");
-    return n.currentSite && t.setAttribute("current-site", n.currentSite), document.body.appendChild(t), t;
+  create(r = {}) {
+    const e = document.createElement("intersite-navbar");
+    return r.currentSite && e.setAttribute("current-site", r.currentSite), document.body.appendChild(e), e;
   }
 });
 export {
-  s as SITES,
-  c as default
+  o as SITES,
+  u as default
 };
