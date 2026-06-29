@@ -214,31 +214,58 @@ class ResurgenceHeader extends HTMLElement {
                 }
 
                 /* Mobile Responsive Design */
+                .nav-backdrop {
+                    display: none;
+                }
+
                 @media (max-width: 1280px) {
                     .mobile-menu-toggle {
                         display: flex;
                     }
 
+                    .nav-backdrop {
+                        display: block;
+                        position: fixed;
+                        top: var(--header-height);
+                        left: 0;
+                        right: 0;
+                        height: 100vh;
+                        background: rgba(0, 0, 0, 0.45);
+                        opacity: 0;
+                        visibility: hidden;
+                        transition: opacity var(--transition-normal), visibility var(--transition-normal);
+                        z-index: var(--z-fixed);
+                    }
+
+                    .nav-backdrop.active {
+                        opacity: 1;
+                        visibility: visible;
+                    }
+
                     .nav-menu {
                         position: fixed;
                         top: var(--header-height);
-                        right: var(--spacing-lg);
-                        left: auto;
+                        left: 0;
+                        right: 0;
                         width: auto;
-                        min-width: 200px;
-                        max-width: 300px;
+                        min-width: 0;
+                        max-width: none;
+                        max-height: calc(100vh - var(--header-height));
+                        overflow-y: auto;
                         background-color: var(--bg-secondary);
                         flex-direction: column;
-                        padding: var(--spacing-xl);
-                        gap: var(--spacing-lg);
-                        transform: translateY(-100%);
+                        align-items: stretch;
+                        padding: var(--spacing-lg);
+                        gap: var(--spacing-xs);
+                        transform: translateY(-8px);
                         opacity: 0;
                         visibility: hidden;
-                        transition: all var(--transition-normal);
-                        border: var(--border-thin) solid var(--bg-tertiary);
-                        border-radius: var(--radius-lg);
-                        backdrop-filter: var(--blur-sm);
-                        z-index: 999;
+                        transition: transform var(--transition-normal), opacity var(--transition-normal), visibility var(--transition-normal);
+                        border: none;
+                        border-top: var(--border-thin) solid var(--bg-tertiary);
+                        border-radius: 0;
+                        backdrop-filter: var(--blur-md);
+                        z-index: calc(var(--z-fixed) + 1);
                         box-shadow: var(--shadow-xl);
                     }
 
@@ -250,21 +277,22 @@ class ResurgenceHeader extends HTMLElement {
 
                     .nav-list {
                         flex-direction: column;
-                        gap: var(--spacing-md);
+                        gap: var(--spacing-xs);
                         width: 100%;
                     }
 
                     .nav-link {
                         padding: var(--spacing-md);
-                        text-align: right;
+                        text-align: left;
                         border-radius: var(--radius-md);
                         width: 100%;
                         display: block;
                     }
 
                     .theme-toggle {
-                        align-self: flex-end;
-                        margin-top: var(--spacing-md);
+                        align-self: stretch;
+                        text-align: center;
+                        margin-top: var(--spacing-sm);
                     }
                 }
 
@@ -288,14 +316,13 @@ class ResurgenceHeader extends HTMLElement {
                     }
 
                     .nav-menu {
-                        padding: var(--spacing-lg);
-                        right: var(--spacing-md);
-                        min-width: 180px;
+                        padding: var(--spacing-md);
                     }
                 }
             </style>
 
             <header class="header">
+                <div class="nav-backdrop" id="navBackdrop"></div>
                 <div class="container">
                     <div class="header-content">
                         <a href="index.html" class="logo" aria-label="Retour à l'accueil">
@@ -350,8 +377,16 @@ class ResurgenceHeader extends HTMLElement {
     setupEventListeners() {
         const mobileMenuToggle = this.shadowRoot.getElementById('mobileMenuToggle');
         const navMenu = this.shadowRoot.getElementById('navMenu');
+        const navBackdrop = this.shadowRoot.getElementById('navBackdrop');
         const themeToggle = this.shadowRoot.getElementById('themeToggle');
         const navLinks = this.shadowRoot.querySelectorAll('.nav-link');
+
+        // Close mobile menu when tapping the backdrop
+        if (navBackdrop) {
+            navBackdrop.addEventListener('click', () => {
+                this.closeMobileMenu();
+            });
+        }
 
         // Mobile menu toggle
         if (mobileMenuToggle) {
@@ -420,10 +455,12 @@ class ResurgenceHeader extends HTMLElement {
     openMobileMenu() {
         const mobileMenuToggle = this.shadowRoot.getElementById('mobileMenuToggle');
         const navMenu = this.shadowRoot.getElementById('navMenu');
+        const navBackdrop = this.shadowRoot.getElementById('navBackdrop');
 
         if (mobileMenuToggle && navMenu) {
             mobileMenuToggle.classList.add('active');
             navMenu.classList.add('active');
+            if (navBackdrop) navBackdrop.classList.add('active');
             mobileMenuToggle.setAttribute('aria-expanded', 'true');
 
             // Prevent body scroll when menu is open
@@ -434,10 +471,12 @@ class ResurgenceHeader extends HTMLElement {
     closeMobileMenu() {
         const mobileMenuToggle = this.shadowRoot.getElementById('mobileMenuToggle');
         const navMenu = this.shadowRoot.getElementById('navMenu');
+        const navBackdrop = this.shadowRoot.getElementById('navBackdrop');
 
         if (mobileMenuToggle && navMenu) {
             mobileMenuToggle.classList.remove('active');
             navMenu.classList.remove('active');
+            if (navBackdrop) navBackdrop.classList.remove('active');
             mobileMenuToggle.setAttribute('aria-expanded', 'false');
 
             // Restore body scroll
