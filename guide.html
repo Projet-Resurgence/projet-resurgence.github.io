@@ -9,7 +9,7 @@
     <script>
     (function() {
         if (!('serviceWorker' in navigator)) return;
-        var SW_VERSION = 'v1.4.0';
+        var SW_VERSION = 'v1.6.0';
         var lastSW = localStorage.getItem('sw-version');
         if (lastSW !== SW_VERSION) {
             caches.keys().then(function(names) {
@@ -139,14 +139,14 @@
     <noscript>
         <link rel="stylesheet" href="./styles/critical.css">
     </noscript>
-    <link rel="preload" href="./styles/main.css?v=1.4.0" as="style">
+    <link rel="preload" href="./styles/main.css?v=1.5.0" as="style">
     <link rel="preload" href="./images/final_logo_centered_little.webp" as="image" type="image/webp">
     <link rel="preload" href="./images/final_logo_centered_little.png" as="image" type="image/png">
     <link rel="preload" href="./styles/main.js?v=1.4.0" as="script">
     <link rel="prefetch" href="./index.html">
     <link rel="prefetch" href="./regles.html">
 
-    <link rel="stylesheet" href="./styles/main.css?v=1.4.0">
+    <link rel="stylesheet" href="./styles/main.css?v=1.5.0">
     <link rel="stylesheet" href="./styles/guide.css">
     <link rel="icon" type="image/png" href="./images/final_logo_little.png">
     <link rel="manifest" href="./manifest.json">
@@ -197,6 +197,7 @@
 </head>
 
 <body>
+    <a class="skip-link" href="#main-content">Aller au contenu principal</a>
 
     <intersite-navbar current-site="home"></intersite-navbar>
 
@@ -209,7 +210,7 @@
     <resurgence-header current-page="guide"></resurgence-header>
 
     <!-- Main Content -->
-    <main class="main">
+    <main class="main" id="main-content">
         <!-- Hero Section -->
         <section class="hero guide-hero">
             <div class="container">
@@ -527,7 +528,7 @@
 
     <!-- JavaScript -->
     <!-- Web Components -->
-    <script type="module" src="./components/components.js?v=1.6.0"></script>
+    <script type="module" src="./components/components.js?v=1.8.0"></script>
 
     <!-- Application Scripts -->
     <script src="./styles/main.js?v=1.4.0"></script>

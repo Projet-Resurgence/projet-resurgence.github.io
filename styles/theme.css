@@ -272,6 +272,23 @@ textarea:focus-visible {
 	border: 0;
 }
 
+.skip-link {
+	position: absolute;
+	top: -1000px;
+	left: var(--spacing-md);
+	z-index: var(--z-tooltip);
+	padding: var(--spacing-sm) var(--spacing-lg);
+	background: var(--primary-gold);
+	color: var(--bg-primary);
+	font-weight: var(--font-weight-bold);
+	border-radius: var(--radius-md);
+	text-decoration: none;
+}
+
+.skip-link:focus {
+	top: var(--spacing-md);
+}
+
 .container {
 	max-width: var(--container-max-width);
 	margin: 0 auto;

@@ -60,7 +60,7 @@ resurgence-web/
 
 ### Loading Order (index.html)
 
-1. **SW version check** (inline script) – compares `localStorage['sw-version']` to `v1.3.0`, clears caches + unregisters SW if mismatch
+1. **SW version check** (inline script) – compares `localStorage['sw-version']` to `v1.5.0`, clears caches + unregisters SW if mismatch
 2. **Google Tag Manager** – `GTM-PKRZXV9B`
 3. **Axeptio consent** – `clientId: "68963e315d089c7b7334b5d1"`, Google Consent Mode enabled
 4. **Google Analytics** – `G-5B3PEQ65HX`
@@ -94,7 +94,7 @@ resurgence-web/
 
 ### Service Worker (`sw.js`)
 
-- **Version:** `v1.3.0` (cache names: `static-v1.3.0`, `dynamic-v1.3.0`, `images-v1.3.0`)
+- **Version:** `v1.5.0` (cache names: `static-v1.5.0`, `dynamic-v1.5.0`, `images-v1.5.0`)
 - **Install:** Caches static assets + images, calls `skipWaiting()`
 - **Activate:** Cleans old caches, calls `clients.claim()`
 - **Fetch strategies:**
@@ -155,6 +155,45 @@ All CSS variables defined in `styles/theme.css`:
 - **Canonical:** `https://projet-resurgence.fr/`
 - **Hreflang:** `fr` + `x-default`
 
+### ⚠️ Cloudflare caches `/components/` and `/styles/` JS despite origin no-cache headers
+
+**Incident (2026-06-30):** The intersite-navbar was redesigned and redeployed (new origin
+content, verified correct via direct curl/docker exec). Visitors kept seeing the **old**
+navbar for hours, even after clearing cookies/site data and hard-refreshing. Root cause:
+Cloudflare's edge was caching `/components/components.js?v=1.6.0` (`cf-cache-status: HIT`,
+`last-modified` from **47 days earlier**) — it completely ignored the origin's
+`no-cache, no-store, must-revalidate` header documented below. That stale `components.js`
+still contained `await import('./intersite-navbar.js?v=1.0.0')` (the original pre-redesign
+import), so browsers never even requested the new file — clearing local
+cookies/SW/cache does nothing for an edge-cached response the browser hasn't seen yet.
+
+**Why this is sneaky:** testing a versioned static asset URL directly (e.g.
+`intersite-navbar.js?v=1.5.0`) will correctly show `cf-cache-status: MISS` and fresh
+content — that only proves the file exists correctly on the server, **not** that any page
+actually requests that URL. The actual page flow can still be stuck loading an old cached
+wrapper script that references an old version string, entirely bypassing the new file.
+Verify with a real browser hitting the real page (Playwright is fine), not a direct curl
+to the asset you just changed.
+
+**The fix:** bump the `?v=` query string on `<script src="./components/components.js?v=X">`
+in **every** HTML page (`grep -rln "components.js?v=" *.html`) whenever `components.js`'s
+*content* changes — including indirectly, e.g. when it imports a different version of
+`intersite-navbar.js`. A new query string is a new Cloudflare cache key → guaranteed
+origin fetch. Bumping only the *imported* file's own `?v=` is not enough if the *importer*
+(`components.js`) is itself stale-cached.
+
+**This is systemic, not a one-off:** the same applies to every file under `/components/`
+and `/styles/` (`header-component.js`, `footer-component.js`, `main.js`, `index.js`,
+`seo-optimizer.js`, `performance-optimizer.js`, `stats-loader.js`, `universe-carousel.js`).
+Most of these have **no** `?v=` query at all, meaning Cloudflare can cache them
+indefinitely by bare path with no way to force-bust short of a Cloudflare dashboard cache
+purge. `/sw.js` is the one exception that reliably bypasses Cloudflare (`cf-cache-status:
+BYPASS`), which is why the `SW_VERSION` self-purge mechanism (below) exists at all — it's
+the only mechanism in this site that's guaranteed to actually reach already-loaded clients.
+**Real fix (not yet done):** a Cloudflare Cache Rule for `/components/*` and `/styles/*`
+that honors origin `Cache-Control` (or forces bypass, like `/sw.js` already has) — outside
+of what's controllable from this repo.
+
 ### Docker / Nginx
 
 **Dockerfile:** `nginx:alpine`, copies `resurgence-web/` to `/usr/share/nginx/html/`, removes dev files
@@ -182,7 +221,7 @@ All CSS variables defined in `styles/theme.css`:
 ## Critical Rules for AI
 
 1. **No build step** – All files are served as-is. Do not add bundlers, transpilers, or package managers
-2. **SW version** is `v1.3.0` in both `sw.js` (CACHE_NAME) and inline script in `index.html`. Update both together when changing SW
+2. **SW version** is `v1.5.0` in both `sw.js` (CACHE_NAME/STATIC_CACHE/DYNAMIC_CACHE/IMAGE_CACHE) and the inline `SW_VERSION` script — **present in all 7 pages** (`grep -rln SW_VERSION *.html`), not just `index.html`. Update all of them together when changing SW
 3. **Web components use Shadow DOM** – Styles inside components are scoped. Use CSS custom properties (`var(--*)`) for theming across shadow boundaries
 4. **Theme localStorage key** is `resurgence-theme` (values: `dark` | `light`)
 5. **Header component** uses `current-page` attribute for active nav highlighting. Page values: `home`, `server`, `universe`, `rules`, `guide`, `rp-geopolitique`, `mecaniques`, `resources`, `join`
@@ -190,5 +229,6 @@ All CSS variables defined in `styles/theme.css`:
 7. **Dockerfile removes** `.git`, `.vscode`, `test-results`, `test-scripts`, `CNAME`, `LICENSE`, `README.md`, `verify-seo.sh`, `analytics-report.txt` during build
 8. **All analytics requires Axeptio consent** – `hasAnalyticsConsent()` checks `window.axeptio.getUserConsent()` before any tracking
 9. **Nginx never caches sw.js** – changing SW requires no nginx config change, but update version in inline script to force client cache purge
-10. **Discord invite URL:** `https://discord.projet-resurgence.fr/`
-11. **Contact email:** `contact@projet-resurgence.fr`
+10. **Cloudflare ignores origin no-cache headers for `/components/` and `/styles/`** — see dedicated section above. Any content change to a file under those paths needs its referencing `?v=` query string bumped in every HTML page that loads it, or Cloudflare can keep serving the old version indefinitely regardless of origin state. When in doubt, verify with a real browser against the live page (not a direct curl to the changed asset)
+11. **Discord invite URL:** `https://discord.projet-resurgence.fr/`
+12. **Contact email:** `contact@projet-resurgence.fr`

@@ -1,5 +1,5 @@
 /* Import centralized theme system */
-@import './theme.css';
+@import './theme.css?v=2';
 
 /* Font Faces */
 @font-face {

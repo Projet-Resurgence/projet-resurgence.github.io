@@ -9,7 +9,7 @@
 	<script>
 	(function() {
 		if (!('serviceWorker' in navigator)) return;
-		var SW_VERSION = 'v1.4.0';
+		var SW_VERSION = 'v1.6.0';
 		var lastSW = localStorage.getItem('sw-version');
 		if (lastSW !== SW_VERSION) {
 			caches.keys().then(function(names) {
@@ -126,7 +126,7 @@
 	<noscript>
 		<link rel="stylesheet" href="./styles/critical.css">
 	</noscript>
-	<link rel="preload" href="./styles/main.css?v=1.4.0" as="style">
+	<link rel="preload" href="./styles/main.css?v=1.5.0" as="style">
 	<link rel="preload" href="./images/final_logo_centered_little.webp" as="image" type="image/webp">
 	<link rel="preload" href="./styles/main.js?v=1.4.0" as="script">
 	<link rel="preload" href="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.min.js" as="script">
@@ -134,7 +134,7 @@
 	<link rel="prefetch" href="./regles.html">
 	<link rel="prefetch" href="./guide.html">
 
-	<link rel="stylesheet" href="./styles/main.css?v=1.4.0">
+	<link rel="stylesheet" href="./styles/main.css?v=1.5.0">
 	<link rel="icon" type="image/png" href="./images/final_logo_little.png">
 	<link rel="manifest" href="./manifest.json">
 	<meta name="theme-color" content="#D5B654">
@@ -169,6 +169,7 @@
 </head>
 
 <body>
+    <a class="skip-link" href="#main-content">Aller au contenu principal</a>
 
 	<intersite-navbar current-site="home"></intersite-navbar>
 
@@ -181,7 +182,7 @@
 	<resurgence-header current-page="universe"></resurgence-header>
 
 	<!-- Main Content -->
-	<main class="main">
+	<main class="main" id="main-content">
 		<!-- Hero Section -->
 		<section id="univers" class="hero" role="banner">
 			<div class="container">
@@ -330,7 +331,7 @@
 
 	<!-- External JavaScript -->
 	<!-- Web Components -->
-	<script type="module" src="./components/components.js?v=1.6.0"></script>
+	<script type="module" src="./components/components.js?v=1.8.0"></script>
 
 	<!-- Application Scripts -->
 	<script src="./styles/main.js?v=1.4.0"></script>

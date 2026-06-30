@@ -1,4 +1,4 @@
-const o = [
+const s = [
   {
     id: "home",
     label: "Site Principal",
@@ -70,16 +70,23 @@ const o = [
   --text:         #f8f9fa;
   --text-muted:   #888;
   --panel-width:  248px;
-  --tab-width:    34px;
+  --tab-width:    56px;
   --ease:         cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ── Wrapper ── */
+/* ── Wrapper ──
+   height:100% is needed so .panel can be a full-height column, but the
+   wrapper box itself must NOT capture clicks — only the parts that actually
+   render something (.panel, .toggle-tab) should. Without this, the wrapper's
+   full-height-but-mostly-empty box (now that the collapsed tab is a small
+   circle, not a full-height rail) silently eats every click/tap down the
+   whole left edge of the host page, even where nothing is visibly drawn. */
 .wrapper {
   display: flex;
   flex-direction: row;
+  align-items: flex-start;
   height: 100%;
-  pointer-events: auto;
+  pointer-events: none;
 }
 
 /* ── Panel ── */
@@ -92,6 +99,7 @@ const o = [
   flex-direction: column;
   transition: width 0.28s var(--ease), box-shadow 0.28s var(--ease);
   will-change: width;
+  pointer-events: auto;
 }
 
 .wrapper.open .panel {
@@ -247,35 +255,38 @@ const o = [
   font-size: 10px;
 }
 
-/* ── Toggle Tab ── */
+/* ── Toggle Tab — a single compact arrow button, not a full-height strip ── */
 .toggle-tab {
-  width: var(--tab-width);
+  width: 36px;
+  height: 36px;
   flex-shrink: 0;
+  margin: 10px;
   background: var(--bg);
-  border: none;
-  border-right: 2px solid var(--gold);
+  border: 2px solid var(--gold);
+  border-radius: 50%;
   cursor: pointer;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
   padding: 0;
-  transition: background 0.15s;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  transition: background 0.15s, transform 0.15s;
   outline: none;
   -webkit-tap-highlight-color: transparent;
+  pointer-events: auto;
 }
 
 .toggle-tab:hover {
   background: var(--bg-hover);
+  transform: scale(1.06);
 }
 
 .toggle-tab:focus-visible {
-  box-shadow: inset 0 0 0 2px var(--gold);
+  box-shadow: 0 0 0 2px var(--gold);
 }
 
 .tab-arrow {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--gold);
   transition: transform 0.28s var(--ease);
   line-height: 1;
@@ -286,40 +297,44 @@ const o = [
   transform: rotate(180deg);
 }
 
-.tab-label {
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  transform: rotate(180deg);
-  font-size: 9px;
-  font-weight: 700;
-  color: var(--gold);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  opacity: 0.75;
-  user-select: none;
-}
-
 /* ── Responsive ── */
 @media (max-width: 480px) {
   :host {
     --panel-width: 210px;
-    --tab-width: 30px;
+    --tab-width: 50px;
+  }
+
+  .toggle-tab {
+    width: 32px;
+    height: 32px;
+    margin: 8px;
   }
 }
-`, d = "intersite-navbar-offset-style", h = "--intersite-navbar-offset";
+`, c = "intersite-navbar-offset-style", d = "--intersite-navbar-offset";
 function b() {
-  if (document.getElementById(d)) return;
-  const r = document.createElement("style");
-  r.id = d, r.textContent = `
+  if (document.getElementById(c)) return;
+  const a = document.createElement("style");
+  a.id = c, a.textContent = `
 html body {
-  margin-left: var(${h}, 34px);
+  margin-left: var(${d}, 56px);
   transition: margin-left 0.28s cubic-bezier(0.4, 0, 0.2, 1);
 }
-`, document.head.appendChild(r);
+
+/* On phone the folded tab is a small floating circle, not a full-height
+   rail — it overlaps content like any other floating UI instead of
+   reserving permanent layout space. (Components that explicitly read
+   ${d} themselves for their own fixed-position offset, e.g. a
+   site header, are unaffected — only this generic body push is disabled.) */
+@media (max-width: 768px) {
+  html body {
+    margin-left: 0;
+  }
 }
-function c(r) {
-  const e = getComputedStyle(r).getPropertyValue("--tab-width").trim() || "34px";
-  document.documentElement.style.setProperty(h, e);
+`, document.head.appendChild(a);
+}
+function p(a) {
+  const e = getComputedStyle(a).getPropertyValue("--tab-width").trim() || "56px";
+  document.documentElement.style.setProperty(d, e);
 }
 class u extends HTMLElement {
   constructor() {
@@ -339,7 +354,7 @@ class u extends HTMLElement {
   }
   // ── Reserve space on the host page so the tab/panel never overlaps it ──
   _bindHostOffset() {
-    b(), c(this), this._mq = window.matchMedia("(max-width: 480px)"), this._onMqChange = () => c(this), this._mq.addEventListener("change", this._onMqChange);
+    b(), p(this), this._mq = window.matchMedia("(max-width: 480px)"), this._onMqChange = () => p(this), this._mq.addEventListener("change", this._onMqChange);
   }
   // ── Detect which site is active ──
   _detectCurrentSite() {
@@ -347,7 +362,7 @@ class u extends HTMLElement {
     if (e) return e;
     try {
       const t = window.location.hostname;
-      for (const i of o)
+      for (const i of s)
         if (new URL(i.url).hostname === t) return i.id;
     } catch {
     }
@@ -355,15 +370,15 @@ class u extends HTMLElement {
   }
   // ── Render into Shadow DOM ──
   _render() {
-    const e = this._detectCurrentSite(), t = this._isOpen, i = o.map((a) => {
-      const n = e === a.id, s = a.external ? ' target="_blank" rel="noopener noreferrer"' : "";
+    const e = this._detectCurrentSite(), t = this._isOpen, i = s.map((n) => {
+      const r = e === n.id, o = n.external ? ' target="_blank" rel="noopener noreferrer"' : "";
       return `
-        <li class="site-item${n ? " active" : ""}">
-          <a href="${a.url}" class="site-link"${s}${n ? ' aria-current="page"' : ""}>
-            <span class="site-icon" aria-hidden="true">${a.icon}</span>
+        <li class="site-item${r ? " active" : ""}">
+          <a href="${n.url}" class="site-link"${o}${r ? ' aria-current="page"' : ""}>
+            <span class="site-icon" aria-hidden="true">${n.icon}</span>
             <span class="site-content">
-              <span class="site-label">${a.label}</span>
-              <span class="site-desc">${a.description}</span>
+              <span class="site-label">${n.label}</span>
+              <span class="site-desc">${n.description}</span>
             </span>
             <span class="active-dot" aria-hidden="true"></span>
           </a>
@@ -390,7 +405,6 @@ class u extends HTMLElement {
           aria-expanded="${t}"
           aria-controls="panel">
           <span class="tab-arrow" aria-hidden="true">›</span>
-          <span class="tab-label" aria-hidden="true">Sites</span>
         </button>
       </div>`;
   }
@@ -398,11 +412,11 @@ class u extends HTMLElement {
   _updateActive() {
     const e = this._detectCurrentSite();
     this.shadowRoot.querySelectorAll(".site-item").forEach((t, i) => {
-      var s;
-      const a = ((s = o[i]) == null ? void 0 : s.id) === e;
-      t.classList.toggle("active", a);
-      const n = t.querySelector(".site-link");
-      a ? n == null || n.setAttribute("aria-current", "page") : n == null || n.removeAttribute("aria-current");
+      var o;
+      const n = ((o = s[i]) == null ? void 0 : o.id) === e;
+      t.classList.toggle("active", n);
+      const r = t.querySelector(".site-link");
+      n ? r == null || r.setAttribute("aria-current", "page") : r == null || r.removeAttribute("aria-current");
     });
   }
   // ── Event binding ──
@@ -437,27 +451,27 @@ class u extends HTMLElement {
   }
 }
 customElements.get("intersite-navbar") || customElements.define("intersite-navbar", u);
-function p() {
-  document.querySelectorAll("[data-intersite-navbar]:not([data-in-initialized])").forEach((r) => {
-    const e = document.createElement("intersite-navbar"), t = r.getAttribute("data-current-site");
-    t && e.setAttribute("current-site", t), document.body.appendChild(e), r.setAttribute("data-in-initialized", "");
+function h() {
+  document.querySelectorAll("[data-intersite-navbar]:not([data-in-initialized])").forEach((a) => {
+    const e = document.createElement("intersite-navbar"), t = a.getAttribute("data-current-site");
+    t && e.setAttribute("current-site", t), document.body.appendChild(e), a.setAttribute("data-in-initialized", "");
   });
 }
-document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", p) : p();
+document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", h) : h();
 typeof window < "u" && (window.IntersiteNavbar = {
   IntersiteNavbar: u,
-  SITES: o,
+  SITES: s,
   /**
    * Programmatically mount the navbar.
    * @param {{ currentSite?: string }} options
    * @returns {IntersiteNavbar}
    */
-  create(r = {}) {
+  create(a = {}) {
     const e = document.createElement("intersite-navbar");
-    return r.currentSite && e.setAttribute("current-site", r.currentSite), document.body.appendChild(e), e;
+    return a.currentSite && e.setAttribute("current-site", a.currentSite), document.body.appendChild(e), e;
   }
 });
 export {
-  o as SITES,
+  s as SITES,
   u as default
 };

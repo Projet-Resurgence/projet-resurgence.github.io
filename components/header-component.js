@@ -172,10 +172,13 @@ class ResurgenceHeader extends HTMLElement {
                 }
 
                 .nav-link {
+                    display: inline-flex;
+                    align-items: center;
+                    min-height: 44px;
                     color: var(--text-secondary);
                     font-size: var(--font-size-sm);
                     font-weight: var(--font-weight-medium);
-                    padding: var(--spacing-xs) var(--spacing-sm);
+                    padding: var(--spacing-sm) var(--spacing-sm);
                     border-radius: var(--radius-md);
                     transition: color var(--transition-fast), background-color var(--transition-fast), font-weight var(--transition-fast);
                     text-decoration: none;
