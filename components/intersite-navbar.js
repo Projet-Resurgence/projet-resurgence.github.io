@@ -310,32 +310,7 @@ const s = [
     margin: 8px;
   }
 }
-`, c = "intersite-navbar-offset-style", d = "--intersite-navbar-offset";
-function b() {
-  if (document.getElementById(c)) return;
-  const a = document.createElement("style");
-  a.id = c, a.textContent = `
-html body {
-  margin-left: var(${d}, 56px);
-  transition: margin-left 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* On phone the folded tab is a small floating circle, not a full-height
-   rail — it overlaps content like any other floating UI instead of
-   reserving permanent layout space. (Components that explicitly read
-   ${d} themselves for their own fixed-position offset, e.g. a
-   site header, are unaffected — only this generic body push is disabled.) */
-@media (max-width: 768px) {
-  html body {
-    margin-left: 0;
-  }
-}
-`, document.head.appendChild(a);
-}
-function p(a) {
-  const e = getComputedStyle(a).getPropertyValue("--tab-width").trim() || "56px";
-  document.documentElement.style.setProperty(d, e);
-}
+`;
 class u extends HTMLElement {
   constructor() {
     super(), this.attachShadow({ mode: "open" }), this._isOpen = localStorage.getItem(l) === "true", this._rendered = !1;
@@ -347,14 +322,10 @@ class u extends HTMLElement {
     t !== i && this._rendered && this._updateActive();
   }
   connectedCallback() {
-    this._render(), this._rendered = !0, this._bindEvents(), this._bindHostOffset();
+    this._render(), this._rendered = !0, this._bindEvents();
   }
   disconnectedCallback() {
     this._cleanup();
-  }
-  // ── Reserve space on the host page so the tab/panel never overlaps it ──
-  _bindHostOffset() {
-    b(), p(this), this._mq = window.matchMedia("(max-width: 480px)"), this._onMqChange = () => p(this), this._mq.addEventListener("change", this._onMqChange);
   }
   // ── Detect which site is active ──
   _detectCurrentSite() {
@@ -429,8 +400,7 @@ class u extends HTMLElement {
     }, document.addEventListener("keydown", this._onKeyDown);
   }
   _cleanup() {
-    var e;
-    document.removeEventListener("click", this._onDocClick), document.removeEventListener("keydown", this._onKeyDown), (e = this._mq) == null || e.removeEventListener("change", this._onMqChange);
+    document.removeEventListener("click", this._onDocClick), document.removeEventListener("keydown", this._onKeyDown);
   }
   // ── Public API ──
   toggle() {
