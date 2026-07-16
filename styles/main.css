@@ -196,8 +196,8 @@ a:hover {
 }
 
 /* Main Content */
+/* The header is sticky (in flow), not fixed — no header-height spacer here. */
 .main {
-    margin-top: var(--header-height);
     min-height: calc(100vh - var(--header-height));
 }
 
@@ -512,14 +512,6 @@ a:hover {
         padding: 0;
     }
 
-    .header {
-        height: var(--header-height);
-        position: fixed;
-    }
-
-    .main {
-        margin-top: var(--header-height);
-    }
 
     /* Hide desktop navigation by default */
     .nav-menu {

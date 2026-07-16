@@ -223,12 +223,12 @@ body {
 }
 
 /* === COMPONENT BASE STYLES === */
+/* Sticky, not fixed: the header sits in the flow and occupies its own
+   space, so .main needs no header-height spacer under it. */
 resurgence-header {
 	display: block;
-	position: fixed;
+	position: sticky;
 	top: 0;
-	left: 0;
-	right: 0;
 	z-index: var(--z-fixed);
 }
 
@@ -301,7 +301,8 @@ textarea:focus-visible {
 	}
 }
 
+/* The header is sticky (in flow), not fixed — it occupies its own space,
+   so .main must not add a second header-height spacer on top. */
 .main {
-	margin-top: var(--header-height);
 	min-height: calc(100vh - var(--header-height));
 }

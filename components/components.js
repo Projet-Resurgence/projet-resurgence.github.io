@@ -13,13 +13,13 @@ class ComponentManager {
 
 		try {
 			// Load header component
-			const { default: ResurgenceHeader } = await import('./header-component.js?v=1.9.0');
+			const { default: ResurgenceHeader } = await import('./header-component.js?v=2.1.0');
 
 			// Load footer component
 			const { default: ResurgenceFooter } = await import('./footer-component.js?v=1.6.0');
 
 			// Load intersite navbar
-			await import('./intersite-navbar.js?v=1.6.0');
+			await import('./intersite-navbar.js?v=1.8.0');
 
 			// Register components
 			this.registerComponent('resurgence-header', ResurgenceHeader);

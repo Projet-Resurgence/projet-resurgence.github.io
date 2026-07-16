@@ -3,53 +3,66 @@ const s = [
     id: "home",
     label: "Site Principal",
     url: "https://projet-resurgence.fr",
-    icon: "🏠",
+    icon: "home",
     description: "Site vitrine"
   },
   {
     id: "play",
     label: "Tableau de Bord",
     url: "https://play.projet-resurgence.fr",
-    icon: "🎮",
+    icon: "play",
     description: "Dashboard joueur"
   },
   {
     id: "tech",
     label: "Panel Tech",
     url: "https://tech.projet-resurgence.fr",
-    icon: "🔬",
+    icon: "tech",
     description: "Arbre technologique"
   },
   {
     id: "map",
     label: "Carte Interactive",
     url: "https://map.projet-resurgence.fr",
-    icon: "🗺️",
+    icon: "map",
     description: "Carte du monde 2303"
   },
   {
     id: "calc",
     label: "Calculateur",
     url: "https://calc.projet-resurgence.fr",
-    icon: "🧮",
+    icon: "calc",
     description: "Économie & énergie"
   },
   {
     id: "catalog",
     label: "Catalogue Militaire",
     url: "https://catalog.projet-resurgence.fr",
-    icon: "⚔️",
+    icon: "catalog",
     description: "Équipements militaires"
   },
   {
     id: "discord",
     label: "Discord",
     url: "https://discord.projet-resurgence.fr",
-    icon: "💬",
+    icon: "discord",
     description: "Communauté & RP",
     external: !0
   }
-], l = "pr-intersite-navbar-open", g = `
+], p = {
+  "chevron-left": '<polyline points="15 18 9 12 15 6"/>',
+  home: '<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',
+  play: '<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>',
+  tech: '<path d="M10 2v6L4.5 18a2 2 0 0 0 1.77 3h11.46a2 2 0 0 0 1.77-3L14 8V2"/><line x1="8" y1="2" x2="16" y2="2"/><line x1="7.5" y1="14" x2="16.5" y2="14"/>',
+  map: '<polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/>',
+  calc: '<rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="8.01" y2="10"/><line x1="12" y1="10" x2="12.01" y2="10"/><line x1="16" y1="10" x2="16.01" y2="10"/><line x1="8" y1="14" x2="8.01" y2="14"/><line x1="12" y1="14" x2="12.01" y2="14"/><line x1="16" y1="14" x2="16.01" y2="14"/><line x1="8" y1="18" x2="16" y2="18"/>',
+  catalog: '<circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/>',
+  discord: '<path fill="currentColor" stroke="none" d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>'
+};
+function h(n) {
+  return `<svg class="pr-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p[n] || p.home}</svg>`;
+}
+const d = "pr-intersite-navbar-open", f = `
 :host {
   all: initial;
   display: block;
@@ -119,12 +132,59 @@ const s = [
 }
 
 .header-emblem {
-  font-size: 20px;
-  line-height: 1;
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-emblem img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  display: block;
+}
+
+.pr-icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.125em;
   flex-shrink: 0;
 }
 
-.header-text {}
+.header-text { flex: 1; min-width: 0; }
+
+/* ── Close button — mirrors the floating tab's arrow, but always reachable
+   from inside the open panel (the floating tab is absent entirely when the
+   host page embeds its own trigger via hide-toggle). ── */
+.panel-close {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+  outline: none;
+}
+
+.panel-close:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+  background: var(--bg-hover);
+}
+
+.panel-close:focus-visible { box-shadow: 0 0 0 2px var(--gold); }
+
+.panel-close .pr-icon { width: 15px; height: 15px; }
 
 .header-title {
   display: block;
@@ -184,11 +244,12 @@ const s = [
 }
 
 .site-icon {
-  font-size: 17px;
-  width: 22px;
-  text-align: center;
+  width: 18px;
+  height: 18px;
   flex-shrink: 0;
-  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .site-content {
@@ -310,138 +371,185 @@ const s = [
     margin: 8px;
   }
 }
-`;
-class u extends HTMLElement {
+`, g = "intersite-navbar-offset-style", l = "--intersite-navbar-offset";
+function v() {
+  if (document.getElementById(g)) return;
+  const n = document.createElement("style");
+  n.id = g, n.textContent = `
+html body {
+  margin-left: var(${l}, 56px);
+  transition: margin-left 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* On phone the folded tab is a small floating circle, not a full-height
+   rail — it overlaps content like any other floating UI instead of
+   reserving permanent layout space. (Components that explicitly read
+   ${l} themselves for their own fixed-position offset, e.g. a
+   site header, are unaffected — only this generic body push is disabled.) */
+@media (max-width: 768px) {
+  html body {
+    margin-left: 0;
+  }
+}
+`, document.head.appendChild(n);
+}
+function u(n) {
+  const e = getComputedStyle(n).getPropertyValue("--tab-width").trim() || "56px";
+  document.documentElement.style.setProperty(l, e);
+}
+class x extends HTMLElement {
   constructor() {
-    super(), this.attachShadow({ mode: "open" }), this._isOpen = localStorage.getItem(l) === "true", this._rendered = !1;
+    super(), this.attachShadow({ mode: "open" }), this._isOpen = localStorage.getItem(d) === "true", this._rendered = !1;
   }
   static get observedAttributes() {
     return ["current-site"];
   }
-  attributeChangedCallback(e, t, i) {
-    t !== i && this._rendered && this._updateActive();
+  attributeChangedCallback(e, i, t) {
+    i !== t && this._rendered && this._updateActive();
   }
   connectedCallback() {
-    this._render(), this._rendered = !0, this._bindEvents();
+    if (window.self !== window.top) {
+      this.style.display = "none";
+      return;
+    }
+    this._render(), this._rendered = !0, this._bindEvents(), this._bindHostOffset();
   }
   disconnectedCallback() {
     this._cleanup();
+  }
+  // ── Reserve space on the host page so the tab/panel never overlaps it ──
+  // Skipped entirely when hide-toggle is set: there is no floating tab to
+  // dodge because the host page renders its own trigger (e.g. inside its
+  // header) that calls toggle() directly — reserving body margin here would
+  // just create the empty "gap" this mode exists to avoid.
+  _bindHostOffset() {
+    if (this.hasAttribute("hide-toggle")) {
+      document.documentElement.style.setProperty(l, "0px");
+      return;
+    }
+    v(), u(this), this._mq = window.matchMedia("(max-width: 480px)"), this._onMqChange = () => u(this), this._mq.addEventListener("change", this._onMqChange);
   }
   // ── Detect which site is active ──
   _detectCurrentSite() {
     const e = this.getAttribute("current-site");
     if (e) return e;
     try {
-      const t = window.location.hostname;
-      for (const i of s)
-        if (new URL(i.url).hostname === t) return i.id;
+      const i = window.location.hostname;
+      for (const t of s)
+        if (new URL(t.url).hostname === i) return t.id;
     } catch {
     }
     return null;
   }
   // ── Render into Shadow DOM ──
   _render() {
-    const e = this._detectCurrentSite(), t = this._isOpen, i = s.map((n) => {
-      const r = e === n.id, o = n.external ? ' target="_blank" rel="noopener noreferrer"' : "";
+    const e = this._detectCurrentSite(), i = this._isOpen, t = this.hasAttribute("hide-toggle"), o = this.getAttribute("logo-src") || "/favicon/favicon-96x96.png", a = s.map((r) => {
+      const c = e === r.id, m = r.external ? ' target="_blank" rel="noopener noreferrer"' : "";
       return `
-        <li class="site-item${r ? " active" : ""}">
-          <a href="${n.url}" class="site-link"${o}${r ? ' aria-current="page"' : ""}>
-            <span class="site-icon" aria-hidden="true">${n.icon}</span>
+        <li class="site-item${c ? " active" : ""}">
+          <a href="${r.url}" class="site-link"${m}${c ? ' aria-current="page"' : ""}>
+            <span class="site-icon" aria-hidden="true">${h(r.icon)}</span>
             <span class="site-content">
-              <span class="site-label">${n.label}</span>
-              <span class="site-desc">${n.description}</span>
+              <span class="site-label">${r.label}</span>
+              <span class="site-desc">${r.description}</span>
             </span>
             <span class="active-dot" aria-hidden="true"></span>
           </a>
         </li>`;
     }).join("");
     this.shadowRoot.innerHTML = `
-      <style>${g}</style>
-      <div class="wrapper${t ? " open" : ""}" id="wrapper">
-        <div class="panel" id="panel" role="navigation" aria-label="Navigation inter-sites" aria-hidden="${!t}">
+      <style>${f}</style>
+      <div class="wrapper${i ? " open" : ""}" id="wrapper">
+        <div class="panel" id="panel" role="navigation" aria-label="Navigation inter-sites" aria-hidden="${!i}">
           <div class="panel-header">
-            <span class="header-emblem" aria-hidden="true">⚜</span>
+            <span class="header-emblem"><img src="${o}" alt="Projet Résurgence"></span>
             <span class="header-text">
               <span class="header-title">Projet Résurgence</span>
               <span class="header-sub">Navigation</span>
             </span>
+            <button class="panel-close" id="closeBtn" type="button" aria-label="Fermer la navigation inter-sites">
+              ${h("chevron-left")}
+            </button>
           </div>
-          <ul class="site-list">${i}</ul>
+          <ul class="site-list">${a}</ul>
           <div class="panel-footer">
             <span class="footer-hint"><kbd>Alt</kbd>+<kbd>N</kbd> pour basculer</span>
           </div>
         </div>
+        ${t ? "" : `
         <button class="toggle-tab" id="toggleBtn"
-          aria-label="${t ? "Fermer" : "Ouvrir"} la navigation inter-sites"
-          aria-expanded="${t}"
+          aria-label="${i ? "Fermer" : "Ouvrir"} la navigation inter-sites"
+          aria-expanded="${i}"
           aria-controls="panel">
           <span class="tab-arrow" aria-hidden="true">›</span>
-        </button>
+        </button>`}
       </div>`;
   }
   // ── Update active item without full re-render ──
   _updateActive() {
     const e = this._detectCurrentSite();
-    this.shadowRoot.querySelectorAll(".site-item").forEach((t, i) => {
-      var o;
-      const n = ((o = s[i]) == null ? void 0 : o.id) === e;
-      t.classList.toggle("active", n);
-      const r = t.querySelector(".site-link");
-      n ? r == null || r.setAttribute("aria-current", "page") : r == null || r.removeAttribute("aria-current");
+    this.shadowRoot.querySelectorAll(".site-item").forEach((i, t) => {
+      var r;
+      const o = ((r = s[t]) == null ? void 0 : r.id) === e;
+      i.classList.toggle("active", o);
+      const a = i.querySelector(".site-link");
+      o ? a == null || a.setAttribute("aria-current", "page") : a == null || a.removeAttribute("aria-current");
     });
   }
   // ── Event binding ──
   _bindEvents() {
+    var i;
     const e = this.shadowRoot.getElementById("toggleBtn");
-    e == null || e.addEventListener("click", () => this.toggle()), this._onDocClick = (t) => {
+    e == null || e.addEventListener("click", () => this.toggle()), (i = this.shadowRoot.getElementById("closeBtn")) == null || i.addEventListener("click", () => this.close()), this._onDocClick = (t) => {
       this._isOpen && !this.contains(t.target) && this.close();
     }, document.addEventListener("click", this._onDocClick), this._onKeyDown = (t) => {
       t.altKey && (t.key === "n" || t.key === "N") && (t.preventDefault(), this.toggle()), t.key === "Escape" && this._isOpen && this.close();
     }, document.addEventListener("keydown", this._onKeyDown);
   }
   _cleanup() {
-    document.removeEventListener("click", this._onDocClick), document.removeEventListener("keydown", this._onKeyDown);
+    var e;
+    document.removeEventListener("click", this._onDocClick), document.removeEventListener("keydown", this._onKeyDown), (e = this._mq) == null || e.removeEventListener("change", this._onMqChange);
   }
   // ── Public API ──
   toggle() {
     this._isOpen ? this.close() : this.open();
   }
   open() {
-    this._isOpen = !0, localStorage.setItem(l, "true");
-    const e = this.shadowRoot.getElementById("wrapper"), t = this.shadowRoot.getElementById("panel"), i = this.shadowRoot.getElementById("toggleBtn");
-    e == null || e.classList.add("open"), t == null || t.setAttribute("aria-hidden", "false"), i == null || i.setAttribute("aria-expanded", "true"), i == null || i.setAttribute("aria-label", "Fermer la navigation inter-sites"), this.dispatchEvent(new CustomEvent("navbar-open", { bubbles: !0, composed: !0 }));
+    this._isOpen = !0, localStorage.setItem(d, "true");
+    const e = this.shadowRoot.getElementById("wrapper"), i = this.shadowRoot.getElementById("panel"), t = this.shadowRoot.getElementById("toggleBtn");
+    e == null || e.classList.add("open"), i == null || i.setAttribute("aria-hidden", "false"), t == null || t.setAttribute("aria-expanded", "true"), t == null || t.setAttribute("aria-label", "Fermer la navigation inter-sites"), this.dispatchEvent(new CustomEvent("navbar-open", { bubbles: !0, composed: !0 }));
   }
   close() {
-    this._isOpen = !1, localStorage.setItem(l, "false");
-    const e = this.shadowRoot.getElementById("wrapper"), t = this.shadowRoot.getElementById("panel"), i = this.shadowRoot.getElementById("toggleBtn");
-    e == null || e.classList.remove("open"), t == null || t.setAttribute("aria-hidden", "true"), i == null || i.setAttribute("aria-expanded", "false"), i == null || i.setAttribute("aria-label", "Ouvrir la navigation inter-sites"), this.dispatchEvent(new CustomEvent("navbar-close", { bubbles: !0, composed: !0 }));
+    this._isOpen = !1, localStorage.setItem(d, "false");
+    const e = this.shadowRoot.getElementById("wrapper"), i = this.shadowRoot.getElementById("panel"), t = this.shadowRoot.getElementById("toggleBtn");
+    e == null || e.classList.remove("open"), i == null || i.setAttribute("aria-hidden", "true"), t == null || t.setAttribute("aria-expanded", "false"), t == null || t.setAttribute("aria-label", "Ouvrir la navigation inter-sites"), this.dispatchEvent(new CustomEvent("navbar-close", { bubbles: !0, composed: !0 }));
   }
   get isOpen() {
     return this._isOpen;
   }
 }
-customElements.get("intersite-navbar") || customElements.define("intersite-navbar", u);
-function h() {
-  document.querySelectorAll("[data-intersite-navbar]:not([data-in-initialized])").forEach((a) => {
-    const e = document.createElement("intersite-navbar"), t = a.getAttribute("data-current-site");
-    t && e.setAttribute("current-site", t), document.body.appendChild(e), a.setAttribute("data-in-initialized", "");
+customElements.get("intersite-navbar") || customElements.define("intersite-navbar", x);
+function b() {
+  document.querySelectorAll("[data-intersite-navbar]:not([data-in-initialized])").forEach((n) => {
+    const e = document.createElement("intersite-navbar"), i = n.getAttribute("data-current-site");
+    i && e.setAttribute("current-site", i), document.body.appendChild(e), n.setAttribute("data-in-initialized", "");
   });
 }
-document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", h) : h();
+document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", b) : b();
 typeof window < "u" && (window.IntersiteNavbar = {
-  IntersiteNavbar: u,
+  IntersiteNavbar: x,
   SITES: s,
   /**
    * Programmatically mount the navbar.
    * @param {{ currentSite?: string }} options
    * @returns {IntersiteNavbar}
    */
-  create(a = {}) {
+  create(n = {}) {
     const e = document.createElement("intersite-navbar");
-    return a.currentSite && e.setAttribute("current-site", a.currentSite), document.body.appendChild(e), e;
+    return n.currentSite && e.setAttribute("current-site", n.currentSite), document.body.appendChild(e), e;
   }
 });
 export {
   s as SITES,
-  u as default
+  x as default
 };
