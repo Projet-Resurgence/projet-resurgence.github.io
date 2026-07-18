@@ -171,12 +171,15 @@ class PerformanceOptimizer {
         const links = document.querySelectorAll('link[rel="stylesheet"]');
 
         links.forEach(link => {
-            if (!link.href.includes('main.css')) {
-                link.setAttribute('media', 'print');
-                link.addEventListener('load', () => {
-                    link.setAttribute('media', 'all');
-                });
-            }
+            // Never defer the shared design-system tokens, and never touch a
+            // link whose sheet is already loaded — its 'load' event has
+            // already fired, so media would stay stuck on 'print' forever.
+            if (link.href.includes('main.css') || link.href.includes('pr-design-system')) return;
+            if (link.sheet) return;
+            link.setAttribute('media', 'print');
+            link.addEventListener('load', () => {
+                link.setAttribute('media', 'all');
+            });
         });
     }
 

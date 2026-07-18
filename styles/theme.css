@@ -6,24 +6,30 @@
 
 :root {
 	/* === BRAND COLORS === */
-	--primary-gold: #D5B654;
-	--primary-gold-dark: #B89A3D;
-	--primary-gold-light: #E6C76A;
+	/* Bridged onto the shared pr-design-system tokens (--gold, --bg-*)
+	   so this site matches the game pages exactly; literal values are
+	   fallbacks for when the shared sheet is unavailable. */
+	--primary-gold: var(--gold, #D5B654);
+	--primary-gold-dark: var(--gold-dark, #B89A3D);
+	--primary-gold-light: var(--gold-light, #E6C76A);
 
 	/* === DARK THEME (DEFAULT) === */
 	/* Background colors - darkest to lightest */
-	--bg-primary: #0f0f0f;
+	--bg-primary: var(--bg-base, #0f0f0f);
 	/* Main background */
-	--bg-secondary: #1a1a1a;
+	--bg-secondary: var(--bg-surface, #1a1a1a);
 	/* Cards, headers */
-	--bg-tertiary: #2d2d2d;
+	--bg-tertiary: var(--bg-hover, #2d2d2d);
 	/* Borders, subtle elements */
 
 	/* Backdrop overlays for scrolled header */
 	--bg-backdrop-dark: rgba(26, 26, 26, 0.95);
 	--bg-backdrop-light: rgba(255, 255, 255, 0.95);
 
-	/* Text colors - lightest to darkest */
+	/* Text colors — shared-token names (--text-primary etc.) are the SAME
+	   names as pr-design-system's, which loads after this file and
+	   overrides them with the canonical values in both themes. The values
+	   here are only dark-theme fallbacks. */
 	--text-primary: #f8f9fa;
 	/* Main text */
 	--text-secondary: #e0e0e0;
@@ -32,10 +38,10 @@
 	/* Muted text */
 
 	/* === ACCENT COLORS === */
-	--accent-danger: #dc2626;
-	--accent-success: #16a34a;
-	--accent-warning: #d97706;
-	--accent-info: #2563eb;
+	--accent-danger: var(--danger, #dc2626);
+	--accent-success: var(--success, #16a34a);
+	--accent-warning: var(--warning, #d97706);
+	--accent-info: var(--info, #2563eb);
 	--accent-info-dark: #1e40af;
 
 	/* === LIGHT THEME VARIABLES (for override) === */
@@ -190,9 +196,12 @@
 /* === LIGHT THEME OVERRIDE === */
 /* Only activated when explicitly set - dark is superior and default */
 [data-theme="light"] {
-	--bg-primary: var(--bg-primary-light);
-	--bg-secondary: var(--bg-secondary-light);
-	--bg-tertiary: var(--bg-tertiary-light);
+	/* Bridged tokens (--bg-base, --text-* …) already flip to the shared
+	   parchment palette via pr-design-system — only re-point the ones whose
+	   dark fallback is a literal. */
+	--bg-primary: var(--bg-base, var(--bg-primary-light));
+	--bg-secondary: var(--bg-surface, var(--bg-secondary-light));
+	--bg-tertiary: var(--bg-hover, var(--bg-tertiary-light));
 	--text-primary: var(--text-primary-light);
 	--text-secondary: var(--text-secondary-light);
 	--text-muted: var(--text-muted-light);
