@@ -2,496 +2,496 @@
 <html lang="fr" data-theme="dark">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Force SW cache purge and update -->
-    <script>
-    (function() {
-        if (!('serviceWorker' in navigator)) return;
-        var SW_VERSION = 'v1.6.0';
-        var lastSW = localStorage.getItem('sw-version');
-        if (lastSW !== SW_VERSION) {
-            caches.keys().then(function(names) {
-                return Promise.all(names.map(function(n) { return caches.delete(n); }));
-            }).then(function() {
-                return navigator.serviceWorker.getRegistration();
-            }).then(function(reg) {
-                if (reg) return reg.unregister();
-            }).then(function() {
-                localStorage.setItem('sw-version', SW_VERSION);
-                location.reload();
-            });
-        }
-    })();
-    </script>
+ <!-- Force SW cache purge and update -->
+ <script>
+ (function() {
+ if (!('serviceWorker' in navigator)) return;
+ var SW_VERSION = 'v1.6.0';
+ var lastSW = localStorage.getItem('sw-version');
+ if (lastSW !== SW_VERSION) {
+ caches.keys().then(function(names) {
+ return Promise.all(names.map(function(n) { return caches.delete(n); }));
+ }).then(function() {
+ return navigator.serviceWorker.getRegistration();
+ }).then(function(reg) {
+ if (reg) return reg.unregister();
+ }).then(function() {
+ localStorage.setItem('sw-version', SW_VERSION);
+ location.reload();
+ });
+ }
+ })();
+</script>
 
-    <!-- Google Tag Manager -->
-    <script>(function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                    new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-PKRZXV9B');</script>
-    <!-- End Google Tag Manager -->
+ <!-- Google Tag Manager -->
+ <script>(function (w, d, s, l, i) {
+ w[l] = w[l] || []; w[l].push({
+ 'gtm.start':
+ new Date().getTime(), event: 'gtm.js'
+ }); var f = d.getElementsByTagName(s)[0],
+ j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+ 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+ })(window, document, 'script', 'dataLayer', 'GTM-PKRZXV9B');</script>
+ <!-- End Google Tag Manager -->
 
-    <script>
-        window.axeptioSettings = {
-            clientId: "68963e315d089c7b7334b5d1",
-            cookiesVersion: "fr-08-08-2025_fr-EU",
-            googleConsentMode: {
-                default: {
-                    analytics_storage: "denied",
-                    ad_storage: "denied",
-                    ad_user_data: "denied",
-                    ad_personalization: "denied",
-                    wait_for_update: 500
-                }
-            }
-        };
+ <script>
+ window.axeptioSettings = {
+ clientId: "68963e315d089c7b7334b5d1",
+ cookiesVersion: "fr-08-08-2025_fr-EU",
+ googleConsentMode: {
+ default: {
+ analytics_storage: "denied",
+ ad_storage: "denied",
+ ad_user_data: "denied",
+ ad_personalization: "denied",
+ wait_for_update: 500
+ }
+ }
+ };
 
-        (function (d, s) {
-            var t = d.getElementsByTagName(s)[0], e = d.createElement(s);
-            e.async = true; e.src = "//static.axept.io/sdk.js";
-            t.parentNode.insertBefore(e, t);
-        })(document, "script");
-    </script>
-
-
-    <!-- Enhanced Analytics Configuration -->
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-5B3PEQ65HX', {
-            send_page_view: true,
-            enhanced_measurement: {
-                scroll_events: true,
-                outbound_clicks: true,
-                site_search: true,
-                file_downloads: true
-            },
-            custom_parameters: {
-                content_group1: 'Rules Page',
-                content_group2: 'Documentation',
-                content_group3: 'Policy Content'
-            }
-        });
-
-        window.trackEvent = function (eventName, parameters = {}) {
-            gtag('event', eventName, {
-                event_category: parameters.category || 'User Interaction',
-                event_label: parameters.label || '',
-                value: parameters.value || 0,
-                custom_parameters: {
-                    page_type: 'rules',
-                    ...parameters.custom
-                }
-            });
-        };
-    </script>
+ (function (d, s) {
+ var t = d.getElementsByTagName(s)[0], e = d.createElement(s);
+ e.async = true; e.src = "//static.axept.io/sdk.js";
+ t.parentNode.insertBefore(e, t);
+ })(document, "script");
+</script>
 
 
-    <!-- Primary Meta Tags -->
-    <title>Règles et Règlement - Projet Résurgence | Serveur RP Géopolitique Francophone</title>
-    <meta name="title" content="Règles et Règlement - Projet Résurgence">
-    <meta name="description"
-        content="Règlement complet de Projet Résurgence : HRP, roleplay, économie (PIB, inflation, chômage), technologie, militaire et territorial. Toutes les règles sur une seule page, classées par catégorie.">
-    <meta name="keywords"
-        content="règles projet résurgence, règlement RP géopolitique, règles discord français, roleplay francophone, code de conduite, règles militaires RP, règlement territorial, règlement économique, règlement technologique">
-    <meta name="robots" content="index, follow">
-    <meta name="language" content="French">
-    <meta name="author" content="Projet Résurgence">
+ <!-- Enhanced Analytics Configuration -->
+ <script>
+ window.dataLayer = window.dataLayer || [];
+ function gtag() { dataLayer.push(arguments); }
+ gtag('js', new Date());
+ gtag('config', 'G-5B3PEQ65HX', {
+ send_page_view: true,
+ enhanced_measurement: {
+ scroll_events: true,
+ outbound_clicks: true,
+ site_search: true,
+ file_downloads: true
+ },
+ custom_parameters: {
+ content_group1: 'Rules Page',
+ content_group2: 'Documentation',
+ content_group3: 'Policy Content'
+ }
+ });
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://projet-resurgence.fr/regles.html">
-    <meta property="og:title" content="Règles et Règlement - Projet Résurgence">
-    <meta property="og:description"
-        content="Règlement complet : HRP, roleplay, économie, technologie, militaire et territorial. Toutes les règles sur une seule page, classées par catégorie.">
-    <meta property="og:image" content="https://projet-resurgence.fr/images/banner.jpg">
-    <meta property="og:image:width" content="1055">
-    <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Bannière des Règles et Règlement">
-    <meta property="og:image:type" content="image/jpeg">
-    <meta property="og:site_name" content="Projet Résurgence">
-    <meta property="og:locale" content="fr_FR">
+ window.trackEvent = function (eventName, parameters = {}) {
+ gtag('event', eventName, {
+ event_category: parameters.category || 'User Interaction',
+ event_label: parameters.label || '',
+ value: parameters.value || 0,
+ custom_parameters: {
+ page_type: 'rules',
+ ...parameters.custom
+ }
+ });
+ };
+</script>
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://projet-resurgence.fr/regles.html">
-    <meta property="twitter:title" content="Règles et Règlement - Projet Résurgence">
-    <meta property="twitter:description"
-        content="Règlement complet : HRP, roleplay, économie, technologie, militaire et territorial. Toutes les règles sur une seule page.">
-    <meta property="twitter:image" content="https://projet-resurgence.fr/images/banner.jpg">
-    <meta property="twitter:image:width" content="1055">
-    <meta property="twitter:image:height" content="630">
-    <meta property="twitter:image:alt" content="Bannière des Règles et Règlement">
-    <meta property="twitter:image:type" content="image/jpeg">
 
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://projet-resurgence.fr/regles.html">
+ <!-- Primary Meta Tags -->
+ <title>Règles et Règlement - Projet Résurgence | Serveur RP Géopolitique Francophone</title>
+ <meta name="title" content="Règles et Règlement - Projet Résurgence">
+ <meta name="description"
+ content="Règlement complet de Projet Résurgence : HRP, roleplay, économie (PIB, inflation, chômage), technologie, militaire et territorial. Toutes les règles sur une seule page, classées par catégorie.">
+ <meta name="keywords"
+ content="règles projet résurgence, règlement RP géopolitique, règles discord français, roleplay francophone, code de conduite, règles militaires RP, règlement territorial, règlement économique, règlement technologique">
+ <meta name="robots" content="index, follow">
+ <meta name="language" content="French">
+ <meta name="author" content="Projet Résurgence">
 
-    <!-- Resource hints for performance -->
-    <link rel="preload" href="./fonts/pressgothic.otf" as="font" type="font/otf" crossorigin="anonymous">
-    <link rel="preload" href="./styles/critical.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="./styles/critical.css">
-    </noscript>
-    <link rel="preload" href="./styles/main.css?v=1.5.0" as="style">
-    <link rel="preload" href="./images/final_logo_centered_little.webp" as="image" type="image/webp">
-    <link rel="preload" href="./images/final_logo_centered_little.png" as="image" type="image/png">
-    <link rel="preload" href="./styles/main.js?v=1.4.0" as="script">
-    <link rel="prefetch" href="./index.html">
-    <link rel="prefetch" href="./guide.html">
-    
-    <link rel="stylesheet" href="./styles/main.css?v=1.5.0">
-    <link rel="stylesheet" href="./styles/rules.css?v=1.4.0">
-    <link rel="icon" type="image/png" href="./images/final_logo_little.png">
-    <link rel="manifest" href="./manifest.json">
-    <meta name="theme-color" content="#D5B654">
-    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
-    <link rel="shortcut icon" href="/favicon/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="Projet Resurgence" />
-    <!-- Structured Data (JSON-LD) -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebPage",
-        "name": "Règles et Règlement - Projet Résurgence",
-        "description": "Règles officielles du serveur Discord Projet Résurgence pour le roleplay géopolitique francophone post-apocalyptique",
-        "url": "https://projet-resurgence.fr/regles.html",
-        "inLanguage": "fr",
-        "isPartOf": {
-            "@type": "WebSite",
-            "name": "Projet Résurgence",
-            "url": "https://projet-resurgence.fr"
-        },
-        "about": {
-            "@type": "Game",
-            "name": "Projet Résurgence - RP Géopolitique",
-            "genre": "Role-playing game",
-            "gamePlatform": "Discord"
-        },
-        "author": {
-            "@type": "Organization",
-            "name": "Projet Résurgence"
-        },
-        "publisher": {
-            "@type": "Organization",
-            "name": "Projet Résurgence"
-        }
-    }
-    </script>
-  <!-- PR Design System (shared tokens + components) -->
-  <link rel="stylesheet" href="https://projet-resurgence.fr/assets/pr-design-system/pr-design-system.css?v=1">
-  <script defer src="https://projet-resurgence.fr/assets/pr-design-system/pr-design-system.js?v=1"></script>
+ <!-- Open Graph / Facebook -->
+ <meta property="og:type" content="website">
+ <meta property="og:url" content="https://projet-resurgence.fr/regles.html">
+ <meta property="og:title" content="Règles et Règlement - Projet Résurgence">
+ <meta property="og:description"
+ content="Règlement complet : HRP, roleplay, économie, technologie, militaire et territorial. Toutes les règles sur une seule page, classées par catégorie.">
+ <meta property="og:image" content="https://projet-resurgence.fr/images/banner.jpg">
+ <meta property="og:image:width" content="1055">
+ <meta property="og:image:height" content="630">
+ <meta property="og:image:alt" content="Bannière des Règles et Règlement">
+ <meta property="og:image:type" content="image/jpeg">
+ <meta property="og:site_name" content="Projet Résurgence">
+ <meta property="og:locale" content="fr_FR">
+
+ <!-- Twitter -->
+ <meta property="twitter:card" content="summary_large_image">
+ <meta property="twitter:url" content="https://projet-resurgence.fr/regles.html">
+ <meta property="twitter:title" content="Règles et Règlement - Projet Résurgence">
+ <meta property="twitter:description"
+ content="Règlement complet : HRP, roleplay, économie, technologie, militaire et territorial. Toutes les règles sur une seule page.">
+ <meta property="twitter:image" content="https://projet-resurgence.fr/images/banner.jpg">
+ <meta property="twitter:image:width" content="1055">
+ <meta property="twitter:image:height" content="630">
+ <meta property="twitter:image:alt" content="Bannière des Règles et Règlement">
+ <meta property="twitter:image:type" content="image/jpeg">
+
+ <!-- Canonical URL -->
+ <link rel="canonical" href="https://projet-resurgence.fr/regles.html">
+
+ <!-- Resource hints for performance -->
+ <link rel="preload" href="./fonts/pressgothic.otf" as="font" type="font/otf" crossorigin="anonymous">
+ <link rel="preload" href="./styles/critical.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+ <noscript>
+ <link rel="stylesheet" href="./styles/critical.css">
+</noscript>
+ <link rel="preload" href="./styles/main.css?v=1.7.0" as="style">
+ <link rel="preload" href="./images/final_logo_centered_little.webp" as="image" type="image/webp">
+ <link rel="preload" href="./images/final_logo_centered_little.png" as="image" type="image/png">
+ <link rel="preload" href="./styles/main.js?v=1.4.0" as="script">
+ <link rel="prefetch" href="./index.html">
+ <link rel="prefetch" href="./guide.html">
+ 
+ <link rel="stylesheet" href="./styles/main.css?v=1.7.0">
+ <link rel="stylesheet" href="./styles/rules.css?v=1.4.0">
+ <link rel="icon" type="image/png" href="./images/final_logo_little.png">
+ <link rel="manifest" href="./manifest.json">
+ <meta name="theme-color" content="#D5B654">
+ <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+ <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+ <link rel="shortcut icon" href="/favicon/favicon.ico" />
+ <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+ <meta name="apple-mobile-web-app-title" content="Projet Resurgence" />
+ <!-- Structured Data (JSON-LD) -->
+ <script type="application/ld+json">
+ {
+ "@context": "https://schema.org",
+ "@type": "WebPage",
+ "name": "Règles et Règlement - Projet Résurgence",
+ "description": "Règles officielles du serveur Discord Projet Résurgence pour le roleplay géopolitique francophone post-apocalyptique",
+ "url": "https://projet-resurgence.fr/regles.html",
+ "inLanguage": "fr",
+ "isPartOf": {
+ "@type": "WebSite",
+ "name": "Projet Résurgence",
+ "url": "https://projet-resurgence.fr"
+ },
+ "about": {
+ "@type": "Game",
+ "name": "Projet Résurgence - RP Géopolitique",
+ "genre": "Role-playing game",
+ "gamePlatform": "Discord"
+ },
+ "author": {
+ "@type": "Organization",
+ "name": "Projet Résurgence"
+ },
+ "publisher": {
+ "@type": "Organization",
+ "name": "Projet Résurgence"
+ }
+ }
+</script>
+ <!-- PR Design System (shared tokens + components) -->
+ <link rel="stylesheet" href="https://projet-resurgence.fr/assets/pr-design-system/pr-design-system.css?v=5">
+ <script defer src="https://projet-resurgence.fr/assets/pr-design-system/pr-design-system.js?v=5"></script>
 </head>
 
 <body class="pr-scope">
-    <a class="skip-link" href="#main-content">Aller au contenu principal</a>
+ <a class="skip-link" href="#main-content">Aller au contenu principal</a>
 
-    <intersite-navbar current-site="home" hide-toggle logo-src="./favicon/favicon-96x96.png"></intersite-navbar>
+ <intersite-navbar current-site="home" hide-toggle logo-src="./favicon/favicon-96x96.png"></intersite-navbar>
 
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PKRZXV9B" height="0" width="0"
-            style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
+ <!-- Google Tag Manager (noscript) -->
+ <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PKRZXV9B" height="0" width="0"
+ style="display:none;visibility:hidden"></iframe></noscript>
+ <!-- End Google Tag Manager (noscript) -->
 
-    <!-- Header Component -->
-    <resurgence-header current-page="rules"></resurgence-header>
+ <!-- Header Component -->
+ <resurgence-header current-page="rules"></resurgence-header>
 
-    <!-- Main Content -->
-    <main class="main" id="main-content">
-        <!-- Hero Section -->
-        <section id="rules" class="rules-hero hero" role="banner">
-            <div class="container">
-                <div class="hero-content animate-fade-in-up">
-                    <h1 class="hero-title">Règles & Règlement</h1>
-                    <p class="hero-subtitle"> Les limites, les règlementations, 
-                        et les informations <br> pour un bon jeu  ensemble </p>
-                    <p class="hero-description">
-                        Découvrez les règles qui régissent notre communauté et garantissent une expérience de roleplay
-                        équitable et immersive pour tous.
-                    </p>
-                </div>
-            </div>
-        </section>
+ <!-- Main Content -->
+ <main class="main" id="main-content">
+ <!-- Hero Section -->
+ <section id="rules" class="rules-hero hero" role="banner">
+ <div class="container">
+ <div class="hero-content animate-fade-in-up">
+ <h1 class="hero-title">Règles & Règlement</h1>
+ <p class="hero-subtitle"> Les limites, les règlementations, 
+ et les informations <br> pour un bon jeu ensemble</p>
+ <p class="hero-description">
+ Découvrez les règles qui régissent notre communauté et garantissent une expérience de roleplay
+ équitable et immersive pour tous.
+</p>
+</div>
+</div>
+</section>
 
-        <!-- Rules Categories: static HTML generated by scripts/build-rules.mjs
-             from rules/*.md — regenerate and re-paste here after editing a
-             rules/*.md file. Kept static (not fetched/rendered client-side)
-             so every rule is visible to crawlers/AI on first paint and
-             directly deep-linkable via #hrp #rp #economique #technologique
-             #militaire #territorial. -->
-        <section class="features">
-            <div class="container">
-        <div class="rules-layout">
-        <nav class="rules-sidebar" aria-label="Catégories de règles">
-            <a href="#hrp" class="rules-sidebar-link"><span aria-hidden="true">💬</span> HRP (Hors Roleplay)</a>
-            <a href="#rp" class="rules-sidebar-link"><span aria-hidden="true">🎭</span> Roleplay</a>
-            <a href="#economique" class="rules-sidebar-link"><span aria-hidden="true">💰</span> Économique</a>
-            <a href="#technologique" class="rules-sidebar-link"><span aria-hidden="true">⚙️</span> Technologique</a>
-            <a href="#militaire" class="rules-sidebar-link"><span aria-hidden="true">⚔️</span> Militaire &amp; Conflits</a>
-            <a href="#territorial" class="rules-sidebar-link"><span aria-hidden="true">🗺️</span> Territorial</a>
-        </nav>
-            <div class="rules-content">
+ <!-- Rules Categories: static HTML generated by scripts/build-rules.mjs
+ from rules/*.md — regenerate and re-paste here after editing a
+ rules/*.md file. Kept static (not fetched/rendered client-side)
+ so every rule is visible to crawlers/AI on first paint and
+ directly deep-linkable via #hrp #rp #economique #technologique
+ #militaire #territorial. -->
+ <section class="features">
+ <div class="container">
+ <div class="rules-layout">
+ <nav class="rules-sidebar" aria-label="Catégories de règles">
+ <a href="#hrp" class="rules-sidebar-link"><span aria-hidden="true"></span> HRP (Hors Roleplay)</a>
+ <a href="#rp" class="rules-sidebar-link"><span aria-hidden="true"></span> Roleplay</a>
+ <a href="#economique" class="rules-sidebar-link"><span aria-hidden="true"></span> Économique</a>
+ <a href="#technologique" class="rules-sidebar-link"><span aria-hidden="true"></span> Technologique</a>
+ <a href="#militaire" class="rules-sidebar-link"><span aria-hidden="true"></span> Militaire &amp; Conflits</a>
+ <a href="#territorial" class="rules-sidebar-link"><span aria-hidden="true"></span> Territorial</a>
+</nav>
+ <div class="rules-content">
 
-        <section id="hrp" class="rule-category-section" aria-labelledby="hrp-heading">
-            <div class="rule-header">
-                <div class="rule-category-info">
-                    <span class="category-icon" aria-hidden="true">💬</span>
-                    <div class="category-details">
-                        <h2 class="category-title" id="hrp-heading">HRP (Hors Roleplay)</h2>
-                        <p class="category-description">Règles pour les discussions hors roleplay et la modération</p>
-                    </div>
-                </div>
-            </div>
-            <div class="rule-content-wrapper">
-                <nav class="table-of-contents" aria-label="Sommaire">
-                <h3>Sommaire</h3>
-                <ul class="toc-list">
-                    <li class="toc-level-2"><a href="#hrp-1-comportement">1. Comportement</a></li>
-                    <li class="toc-level-3"><a href="#hrp-1-1-respect-des-tos-discord-et-des-lois">1.1 Respect des ToS Discord et des lois</a></li>
-                    <li class="toc-level-3"><a href="#hrp-1-2-langage-et-comportement-a-adopter">1.2 Langage et comportement à adopter</a></li>
-                    <li class="toc-level-3"><a href="#hrp-1-3-doubles-comptes">1.3 Doubles comptes</a></li>
-                    <li class="toc-level-3"><a href="#hrp-1-4-discrimination">1.4 Discrimination</a></li>
-                    <li class="toc-level-2"><a href="#hrp-2-contenu-partage">2. Contenu partagé</a></li>
-                    <li class="toc-level-3"><a href="#hrp-2-1-spam-flood">2.1 Spam/Flood</a></li>
-                    <li class="toc-level-3"><a href="#hrp-2-2-contenus-inappropries">2.2 Contenus inappropriés</a></li>
-                    <li class="toc-level-3"><a href="#hrp-2-3-publicite">2.3 Publicité</a></li>
-                    <li class="toc-level-3"><a href="#hrp-2-4-debats-constructifs">2.4 Débats constructifs</a></li>
-                    <li class="toc-level-3"><a href="#hrp-2-5-avatars-et-pseudos-inappropries">2.5 Avatars et pseudos inappropriés</a></li>
-                </ul>
-            </nav>
-                <div class="rule-content">
-                    <h2 class="rule-section" id="hrp-1-comportement">1. Comportement</h2><h3 class="rule-subsection" id="hrp-1-1-respect-des-tos-discord-et-des-lois">1.1 Respect des ToS Discord et des lois</h3><p>Il est impératif de respecter les Conditions d'Utilisation de Discord ainsi que les lois françaises.</p><h3 class="rule-subsection" id="hrp-1-2-langage-et-comportement-a-adopter">1.2 Langage et comportement à adopter</h3><p>Les provocations et les insultes doivent être évitées. Un climat sain et respectueux est essentiel pour le bien du serveur.</p><h3 class="rule-subsection" id="hrp-1-3-doubles-comptes">1.3 Doubles comptes</h3><p>Les doubles comptes sont interdits, sauf accord de l'administration.</p><h3 class="rule-subsection" id="hrp-1-4-discrimination">1.4 Discrimination</h3><p>Toute forme de discrimination ou discours de haine quel qu'ils soient sont strictement interdits et sévèrement sanctionné.</p><h2 class="rule-section" id="hrp-2-contenu-partage">2. Contenu partagé</h2><h3 class="rule-subsection" id="hrp-2-1-spam-flood">2.1 Spam/Flood</h3><p>Envoyer des messages répétitifs ou abuser des mentions est interdit et nuisible à la bonne ambiance du serveur. Évidemment, il en va de même pour les tentatives de nuke (action de détruire un serveur).</p><h3 class="rule-subsection" id="hrp-2-2-contenus-inappropries">2.2 Contenus inappropriés</h3><p>La pornographie, ainsi que les contenus choquants ou inappropriés, sont strictement interdits. Évidemment, tout contenu illégal à posséder, ou dont la possession est restreinte (interdits aux mineurs par ex) sera tout autant interdit.</p><h3 class="rule-subsection" id="hrp-2-3-publicite">2.3 Publicité</h3><p>La publicité, que ce soit en message privé ou directement sur le serveur, est interdite.</p><h3 class="rule-subsection" id="hrp-2-4-debats-constructifs">2.4 Débats constructifs</h3><p>Les débats sont autorisés, tant que chacun respecte l'opinion de l'autre. Aucune insulte ni débordement ne sera toléré.</p><h3 class="rule-subsection" id="hrp-2-5-avatars-et-pseudos-inappropries">2.5 Avatars et pseudos inappropriés</h3><p>Les avatars et pseudos inappropriés devront être changés dès votre arrivée sur le serveur.</p><hr class="rule-divider"><p><em>Chaque règlement peut être sujet à modification. L'administration se réserve le droit d'appliquer toute sanction, même si aucun point de l'actuel règlement n'a été enfreint avec accord de la direction</em></p>
-                </div>
-            </div>
-        </section>
+ <section id="hrp" class="rule-category-section" aria-labelledby="hrp-heading">
+ <div class="rule-header">
+ <div class="rule-category-info">
+ <span class="category-icon" aria-hidden="true"></span>
+ <div class="category-details">
+ <h2 class="category-title" id="hrp-heading">HRP (Hors Roleplay)</h2>
+ <p class="category-description">Règles pour les discussions hors roleplay et la modération</p>
+</div>
+</div>
+</div>
+ <div class="rule-content-wrapper">
+ <nav class="table-of-contents" aria-label="Sommaire">
+ <h3>Sommaire</h3>
+ <ul class="toc-list">
+ <li class="toc-level-2"><a href="#hrp-1-comportement">1. Comportement</a></li>
+ <li class="toc-level-3"><a href="#hrp-1-1-respect-des-tos-discord-et-des-lois">1.1 Respect des ToS Discord et des lois</a></li>
+ <li class="toc-level-3"><a href="#hrp-1-2-langage-et-comportement-a-adopter">1.2 Langage et comportement à adopter</a></li>
+ <li class="toc-level-3"><a href="#hrp-1-3-doubles-comptes">1.3 Doubles comptes</a></li>
+ <li class="toc-level-3"><a href="#hrp-1-4-discrimination">1.4 Discrimination</a></li>
+ <li class="toc-level-2"><a href="#hrp-2-contenu-partage">2. Contenu partagé</a></li>
+ <li class="toc-level-3"><a href="#hrp-2-1-spam-flood">2.1 Spam/Flood</a></li>
+ <li class="toc-level-3"><a href="#hrp-2-2-contenus-inappropries">2.2 Contenus inappropriés</a></li>
+ <li class="toc-level-3"><a href="#hrp-2-3-publicite">2.3 Publicité</a></li>
+ <li class="toc-level-3"><a href="#hrp-2-4-debats-constructifs">2.4 Débats constructifs</a></li>
+ <li class="toc-level-3"><a href="#hrp-2-5-avatars-et-pseudos-inappropries">2.5 Avatars et pseudos inappropriés</a></li>
+</ul>
+</nav>
+ <div class="rule-content">
+ <h2 class="rule-section" id="hrp-1-comportement">1. Comportement</h2><h3 class="rule-subsection" id="hrp-1-1-respect-des-tos-discord-et-des-lois">1.1 Respect des ToS Discord et des lois</h3><p>Il est impératif de respecter les Conditions d'Utilisation de Discord ainsi que les lois françaises.</p><h3 class="rule-subsection" id="hrp-1-2-langage-et-comportement-a-adopter">1.2 Langage et comportement à adopter</h3><p>Les provocations et les insultes doivent être évitées. Un climat sain et respectueux est essentiel pour le bien du serveur.</p><h3 class="rule-subsection" id="hrp-1-3-doubles-comptes">1.3 Doubles comptes</h3><p>Les doubles comptes sont interdits, sauf accord de l'administration.</p><h3 class="rule-subsection" id="hrp-1-4-discrimination">1.4 Discrimination</h3><p>Toute forme de discrimination ou discours de haine quel qu'ils soient sont strictement interdits et sévèrement sanctionné.</p><h2 class="rule-section" id="hrp-2-contenu-partage">2. Contenu partagé</h2><h3 class="rule-subsection" id="hrp-2-1-spam-flood">2.1 Spam/Flood</h3><p>Envoyer des messages répétitifs ou abuser des mentions est interdit et nuisible à la bonne ambiance du serveur. Évidemment, il en va de même pour les tentatives de nuke (action de détruire un serveur).</p><h3 class="rule-subsection" id="hrp-2-2-contenus-inappropries">2.2 Contenus inappropriés</h3><p>La pornographie, ainsi que les contenus choquants ou inappropriés, sont strictement interdits. Évidemment, tout contenu illégal à posséder, ou dont la possession est restreinte (interdits aux mineurs par ex) sera tout autant interdit.</p><h3 class="rule-subsection" id="hrp-2-3-publicite">2.3 Publicité</h3><p>La publicité, que ce soit en message privé ou directement sur le serveur, est interdite.</p><h3 class="rule-subsection" id="hrp-2-4-debats-constructifs">2.4 Débats constructifs</h3><p>Les débats sont autorisés, tant que chacun respecte l'opinion de l'autre. Aucune insulte ni débordement ne sera toléré.</p><h3 class="rule-subsection" id="hrp-2-5-avatars-et-pseudos-inappropries">2.5 Avatars et pseudos inappropriés</h3><p>Les avatars et pseudos inappropriés devront être changés dès votre arrivée sur le serveur.</p><hr class="rule-divider"><p><em>Chaque règlement peut être sujet à modification. L'administration se réserve le droit d'appliquer toute sanction, même si aucun point de l'actuel règlement n'a été enfreint avec accord de la direction</em></p>
+</div>
+</div>
+</section>
 
-        <section id="rp" class="rule-category-section" aria-labelledby="rp-heading">
-            <div class="rule-header">
-                <div class="rule-category-info">
-                    <span class="category-icon" aria-hidden="true">🎭</span>
-                    <div class="category-details">
-                        <h2 class="category-title" id="rp-heading">Roleplay</h2>
-                        <p class="category-description">Directives pour le roleplay, création de nations et interactions RP</p>
-                    </div>
-                </div>
-            </div>
-            <div class="rule-content-wrapper">
-                <nav class="table-of-contents" aria-label="Sommaire">
-                <h3>Sommaire</h3>
-                <ul class="toc-list">
-                    <li class="toc-level-2"><a href="#rp-1-avant-de-debuter">1. Avant de débuter</a></li>
-                    <li class="toc-level-3"><a href="#rp-1-1-lecture-des-reglements">1.1 Lecture des règlements</a></li>
-                    <li class="toc-level-3"><a href="#rp-1-2-lecture-du-contexte-rp">1.2 Lecture du contexte RP</a></li>
-                    <li class="toc-level-2"><a href="#rp-2-conduite-generale">2. Conduite générale</a></li>
-                    <li class="toc-level-3"><a href="#rp-2-1-fairplay">2.1 Fairplay</a></li>
-                    <li class="toc-level-3"><a href="#rp-2-2-les-regles-d-ecriture">2.2 Les règles d'écriture</a></li>
-                    <li class="toc-level-3"><a href="#rp-2-3-la-redaction-a-l-aide-d-ia">2.3 La rédaction à l'aide d'IA</a></li>
-                    <li class="toc-level-3"><a href="#rp-2-4-le-plagiat">2.4 Le plagiat</a></li>
-                    <li class="toc-level-3"><a href="#rp-2-5-les-actions-gores">2.5 Les Actions gores</a></li>
-                    <li class="toc-level-2"><a href="#rp-3-la-mecanique-de-points">3. La mécanique de points</a></li>
-                    <li class="toc-level-3"><a href="#rp-3-1-le-point-politique">3.1 Le point politique</a></li>
-                    <li class="toc-level-3"><a href="#rp-3-2-le-point-diplomatique">3.2 Le point diplomatique</a></li>
-                    <li class="toc-level-3"><a href="#rp-3-3-le-point-technologique">3.3 Le point technologique</a></li>
-                    <li class="toc-level-2"><a href="#rp-4-la-mecanique-de-structures">4. La mécanique de structures</a></li>
-                    <li class="toc-level-3"><a href="#rp-4-1-les-structures">4.1 Les structures</a></li>
-                    <li class="toc-level-3"><a href="#rp-4-2-les-infrastructures">4.2 Les infrastructures</a></li>
-                    <li class="toc-level-3"><a href="#rp-4-3-la-liste-des-structures">4.3 La liste des structures</a></li>
-                    <li class="toc-level-2"><a href="#rp-5-la-creation-de-pays">5. La création de pays</a></li>
-                    <li class="toc-level-3"><a href="#rp-5-1-comment-creer-un-pays">5.1 Comment créer un pays ?</a></li>
-                    <li class="toc-level-3"><a href="#rp-5-2-restriction-dans-l-usage-de-certains-symboles">5.2 Restriction dans l'usage de certains symboles</a></li>
-                    <li class="toc-level-3"><a href="#rp-5-3-le-pseudo-des-joueurs">5.3 Le pseudo des joueurs</a></li>
-                    <li class="toc-level-3"><a href="#rp-5-4-changements-de-pays">5.4 Changements de pays</a></li>
-                    <li class="toc-level-3"><a href="#rp-5-5-les-pays-non-joues">5.5 Les pays non joués</a></li>
-                </ul>
-            </nav>
-                <div class="rule-content">
-                    <h2 class="rule-section" id="rp-1-avant-de-debuter">1. Avant de débuter</h2><h3 class="rule-subsection" id="rp-1-1-lecture-des-reglements">1.1 Lecture des règlements</h3><p>Avant de vous lancer dans la création de votre pays, il est nécessaire d'avoir lu et compris l'ensemble des règlements RP et HRP.</p><p>Nous vous invitons de même à lire les différents guides afin de mieux comprendre les mécaniques et améliorer votre expérience RP.</p><h3 class="rule-subsection" id="rp-1-2-lecture-du-contexte-rp">1.2 Lecture du contexte RP</h3><p>Le monde dans lequel vous allez RP, ne ressemble en rien à notre monde actuel, lire le contexte vous permettra de mieux le comprendre et de réaliser vos actions en adéquation avec celui-ci.</p><h2 class="rule-section" id="rp-2-conduite-generale">2. Conduite générale</h2><h3 class="rule-subsection" id="rp-2-1-fairplay">2.1 Fairplay</h3><p>Le fairplay est un principe fondamental du Roleplay.</p><p>Les conflits en RP doivent être gérés de manière mature, sans rompre l'immersion des autres joueurs.</p><p>En cas de désaccord sur une action ou un événement RP, la discussion entre les participants concernés est encouragée pour éviter l'escalade.</p><p>En cas d'escalade, l'administration se réserve le droit d'intervenir.</p><h3 class="rule-subsection" id="rp-2-2-les-regles-d-ecriture">2.2 Les règles d'écriture</h3><p>Chaque action effectuée en RP doit être clairement rédigée.</p><p>Si une action a un coût, celui-ci doit être précisé. En l'absence d'indication de coût, l'action sera considérée comme non financée.</p><h3 class="rule-subsection" id="rp-2-3-la-redaction-a-l-aide-d-ia">2.3 La rédaction à l'aide d'IA</h3><p>L'utilisation d'IA génératives pour écrire les actions comme ChatGPT n'est pas interdite, cependant, les actions écrites par IA conduiront à des pénalités dans les résultats.</p><p>Cette règle est essentiellement présente pour vous inviter à utiliser l'IA comme moyen d'assistance à la mise en forme et non comme moyen de rédaction.</p><h3 class="rule-subsection" id="rp-2-4-le-plagiat">2.4 Le plagiat</h3><p>Le plagiat d'action sans autorisation du rédacteur est strictement interdite.</p><p>Il n'est cependant pas interdit de vous inspirer d'actions réalisées par d'autres joueurs.</p><h3 class="rule-subsection" id="rp-2-5-les-actions-gores">2.5 Les Actions gores</h3><p>Les actions gores sont si possible à mettre en spoiler (caché) et un message d'avertissement doit être inséré avant l'action.</p><p>Cependant, il est interdit de créer un pays centré sur les génocides ou les actions gores.</p><p>Nous vous demandons de même de ne pas mettre trop de détails dans le cas d'actions gores.</p><h2 class="rule-section" id="rp-3-la-mecanique-de-points">3. La mécanique de points</h2><h3 class="rule-subsection" id="rp-3-1-le-point-politique">3.1 Le point politique</h3><p>Le point politique est uniquement utilisable au sein d'actions, il permet de booster l'efficacité d'une action sans devoir augmenter l'investissement original.</p><p>Les points politiques s'obtiennent après chaque bilan de fin d'année selon les résultats du pays.</p><h3 class="rule-subsection" id="rp-3-2-le-point-diplomatique">3.2 Le point diplomatique</h3><p>Le point diplomatique sert uniquement dans le cadre d'annexion de régions libres et de fusions avec les pays non joués.</p><p>Il sert à permettre l'ouverture de négociation avec les représentants du territoire visé.</p><p>Les points diplomatiques s'obtiennent après chaque bilan de fin d'année selon l'investissement du pays dans la diplomatie.</p><h3 class="rule-subsection" id="rp-3-3-le-point-technologique">3.3 Le point technologique</h3><p>Le point technologique permet de faire évoluer le niveau des catégories technologiques.</p><p>À chaque bilan de fin d'année, vos points d'expérience technologique se convertissent en points : 1 point pour 10 points d'expérience technologique, jusqu'à un maximum de 10 points par an.</p><h2 class="rule-section" id="rp-4-la-mecanique-de-structures">4. La mécanique de structures</h2><h3 class="rule-subsection" id="rp-4-1-les-structures">4.1 Les structures</h3><p>Les structures représentent un ensemble de bâtiments et d'infrastructures constructibles. Elles sont situées sur des régions précises, et peuvent être détruites (sans réparations possibles) ou volées.</p><h3 class="rule-subsection" id="rp-4-2-les-infrastructures">4.2 Les infrastructures</h3><p>Les infrastructures sont un ensemble de moyens de transports, dont la liste est la suivante : Autoroutes, chemins de fer, chemins de fer électrifiés, routes, routes sommaires, tunnels autoroutiers, tunnels ferrés, tunnels ferrés électrifiés, tunnels routiers, tunnels routiers sommaires. Leur quantité est définie en kilomètres.</p><h3 class="rule-subsection" id="rp-4-3-la-liste-des-structures">4.3 La liste des structures</h3><p>La liste des structures est la suivante : Infrastructures, centrales électriques, usines militaires, écoles militaires, bases militaires, logements, technocentres.</p><h2 class="rule-section" id="rp-5-la-creation-de-pays">5. La création de pays</h2><h3 class="rule-subsection" id="rp-5-1-comment-creer-un-pays">5.1 Comment créer un pays ?</h3><p>Avant de débuter, vous devez réaliser une demande de création de pays.</p><p>À la création de votre pays vous avez un premier choix à faire.</p><p>Vous commencez avec 1.000.000.000 de PIB, 2 points politiques et 2 points diplomatiques.</p><p>Vous avez la possibilité d'acheter des points Politiques ou Diplomatiques au prix de 100.000.000 le point dans une limite de 5 points au total.</p><p>Une fois votre salon créé, la première action que vous allez devoir faire est la proclamation de votre pays, la forme de la proclamation est libre.</p><h3 class="rule-subsection" id="rp-5-2-restriction-dans-l-usage-de-certains-symboles">5.2 Restriction dans l'usage de certains symboles</h3><p>L'utilisation de symboles nazis et néo-nazis est totalement interdite.</p><h3 class="rule-subsection" id="rp-5-3-le-pseudo-des-joueurs">5.3 Le pseudo des joueurs</h3><p>Les pseudos des joueurs doivent impérativement avoir cette forme :<br>[Drapeau du pays] Pseudo (Nom du dirigeant ou le nom de votre compte)</p><h3 class="rule-subsection" id="rp-5-4-changements-de-pays">5.4 Changements de pays</h3><p>Les changements de pays sont limités à 2 par année RP.</p><h3 class="rule-subsection" id="rp-5-5-les-pays-non-joues">5.5 Les pays non joués</h3><p>Dans le cas où un pays a été abandonné par un joueur, il peut être repris par n'importe quel autre joueur.</p><p>Si le pays abandonné possède peu d'actions, il sera tout simplement supprimé.</p><p>Et au bout d'un certain temps, les pays non joués, qu'importe le nombre d'actions, seront supprimés.</p>
-                </div>
-            </div>
-        </section>
+ <section id="rp" class="rule-category-section" aria-labelledby="rp-heading">
+ <div class="rule-header">
+ <div class="rule-category-info">
+ <span class="category-icon" aria-hidden="true"></span>
+ <div class="category-details">
+ <h2 class="category-title" id="rp-heading">Roleplay</h2>
+ <p class="category-description">Directives pour le roleplay, création de nations et interactions RP</p>
+</div>
+</div>
+</div>
+ <div class="rule-content-wrapper">
+ <nav class="table-of-contents" aria-label="Sommaire">
+ <h3>Sommaire</h3>
+ <ul class="toc-list">
+ <li class="toc-level-2"><a href="#rp-1-avant-de-debuter">1. Avant de débuter</a></li>
+ <li class="toc-level-3"><a href="#rp-1-1-lecture-des-reglements">1.1 Lecture des règlements</a></li>
+ <li class="toc-level-3"><a href="#rp-1-2-lecture-du-contexte-rp">1.2 Lecture du contexte RP</a></li>
+ <li class="toc-level-2"><a href="#rp-2-conduite-generale">2. Conduite générale</a></li>
+ <li class="toc-level-3"><a href="#rp-2-1-fairplay">2.1 Fairplay</a></li>
+ <li class="toc-level-3"><a href="#rp-2-2-les-regles-d-ecriture">2.2 Les règles d'écriture</a></li>
+ <li class="toc-level-3"><a href="#rp-2-3-la-redaction-a-l-aide-d-ia">2.3 La rédaction à l'aide d'IA</a></li>
+ <li class="toc-level-3"><a href="#rp-2-4-le-plagiat">2.4 Le plagiat</a></li>
+ <li class="toc-level-3"><a href="#rp-2-5-les-actions-gores">2.5 Les Actions gores</a></li>
+ <li class="toc-level-2"><a href="#rp-3-la-mecanique-de-points">3. La mécanique de points</a></li>
+ <li class="toc-level-3"><a href="#rp-3-1-le-point-politique">3.1 Le point politique</a></li>
+ <li class="toc-level-3"><a href="#rp-3-2-le-point-diplomatique">3.2 Le point diplomatique</a></li>
+ <li class="toc-level-3"><a href="#rp-3-3-le-point-technologique">3.3 Le point technologique</a></li>
+ <li class="toc-level-2"><a href="#rp-4-la-mecanique-de-structures">4. La mécanique de structures</a></li>
+ <li class="toc-level-3"><a href="#rp-4-1-les-structures">4.1 Les structures</a></li>
+ <li class="toc-level-3"><a href="#rp-4-2-les-infrastructures">4.2 Les infrastructures</a></li>
+ <li class="toc-level-3"><a href="#rp-4-3-la-liste-des-structures">4.3 La liste des structures</a></li>
+ <li class="toc-level-2"><a href="#rp-5-la-creation-de-pays">5. La création de pays</a></li>
+ <li class="toc-level-3"><a href="#rp-5-1-comment-creer-un-pays">5.1 Comment créer un pays ?</a></li>
+ <li class="toc-level-3"><a href="#rp-5-2-restriction-dans-l-usage-de-certains-symboles">5.2 Restriction dans l'usage de certains symboles</a></li>
+ <li class="toc-level-3"><a href="#rp-5-3-le-pseudo-des-joueurs">5.3 Le pseudo des joueurs</a></li>
+ <li class="toc-level-3"><a href="#rp-5-4-changements-de-pays">5.4 Changements de pays</a></li>
+ <li class="toc-level-3"><a href="#rp-5-5-les-pays-non-joues">5.5 Les pays non joués</a></li>
+</ul>
+</nav>
+ <div class="rule-content">
+ <h2 class="rule-section" id="rp-1-avant-de-debuter">1. Avant de débuter</h2><h3 class="rule-subsection" id="rp-1-1-lecture-des-reglements">1.1 Lecture des règlements</h3><p>Avant de vous lancer dans la création de votre pays, il est nécessaire d'avoir lu et compris l'ensemble des règlements RP et HRP.</p><p>Nous vous invitons de même à lire les différents guides afin de mieux comprendre les mécaniques et améliorer votre expérience RP.</p><h3 class="rule-subsection" id="rp-1-2-lecture-du-contexte-rp">1.2 Lecture du contexte RP</h3><p>Le monde dans lequel vous allez RP, ne ressemble en rien à notre monde actuel, lire le contexte vous permettra de mieux le comprendre et de réaliser vos actions en adéquation avec celui-ci.</p><h2 class="rule-section" id="rp-2-conduite-generale">2. Conduite générale</h2><h3 class="rule-subsection" id="rp-2-1-fairplay">2.1 Fairplay</h3><p>Le fairplay est un principe fondamental du Roleplay.</p><p>Les conflits en RP doivent être gérés de manière mature, sans rompre l'immersion des autres joueurs.</p><p>En cas de désaccord sur une action ou un événement RP, la discussion entre les participants concernés est encouragée pour éviter l'escalade.</p><p>En cas d'escalade, l'administration se réserve le droit d'intervenir.</p><h3 class="rule-subsection" id="rp-2-2-les-regles-d-ecriture">2.2 Les règles d'écriture</h3><p>Chaque action effectuée en RP doit être clairement rédigée.</p><p>Si une action a un coût, celui-ci doit être précisé. En l'absence d'indication de coût, l'action sera considérée comme non financée.</p><h3 class="rule-subsection" id="rp-2-3-la-redaction-a-l-aide-d-ia">2.3 La rédaction à l'aide d'IA</h3><p>L'utilisation d'IA génératives pour écrire les actions comme ChatGPT n'est pas interdite, cependant, les actions écrites par IA conduiront à des pénalités dans les résultats.</p><p>Cette règle est essentiellement présente pour vous inviter à utiliser l'IA comme moyen d'assistance à la mise en forme et non comme moyen de rédaction.</p><h3 class="rule-subsection" id="rp-2-4-le-plagiat">2.4 Le plagiat</h3><p>Le plagiat d'action sans autorisation du rédacteur est strictement interdite.</p><p>Il n'est cependant pas interdit de vous inspirer d'actions réalisées par d'autres joueurs.</p><h3 class="rule-subsection" id="rp-2-5-les-actions-gores">2.5 Les Actions gores</h3><p>Les actions gores sont si possible à mettre en spoiler (caché) et un message d'avertissement doit être inséré avant l'action.</p><p>Cependant, il est interdit de créer un pays centré sur les génocides ou les actions gores.</p><p>Nous vous demandons de même de ne pas mettre trop de détails dans le cas d'actions gores.</p><h2 class="rule-section" id="rp-3-la-mecanique-de-points">3. La mécanique de points</h2><h3 class="rule-subsection" id="rp-3-1-le-point-politique">3.1 Le point politique</h3><p>Le point politique est uniquement utilisable au sein d'actions, il permet de booster l'efficacité d'une action sans devoir augmenter l'investissement original.</p><p>Les points politiques s'obtiennent après chaque bilan de fin d'année selon les résultats du pays.</p><h3 class="rule-subsection" id="rp-3-2-le-point-diplomatique">3.2 Le point diplomatique</h3><p>Le point diplomatique sert uniquement dans le cadre d'annexion de régions libres et de fusions avec les pays non joués.</p><p>Il sert à permettre l'ouverture de négociation avec les représentants du territoire visé.</p><p>Les points diplomatiques s'obtiennent après chaque bilan de fin d'année selon l'investissement du pays dans la diplomatie.</p><h3 class="rule-subsection" id="rp-3-3-le-point-technologique">3.3 Le point technologique</h3><p>Le point technologique permet de faire évoluer le niveau des catégories technologiques.</p><p>À chaque bilan de fin d'année, vos points d'expérience technologique se convertissent en points : 1 point pour 10 points d'expérience technologique, jusqu'à un maximum de 10 points par an.</p><h2 class="rule-section" id="rp-4-la-mecanique-de-structures">4. La mécanique de structures</h2><h3 class="rule-subsection" id="rp-4-1-les-structures">4.1 Les structures</h3><p>Les structures représentent un ensemble de bâtiments et d'infrastructures constructibles. Elles sont situées sur des régions précises, et peuvent être détruites (sans réparations possibles) ou volées.</p><h3 class="rule-subsection" id="rp-4-2-les-infrastructures">4.2 Les infrastructures</h3><p>Les infrastructures sont un ensemble de moyens de transports, dont la liste est la suivante : Autoroutes, chemins de fer, chemins de fer électrifiés, routes, routes sommaires, tunnels autoroutiers, tunnels ferrés, tunnels ferrés électrifiés, tunnels routiers, tunnels routiers sommaires. Leur quantité est définie en kilomètres.</p><h3 class="rule-subsection" id="rp-4-3-la-liste-des-structures">4.3 La liste des structures</h3><p>La liste des structures est la suivante : Infrastructures, centrales électriques, usines militaires, écoles militaires, bases militaires, logements, technocentres.</p><h2 class="rule-section" id="rp-5-la-creation-de-pays">5. La création de pays</h2><h3 class="rule-subsection" id="rp-5-1-comment-creer-un-pays">5.1 Comment créer un pays ?</h3><p>Avant de débuter, vous devez réaliser une demande de création de pays.</p><p>À la création de votre pays vous avez un premier choix à faire.</p><p>Vous commencez avec 1.000.000.000 de PIB, 2 points politiques et 2 points diplomatiques.</p><p>Vous avez la possibilité d'acheter des points Politiques ou Diplomatiques au prix de 100.000.000 le point dans une limite de 5 points au total.</p><p>Une fois votre salon créé, la première action que vous allez devoir faire est la proclamation de votre pays, la forme de la proclamation est libre.</p><h3 class="rule-subsection" id="rp-5-2-restriction-dans-l-usage-de-certains-symboles">5.2 Restriction dans l'usage de certains symboles</h3><p>L'utilisation de symboles nazis et néo-nazis est totalement interdite.</p><h3 class="rule-subsection" id="rp-5-3-le-pseudo-des-joueurs">5.3 Le pseudo des joueurs</h3><p>Les pseudos des joueurs doivent impérativement avoir cette forme :<br>[Drapeau du pays] Pseudo (Nom du dirigeant ou le nom de votre compte)</p><h3 class="rule-subsection" id="rp-5-4-changements-de-pays">5.4 Changements de pays</h3><p>Les changements de pays sont limités à 2 par année RP.</p><h3 class="rule-subsection" id="rp-5-5-les-pays-non-joues">5.5 Les pays non joués</h3><p>Dans le cas où un pays a été abandonné par un joueur, il peut être repris par n'importe quel autre joueur.</p><p>Si le pays abandonné possède peu d'actions, il sera tout simplement supprimé.</p><p>Et au bout d'un certain temps, les pays non joués, qu'importe le nombre d'actions, seront supprimés.</p>
+</div>
+</div>
+</section>
 
-        <section id="economique" class="rule-category-section" aria-labelledby="economique-heading">
-            <div class="rule-header">
-                <div class="rule-category-info">
-                    <span class="category-icon" aria-hidden="true">💰</span>
-                    <div class="category-details">
-                        <h2 class="category-title" id="economique-heading">Économique</h2>
-                        <p class="category-description">Mécaniques économiques, PIB, inflation et commerce</p>
-                    </div>
-                </div>
-            </div>
-            <div class="rule-content-wrapper">
-                <nav class="table-of-contents" aria-label="Sommaire">
-                <h3>Sommaire</h3>
-                <ul class="toc-list">
-                    <li class="toc-level-2"><a href="#economique-1-les-bilans-de-fin-d-annee">1. Les bilans de fin d'année</a></li>
-                    <li class="toc-level-3"><a href="#economique-1-1-la-croissance">1.1 La croissance</a></li>
-                    <li class="toc-level-3"><a href="#economique-1-2-l-inflation">1.2 L'inflation</a></li>
-                    <li class="toc-level-3"><a href="#economique-1-3-le-chomage">1.3 Le chômage</a></li>
-                    <li class="toc-level-3"><a href="#economique-1-4-la-pauvrete">1.4 La pauvreté</a></li>
-                    <li class="toc-level-3"><a href="#economique-1-5-le-bilan-de-fin-d-annee">1.5 Le bilan de fin d'année</a></li>
-                    <li class="toc-level-2"><a href="#economique-2-rangs-de-puissance">2. Rangs de puissance</a></li>
-                    <li class="toc-level-3"><a href="#economique-2-1-les-rangs-de-puissance">2.1 Les rangs de puissance</a></li>
-                    <li class="toc-level-2"><a href="#economique-3-actions-economiques">3. Actions économiques</a></li>
-                    <li class="toc-level-3"><a href="#economique-3-1-les-actions-economiques">3.1 Les actions économiques</a></li>
-                    <li class="toc-level-3"><a href="#economique-3-2-les-prets">3.2 Les prêts</a></li>
-                    <li class="toc-level-2"><a href="#economique-4-infrastructures">4. Infrastructures</a></li>
-                    <li class="toc-level-3"><a href="#economique-4-1-les-infrastructures">4.1 Les infrastructures</a></li>
-                    <li class="toc-level-3"><a href="#economique-4-2-l-electricite-et-les-centrales-electriques">4.2 L'électricité et les centrales électriques</a></li>
-                </ul>
-            </nav>
-                <div class="rule-content">
-                    <h2 class="rule-section" id="economique-1-les-bilans-de-fin-d-annee">1. Les bilans de fin d'année</h2><h3 class="rule-subsection" id="economique-1-1-la-croissance">1.1 La croissance</h3><p>La croissance est l'indice qui détermine l'évolution du PIB d'une année à une autre.</p><p>Elle est déterminée par les autres indices du pays, les actions économiques et les accords internationaux.</p><h3 class="rule-subsection" id="economique-1-2-l-inflation">1.2 L'inflation</h3><p>L'inflation est l'indice d'augmentation générale et durable des prix, bien qu'elle n'impacte pas le prix des usines et des infrastructures pour le joueur, une mauvaise inflation peut impacter la croissance, le chômage et la pauvreté.</p><p>Les différentes activités économiques (hors militaire) sont différenciées en différents secteurs, le primaire pour la collecte et l'exploitation des ressources naturelles, le secondaire pour les industries de transformation des matières premières ainsi que de la construction et le secteur tertiaire regroupe l'ensemble des services.</p><p>Il existe plusieurs paliers pour l'inflation :</p><ul class="rule-list"><li>En dessous de 0,2%, on parle de déflation, et c'est considéré comme dangereux</li><li>Entre 0,2% et 2%, on parle d'une inflation normale bénéfique à l'économie</li><li>Entre 2% et 50%, on considère l'inflation comme haute et dangereuse pour l'économie</li><li>Au-dessus de 50% on parle d'hyper inflation, causant d'importants dégâts à l'économie</li></ul><p>En cas de crise, l'inflation peut monter très rapidement à des valeurs dangereuses sans réaction du joueur.</p><p>Une augmentation de l'inflation aura lieu si le rapport suivant n'est pas respecté :<br>tertiaire =/&gt; primaire =/&gt; secondaire</p><p>Il existe des organismes pouvant aider à contrôler l'inflation, les banques centrales et les établissements de contrôle des marchés boursiers (bourses).</p><div class="rule-warning"><strong>⚠️ Dans certain types d'économies, l'inflation se présente de manière différente</strong></div><h3 class="rule-subsection" id="economique-1-3-le-chomage">1.3 Le chômage</h3><p>Le chômage est l'indice concernant la partie de votre population n'étant pas dans un emploi.</p><p>C'est également un indicateur de la santé de votre économie, un chômage élevé signifie une économie en danger ou à risque.</p><p>Le chômage est impacté par plusieurs variables comme :</p><ul class="rule-list"><li>La croissance du PIB</li><li>L'inflation</li><li>La présence d'aide sociales</li><li>La présence d'un salaire minimum</li><li>L'équilibre des investissements dans les secteurs économiques</li></ul><p>Le chômage évolue généralement entre 0 et 10% hors évènement particulier.</p><h3 class="rule-subsection" id="economique-1-4-la-pauvrete">1.4 La pauvreté</h3><p>La pauvreté est l'indice représentant la part de votre population vivant en dessous du seuil de pauvreté.</p><p>Il existe différentes causes pouvant mener à la pauvreté mais pour résumer il y a principalement :</p><ul class="rule-list"><li>L'esclavage</li><li>L'accès à la nourriture</li><li>L'accès à la santé</li><li>L'accès à l'emploi</li><li>L'accès à l'éducation</li><li>Les catastrophes</li><li>L'inflation et les montées de prix</li></ul><p>Pour lutter contre la pauvreté il existe les aides sociales et le développement de l'offre de travail.</p><p>La pauvreté évolue généralement entre 0 et 10% hors évènement particulier.</p><h3 class="rule-subsection" id="economique-1-5-le-bilan-de-fin-d-annee">1.5 Le bilan de fin d'année</h3><p>Le bilan de fin d'année est un résumé de l'ensemble de vos actions sur l'année en cours et vous présente l'évolution de vos indices pour l'année suivante.</p><p>À chaque fin d'année, il sera demandé aux joueurs de faire un résumé des brevets civils, des actions réalisées ainsi que des investissements dans chaque secteur économique.</p><h2 class="rule-section" id="economique-2-rangs-de-puissance">2. Rangs de puissance</h2><h3 class="rule-subsection" id="economique-2-1-les-rangs-de-puissance">2.1 Les rangs de puissance</h3><p>Pour divers facteurs et calculs, chaque pays possède un rang de puissance, ce rang peut être du plus fort au plus faible :</p><ul class="rule-list"><li>Superpuissance</li><li>Grande puissance</li><li>Puissance majeure</li><li>Puissance mineure</li><li>Non puissance</li></ul><p>Le rang de puissance est attribué en fonction de la part du PIB mondial de votre pays.</p><h2 class="rule-section" id="economique-3-actions-economiques">3. Actions économiques</h2><h3 class="rule-subsection" id="economique-3-1-les-actions-economiques">3.1 Les actions économiques</h3><p>Les actions économiques sont l'ensemble des actions impactant votre économie.</p><p>Le résultat de ces actions est calculé en fonction de leur qualité et pertinence (ça ne sert à rien d'expliquer comment josé va peindre son pick-up dans votre action de développement de l'industrie automobile). Et en fonction de l'investissement initial.</p><p>Il est possible de booster une action économique grâce aux points politiques, le point politique a pour effet de multiplier par 1,5 virtuellement l'investissement.</p><h3 class="rule-subsection" id="economique-3-2-les-prets">3.2 Les prêts</h3><p>Il est possible de réaliser des emprunts auprès de sa banque centrale.</p><p>Il faut cependant avoir réalisé au préalable une action économique détaillant l'établissement de la banque centrale.</p><p>La limite d'emprunt est à 50% du PIB.</p><p>Les taux d'intérêt sont décidés en fonction du rang de puissance du pays selon la fourchette suivante :</p><ul class="rule-list"><li>Entre 0 et 3% d'intérêt pour les superpuissance</li><li>Entre 2 et 4% d'intérêt pour les grandes puissances</li><li>Entre 3 et 5% d'intérêt pour les puissances majeures</li><li>Entre 4 et 6% d'intérêt pour les puissances mineures</li><li>Entre 6 et 10% d'intérêt pour les non puissances</li></ul><p>Le remboursement des intérêts, passe avant toutes les autres dépenses, quitte à avoir un budget négatif.</p><h2 class="rule-section" id="economique-4-infrastructures">4. Infrastructures</h2><h3 class="rule-subsection" id="economique-4-1-les-infrastructures">4.1 Les infrastructures</h3><p>Afin de cadrer certains éléments du RP, les infrastructures comme les routes et les chemins de fer possèdent des prix par km déterminés par l'administration.</p><h3 class="rule-subsection" id="economique-4-2-l-electricite-et-les-centrales-electriques">4.2 L'électricité et les centrales électriques</h3><p>Tout comme les infrastructures routières et ferrées, le prix et production des centrales électriques sont encadrées par l'administration.</p><p>Il existe alors plusieurs types de centrales électriques :</p><ul class="rule-list"><li>L'éolien onshore</li><li>L'éolien offshore</li><li>Solaire</li><li>Centrale solaire</li><li>Hydroélectricité</li><li>Nucléaire occidental</li><li>Nucléaire oriental</li><li>Charbon</li><li>Pétrole</li><li>Gaz</li><li>Géothermie</li><li>Biomasse</li></ul><p>La consommation électrique des habitants est de même définie par l'administration.</p><p>Le fait de ne pas produire suffisamment d'électricité pour sa population impacte négativement le PIB.</p>
-                </div>
-            </div>
-        </section>
+ <section id="economique" class="rule-category-section" aria-labelledby="economique-heading">
+ <div class="rule-header">
+ <div class="rule-category-info">
+ <span class="category-icon" aria-hidden="true"></span>
+ <div class="category-details">
+ <h2 class="category-title" id="economique-heading">Économique</h2>
+ <p class="category-description">Mécaniques économiques, PIB, inflation et commerce</p>
+</div>
+</div>
+</div>
+ <div class="rule-content-wrapper">
+ <nav class="table-of-contents" aria-label="Sommaire">
+ <h3>Sommaire</h3>
+ <ul class="toc-list">
+ <li class="toc-level-2"><a href="#economique-1-les-bilans-de-fin-d-annee">1. Les bilans de fin d'année</a></li>
+ <li class="toc-level-3"><a href="#economique-1-1-la-croissance">1.1 La croissance</a></li>
+ <li class="toc-level-3"><a href="#economique-1-2-l-inflation">1.2 L'inflation</a></li>
+ <li class="toc-level-3"><a href="#economique-1-3-le-chomage">1.3 Le chômage</a></li>
+ <li class="toc-level-3"><a href="#economique-1-4-la-pauvrete">1.4 La pauvreté</a></li>
+ <li class="toc-level-3"><a href="#economique-1-5-le-bilan-de-fin-d-annee">1.5 Le bilan de fin d'année</a></li>
+ <li class="toc-level-2"><a href="#economique-2-rangs-de-puissance">2. Rangs de puissance</a></li>
+ <li class="toc-level-3"><a href="#economique-2-1-les-rangs-de-puissance">2.1 Les rangs de puissance</a></li>
+ <li class="toc-level-2"><a href="#economique-3-actions-economiques">3. Actions économiques</a></li>
+ <li class="toc-level-3"><a href="#economique-3-1-les-actions-economiques">3.1 Les actions économiques</a></li>
+ <li class="toc-level-3"><a href="#economique-3-2-les-prets">3.2 Les prêts</a></li>
+ <li class="toc-level-2"><a href="#economique-4-infrastructures">4. Infrastructures</a></li>
+ <li class="toc-level-3"><a href="#economique-4-1-les-infrastructures">4.1 Les infrastructures</a></li>
+ <li class="toc-level-3"><a href="#economique-4-2-l-electricite-et-les-centrales-electriques">4.2 L'électricité et les centrales électriques</a></li>
+</ul>
+</nav>
+ <div class="rule-content">
+ <h2 class="rule-section" id="economique-1-les-bilans-de-fin-d-annee">1. Les bilans de fin d'année</h2><h3 class="rule-subsection" id="economique-1-1-la-croissance">1.1 La croissance</h3><p>La croissance est l'indice qui détermine l'évolution du PIB d'une année à une autre.</p><p>Elle est déterminée par les autres indices du pays, les actions économiques et les accords internationaux.</p><h3 class="rule-subsection" id="economique-1-2-l-inflation">1.2 L'inflation</h3><p>L'inflation est l'indice d'augmentation générale et durable des prix, bien qu'elle n'impacte pas le prix des usines et des infrastructures pour le joueur, une mauvaise inflation peut impacter la croissance, le chômage et la pauvreté.</p><p>Les différentes activités économiques (hors militaire) sont différenciées en différents secteurs, le primaire pour la collecte et l'exploitation des ressources naturelles, le secondaire pour les industries de transformation des matières premières ainsi que de la construction et le secteur tertiaire regroupe l'ensemble des services.</p><p>Il existe plusieurs paliers pour l'inflation :</p><ul class="rule-list"><li>En dessous de 0,2%, on parle de déflation, et c'est considéré comme dangereux</li><li>Entre 0,2% et 2%, on parle d'une inflation normale bénéfique à l'économie</li><li>Entre 2% et 50%, on considère l'inflation comme haute et dangereuse pour l'économie</li><li>Au-dessus de 50% on parle d'hyper inflation, causant d'importants dégâts à l'économie</li></ul><p>En cas de crise, l'inflation peut monter très rapidement à des valeurs dangereuses sans réaction du joueur.</p><p>Une augmentation de l'inflation aura lieu si le rapport suivant n'est pas respecté :<br>tertiaire =/&gt; primaire =/&gt; secondaire</p><p>Il existe des organismes pouvant aider à contrôler l'inflation, les banques centrales et les établissements de contrôle des marchés boursiers (bourses).</p><div class="rule-warning"><strong> Dans certain types d'économies, l'inflation se présente de manière différente</strong></div><h3 class="rule-subsection" id="economique-1-3-le-chomage">1.3 Le chômage</h3><p>Le chômage est l'indice concernant la partie de votre population n'étant pas dans un emploi.</p><p>C'est également un indicateur de la santé de votre économie, un chômage élevé signifie une économie en danger ou à risque.</p><p>Le chômage est impacté par plusieurs variables comme :</p><ul class="rule-list"><li>La croissance du PIB</li><li>L'inflation</li><li>La présence d'aide sociales</li><li>La présence d'un salaire minimum</li><li>L'équilibre des investissements dans les secteurs économiques</li></ul><p>Le chômage évolue généralement entre 0 et 10% hors évènement particulier.</p><h3 class="rule-subsection" id="economique-1-4-la-pauvrete">1.4 La pauvreté</h3><p>La pauvreté est l'indice représentant la part de votre population vivant en dessous du seuil de pauvreté.</p><p>Il existe différentes causes pouvant mener à la pauvreté mais pour résumer il y a principalement :</p><ul class="rule-list"><li>L'esclavage</li><li>L'accès à la nourriture</li><li>L'accès à la santé</li><li>L'accès à l'emploi</li><li>L'accès à l'éducation</li><li>Les catastrophes</li><li>L'inflation et les montées de prix</li></ul><p>Pour lutter contre la pauvreté il existe les aides sociales et le développement de l'offre de travail.</p><p>La pauvreté évolue généralement entre 0 et 10% hors évènement particulier.</p><h3 class="rule-subsection" id="economique-1-5-le-bilan-de-fin-d-annee">1.5 Le bilan de fin d'année</h3><p>Le bilan de fin d'année est un résumé de l'ensemble de vos actions sur l'année en cours et vous présente l'évolution de vos indices pour l'année suivante.</p><p>À chaque fin d'année, il sera demandé aux joueurs de faire un résumé des brevets civils, des actions réalisées ainsi que des investissements dans chaque secteur économique.</p><h2 class="rule-section" id="economique-2-rangs-de-puissance">2. Rangs de puissance</h2><h3 class="rule-subsection" id="economique-2-1-les-rangs-de-puissance">2.1 Les rangs de puissance</h3><p>Pour divers facteurs et calculs, chaque pays possède un rang de puissance, ce rang peut être du plus fort au plus faible :</p><ul class="rule-list"><li>Superpuissance</li><li>Grande puissance</li><li>Puissance majeure</li><li>Puissance mineure</li><li>Non puissance</li></ul><p>Le rang de puissance est attribué en fonction de la part du PIB mondial de votre pays.</p><h2 class="rule-section" id="economique-3-actions-economiques">3. Actions économiques</h2><h3 class="rule-subsection" id="economique-3-1-les-actions-economiques">3.1 Les actions économiques</h3><p>Les actions économiques sont l'ensemble des actions impactant votre économie.</p><p>Le résultat de ces actions est calculé en fonction de leur qualité et pertinence (ça ne sert à rien d'expliquer comment josé va peindre son pick-up dans votre action de développement de l'industrie automobile). Et en fonction de l'investissement initial.</p><p>Il est possible de booster une action économique grâce aux points politiques, le point politique a pour effet de multiplier par 1,5 virtuellement l'investissement.</p><h3 class="rule-subsection" id="economique-3-2-les-prets">3.2 Les prêts</h3><p>Il est possible de réaliser des emprunts auprès de sa banque centrale.</p><p>Il faut cependant avoir réalisé au préalable une action économique détaillant l'établissement de la banque centrale.</p><p>La limite d'emprunt est à 50% du PIB.</p><p>Les taux d'intérêt sont décidés en fonction du rang de puissance du pays selon la fourchette suivante :</p><ul class="rule-list"><li>Entre 0 et 3% d'intérêt pour les superpuissance</li><li>Entre 2 et 4% d'intérêt pour les grandes puissances</li><li>Entre 3 et 5% d'intérêt pour les puissances majeures</li><li>Entre 4 et 6% d'intérêt pour les puissances mineures</li><li>Entre 6 et 10% d'intérêt pour les non puissances</li></ul><p>Le remboursement des intérêts, passe avant toutes les autres dépenses, quitte à avoir un budget négatif.</p><h2 class="rule-section" id="economique-4-infrastructures">4. Infrastructures</h2><h3 class="rule-subsection" id="economique-4-1-les-infrastructures">4.1 Les infrastructures</h3><p>Afin de cadrer certains éléments du RP, les infrastructures comme les routes et les chemins de fer possèdent des prix par km déterminés par l'administration.</p><h3 class="rule-subsection" id="economique-4-2-l-electricite-et-les-centrales-electriques">4.2 L'électricité et les centrales électriques</h3><p>Tout comme les infrastructures routières et ferrées, le prix et production des centrales électriques sont encadrées par l'administration.</p><p>Il existe alors plusieurs types de centrales électriques :</p><ul class="rule-list"><li>L'éolien onshore</li><li>L'éolien offshore</li><li>Solaire</li><li>Centrale solaire</li><li>Hydroélectricité</li><li>Nucléaire occidental</li><li>Nucléaire oriental</li><li>Charbon</li><li>Pétrole</li><li>Gaz</li><li>Géothermie</li><li>Biomasse</li></ul><p>La consommation électrique des habitants est de même définie par l'administration.</p><p>Le fait de ne pas produire suffisamment d'électricité pour sa population impacte négativement le PIB.</p>
+</div>
+</div>
+</section>
 
-        <section id="technologique" class="rule-category-section" aria-labelledby="technologique-heading">
-            <div class="rule-header">
-                <div class="rule-category-info">
-                    <span class="category-icon" aria-hidden="true">⚙️</span>
-                    <div class="category-details">
-                        <h2 class="category-title" id="technologique-heading">Technologique</h2>
-                        <p class="category-description">Système de recherche, brevets et développement technologique</p>
-                    </div>
-                </div>
-            </div>
-            <div class="rule-content-wrapper">
-                <nav class="table-of-contents" aria-label="Sommaire">
-                <h3>Sommaire</h3>
-                <ul class="toc-list">
-                    <li class="toc-level-2"><a href="#technologique-1-les-mecaniques">1. Les mécaniques</a></li>
-                    <li class="toc-level-3"><a href="#technologique-1-1-les-competences-technologiques">1.1 Les compétences technologiques</a></li>
-                    <li class="toc-level-3"><a href="#technologique-1-2-les-technocentres">1.2 Les technocentres</a></li>
-                    <li class="toc-level-3"><a href="#technologique-1-3-le-ruissellement-technologique">1.3 Le ruissellement technologique</a></li>
-                    <li class="toc-level-3"><a href="#technologique-1-4-l-experience-technologique-et-les-limites-d-experience">1.4 L'expérience technologique et les limites d'expérience</a></li>
-                    <li class="toc-level-2"><a href="#technologique-2-developpement-et-les-recherches">2. Développement et les recherches</a></li>
-                    <li class="toc-level-3"><a href="#technologique-2-1-les-brevets-militaires">2.1 Les brevets militaires</a></li>
-                    <li class="toc-level-3"><a href="#technologique-2-2-les-variantes">2.2 Les variantes</a></li>
-                    <li class="toc-level-3"><a href="#technologique-2-3-les-brevets-civils">2.3 Les brevets civils</a></li>
-                    <li class="toc-level-3"><a href="#technologique-2-4-la-technologie-nucleaire-civile">2.4 La technologie nucléaire civile</a></li>
-                    <li class="toc-level-3"><a href="#technologique-2-5-la-technologie-nucleaire-militaire">2.5 La technologie nucléaire militaire</a></li>
-                    <li class="toc-level-2"><a href="#technologique-3-actions-technologiques">3. Actions technologiques</a></li>
-                    <li class="toc-level-3"><a href="#technologique-3-1-les-actions-technologiques">3.1 Les actions technologiques</a></li>
-                    <li class="toc-level-3"><a href="#technologique-3-2-le-spatial">3.2 Le spatial</a></li>
-                    <li class="toc-level-2"><a href="#technologique-4-les-autres-mecaniques-liees-a-la-technologie">4. Les autres mécaniques liées à la technologie</a></li>
-                    <li class="toc-level-3"><a href="#technologique-4-1-les-accords-et-ventes-de-technologie">4.1 Les accords et ventes de technologie</a></li>
-                    <li class="toc-level-3"><a href="#technologique-4-2-la-retroingenierie">4.2 La rétroingénierie</a></li>
-                    <li class="toc-level-3"><a href="#technologique-4-3-le-vol-de-brevets">4.3 Le vol de brevets</a></li>
-                </ul>
-            </nav>
-                <div class="rule-content">
-                    <h2 class="rule-section" id="technologique-1-les-mecaniques">1. Les mécaniques</h2><h3 class="rule-subsection" id="technologique-1-1-les-competences-technologiques">1.1 Les compétences technologiques</h3><p>La technologie dans le RP est séparée en plusieurs compétences, toutes limitées par le Niveau technologique général.</p><p>Il y a comme compétence :</p><ul class="rule-list"><li>Le Terrestre</li><li>L'Aérien</li><li>Le Naval</li><li>La Balistique et le Spatial</li><li>Les Armes non conventionnelles</li><li>L'Industrie militaire</li></ul><p>Chaque compétence impacte le niveau technologique des recherches possibles.</p><p>"Le Terrestre" limite le niveau technologique des armes terrestres, véhicules militaires et fortifications.</p><p>"L'Aérien" limite le niveau technologiques des aéronefs militaires.</p><p>"Le Naval" limite le niveau technologique des navires militaires.</p><p>"La Balistique et le Spatial" limitent le niveau technologique des missiles (terrestres, navals, aériens, balistiques), roquettes, fusées et satellites.</p><p>"Les Armes non Conventionnelles" limitent le niveau technologique des armes bactériologiques, chimiques, numériques et radiologiques.</p><p>"L'industrie militaire" impacte l'efficacité des usines militaires.</p><p>Le niveau technologique se compose des 12 paliers suivants :</p><ul class="rule-list"><li>Niveau 1 : 1919 et moins</li><li>Niveau 2 : de 1920 à 1929</li><li>Niveau 3 : de 1930 à 1939</li><li>Niveau 4 : de 1940 à 1949</li><li>Niveau 5 : de 1950 à 1959</li><li>Niveau 6 : de 1960 à 1969</li><li>Niveau 7 : de 1970 à 1979</li><li>Niveau 8 : de 1980 à 1989</li><li>Niveau 9 : de 1990 à 1999</li><li>Niveau 10 : de 2000 à 2009</li><li>Niveau 11 : de 2010 à 2019</li><li>Niveau 12 : 2020 et plus</li></ul><p>Le niveau Technologique Général est la compétence englobant toutes les recherches civiles, du train à la voiture en passant par les avions civils.</p><p>Toutes les autres compétences sont limitées par le niveau de la "Technologie Générale".</p><div class="rule-example"><strong>Exemple :</strong> Si la compétence "Technologique Générale" est au niveau 3, toutes les autres compétences ne peuvent dépasser le niveau 3.</div><p>La compétence "Balistique et Spatial" n'est recherchable qu'à partir du niveau 3.</p><p>Afin d'améliorer chaque compétence, il est nécessaire de dépenser des points technologiques.</p><p>Pour les compétences "Technologie Générale", "Balistique et Spatial" et "Armes non Conventionnelles", il faut dépenser 2 points technologiques pour chaque niveau.</p><p>Pour les autres compétences, il faut dépenser 1 point technologique par niveau.</p><h3 class="rule-subsection" id="technologique-1-2-les-technocentres">1.2 Les technocentres</h3><p>Les technocentres sont les bâtiments qui vous permettent de rechercher les différents brevets militaires.</p><p>Ce sont aussi le centre de stockage des brevets, il est donc important de les protéger pour éviter tout vol ou sabotage.</p><p>Il existe 3 spécialisations pour les technocentres, Terrestre, Naval et Aérien.</p><p>Il est aussi nécessaire d'améliorer les technocentres afin de pouvoir faire des recherches à des niveaux plus élevés.</p><p>Voici les prix de chaque niveau :</p><ul class="rule-list"><li>Niveau 1 : 15 000 000,00</li><li>Niveau 2 : 25 000 000,00</li><li>Niveau 3 : 35 000 000,00</li><li>Niveau 4 : 55 000 000,00</li><li>Niveau 5 : 80 000 000,00</li><li>Niveau 6 : 120 000 000,00</li><li>Niveau 7 : 185 000 000,00</li><li>Niveau 8 : 280 000 000,00</li><li>Niveau 9 : 420 000 000,00</li><li>Niveau 10 : 650 000 000,00</li><li>Niveau 11 : 1 000 000 000,00</li><li>Niveau 12 : 1 500 000 000,00</li></ul><p>Pour augmenter de niveau, il faut payer la différence entre les prix des niveaux</p><h3 class="rule-subsection" id="technologique-1-3-le-ruissellement-technologique">1.3 Le ruissellement technologique</h3><p>Il existe un système d'équilibrage organique permettant à certains pays d'obtenir de l'expérience technologique.</p><p>L'équilibrage se base sur le niveau de "Technologie Générale". Lorsqu'un pays possède une technologie générale supérieure aux autres, un ruissellement a lieu.</p><h3 class="rule-subsection" id="technologique-1-4-l-experience-technologique-et-les-limites-d-experience">1.4 L'expérience technologique et les limites d'expérience</h3><p>À des fins d'équilibres, il existe des limites d'expérience obtenable.</p><p><strong>Les brevets militaires :</strong><br>Chaque brevet militaire donne 2 points d'expérience technologique. La limite obtenable est de 20 par année.</p><p><strong>Les brevets civils :</strong><br>Chaque brevet civil donne 1 point d'expérience technologique. La limite obtenable est de 5 expérience technologique par année.</p><p><strong>Le Ruissellement technologique :</strong><br>Lorsqu'un pays possède un niveau de "Technologie Générale" supérieure aux autres, les pays ayant des accord avec lui obtiennent :</p><ul class="rule-list"><li>Une base de 2 points d'expérience technologique peu importe le nombre de pays technologiquement supérieur</li><li>S'il y a des accords économiques, 1 point expérience technologique est donnée par pays technologiquement supérieur</li><li>S'il y a des accords scientifiques/technologiques, 1 expérience technologique est donnée par pays technologiquement supérieur</li></ul><p>Dans une limite de 10 expériences technologique par année.</p><p><strong>Accords de recherche :</strong><br>Chaque accord de recherche donne 0,5 point d'expérience technologique. La limite obtenable est de 10 points d'expérience technologique par année.</p><p><strong>Les actions liées à la recherche :</strong><br>L'expérience obtenue grâce aux actions liées à la recherche est déterminée par l'investissement, la qualité et la pertinence de l'action. Il n'existe aucune limite d'expérience.</p><p><strong>Les actions liées au spatial :</strong><br>Le fait de réaliser des lancements spatiaux peut apporter des points d'expérience technologique. Plus de détails dans le forum RP.</p><h2 class="rule-section" id="technologique-2-developpement-et-les-recherches">2. Développement et les recherches</h2><h3 class="rule-subsection" id="technologique-2-1-les-brevets-militaires">2.1 Les brevets militaires</h3><p>Les brevets militaires sont une action de recherche permettant d'acquérir des technologies militaires de différents types.</p><p>Chaque brevet possède un coût et une durée de développement variable selon le type de technologie recherché. Il est également donné le coût de production et l'occupation des lignes d'assemblages appelé "Slot".</p><p>Il est possible de céder, vendre, voler ou répliquer un brevet militaire.</p><p>Les différents coûts et temps évoluent en fonction du niveau technologique.</p><p>La seule limite pour le nombre de brevets que vous pouvez développer sera votre nombre de technocentres et s'ils sont disponibles</p><p>Pour considérer le niveau d'un brevet, seule la mise en service de sa technologie d'inspiration est prise en compte.</p><h3 class="rule-subsection" id="technologique-2-2-les-variantes">2.2 Les variantes</h3><p>Il est possible de développer des variantes de technologies.</p><p>Ce système peut être utilisé par les joueurs pour économiser du temps et de l'argent en utilisant une base technologique déjà existante.</p><p>En clair, chaque variante d'une technologie doit avoir son propre brevet militaire.</p><h3 class="rule-subsection" id="technologique-2-3-les-brevets-civils">2.3 Les brevets civils</h3><p>Les brevets civils sont comme les brevets militaires, à l'exception que ce sont des technologies ne possédant pas d'armes ou d'éléments militaires.</p><p>Le temps de développement, le coût de développement et de production sont définis par le joueur, mais doivent respecter le barème présent dans le forum RP.</p><p>Les brevets civils non pertinents (coupe-ongle par exemple) n'apportent aucune expérience technologique.</p><h3 class="rule-subsection" id="technologique-2-4-la-technologie-nucleaire-civile">2.4 La technologie nucléaire civile</h3><p>Le nucléaire civil comme militaire sont des éléments très importants pour un pays, que ce soit pour son développement économique ou sa dissuasion nucléaire.</p><p>Afin de pouvoir posséder la technologie nucléaire civile et pouvoir réaliser des centrales nucléaires ou des engins utilisant l'énergie nucléaire il faut réaliser certaines actions :</p><ul class="rule-list"><li>"Technologie Générale" au niveau 4 au minimum</li><li>Une action RP détaillée</li><li>10.200.000.000 d'investissement (10 milliards pour la recherche + 200 millions pour la centrale)</li><li>1 an et 6 mois de recherche (1an pour la recherche et 6 mois pour la construction de la centrale)</li><li>Avoir construit un centre d'enrichissement d'uranium</li></ul><h3 class="rule-subsection" id="technologique-2-5-la-technologie-nucleaire-militaire">2.5 La technologie nucléaire militaire</h3><p>Tout comme le nucléaire civil, il est nécessaire de réaliser certaines actions.</p><p>Pour pouvoir développer l'arme nucléaire et produire des têtes nucléaires il faut :</p><ul class="rule-list"><li>Posséder la technologie du nucléaire civil</li><li>"Armes non Conventionnelles" au niveau 4</li><li>Une action RP détaillée</li><li>50 milliards d'investissement</li><li>3 ans de recherche</li></ul><h2 class="rule-section" id="technologique-3-actions-technologiques">3. Actions technologiques</h2><h3 class="rule-subsection" id="technologique-3-1-les-actions-technologiques">3.1 Les actions technologiques</h3><p>Les actions technologiques sont des actions qui se concentrent sur un domaine de votre économie/pays en lien directe avec la technologie et la recherche (Développement d'université par exemple).</p><p>Ce type d'action est l'un des moyens les plus efficaces d'obtenir des points d'expérience technologique, cependant il faut que l'action soit pertinente.</p><p>Les résultats de l'action dépendent également de l'investissement.</p><h3 class="rule-subsection" id="technologique-3-2-le-spatial">3.2 Le spatial</h3><p>Le spatial et la course à l'espace sont pris en compte dans le RP.</p><p>Il est possible d'explorer notre système solaire et de mener des actions de conquête spatiale sur d'autres lunes ou planètes.</p><p>Le spatial peut également servir les intérêts de votre pays comme le développement du GPS, des satellites de télécommunication, météorologiques ou d'espionnage.</p><p>Il est également possible d'obtenir de l'expérience technologique avec les lancements de fusées et les expériences scientifiques liées au domaine.</p><p>Les points d'expérience technologique obtenables sont affichés dans le Forum RP.</p><h2 class="rule-section" id="technologique-4-les-autres-mecaniques-liees-a-la-technologie">4. Les autres mécaniques liées à la technologie</h2><h3 class="rule-subsection" id="technologique-4-1-les-accords-et-ventes-de-technologie">4.1 Les accords et ventes de technologie</h3><p>Le domaine de la recherche pouvant être très coûteux, il vous est possible de réaliser des accords spécifiques.</p><p>On y inclut la vente de brevets et les recherches partagées entre plusieurs pays.</p><h3 class="rule-subsection" id="technologique-4-2-la-retroingenierie">4.2 La rétroingénierie</h3><p>Il existe une mécanique de rétroingénierie. Il vous est possible d'obtenir une technologie en étudiant un matériel appartenant à un autre pays.</p><p>Afin de pouvoir entamer une rétroingénierie, il vous faut avoir un technocentre de libre.</p><p>Si la rétroingénierie est concluante, la recherche durera 6 mois, vous devrez payer 60% du prix de la technologie. Dans le cas inverse, vous ne pourrez réaliser de nouvelle rétroingénierie sur la même technologie avant 6 mois. Dans tous les cas, le matériel est consommé après tentative de rétroingénierie.</p><p>Il est impossible de rétroingéniérer du matériel technologiquement supérieur de 2 niveaux.</p><p>Voici le tableau des chances de rétroingénierie :</p><ul class="rule-list"><li>Infanterie = 25% + 10% à chaque tentative échouée</li><li>Véhicule terrestre = 20% + 5% à chaque tentative échouée</li><li>Aéronef = 15% + 5% à chaque tentative échouée</li><li>Navire = 10% + 10% à chaque tentative échouée</li><li>Missile = 15% + 5% à chaque tentative échouée</li><li>Autre = 5% + 5% à chaque tentative échouée</li></ul><h3 class="rule-subsection" id="technologique-4-3-le-vol-de-brevets">4.3 Le vol de brevets</h3><p>Le deuxième moyen de copier la technologie d'un autre pays est de tout simplement voler le brevet.</p><p>Les brevets technologiques de chaque pays sont stockés dans les technocentre où la recherche a eu lieu. Cependant certains pays peuvent décider soit de renforcer la sécurité des technocentres, soit de mettre les brevets dans un autre endroit.</p><p>Afin de voler un brevet, il faudra réaliser une opération spéciale avec vos services secrets.</p><p>Si vous réussissez à mettre la main sur les plans du brevet, alors vous avez automatiquement la technologie.</p>
-                </div>
-            </div>
-        </section>
+ <section id="technologique" class="rule-category-section" aria-labelledby="technologique-heading">
+ <div class="rule-header">
+ <div class="rule-category-info">
+ <span class="category-icon" aria-hidden="true"></span>
+ <div class="category-details">
+ <h2 class="category-title" id="technologique-heading">Technologique</h2>
+ <p class="category-description">Système de recherche, brevets et développement technologique</p>
+</div>
+</div>
+</div>
+ <div class="rule-content-wrapper">
+ <nav class="table-of-contents" aria-label="Sommaire">
+ <h3>Sommaire</h3>
+ <ul class="toc-list">
+ <li class="toc-level-2"><a href="#technologique-1-les-mecaniques">1. Les mécaniques</a></li>
+ <li class="toc-level-3"><a href="#technologique-1-1-les-competences-technologiques">1.1 Les compétences technologiques</a></li>
+ <li class="toc-level-3"><a href="#technologique-1-2-les-technocentres">1.2 Les technocentres</a></li>
+ <li class="toc-level-3"><a href="#technologique-1-3-le-ruissellement-technologique">1.3 Le ruissellement technologique</a></li>
+ <li class="toc-level-3"><a href="#technologique-1-4-l-experience-technologique-et-les-limites-d-experience">1.4 L'expérience technologique et les limites d'expérience</a></li>
+ <li class="toc-level-2"><a href="#technologique-2-developpement-et-les-recherches">2. Développement et les recherches</a></li>
+ <li class="toc-level-3"><a href="#technologique-2-1-les-brevets-militaires">2.1 Les brevets militaires</a></li>
+ <li class="toc-level-3"><a href="#technologique-2-2-les-variantes">2.2 Les variantes</a></li>
+ <li class="toc-level-3"><a href="#technologique-2-3-les-brevets-civils">2.3 Les brevets civils</a></li>
+ <li class="toc-level-3"><a href="#technologique-2-4-la-technologie-nucleaire-civile">2.4 La technologie nucléaire civile</a></li>
+ <li class="toc-level-3"><a href="#technologique-2-5-la-technologie-nucleaire-militaire">2.5 La technologie nucléaire militaire</a></li>
+ <li class="toc-level-2"><a href="#technologique-3-actions-technologiques">3. Actions technologiques</a></li>
+ <li class="toc-level-3"><a href="#technologique-3-1-les-actions-technologiques">3.1 Les actions technologiques</a></li>
+ <li class="toc-level-3"><a href="#technologique-3-2-le-spatial">3.2 Le spatial</a></li>
+ <li class="toc-level-2"><a href="#technologique-4-les-autres-mecaniques-liees-a-la-technologie">4. Les autres mécaniques liées à la technologie</a></li>
+ <li class="toc-level-3"><a href="#technologique-4-1-les-accords-et-ventes-de-technologie">4.1 Les accords et ventes de technologie</a></li>
+ <li class="toc-level-3"><a href="#technologique-4-2-la-retroingenierie">4.2 La rétroingénierie</a></li>
+ <li class="toc-level-3"><a href="#technologique-4-3-le-vol-de-brevets">4.3 Le vol de brevets</a></li>
+</ul>
+</nav>
+ <div class="rule-content">
+ <h2 class="rule-section" id="technologique-1-les-mecaniques">1. Les mécaniques</h2><h3 class="rule-subsection" id="technologique-1-1-les-competences-technologiques">1.1 Les compétences technologiques</h3><p>La technologie dans le RP est séparée en plusieurs compétences, toutes limitées par le Niveau technologique général.</p><p>Il y a comme compétence :</p><ul class="rule-list"><li>Le Terrestre</li><li>L'Aérien</li><li>Le Naval</li><li>La Balistique et le Spatial</li><li>Les Armes non conventionnelles</li><li>L'Industrie militaire</li></ul><p>Chaque compétence impacte le niveau technologique des recherches possibles.</p><p>"Le Terrestre" limite le niveau technologique des armes terrestres, véhicules militaires et fortifications.</p><p>"L'Aérien" limite le niveau technologiques des aéronefs militaires.</p><p>"Le Naval" limite le niveau technologique des navires militaires.</p><p>"La Balistique et le Spatial" limitent le niveau technologique des missiles (terrestres, navals, aériens, balistiques), roquettes, fusées et satellites.</p><p>"Les Armes non Conventionnelles" limitent le niveau technologique des armes bactériologiques, chimiques, numériques et radiologiques.</p><p>"L'industrie militaire" impacte l'efficacité des usines militaires.</p><p>Le niveau technologique se compose des 12 paliers suivants :</p><ul class="rule-list"><li>Niveau 1 : 1919 et moins</li><li>Niveau 2 : de 1920 à 1929</li><li>Niveau 3 : de 1930 à 1939</li><li>Niveau 4 : de 1940 à 1949</li><li>Niveau 5 : de 1950 à 1959</li><li>Niveau 6 : de 1960 à 1969</li><li>Niveau 7 : de 1970 à 1979</li><li>Niveau 8 : de 1980 à 1989</li><li>Niveau 9 : de 1990 à 1999</li><li>Niveau 10 : de 2000 à 2009</li><li>Niveau 11 : de 2010 à 2019</li><li>Niveau 12 : 2020 et plus</li></ul><p>Le niveau Technologique Général est la compétence englobant toutes les recherches civiles, du train à la voiture en passant par les avions civils.</p><p>Toutes les autres compétences sont limitées par le niveau de la "Technologie Générale".</p><div class="rule-example"><strong>Exemple :</strong> Si la compétence "Technologique Générale" est au niveau 3, toutes les autres compétences ne peuvent dépasser le niveau 3.</div><p>La compétence "Balistique et Spatial" n'est recherchable qu'à partir du niveau 3.</p><p>Afin d'améliorer chaque compétence, il est nécessaire de dépenser des points technologiques.</p><p>Pour les compétences "Technologie Générale", "Balistique et Spatial" et "Armes non Conventionnelles", il faut dépenser 2 points technologiques pour chaque niveau.</p><p>Pour les autres compétences, il faut dépenser 1 point technologique par niveau.</p><h3 class="rule-subsection" id="technologique-1-2-les-technocentres">1.2 Les technocentres</h3><p>Les technocentres sont les bâtiments qui vous permettent de rechercher les différents brevets militaires.</p><p>Ce sont aussi le centre de stockage des brevets, il est donc important de les protéger pour éviter tout vol ou sabotage.</p><p>Il existe 3 spécialisations pour les technocentres, Terrestre, Naval et Aérien.</p><p>Il est aussi nécessaire d'améliorer les technocentres afin de pouvoir faire des recherches à des niveaux plus élevés.</p><p>Voici les prix de chaque niveau :</p><ul class="rule-list"><li>Niveau 1 : 15 000 000,00</li><li>Niveau 2 : 25 000 000,00</li><li>Niveau 3 : 35 000 000,00</li><li>Niveau 4 : 55 000 000,00</li><li>Niveau 5 : 80 000 000,00</li><li>Niveau 6 : 120 000 000,00</li><li>Niveau 7 : 185 000 000,00</li><li>Niveau 8 : 280 000 000,00</li><li>Niveau 9 : 420 000 000,00</li><li>Niveau 10 : 650 000 000,00</li><li>Niveau 11 : 1 000 000 000,00</li><li>Niveau 12 : 1 500 000 000,00</li></ul><p>Pour augmenter de niveau, il faut payer la différence entre les prix des niveaux</p><h3 class="rule-subsection" id="technologique-1-3-le-ruissellement-technologique">1.3 Le ruissellement technologique</h3><p>Il existe un système d'équilibrage organique permettant à certains pays d'obtenir de l'expérience technologique.</p><p>L'équilibrage se base sur le niveau de "Technologie Générale". Lorsqu'un pays possède une technologie générale supérieure aux autres, un ruissellement a lieu.</p><h3 class="rule-subsection" id="technologique-1-4-l-experience-technologique-et-les-limites-d-experience">1.4 L'expérience technologique et les limites d'expérience</h3><p>À des fins d'équilibres, il existe des limites d'expérience obtenable.</p><p><strong>Les brevets militaires :</strong><br>Chaque brevet militaire donne 2 points d'expérience technologique. La limite obtenable est de 20 par année.</p><p><strong>Les brevets civils :</strong><br>Chaque brevet civil donne 1 point d'expérience technologique. La limite obtenable est de 5 expérience technologique par année.</p><p><strong>Le Ruissellement technologique :</strong><br>Lorsqu'un pays possède un niveau de "Technologie Générale" supérieure aux autres, les pays ayant des accord avec lui obtiennent :</p><ul class="rule-list"><li>Une base de 2 points d'expérience technologique peu importe le nombre de pays technologiquement supérieur</li><li>S'il y a des accords économiques, 1 point expérience technologique est donnée par pays technologiquement supérieur</li><li>S'il y a des accords scientifiques/technologiques, 1 expérience technologique est donnée par pays technologiquement supérieur</li></ul><p>Dans une limite de 10 expériences technologique par année.</p><p><strong>Accords de recherche :</strong><br>Chaque accord de recherche donne 0,5 point d'expérience technologique. La limite obtenable est de 10 points d'expérience technologique par année.</p><p><strong>Les actions liées à la recherche :</strong><br>L'expérience obtenue grâce aux actions liées à la recherche est déterminée par l'investissement, la qualité et la pertinence de l'action. Il n'existe aucune limite d'expérience.</p><p><strong>Les actions liées au spatial :</strong><br>Le fait de réaliser des lancements spatiaux peut apporter des points d'expérience technologique. Plus de détails dans le forum RP.</p><h2 class="rule-section" id="technologique-2-developpement-et-les-recherches">2. Développement et les recherches</h2><h3 class="rule-subsection" id="technologique-2-1-les-brevets-militaires">2.1 Les brevets militaires</h3><p>Les brevets militaires sont une action de recherche permettant d'acquérir des technologies militaires de différents types.</p><p>Chaque brevet possède un coût et une durée de développement variable selon le type de technologie recherché. Il est également donné le coût de production et l'occupation des lignes d'assemblages appelé "Slot".</p><p>Il est possible de céder, vendre, voler ou répliquer un brevet militaire.</p><p>Les différents coûts et temps évoluent en fonction du niveau technologique.</p><p>La seule limite pour le nombre de brevets que vous pouvez développer sera votre nombre de technocentres et s'ils sont disponibles</p><p>Pour considérer le niveau d'un brevet, seule la mise en service de sa technologie d'inspiration est prise en compte.</p><h3 class="rule-subsection" id="technologique-2-2-les-variantes">2.2 Les variantes</h3><p>Il est possible de développer des variantes de technologies.</p><p>Ce système peut être utilisé par les joueurs pour économiser du temps et de l'argent en utilisant une base technologique déjà existante.</p><p>En clair, chaque variante d'une technologie doit avoir son propre brevet militaire.</p><h3 class="rule-subsection" id="technologique-2-3-les-brevets-civils">2.3 Les brevets civils</h3><p>Les brevets civils sont comme les brevets militaires, à l'exception que ce sont des technologies ne possédant pas d'armes ou d'éléments militaires.</p><p>Le temps de développement, le coût de développement et de production sont définis par le joueur, mais doivent respecter le barème présent dans le forum RP.</p><p>Les brevets civils non pertinents (coupe-ongle par exemple) n'apportent aucune expérience technologique.</p><h3 class="rule-subsection" id="technologique-2-4-la-technologie-nucleaire-civile">2.4 La technologie nucléaire civile</h3><p>Le nucléaire civil comme militaire sont des éléments très importants pour un pays, que ce soit pour son développement économique ou sa dissuasion nucléaire.</p><p>Afin de pouvoir posséder la technologie nucléaire civile et pouvoir réaliser des centrales nucléaires ou des engins utilisant l'énergie nucléaire il faut réaliser certaines actions :</p><ul class="rule-list"><li>"Technologie Générale" au niveau 4 au minimum</li><li>Une action RP détaillée</li><li>10.200.000.000 d'investissement (10 milliards pour la recherche + 200 millions pour la centrale)</li><li>1 an et 6 mois de recherche (1an pour la recherche et 6 mois pour la construction de la centrale)</li><li>Avoir construit un centre d'enrichissement d'uranium</li></ul><h3 class="rule-subsection" id="technologique-2-5-la-technologie-nucleaire-militaire">2.5 La technologie nucléaire militaire</h3><p>Tout comme le nucléaire civil, il est nécessaire de réaliser certaines actions.</p><p>Pour pouvoir développer l'arme nucléaire et produire des têtes nucléaires il faut :</p><ul class="rule-list"><li>Posséder la technologie du nucléaire civil</li><li>"Armes non Conventionnelles" au niveau 4</li><li>Une action RP détaillée</li><li>50 milliards d'investissement</li><li>3 ans de recherche</li></ul><h2 class="rule-section" id="technologique-3-actions-technologiques">3. Actions technologiques</h2><h3 class="rule-subsection" id="technologique-3-1-les-actions-technologiques">3.1 Les actions technologiques</h3><p>Les actions technologiques sont des actions qui se concentrent sur un domaine de votre économie/pays en lien directe avec la technologie et la recherche (Développement d'université par exemple).</p><p>Ce type d'action est l'un des moyens les plus efficaces d'obtenir des points d'expérience technologique, cependant il faut que l'action soit pertinente.</p><p>Les résultats de l'action dépendent également de l'investissement.</p><h3 class="rule-subsection" id="technologique-3-2-le-spatial">3.2 Le spatial</h3><p>Le spatial et la course à l'espace sont pris en compte dans le RP.</p><p>Il est possible d'explorer notre système solaire et de mener des actions de conquête spatiale sur d'autres lunes ou planètes.</p><p>Le spatial peut également servir les intérêts de votre pays comme le développement du GPS, des satellites de télécommunication, météorologiques ou d'espionnage.</p><p>Il est également possible d'obtenir de l'expérience technologique avec les lancements de fusées et les expériences scientifiques liées au domaine.</p><p>Les points d'expérience technologique obtenables sont affichés dans le Forum RP.</p><h2 class="rule-section" id="technologique-4-les-autres-mecaniques-liees-a-la-technologie">4. Les autres mécaniques liées à la technologie</h2><h3 class="rule-subsection" id="technologique-4-1-les-accords-et-ventes-de-technologie">4.1 Les accords et ventes de technologie</h3><p>Le domaine de la recherche pouvant être très coûteux, il vous est possible de réaliser des accords spécifiques.</p><p>On y inclut la vente de brevets et les recherches partagées entre plusieurs pays.</p><h3 class="rule-subsection" id="technologique-4-2-la-retroingenierie">4.2 La rétroingénierie</h3><p>Il existe une mécanique de rétroingénierie. Il vous est possible d'obtenir une technologie en étudiant un matériel appartenant à un autre pays.</p><p>Afin de pouvoir entamer une rétroingénierie, il vous faut avoir un technocentre de libre.</p><p>Si la rétroingénierie est concluante, la recherche durera 6 mois, vous devrez payer 60% du prix de la technologie. Dans le cas inverse, vous ne pourrez réaliser de nouvelle rétroingénierie sur la même technologie avant 6 mois. Dans tous les cas, le matériel est consommé après tentative de rétroingénierie.</p><p>Il est impossible de rétroingéniérer du matériel technologiquement supérieur de 2 niveaux.</p><p>Voici le tableau des chances de rétroingénierie :</p><ul class="rule-list"><li>Infanterie = 25% + 10% à chaque tentative échouée</li><li>Véhicule terrestre = 20% + 5% à chaque tentative échouée</li><li>Aéronef = 15% + 5% à chaque tentative échouée</li><li>Navire = 10% + 10% à chaque tentative échouée</li><li>Missile = 15% + 5% à chaque tentative échouée</li><li>Autre = 5% + 5% à chaque tentative échouée</li></ul><h3 class="rule-subsection" id="technologique-4-3-le-vol-de-brevets">4.3 Le vol de brevets</h3><p>Le deuxième moyen de copier la technologie d'un autre pays est de tout simplement voler le brevet.</p><p>Les brevets technologiques de chaque pays sont stockés dans les technocentre où la recherche a eu lieu. Cependant certains pays peuvent décider soit de renforcer la sécurité des technocentres, soit de mettre les brevets dans un autre endroit.</p><p>Afin de voler un brevet, il faudra réaliser une opération spéciale avec vos services secrets.</p><p>Si vous réussissez à mettre la main sur les plans du brevet, alors vous avez automatiquement la technologie.</p>
+</div>
+</div>
+</section>
 
-        <section id="militaire" class="rule-category-section" aria-labelledby="militaire-heading">
-            <div class="rule-header">
-                <div class="rule-category-info">
-                    <span class="category-icon" aria-hidden="true">⚔️</span>
-                    <div class="category-details">
-                        <h2 class="category-title" id="militaire-heading">Militaire &amp; Conflits</h2>
-                        <p class="category-description">Règles concernant les guerres, batailles et opérations militaires</p>
-                    </div>
-                </div>
-            </div>
-            <div class="rule-content-wrapper">
-                <nav class="table-of-contents" aria-label="Sommaire">
-                <h3>Sommaire</h3>
-                <ul class="toc-list">
-                    <li class="toc-level-2"><a href="#militaire-1-materiel-et-personnel">1. Matériel et Personnel</a></li>
-                    <li class="toc-level-3"><a href="#militaire-1-1-le-materiel-de-depart">1.1 Le matériel de départ</a></li>
-                    <li class="toc-level-3"><a href="#militaire-1-2-la-gestion-des-conflits-et-batailles">1.2 La gestion des conflits et batailles</a></li>
-                    <li class="toc-level-3"><a href="#militaire-1-3-recrutement-et-salaires">1.3 Recrutement et salaires</a></li>
-                    <li class="toc-level-2"><a href="#militaire-2-les-batiments-militaires">2. Les bâtiments militaires</a></li>
-                    <li class="toc-level-3"><a href="#militaire-2-1-les-bases-militaires">2.1 Les bases militaires</a></li>
-                    <li class="toc-level-3"><a href="#militaire-2-2-les-ecoles-militaires">2.2 Les écoles militaires</a></li>
-                    <li class="toc-level-3"><a href="#militaire-2-3-les-usines-militaires">2.3 Les usines militaires</a></li>
-                </ul>
-            </nav>
-                <div class="rule-content">
-                    <h2 class="rule-section" id="militaire-1-materiel-et-personnel">1. Matériel et Personnel</h2><h3 class="rule-subsection" id="militaire-1-1-le-materiel-de-depart">1.1 Le matériel de départ</h3><p>À la création de votre pays, vous disposez tout de même d'un minimum de matériel et de forces armées.</p><ul class="rule-list"><li>2.000 armes à feu de votre choix sans composant électronique et de niveau 11 max. Chaque arme est fournie avec 2 chargeurs.</li><li>2.000 soldats</li><li>500 chevaux</li></ul><h3 class="rule-subsection" id="militaire-1-2-la-gestion-des-conflits-et-batailles">1.2 La gestion des conflits et batailles</h3><p>Afin de faciliter la gestion des guerres, le système utilisé est un système de tour par tour.</p><p>Pour chaque conflit, un expert militaire neutre sera chargé des bilans. L'expert est le maître du jeu et donne la main à chaque camp du conflit, il peut en venir à demander en privé des précisions supplémentaires aux joueurs, ou de rédiger des actions rapidement.</p><p>Dans vos actions militaires, en plus de vos actions offensives ou défensives, n'oubliez pas de mettre des "plans b" dans le cas où votre action principale ne réussit pas.</p><p>Si au bout de 4 mois RP, le joueur ayant la main n'a posté aucune action, alors la main sera donnée à un autre belligérant. Un rappel sera fait par l'expert encadrant le conflit, à la moitié de ce délai.</p><p>Il est à prendre en compte, que chaque action a des conséquences, autant territoriales, que sur les infrastructures, le matériel ou vos hommes.</p><h3 class="rule-subsection" id="militaire-1-3-recrutement-et-salaires">1.3 Recrutement et salaires</h3><p>Chaque personnel, qu'il soit de l'armée, de la police ou des services secrets à un coût de recrutement ainsi qu'un salaire à payer tous les ans.</p><p>Les coûts de recrutement et les salaires sont dans le Forum RP.</p><p>On différencie :</p><ul class="rule-list"><li><strong>Les soldats actifs</strong>, qui sont disponibles à tout moment</li><li><strong>Les soldats réservistes</strong>, qui sont disponibles après un temps de mobilisation (on inclut dans les soldats réservistes les hommes et femmes mobilisés sans réelle formation militaire)</li><li><strong>Les forces spéciales</strong>, les forces d'élite de l'armée, de la police ou de vos services secrets</li><li><strong>Les mercenaires</strong>, ils sont des soldats acquis à la cause de votre pays, grâce à votre argent, ils coûtent cher mais peuvent se montrer rentables</li><li><strong>Les policiers</strong>, bien que concentrés dans la sécurité publique et le maintien de l'ordre, les polices militarisées peuvent être utilisées pour certaines opérations</li><li><strong>Les agents secrets</strong>, spécialisés dans l'espionnage et le contre-espionnage</li><li><strong>Les ingénieurs militaires</strong> sont les soldats qui s'occupent de l'ensemble des chantiers et constructions militaires sur le front (fortifications, routes et voies ferrées, tranchées, minage, etc)</li></ul><p>Pour éviter les abus d'effectifs, le nombre d'hommes dans l'armée est limité virtuellement. Cette limite se calcule selon le pourcentage de population enrôlée. Elle n'empêche pas directement le recrutement massif, mais entraîne des sanctions sur la croissance économique selon le barème suivant :</p><ul class="rule-list"><li>Lorsque le nombre de soldats est <strong>entre 3 et 5%</strong> de la population totale du pays, on applique un <strong>malus de 4%</strong> dans sa croissance économique de fin d'année</li><li><strong>Entre 5 et 7%</strong>, malus de <strong>8%</strong> dans sa croissance</li><li><strong>Entre 7 et 10%</strong>, malus de <strong>12%</strong> dans sa croissance + perte de <strong>5%</strong> sur le PIB de base (PIB de l'année du dépassement de la tranche)</li><li><strong>Entre 10 et 15%</strong>, malus de <strong>20%</strong> dans sa croissance + diminution de <strong>5%</strong> du PIB de base</li><li><strong>Entre 15% et 20%</strong>, malus de <strong>30%</strong> dans sa croissance + diminution de <strong>10%</strong> de son PIB de base</li><li><strong>Au-delà de 20%</strong>, malus de <strong>40%</strong> dans sa croissance + diminution de <strong>15%</strong> de son PIB de base</li></ul><p>On vous conseille d'utiliser le Site <a href="https://www.map.army/" target="_blank" rel="noopener">map.army</a> pour vos opérations</p><h2 class="rule-section" id="militaire-2-les-batiments-militaires">2. Les bâtiments militaires</h2><h3 class="rule-subsection" id="militaire-2-1-les-bases-militaires">2.1 Les bases militaires</h3><p>Les bases militaires sont des structures qui vous permettent de loger vos soldats. Ils représentent donc la limite de soldats que vous pouvez avoir.</p><p>Les prix et capacités sont affichés dans le Forum RP.</p><h3 class="rule-subsection" id="militaire-2-2-les-ecoles-militaires">2.2 Les écoles militaires</h3><p>À l'instar des bases militaires, les écoles, elles, définissent le nombre de soldats que vous pouvez recruter en même temps.</p><p>Les prix et capacités sont affichés dans le Forum RP.</p><h3 class="rule-subsection" id="militaire-2-3-les-usines-militaires">2.3 Les usines militaires</h3><p>Les usines militaires permettent de produire du matériel militaire selon vos brevets développés.</p><p>Le détail des prix est affiché dans le Forum RP.</p>
-                </div>
-            </div>
-        </section>
+ <section id="militaire" class="rule-category-section" aria-labelledby="militaire-heading">
+ <div class="rule-header">
+ <div class="rule-category-info">
+ <span class="category-icon" aria-hidden="true"></span>
+ <div class="category-details">
+ <h2 class="category-title" id="militaire-heading">Militaire &amp; Conflits</h2>
+ <p class="category-description">Règles concernant les guerres, batailles et opérations militaires</p>
+</div>
+</div>
+</div>
+ <div class="rule-content-wrapper">
+ <nav class="table-of-contents" aria-label="Sommaire">
+ <h3>Sommaire</h3>
+ <ul class="toc-list">
+ <li class="toc-level-2"><a href="#militaire-1-materiel-et-personnel">1. Matériel et Personnel</a></li>
+ <li class="toc-level-3"><a href="#militaire-1-1-le-materiel-de-depart">1.1 Le matériel de départ</a></li>
+ <li class="toc-level-3"><a href="#militaire-1-2-la-gestion-des-conflits-et-batailles">1.2 La gestion des conflits et batailles</a></li>
+ <li class="toc-level-3"><a href="#militaire-1-3-recrutement-et-salaires">1.3 Recrutement et salaires</a></li>
+ <li class="toc-level-2"><a href="#militaire-2-les-batiments-militaires">2. Les bâtiments militaires</a></li>
+ <li class="toc-level-3"><a href="#militaire-2-1-les-bases-militaires">2.1 Les bases militaires</a></li>
+ <li class="toc-level-3"><a href="#militaire-2-2-les-ecoles-militaires">2.2 Les écoles militaires</a></li>
+ <li class="toc-level-3"><a href="#militaire-2-3-les-usines-militaires">2.3 Les usines militaires</a></li>
+</ul>
+</nav>
+ <div class="rule-content">
+ <h2 class="rule-section" id="militaire-1-materiel-et-personnel">1. Matériel et Personnel</h2><h3 class="rule-subsection" id="militaire-1-1-le-materiel-de-depart">1.1 Le matériel de départ</h3><p>À la création de votre pays, vous disposez tout de même d'un minimum de matériel et de forces armées.</p><ul class="rule-list"><li>2.000 armes à feu de votre choix sans composant électronique et de niveau 11 max. Chaque arme est fournie avec 2 chargeurs.</li><li>2.000 soldats</li><li>500 chevaux</li></ul><h3 class="rule-subsection" id="militaire-1-2-la-gestion-des-conflits-et-batailles">1.2 La gestion des conflits et batailles</h3><p>Afin de faciliter la gestion des guerres, le système utilisé est un système de tour par tour.</p><p>Pour chaque conflit, un expert militaire neutre sera chargé des bilans. L'expert est le maître du jeu et donne la main à chaque camp du conflit, il peut en venir à demander en privé des précisions supplémentaires aux joueurs, ou de rédiger des actions rapidement.</p><p>Dans vos actions militaires, en plus de vos actions offensives ou défensives, n'oubliez pas de mettre des "plans b" dans le cas où votre action principale ne réussit pas.</p><p>Si au bout de 4 mois RP, le joueur ayant la main n'a posté aucune action, alors la main sera donnée à un autre belligérant. Un rappel sera fait par l'expert encadrant le conflit, à la moitié de ce délai.</p><p>Il est à prendre en compte, que chaque action a des conséquences, autant territoriales, que sur les infrastructures, le matériel ou vos hommes.</p><h3 class="rule-subsection" id="militaire-1-3-recrutement-et-salaires">1.3 Recrutement et salaires</h3><p>Chaque personnel, qu'il soit de l'armée, de la police ou des services secrets à un coût de recrutement ainsi qu'un salaire à payer tous les ans.</p><p>Les coûts de recrutement et les salaires sont dans le Forum RP.</p><p>On différencie :</p><ul class="rule-list"><li><strong>Les soldats actifs</strong>, qui sont disponibles à tout moment</li><li><strong>Les soldats réservistes</strong>, qui sont disponibles après un temps de mobilisation (on inclut dans les soldats réservistes les hommes et femmes mobilisés sans réelle formation militaire)</li><li><strong>Les forces spéciales</strong>, les forces d'élite de l'armée, de la police ou de vos services secrets</li><li><strong>Les mercenaires</strong>, ils sont des soldats acquis à la cause de votre pays, grâce à votre argent, ils coûtent cher mais peuvent se montrer rentables</li><li><strong>Les policiers</strong>, bien que concentrés dans la sécurité publique et le maintien de l'ordre, les polices militarisées peuvent être utilisées pour certaines opérations</li><li><strong>Les agents secrets</strong>, spécialisés dans l'espionnage et le contre-espionnage</li><li><strong>Les ingénieurs militaires</strong> sont les soldats qui s'occupent de l'ensemble des chantiers et constructions militaires sur le front (fortifications, routes et voies ferrées, tranchées, minage, etc)</li></ul><p>Pour éviter les abus d'effectifs, le nombre d'hommes dans l'armée est limité virtuellement. Cette limite se calcule selon le pourcentage de population enrôlée. Elle n'empêche pas directement le recrutement massif, mais entraîne des sanctions sur la croissance économique selon le barème suivant :</p><ul class="rule-list"><li>Lorsque le nombre de soldats est <strong>entre 3 et 5%</strong> de la population totale du pays, on applique un <strong>malus de 4%</strong> dans sa croissance économique de fin d'année</li><li><strong>Entre 5 et 7%</strong>, malus de <strong>8%</strong> dans sa croissance</li><li><strong>Entre 7 et 10%</strong>, malus de <strong>12%</strong> dans sa croissance + perte de <strong>5%</strong> sur le PIB de base (PIB de l'année du dépassement de la tranche)</li><li><strong>Entre 10 et 15%</strong>, malus de <strong>20%</strong> dans sa croissance + diminution de <strong>5%</strong> du PIB de base</li><li><strong>Entre 15% et 20%</strong>, malus de <strong>30%</strong> dans sa croissance + diminution de <strong>10%</strong> de son PIB de base</li><li><strong>Au-delà de 20%</strong>, malus de <strong>40%</strong> dans sa croissance + diminution de <strong>15%</strong> de son PIB de base</li></ul><p>On vous conseille d'utiliser le Site <a href="https://www.map.army/" target="_blank" rel="noopener">map.army</a> pour vos opérations</p><h2 class="rule-section" id="militaire-2-les-batiments-militaires">2. Les bâtiments militaires</h2><h3 class="rule-subsection" id="militaire-2-1-les-bases-militaires">2.1 Les bases militaires</h3><p>Les bases militaires sont des structures qui vous permettent de loger vos soldats. Ils représentent donc la limite de soldats que vous pouvez avoir.</p><p>Les prix et capacités sont affichés dans le Forum RP.</p><h3 class="rule-subsection" id="militaire-2-2-les-ecoles-militaires">2.2 Les écoles militaires</h3><p>À l'instar des bases militaires, les écoles, elles, définissent le nombre de soldats que vous pouvez recruter en même temps.</p><p>Les prix et capacités sont affichés dans le Forum RP.</p><h3 class="rule-subsection" id="militaire-2-3-les-usines-militaires">2.3 Les usines militaires</h3><p>Les usines militaires permettent de produire du matériel militaire selon vos brevets développés.</p><p>Le détail des prix est affiché dans le Forum RP.</p>
+</div>
+</div>
+</section>
 
-        <section id="territorial" class="rule-category-section" aria-labelledby="territorial-heading">
-            <div class="rule-header">
-                <div class="rule-category-info">
-                    <span class="category-icon" aria-hidden="true">🗺️</span>
-                    <div class="category-details">
-                        <h2 class="category-title" id="territorial-heading">Territorial</h2>
-                        <p class="category-description">Gestion des territoires, frontières et expansions géographiques</p>
-                    </div>
-                </div>
-            </div>
-            <div class="rule-content-wrapper">
-                <nav class="table-of-contents" aria-label="Sommaire">
-                <h3>Sommaire</h3>
-                <ul class="toc-list">
-                    <li class="toc-level-2"><a href="#territorial-1-les-annexions">1. Les annexions</a></li>
-                    <li class="toc-level-3"><a href="#territorial-1-1-la-carte">1.1 La carte</a></li>
-                    <li class="toc-level-3"><a href="#territorial-1-2-les-annexions">1.2 Les annexions</a></li>
-                    <li class="toc-level-4"><a href="#territorial-1-2-1-processus-de-negociation">1.2.1 Processus de négociation</a></li>
-                    <li class="toc-level-4"><a href="#territorial-1-2-2-concurrence-territoriale">1.2.2 Concurrence territoriale</a></li>
-                    <li class="toc-level-3"><a href="#territorial-1-3-les-reservations-de-territoire">1.3 Les réservations de territoire</a></li>
-                    <li class="toc-level-2"><a href="#territorial-2-les-accords-territoriaux-entre-pays">2. Les accords territoriaux entre pays</a></li>
-                    <li class="toc-level-3"><a href="#territorial-2-1-les-etats-fantoches-ou-satellites">2.1 Les États fantoches ou satellites</a></li>
-                    <li class="toc-level-4"><a href="#territorial-2-1-1-forces-armees-et-soulevements">2.1.1 Forces armées et soulèvements</a></li>
-                    <li class="toc-level-3"><a href="#territorial-2-2-les-fusions-entre-pays">2.2 Les fusions entre pays</a></li>
-                    <li class="toc-level-4"><a href="#territorial-2-2-1-fusion-avec-pays-non-joue">2.2.1 Fusion avec pays non joué</a></li>
-                    <li class="toc-level-4"><a href="#territorial-2-2-2-exception-nationale">2.2.2 Exception nationale</a></li>
-                    <li class="toc-level-4"><a href="#territorial-2-2-3-avantage-economique">2.2.3 Avantage économique</a></li>
-                </ul>
-            </nav>
-                <div class="rule-content">
-                    <h2 class="rule-section" id="territorial-1-les-annexions">1. Les annexions</h2><h3 class="rule-subsection" id="territorial-1-1-la-carte">1.1 La carte</h3><p>Au sein de Projet Résurgence, nous possédons un système de carte unique et automatisé.</p><p>La carte mise à jour est affichée dans le salon dédié tous les jours. Nous avons également, lié au contexte, une délimitation des régions personnalisées.</p><p>La version vierge de la carte est disponible dans le Forum RP.</p><h3 class="rule-subsection" id="territorial-1-2-les-annexions">1.2 Les annexions</h3><p>Il est possible d'annexer des régions voisines grâce aux points diplomatiques.</p><p>Concernant les îles et territoires outre-mer, l'annexion diplomatique n'est possible que s'il existe un accès maritime et si le territoire se situe à moins de 2 000 km d'un port que vous pouvez utiliser (votre port ou un port étranger avec droit de mouillage).</p><h4 class="rule-subsection" id="territorial-1-2-1-processus-de-negociation">1.2.1 Processus de négociation</h4><p>Cependant, l'utilisation de points ne rend pas l'annexion immédiate. Le point diplomatique permet uniquement d'ouvrir des négociations avec les autorités locales.</p><p>Les négociations prennent du temps et les locaux vont vouloir des contreparties à l'annexion de leurs terres.</p><p>Ne pas respecter vos promesses provoquera des mécontentements, une chute de la stabilité voire des révoltes.</p><h4 class="rule-subsection" id="territorial-1-2-2-concurrence-territoriale">1.2.2 Concurrence territoriale</h4><p>Durant le temps des négociations, il est tout à fait possible que deux pays négocient avec la même région. Vous ne serez pas systématiquement au courant.</p><p>Le pays qui finira par annexer la région sera celui qui aura donné les arguments les plus convaincants que ce soit économiques, militaires ou culturels.</p><p>Il est possible d'avoir des relations avec des régions sans vouloir les annexer. La prise de contact ne nécessite pas l'utilisation de points diplomatiques.</p><h3 class="rule-subsection" id="territorial-1-3-les-reservations-de-territoire">1.3 Les réservations de territoire</h3><p>Vos actions peuvent faciliter ou entraver les annexions de territoire (propagande, infiltration, relations avec la région, etc) mais elles ne peuvent en aucun cas les bloquer.</p><h2 class="rule-section" id="territorial-2-les-accords-territoriaux-entre-pays">2. Les accords territoriaux entre pays</h2><h3 class="rule-subsection" id="territorial-2-1-les-etats-fantoches-ou-satellites">2.1 Les États fantoches ou satellites</h3><p>Chaque pays à la possibilité de créer à partir d'une région un état fantoche ou satellite.</p><p>À la création de ce nouvel État, il reçoit un budget égal à 25% de celui de son créateur. Ce budget ne peut être utilisé que par le pays vassal.</p><p>Si l'État vassal est joué, le pays maître peut se servir dans ses caisses pour se financer lui-même, au prix de la loyauté de l'État Satellite.</p><h4 class="rule-subsection" id="territorial-2-1-1-forces-armees-et-soulevements">2.1.1 Forces armées et soulèvements</h4><p>Une nation satellite peut avoir ses propres forces armées ou de polices, si son maître l'y autorise.</p><p>Ces troupes sont généralement financées par l'État fantoche, mais le pays maître peut aussi le faire, ce qui peut assurer une plus lourde domination.</p><p>Elle peut aussi se retourner contre son maître, si les conditions sont réunies :</p><ul class="rule-list"><li>Une idéologie différente</li><li>Un affaiblissement économique, militaire, diplomatique, ou politique</li><li>Une exploitation excessive</li></ul><p>Bien évidemment ces soulèvements demanderont du soutien extérieur, et si mal réalisés, peuvent avoir de grandes conséquences.</p><h3 class="rule-subsection" id="territorial-2-2-les-fusions-entre-pays">2.2 Les fusions entre pays</h3><p>Les fusions entre deux pays joués sont possibles sans réelles conditions fixes.</p><p>L'administration peut cependant intervenir et interdire la fusion en cas d'abus (pour exemple deux amis qui fusionnent juste après la création de leurs pays).</p><h4 class="rule-subsection" id="territorial-2-2-1-fusion-avec-pays-non-joue">2.2.1 Fusion avec pays non joué</h4><p>Fusionner avec un pays non joué est une tâche difficile mais pas impossible, Il faut remplir plusieurs conditions :</p><ul class="rule-list"><li>Groupe culturel identique ou quasiment identique</li><li>Régime/idéologie identiques</li><li>Des accords économiques "forts" depuis au minimum 2 ans</li><li>Une frontière commune (maritime ou terrestre)</li><li>Un PIB au minimum 5 fois supérieur au pays ciblé</li></ul><h4 class="rule-subsection" id="territorial-2-2-2-exception-nationale">2.2.2 Exception nationale</h4><p>Il y a cependant une exception pour les pays venant d'une même nation (deux Allemagne/France/Chine par exemple) dans ce cas là, les conditions sont moins restrictives et beaucoup plus permissives.</p><p>Notamment sur les aspects idéologiques ou économiques, où il n'y a plus les mêmes exigences.</p><p>Attention, l'administration doit valider toute fusion au préalable et se réserve le droit de refuser les fusions si besoin.</p><h4 class="rule-subsection" id="territorial-2-2-3-avantage-economique">2.2.3 Avantage économique</h4><p>Une fusion, malgré ses inconvénients sociaux, offre un avantage économique : vous pouvez intégrer à votre budget 25% du PIB du pays fusionné, sans que cela n'augmente votre PIB total.</p><p>Cet avantage s'applique également aux nations conquises militairement.</p>
-                </div>
-            </div>
-        </section>
-            </div>
-        </div>
-            </div>
-        </section>
+ <section id="territorial" class="rule-category-section" aria-labelledby="territorial-heading">
+ <div class="rule-header">
+ <div class="rule-category-info">
+ <span class="category-icon" aria-hidden="true"></span>
+ <div class="category-details">
+ <h2 class="category-title" id="territorial-heading">Territorial</h2>
+ <p class="category-description">Gestion des territoires, frontières et expansions géographiques</p>
+</div>
+</div>
+</div>
+ <div class="rule-content-wrapper">
+ <nav class="table-of-contents" aria-label="Sommaire">
+ <h3>Sommaire</h3>
+ <ul class="toc-list">
+ <li class="toc-level-2"><a href="#territorial-1-les-annexions">1. Les annexions</a></li>
+ <li class="toc-level-3"><a href="#territorial-1-1-la-carte">1.1 La carte</a></li>
+ <li class="toc-level-3"><a href="#territorial-1-2-les-annexions">1.2 Les annexions</a></li>
+ <li class="toc-level-4"><a href="#territorial-1-2-1-processus-de-negociation">1.2.1 Processus de négociation</a></li>
+ <li class="toc-level-4"><a href="#territorial-1-2-2-concurrence-territoriale">1.2.2 Concurrence territoriale</a></li>
+ <li class="toc-level-3"><a href="#territorial-1-3-les-reservations-de-territoire">1.3 Les réservations de territoire</a></li>
+ <li class="toc-level-2"><a href="#territorial-2-les-accords-territoriaux-entre-pays">2. Les accords territoriaux entre pays</a></li>
+ <li class="toc-level-3"><a href="#territorial-2-1-les-etats-fantoches-ou-satellites">2.1 Les États fantoches ou satellites</a></li>
+ <li class="toc-level-4"><a href="#territorial-2-1-1-forces-armees-et-soulevements">2.1.1 Forces armées et soulèvements</a></li>
+ <li class="toc-level-3"><a href="#territorial-2-2-les-fusions-entre-pays">2.2 Les fusions entre pays</a></li>
+ <li class="toc-level-4"><a href="#territorial-2-2-1-fusion-avec-pays-non-joue">2.2.1 Fusion avec pays non joué</a></li>
+ <li class="toc-level-4"><a href="#territorial-2-2-2-exception-nationale">2.2.2 Exception nationale</a></li>
+ <li class="toc-level-4"><a href="#territorial-2-2-3-avantage-economique">2.2.3 Avantage économique</a></li>
+</ul>
+</nav>
+ <div class="rule-content">
+ <h2 class="rule-section" id="territorial-1-les-annexions">1. Les annexions</h2><h3 class="rule-subsection" id="territorial-1-1-la-carte">1.1 La carte</h3><p>Au sein de Projet Résurgence, nous possédons un système de carte unique et automatisé.</p><p>La carte mise à jour est affichée dans le salon dédié tous les jours. Nous avons également, lié au contexte, une délimitation des régions personnalisées.</p><p>La version vierge de la carte est disponible dans le Forum RP.</p><h3 class="rule-subsection" id="territorial-1-2-les-annexions">1.2 Les annexions</h3><p>Il est possible d'annexer des régions voisines grâce aux points diplomatiques.</p><p>Concernant les îles et territoires outre-mer, l'annexion diplomatique n'est possible que s'il existe un accès maritime et si le territoire se situe à moins de 2 000 km d'un port que vous pouvez utiliser (votre port ou un port étranger avec droit de mouillage).</p><h4 class="rule-subsection" id="territorial-1-2-1-processus-de-negociation">1.2.1 Processus de négociation</h4><p>Cependant, l'utilisation de points ne rend pas l'annexion immédiate. Le point diplomatique permet uniquement d'ouvrir des négociations avec les autorités locales.</p><p>Les négociations prennent du temps et les locaux vont vouloir des contreparties à l'annexion de leurs terres.</p><p>Ne pas respecter vos promesses provoquera des mécontentements, une chute de la stabilité voire des révoltes.</p><h4 class="rule-subsection" id="territorial-1-2-2-concurrence-territoriale">1.2.2 Concurrence territoriale</h4><p>Durant le temps des négociations, il est tout à fait possible que deux pays négocient avec la même région. Vous ne serez pas systématiquement au courant.</p><p>Le pays qui finira par annexer la région sera celui qui aura donné les arguments les plus convaincants que ce soit économiques, militaires ou culturels.</p><p>Il est possible d'avoir des relations avec des régions sans vouloir les annexer. La prise de contact ne nécessite pas l'utilisation de points diplomatiques.</p><h3 class="rule-subsection" id="territorial-1-3-les-reservations-de-territoire">1.3 Les réservations de territoire</h3><p>Vos actions peuvent faciliter ou entraver les annexions de territoire (propagande, infiltration, relations avec la région, etc) mais elles ne peuvent en aucun cas les bloquer.</p><h2 class="rule-section" id="territorial-2-les-accords-territoriaux-entre-pays">2. Les accords territoriaux entre pays</h2><h3 class="rule-subsection" id="territorial-2-1-les-etats-fantoches-ou-satellites">2.1 Les États fantoches ou satellites</h3><p>Chaque pays à la possibilité de créer à partir d'une région un état fantoche ou satellite.</p><p>À la création de ce nouvel État, il reçoit un budget égal à 25% de celui de son créateur. Ce budget ne peut être utilisé que par le pays vassal.</p><p>Si l'État vassal est joué, le pays maître peut se servir dans ses caisses pour se financer lui-même, au prix de la loyauté de l'État Satellite.</p><h4 class="rule-subsection" id="territorial-2-1-1-forces-armees-et-soulevements">2.1.1 Forces armées et soulèvements</h4><p>Une nation satellite peut avoir ses propres forces armées ou de polices, si son maître l'y autorise.</p><p>Ces troupes sont généralement financées par l'État fantoche, mais le pays maître peut aussi le faire, ce qui peut assurer une plus lourde domination.</p><p>Elle peut aussi se retourner contre son maître, si les conditions sont réunies :</p><ul class="rule-list"><li>Une idéologie différente</li><li>Un affaiblissement économique, militaire, diplomatique, ou politique</li><li>Une exploitation excessive</li></ul><p>Bien évidemment ces soulèvements demanderont du soutien extérieur, et si mal réalisés, peuvent avoir de grandes conséquences.</p><h3 class="rule-subsection" id="territorial-2-2-les-fusions-entre-pays">2.2 Les fusions entre pays</h3><p>Les fusions entre deux pays joués sont possibles sans réelles conditions fixes.</p><p>L'administration peut cependant intervenir et interdire la fusion en cas d'abus (pour exemple deux amis qui fusionnent juste après la création de leurs pays).</p><h4 class="rule-subsection" id="territorial-2-2-1-fusion-avec-pays-non-joue">2.2.1 Fusion avec pays non joué</h4><p>Fusionner avec un pays non joué est une tâche difficile mais pas impossible, Il faut remplir plusieurs conditions :</p><ul class="rule-list"><li>Groupe culturel identique ou quasiment identique</li><li>Régime/idéologie identiques</li><li>Des accords économiques "forts" depuis au minimum 2 ans</li><li>Une frontière commune (maritime ou terrestre)</li><li>Un PIB au minimum 5 fois supérieur au pays ciblé</li></ul><h4 class="rule-subsection" id="territorial-2-2-2-exception-nationale">2.2.2 Exception nationale</h4><p>Il y a cependant une exception pour les pays venant d'une même nation (deux Allemagne/France/Chine par exemple) dans ce cas là, les conditions sont moins restrictives et beaucoup plus permissives.</p><p>Notamment sur les aspects idéologiques ou économiques, où il n'y a plus les mêmes exigences.</p><p>Attention, l'administration doit valider toute fusion au préalable et se réserve le droit de refuser les fusions si besoin.</p><h4 class="rule-subsection" id="territorial-2-2-3-avantage-economique">2.2.3 Avantage économique</h4><p>Une fusion, malgré ses inconvénients sociaux, offre un avantage économique : vous pouvez intégrer à votre budget 25% du PIB du pays fusionné, sans que cela n'augmente votre PIB total.</p><p>Cet avantage s'applique également aux nations conquises militairement.</p>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</section>
 
-        <!-- Call to Action -->
-        <section class="cta">
-            <div class="container">
-                <h2>Questions sur les Règles ?</h2>
-                <p>
-                    Si vous avez des questions concernant les règles ou avez besoin de clarifications, n'hésitez pas à
-                    contacter le staff sur Discord.
-                </p>
-                <div class="btn-group">
-                    <a href="https://discord.projet-resurgence.fr/" class="btn btn-primary">Rejoindre Discord</a>
-                    <a href="guide.html" class="btn btn-secondary">Guide du Débutant</a>
-                    <a href="mecaniques.html" class="btn btn-secondary">Découvrir les Mécaniques</a>
-                </div>
-            </div>
-        </section>
-    </main>
+ <!-- Call to Action -->
+ <section class="cta">
+ <div class="container">
+ <h2>Questions sur les Règles ?</h2>
+ <p>
+ Si vous avez des questions concernant les règles ou avez besoin de clarifications, n'hésitez pas à
+ contacter le staff sur Discord.
+</p>
+ <div class="btn-group">
+ <a href="https://discord.projet-resurgence.fr/" class="btn btn-primary">Rejoindre Discord</a>
+ <a href="guide.html" class="btn btn-secondary">Guide du Débutant</a>
+ <a href="mecaniques.html" class="btn btn-secondary">Découvrir les Mécaniques</a>
+</div>
+</div>
+</section>
+</main>
 
-    <!-- Footer Component -->
-    <resurgence-footer></resurgence-footer>
+ <!-- Footer Component -->
+ <resurgence-footer></resurgence-footer>
 
-    <!-- JavaScript -->
-    <!-- Web Components -->
-    <script type="module" src="./components/components.js?v=2.8.0"></script>
+ <!-- JavaScript -->
+ <!-- Web Components -->
+ <script type="module" src="./components/components.js?v=3.0.0"></script>
 
-    <!-- Application Scripts -->
-    <script src="./styles/main.js?v=1.4.0"></script>
-    <script src="./styles/seo-optimizer.js"></script>
-    <script src="./styles/performance-optimizer.js?v=2"></script>
+ <!-- Application Scripts -->
+ <script src="./styles/main.js?v=1.4.0"></script>
+ <script src="./styles/seo-optimizer.js"></script>
+ <script src="./styles/performance-optimizer.js?v=2"></script>
 </body>
 
 </html>

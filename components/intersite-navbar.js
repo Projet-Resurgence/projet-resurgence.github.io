@@ -49,7 +49,7 @@ const s = [
     description: "Communauté & RP",
     external: !0
   }
-], p = {
+], h = {
   "chevron-left": '<polyline points="15 18 9 12 15 6"/>',
   home: '<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',
   play: '<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>',
@@ -59,8 +59,8 @@ const s = [
   catalog: '<circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/>',
   discord: '<path fill="currentColor" stroke="none" d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>'
 };
-function h(n) {
-  return `<svg class="pr-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p[n] || p.home}</svg>`;
+function p(n) {
+  return `<svg class="pr-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${h[n] || h.home}</svg>`;
 }
 const d = "pr-intersite-navbar-open", f = `
 :host {
@@ -85,6 +85,19 @@ const d = "pr-intersite-navbar-open", f = `
   --panel-width:  248px;
   --tab-width:    56px;
   --ease:         cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Light theme (parchment — follows html[data-theme], synced in JS) */
+:host([data-theme="light"]) {
+  --gold:         #8a6d18;
+  --gold-dark:    #6d5512;
+  --gold-glow:    rgba(138, 109, 24, 0.18);
+  --bg:           #f8f4e9;
+  --bg-hover:     #ebe3d0;
+  --bg-active:    #f1ebdc;
+  --border:       rgba(80, 62, 20, 0.18);
+  --text:         #221c0f;
+  --text-muted:   #6f6550;
 }
 
 /* ── Wrapper ──
@@ -397,7 +410,7 @@ function u(n) {
   const e = getComputedStyle(n).getPropertyValue("--tab-width").trim() || "56px";
   document.documentElement.style.setProperty(l, e);
 }
-class x extends HTMLElement {
+class m extends HTMLElement {
   constructor() {
     super(), this.attachShadow({ mode: "open" }), this._isOpen = localStorage.getItem(d) === "true", this._rendered = !1;
   }
@@ -412,10 +425,23 @@ class x extends HTMLElement {
       this.style.display = "none";
       return;
     }
-    this._render(), this._rendered = !0, this._bindEvents(), this._bindHostOffset();
+    this._render(), this._rendered = !0, this._bindEvents(), this._bindHostOffset(), this._bindTheme();
   }
   disconnectedCallback() {
-    this._cleanup();
+    this._cleanup(), this._themeObserver && this._themeObserver.disconnect(), this._onThemeEvent && document.removeEventListener("pr-theme-change", this._onThemeEvent);
+  }
+  // ── Follow the host page's theme (html[data-theme]) ──
+  // pr-site-header stamps data-theme on <html> and dispatches
+  // 'pr-theme-change'; watch both so the navbar flips with the page.
+  _bindTheme() {
+    const e = () => {
+      const i = document.documentElement.getAttribute("data-theme") || "dark";
+      this.setAttribute("data-theme", i);
+    };
+    e(), this._themeObserver = new MutationObserver(e), this._themeObserver.observe(document.documentElement, {
+      attributes: !0,
+      attributeFilter: ["data-theme"]
+    }), this._onThemeEvent = e, document.addEventListener("pr-theme-change", this._onThemeEvent);
   }
   // ── Reserve space on the host page so the tab/panel never overlaps it ──
   // Skipped entirely when hide-toggle is set: there is no floating tab to
@@ -444,11 +470,11 @@ class x extends HTMLElement {
   // ── Render into Shadow DOM ──
   _render() {
     const e = this._detectCurrentSite(), i = this._isOpen, t = this.hasAttribute("hide-toggle"), o = this.getAttribute("logo-src") || "/favicon/favicon-96x96.png", a = s.map((r) => {
-      const c = e === r.id, m = r.external ? ' target="_blank" rel="noopener noreferrer"' : "";
+      const c = e === r.id, x = r.external ? ' target="_blank" rel="noopener noreferrer"' : "";
       return `
         <li class="site-item${c ? " active" : ""}">
-          <a href="${r.url}" class="site-link"${m}${c ? ' aria-current="page"' : ""}>
-            <span class="site-icon" aria-hidden="true">${h(r.icon)}</span>
+          <a href="${r.url}" class="site-link"${x}${c ? ' aria-current="page"' : ""}>
+            <span class="site-icon" aria-hidden="true">${p(r.icon)}</span>
             <span class="site-content">
               <span class="site-label">${r.label}</span>
               <span class="site-desc">${r.description}</span>
@@ -468,7 +494,7 @@ class x extends HTMLElement {
               <span class="header-sub">Navigation</span>
             </span>
             <button class="panel-close" id="closeBtn" type="button" aria-label="Fermer la navigation inter-sites">
-              ${h("chevron-left")}
+              ${p("chevron-left")}
             </button>
           </div>
           <ul class="site-list">${a}</ul>
@@ -528,7 +554,7 @@ class x extends HTMLElement {
     return this._isOpen;
   }
 }
-customElements.get("intersite-navbar") || customElements.define("intersite-navbar", x);
+customElements.get("intersite-navbar") || customElements.define("intersite-navbar", m);
 function b() {
   document.querySelectorAll("[data-intersite-navbar]:not([data-in-initialized])").forEach((n) => {
     const e = document.createElement("intersite-navbar"), i = n.getAttribute("data-current-site");
@@ -537,7 +563,7 @@ function b() {
 }
 document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", b) : b();
 typeof window < "u" && (window.IntersiteNavbar = {
-  IntersiteNavbar: x,
+  IntersiteNavbar: m,
   SITES: s,
   /**
    * Programmatically mount the navbar.
@@ -551,5 +577,5 @@ typeof window < "u" && (window.IntersiteNavbar = {
 });
 export {
   s as SITES,
-  x as default
+  m as default
 };

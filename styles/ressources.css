@@ -332,3 +332,10 @@
     background: var(--bg-primary);
     box-shadow: var(--shadow-sm);
 }
+
+/* Inline SVG icons inside the resource tiles */
+.resource-icon svg {
+    width: 36px;
+    height: 36px;
+    color: var(--primary-gold);
+}
