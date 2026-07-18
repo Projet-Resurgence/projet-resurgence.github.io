@@ -13,7 +13,7 @@ class ComponentManager {
 
 		try {
 			// Load header component
-			const { default: ResurgenceHeader } = await import('./header-component.js?v=2.1.0');
+			const { default: ResurgenceHeader } = await import('./header-component.js?v=2.8.0');
 
 			// Load footer component
 			const { default: ResurgenceFooter } = await import('./footer-component.js?v=1.6.0');
