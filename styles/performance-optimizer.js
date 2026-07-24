@@ -259,8 +259,7 @@ class PerformanceOptimizer {
         // Prefetch resources for likely next navigation
         const prefetchUrls = [
             './regles.html',
-            './guide.html',
-            'https://discord.projet-resurgence.fr/'
+            './guide.html'
         ];
 
         prefetchUrls.forEach(url => {

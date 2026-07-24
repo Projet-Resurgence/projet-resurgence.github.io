@@ -149,8 +149,8 @@ class ResurgenceWebsite {
             });
         }, observerOptions);
 
-        // Observe elements for animation
-        document.querySelectorAll('.feature-card, .stat-card, .stats').forEach(element => {
+        // Observe elements for animation (skip data-reveal elements — handled by enhancements.js)
+        document.querySelectorAll('.feature-card:not([data-reveal]), .stat-card:not([data-reveal]), .stats').forEach(element => {
             observer.observe(element);
         });
     }

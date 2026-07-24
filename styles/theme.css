@@ -139,8 +139,8 @@
 
 	/* === LAYOUT === */
 	--header-height: 80px;
-	--container-max-width: 1200px;
-	--content-max-width: 800px;
+	--container-max-width: 100%;
+	--content-max-width: 1400px;
 	--content-min-width: 250px;
 	--card-min-width: 280px;
 	--card-standard-width: 300px;

@@ -126,15 +126,15 @@
 	<noscript>
 		<link rel="stylesheet" href="./styles/critical.css">
 	</noscript>
-	<link rel="preload" href="./styles/main.css?v=1.7.0" as="style">
+	<link rel="preload" href="./styles/main.css?v=2.7.0" as="style">
 	<link rel="preload" href="./images/final_logo_centered_little.webp" as="image" type="image/webp">
 	<link rel="preload" href="./styles/main.js?v=1.4.0" as="script">
-	<link rel="preload" href="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.min.js" as="script">
 	<link rel="prefetch" href="./index.html">
 	<link rel="prefetch" href="./regles.html">
 	<link rel="prefetch" href="./guide.html">
 
-	<link rel="stylesheet" href="./styles/main.css?v=1.7.0">
+	<link rel="stylesheet" href="./styles/main.css?v=2.7.0">
+	<link rel="stylesheet" href="./styles/enhancements.css?v=1.6.0">
 	<link rel="icon" type="image/png" href="./images/final_logo_little.png">
 	<link rel="manifest" href="./manifest.json">
 	<meta name="theme-color" content="#D5B654">
@@ -143,8 +143,6 @@
 	<link rel="shortcut icon" href="/favicon/favicon.ico" />
 	<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
 	<meta name="apple-mobile-web-app-title" content="Projet Resurgence" />
-	<!-- Handlebars CDN -->
-	<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.min.js"></script>
 
 	<!-- Structured Data (JSON-LD) -->
 	<script type="application/ld+json">
@@ -167,8 +165,8 @@
     }
     </script>
   <!-- PR Design System (shared tokens + components) -->
-  <link rel="stylesheet" href="https://projet-resurgence.fr/assets/pr-design-system/pr-design-system.css?v=6">
-  <script defer src="https://projet-resurgence.fr/assets/pr-design-system/pr-design-system.js?v=6"></script>
+  <link rel="stylesheet" href="https://projet-resurgence.fr/assets/pr-design-system/pr-design-system.css?v=11">
+  <script defer src="https://projet-resurgence.fr/assets/pr-design-system/pr-design-system.js?v=11"></script>
 </head>
 
 <body class="pr-scope">
@@ -202,7 +200,7 @@
 		</section>
 
 		<!-- Stories Carousel Section -->
-		<section class="stories-section">
+		<section class="stories-section" data-reveal>
 			<div class="container">
 				<h2 class="section-title">Les Territoires et Leurs Habitants</h2>
 				<p class="section-description">
@@ -210,35 +208,12 @@
 					Chaque histoire est un témoignage de courage, d'ingéniosité et d'espoir.
 				</p>
 
-				<!-- Carousel Container -->
-				<div class="carousel-container">
-					<div class="carousel-wrapper">
-						<button class="carousel-btn carousel-btn-prev" id="prevBtn" aria-label="Histoire précédente">
-							<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-								xmlns="http://www.w3.org/2000/svg">
-								<path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-									stroke-linejoin="round" />
-							</svg>
-						</button>
-
-						<div class="carousel-track-container">
-							<ul class="carousel-track" id="carouselTrack">
-								<!-- Stories will be inserted here by JavaScript -->
-							</ul>
+				<!-- PR Carousel -->
+				<div class="pr-carousel" data-pr-carousel-init="manual" data-pr-carousel='{"visible":3,"autoplay":true,"interval":6000,"loop":true}'>
+					<div class="pr-carousel-viewport">
+						<div class="pr-carousel-track" id="carouselTrack">
+							<!-- Stories inserted by JS -->
 						</div>
-
-						<button class="carousel-btn carousel-btn-next" id="nextBtn" aria-label="Histoire suivante">
-							<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-								xmlns="http://www.w3.org/2000/svg">
-								<path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-									stroke-linejoin="round" />
-							</svg>
-						</button>
-					</div>
-
-					<!-- Carousel Indicators -->
-					<div class="carousel-indicators" id="carouselIndicators">
-						<!-- Indicators will be inserted here by JavaScript -->
 					</div>
 				</div>
 			</div>
@@ -260,8 +235,10 @@
 			</div>
 		</div>
 
+		<hr class="section-divider">
+
 		<!-- Call to Action -->
-		<section class="cta">
+		<section class="cta" data-reveal>
 			<div class="container">
 				<h2>Écrivez Votre Propre Légende</h2>
 				<p>
@@ -287,37 +264,6 @@
 	<!-- Footer Component -->
 	<resurgence-footer></resurgence-footer>
 
-	<!-- Handlebars Templates -->
-	<script id="story-card-template" type="text/x-handlebars-template">
-        <li class="carousel-slide" data-story-index="{{index}}">
-            <div class="story-card" data-story="{{fileName}}">
-                <div class="story-image-container">
-                    <img src="{{image_url_from_root}}" alt="{{story_name}} - {{hero_name}}" 
-                         class="story-image" loading="lazy" decoding="async">
-                    <div class="story-overlay">
-                        <div class="story-info">
-                            <h3 class="story-title">{{story_name}}</h3>
-                            <p class="story-hero">{{hero_name}}</p>
-                            <button class="story-read-btn">Lire l'Histoire</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </li>
-    </script>
-
-	<script id="story-modal-template" type="text/x-handlebars-template">
-        <div class="story-modal-header">
-            <h2 class="story-modal-title">{{story_name}}</h2>
-            <p class="story-modal-hero">Chroniques de {{hero_name}}</p>
-        </div>
-        <div class="story-modal-text">
-            {{#each textParagraphs}}
-                <p>{{this}}</p>
-            {{/each}}
-        </div>
-    </script>
-
 	<!-- JavaScript -->
 	<script>
 		// Initialize carousel and stories when DOM is loaded
@@ -327,20 +273,20 @@
 				new ResurgenceWebsite();
 			}
 
-			// Initialize story carousel
-			initializeStoriesCarousel();
+			// Story carousel auto-initializes via universe-carousel.js
 		});
 	</script>
 
 	<!-- External JavaScript -->
 	<!-- Web Components -->
-	<script type="module" src="./components/components.js?v=3.0.0"></script>
+	<script type="module" src="./components/components.js?v=3.1.0"></script>
 
 	<!-- Application Scripts -->
 	<script src="./styles/main.js?v=1.4.0"></script>
-	<script src="./styles/universe-carousel.js"></script>
+	<script defer src="./styles/universe-carousel.js?v=2.2.0"></script>
 	<script src="./styles/seo-optimizer.js"></script>
-	<script src="./styles/performance-optimizer.js?v=2"></script>
+	<script src="./styles/performance-optimizer.js?v=3"></script>
+	<script defer src="./styles/enhancements.js?v=2.1.0"></script>
 </body>
 
 </html>

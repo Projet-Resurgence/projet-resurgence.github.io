@@ -127,13 +127,14 @@
 	<noscript>
 		<link rel="stylesheet" href="./styles/critical.css">
 	</noscript>
-	<link rel="preload" href="./styles/main.css?v=1.7.0" as="style">
+	<link rel="preload" href="./styles/main.css?v=2.7.0" as="style">
 	<link rel="preload" href="./images/final_logo_centered_little.webp" as="image" type="image/webp">
 	<link rel="preload" href="./styles/main.js?v=1.4.0" as="script">
 	<link rel="prefetch" href="./index.html">
 	<link rel="prefetch" href="./guide.html">
 
-	<link rel="stylesheet" href="./styles/main.css?v=1.7.0">
+	<link rel="stylesheet" href="./styles/main.css?v=2.7.0">
+	<link rel="stylesheet" href="./styles/enhancements.css?v=1.6.0">
 	<link rel="icon" type="image/png" href="./images/final_logo_little.png">
 	<link rel="manifest" href="./manifest.json">
 	<meta name="theme-color" content="#D5B654">
@@ -216,7 +217,7 @@
 	<style>
 		/* Article-specific styles */
 		.article-content {
-			max-width: 820px;
+			max-width: 100%;
 			margin: 0 auto;
 			line-height: 1.8;
 		}
@@ -310,8 +311,8 @@
 		}
 	</style>
   <!-- PR Design System (shared tokens + components) -->
-  <link rel="stylesheet" href="https://projet-resurgence.fr/assets/pr-design-system/pr-design-system.css?v=6">
-  <script defer src="https://projet-resurgence.fr/assets/pr-design-system/pr-design-system.js?v=6"></script>
+  <link rel="stylesheet" href="https://projet-resurgence.fr/assets/pr-design-system/pr-design-system.css?v=11">
+  <script defer src="https://projet-resurgence.fr/assets/pr-design-system/pr-design-system.js?v=11"></script>
 </head>
 
 <body class="pr-scope">
@@ -344,7 +345,7 @@
 		</section>
 
 		<!-- Article Content -->
-		<section class="features">
+		<section class="features" data-reveal>
 			<div class="container">
 				<article class="article-content">
 
@@ -558,12 +559,13 @@
 
 	<!-- JavaScript -->
 	<!-- Web Components -->
-	<script type="module" src="./components/components.js?v=3.0.0"></script>
+	<script type="module" src="./components/components.js?v=3.1.0"></script>
 
 	<!-- Application Scripts -->
 	<script src="./styles/main.js?v=1.4.0"></script>
 	<script src="./styles/seo-optimizer.js"></script>
-	<script src="./styles/performance-optimizer.js?v=2"></script>
+	<script src="./styles/performance-optimizer.js?v=3"></script>
+	<script defer src="./styles/enhancements.js?v=2.1.0"></script>
 </body>
 
 </html>

@@ -24,8 +24,8 @@ class IndexPage {
 			});
 		}, observerOptions);
 
-		// Observe feature cards and stat cards
-		document.querySelectorAll('.feature-card, .stat-card').forEach(card => {
+		// Observe feature cards and stat cards (skip those with data-reveal — handled by enhancements.js)
+		document.querySelectorAll('.feature-card:not([data-reveal]), .stat-card:not([data-reveal])').forEach(card => {
 			observer.observe(card);
 		});
 	}

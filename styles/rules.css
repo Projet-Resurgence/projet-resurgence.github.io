@@ -6,8 +6,8 @@
    top of it — while the right column scrolls. */
 .rules-layout {
     display: grid;
-    grid-template-columns: 260px minmax(0, 1fr);
-    gap: 3rem;
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 2rem;
     align-items: start;
 }
 
@@ -33,7 +33,7 @@
     gap: 0.75rem;
     padding: 0.75rem 1rem;
     border-radius: 10px;
-    color: inherit;
+    color: var(--text-primary);
     text-decoration: none;
     font-size: 0.95rem;
     font-weight: 600;
@@ -75,8 +75,8 @@
 
 /* Rule Category Display */
 .rule-category-section {
-    max-width: 1200px;
-    margin: 0 auto 5rem auto;
+    max-width: 100%;
+    margin: 0 0 5rem 0;
     padding: 0 1rem;
     /* Clear the fixed header AND the sticky jump-nav above it, so a clicked
        anchor doesn't land its heading hidden behind either. */
@@ -86,7 +86,7 @@
 .rule-header {
     padding-top: 3rem;
     margin-bottom: 3rem;
-    border-bottom: 2px solid #D5B654;
+    border-bottom: 2px solid var(--primary-gold);
     padding-bottom: 2rem;
 }
 
@@ -111,7 +111,7 @@
 
 .category-title {
     margin: 0 0 0.6rem 0;
-    color: #D5B654;
+    color: var(--primary-gold);
     font-size: 2.5rem;
     line-height: 1.2;
 }
@@ -120,20 +120,20 @@
     margin: 0;
     font-size: 1.1rem;
     line-height: 1.5;
-    opacity: 0.8;
+    color: var(--text-secondary);
 }
 
 .rule-divider {
     border: none;
-    border-top: 1px solid rgba(213, 182, 84, 0.3);
+    border-top: 1px solid var(--border-subtle, rgba(213, 182, 84, 0.3));
     margin: 2rem 0;
 }
 
 /* Rule Content Layout */
 .rule-content-wrapper {
     display: grid;
-    grid-template-columns: 300px 1fr;
-    gap: 3rem;
+    grid-template-columns: 260px 1fr;
+    gap: 2rem;
     align-items: start;
 }
 
@@ -186,9 +186,9 @@
 
 .table-of-contents h3 {
     margin: 0 0 1rem 0;
-    color: #D5B654;
+    color: var(--primary-gold);
     font-size: 1.2rem;
-    border-bottom: 1px solid rgba(213, 182, 84, 0.3);
+    border-bottom: 1px solid var(--border-subtle, rgba(213, 182, 84, 0.3));
     padding-bottom: 0.5rem;
 }
 
@@ -203,7 +203,7 @@
 }
 
 .toc-list a {
-    color: inherit;
+    color: var(--text-primary);
     text-decoration: none;
     padding: 0.3rem 0;
     display: block;
@@ -229,35 +229,37 @@
 .rule-content {
     line-height: 1.7;
     font-size: 1.05rem;
+    color: var(--text-primary);
 }
 
 .rule-section {
-    color: #D5B654;
+    color: var(--primary-gold);
     font-size: 1.8rem;
     margin: 3rem 0 1.5rem 0;
-    border-left: 4px solid #D5B654;
+    border-left: 4px solid var(--primary-gold);
     padding-left: 1rem;
 }
 
 .rule-subsection {
-    color: #B8A050;
+    color: var(--text-primary);
     font-size: 1.3rem;
     margin: 2rem 0 1rem 0;
-    border-bottom: 1px solid rgba(213, 182, 84, 0.3);
+    border-bottom: 1px solid var(--border-subtle, rgba(213, 182, 84, 0.3));
     padding-bottom: 0.5rem;
 }
 
 .rule-content p {
     margin: 1rem 0;
+    color: var(--text-primary);
 }
 
 .rule-content strong {
-    color: #D5B654;
+    color: var(--primary-gold);
     font-weight: 600;
 }
 
 .rule-content em {
-    color: #B8A050;
+    color: var(--text-secondary);
     font-style: italic;
 }
 
@@ -274,15 +276,17 @@
 .rule-list {
     margin: 1.5rem 0;
     padding-left: 2rem;
+    color: var(--text-primary);
 }
 
 .rule-list li {
     margin: 0.8rem 0;
     position: relative;
+    color: var(--text-primary);
 }
 
 .rule-list li::marker {
-    color: #D5B654;
+    color: var(--primary-gold);
 }
 
 /* Special Boxes */
@@ -293,6 +297,7 @@
     padding: 1rem;
     border-radius: 6px;
     margin: 1.5rem 0;
+    color: var(--text-primary);
 }
 
 .rule-example {
@@ -302,6 +307,7 @@
     padding: 1rem;
     border-radius: 6px;
     margin: 1.5rem 0;
+    color: var(--text-primary);
 }
 
 /* Responsive Design */
@@ -309,34 +315,64 @@
     .rule-category-info {
         flex-direction: column;
         text-align: center;
-        gap: 1rem;
+        gap: 0.75rem;
     }
 
     .category-icon {
-        width: 3.5rem;
-        height: 3.5rem;
-        font-size: 1.75rem;
-    }
-
-    .category-title {
-        font-size: 2rem;
-    }
-
-    .rule-content {
-        font-size: 1rem;
-    }
-
-    .rule-section {
+        width: 3rem;
+        height: 3rem;
         font-size: 1.5rem;
     }
 
+    .category-title {
+        font-size: 1.6rem;
+    }
+
+    .category-description {
+        font-size: 0.95rem;
+    }
+
+    .rule-content {
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+
+    .rule-section {
+        font-size: 1.3rem;
+        margin: 2rem 0 1rem 0;
+    }
+
     .rule-subsection {
-        font-size: 1.2rem;
+        font-size: 1.05rem;
+        margin: 1.5rem 0 0.75rem 0;
+    }
+
+    .rule-content p {
+        margin: 0.75rem 0;
+    }
+
+    .rule-list li {
+        margin: 0.5rem 0;
     }
 
     .table-of-contents {
         position: static;
         max-height: none;
+        padding: 1rem;
+    }
+
+    .rule-category-section {
+        margin: 0 auto 3rem auto;
+    }
+
+    .rule-header {
+        padding-top: 2rem;
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
+    }
+
+    .rules-layout {
+        gap: 1.5rem;
     }
 }
 
@@ -346,11 +382,34 @@
     }
 
     .rule-content-wrapper {
-        gap: 1.5rem;
+        gap: 1rem;
     }
 
     .rule-list {
-        padding-left: 1.5rem;
+        padding-left: 1.25rem;
+    }
+
+    .rule-content {
+        font-size: 0.85rem;
+    }
+
+    .rule-section {
+        font-size: 1.15rem;
+    }
+
+    .rule-subsection {
+        font-size: 0.95rem;
+    }
+
+    .rules-sidebar {
+        padding: 0.75rem;
+        gap: 0.25rem;
+    }
+
+    .rules-sidebar-link {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.85rem;
+        gap: 0.5rem;
     }
 }
 
