@@ -19,7 +19,7 @@ class ComponentManager {
 			const { default: ResurgenceFooter } = await import('./footer-component.js?v=1.7.0');
 
 			// Load intersite navbar
-			await import('./intersite-navbar.js?v=1.9.0');
+			await import('./intersite-navbar.js?v=1.10.0');
 
 			// Register components
 			this.registerComponent('resurgence-header', ResurgenceHeader);
