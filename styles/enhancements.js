@@ -400,7 +400,7 @@
        LIST REVEAL — Staggered reveal for list items
        ================================================================ */
     function initListReveal() {
-        var lists = document.querySelectorAll('.comparison-list, .step-category ul');
+        var lists = document.querySelectorAll('.comparison-list, .step-category ul, .rule-list');
         lists.forEach(function(list) {
             var items = list.querySelectorAll('li');
             var observer = new IntersectionObserver(function(entries) {

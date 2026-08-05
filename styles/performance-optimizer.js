@@ -145,25 +145,8 @@ class PerformanceOptimizer {
     }
 
     optimizeCSS() {
-        // Remove unused CSS classes and optimize critical CSS
-        this.inlineCriticalCSS();
-
         // Defer non-critical CSS
         this.deferNonCriticalCSS();
-    }
-
-    inlineCriticalCSS() {
-        // Inline critical CSS for above-the-fold content
-        const criticalCSS = `
-            .header { background-color: var(--bg-secondary); position: fixed; top: 0; width: 100%; z-index: 1000; }
-            .hero { background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%); padding: 4rem 0; }
-            .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
-            .btn { padding: 0.75rem 1.5rem; border-radius: 0.5rem; text-decoration: none; display: inline-block; transition: all 0.15s; }
-        `;
-
-        const style = document.createElement('style');
-        style.textContent = criticalCSS;
-        document.head.appendChild(style);
     }
 
     deferNonCriticalCSS() {
