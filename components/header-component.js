@@ -11,6 +11,7 @@
 // import NAV_CSS from site-header.js and include it in our own shadow styles.
 
 import { NAV_CSS } from './site-header.js?v=2.6.0';
+import { attachHeaderAuth } from './auth.js?v=1.0.0';
 
 const NAV_LINKS = [
     { href: 'index.html', page: 'home', label: 'Accueil', aria: "Retour à l'accueil" },
@@ -21,6 +22,7 @@ const NAV_LINKS = [
     { href: 'rp-geopolitique.html', page: 'rp-geopolitique', label: 'RP Géopolitique', aria: 'Les types de RP géopolitique' },
     { href: 'mecaniques.html', page: 'mecaniques', label: 'Mécaniques', aria: 'Les mécaniques et systèmes du jeu' },
     { href: 'ressources.html', page: 'resources', label: 'Ressources', aria: 'Liens utiles et outils' },
+    { href: 'calendrier.html', page: 'calendar', label: 'Calendrier', aria: 'Le calendrier de jeu' },
     { href: 'index.html#rejoindre', page: 'join', label: 'Rejoindre', aria: 'Nous rejoindre' },
 ];
 
@@ -41,6 +43,7 @@ class ResurgenceHeader extends HTMLElement {
             this.render();
             this.setupEventListeners();
             this.bridgeTheme();
+            attachHeaderAuth(this);
             this.isInitialized = true;
         }
     }
@@ -87,6 +90,20 @@ class ResurgenceHeader extends HTMLElement {
 
                 ${NAV_CSS}
 
+                .login-btn {
+                    background: var(--primary-gold, #D5B654);
+                    color: #14100a;
+                    border: none;
+                    border-radius: 6px;
+                    padding: 7px 15px;
+                    font-size: 0.85rem;
+                    font-weight: 600;
+                    cursor: pointer;
+                    white-space: nowrap;
+                }
+                .login-btn:hover { filter: brightness(1.08); }
+                .login-btn[hidden] { display: none; }
+
             </style>
 
             <pr-site-header title="Projet Résurgence" home-href="index.html"
@@ -96,6 +113,9 @@ class ResurgenceHeader extends HTMLElement {
                             year-endpoint="https://api.projet-resurgence.fr/game/date">
                 <div slot="nav" class="tabs">
                     <ul class="nav-list">${links}</ul>
+                </div>
+                <div slot="actions">
+                    <button id="login-btn" class="login-btn" type="button" hidden>Connexion</button>
                 </div>
             </pr-site-header>
         `;

@@ -9,7 +9,7 @@
 	<script>
 	(function() {
 		if (!('serviceWorker' in navigator)) return;
-		var SW_VERSION = 'v1.6.0';
+		var SW_VERSION = 'v1.7.0';
 		var lastSW = localStorage.getItem('sw-version');
 		if (lastSW !== SW_VERSION) {
 			caches.keys().then(function(names) {
@@ -559,7 +559,7 @@
 
 	<!-- JavaScript -->
 	<!-- Web Components -->
-	<script type="module" src="./components/components.js?v=3.1.0"></script>
+	<script type="module" src="./components/components.js?v=3.2.0"></script>
 
 	<!-- Application Scripts -->
 	<script src="./styles/main.js?v=1.4.0"></script>

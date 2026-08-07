@@ -13,7 +13,7 @@ class ComponentManager {
 
 		try {
 			// Load header component
-			const { default: ResurgenceHeader } = await import('./header-component.js?v=2.8.0');
+			const { default: ResurgenceHeader } = await import('./header-component.js?v=2.9.0');
 
 			// Load footer component
 			const { default: ResurgenceFooter } = await import('./footer-component.js?v=1.7.0');
@@ -97,6 +97,8 @@ class ComponentManager {
 			currentPage = 'rp-geopolitique';
 		} else if (pathname.includes('mecaniques.html')) {
 			currentPage = 'mecaniques';
+		} else if (pathname.includes('calendrier')) {
+			currentPage = 'calendar';
 		} else if (pathname.includes('index.html') || pathname === '/') {
 			// Check for hash to determine specific section
 			const hash = window.location.hash;

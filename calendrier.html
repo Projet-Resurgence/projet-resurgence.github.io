@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+ <!-- Force SW cache purge and update -->
+ <script>
+ (function() {
+ if (!('serviceWorker' in navigator)) return;
+ var SW_VERSION = 'v1.7.0';
+ var lastSW = localStorage.getItem('sw-version');
+ if (lastSW !== SW_VERSION) {
+ caches.keys().then(function(names) {
+ return Promise.all(names.map(function(n) { return caches.delete(n); }));
+ }).then(function() {
+ return navigator.serviceWorker.getRegistration();
+ }).then(function(reg) {
+ if (reg) return reg.unregister();
+ }).then(function() {
+ localStorage.setItem('sw-version', SW_VERSION);
+ location.reload();
+ });
+ }
+ })();
+</script>
+
+ <!-- Google Tag Manager -->
+ <script>(function (w, d, s, l, i) {
+ w[l] = w[l] || []; w[l].push({
+ 'gtm.start':
+ new Date().getTime(), event: 'gtm.js'
+ }); var f = d.getElementsByTagName(s)[0],
+ j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+ 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+ })(window, document, 'script', 'dataLayer', 'GTM-PKRZXV9B');</script>
+ <!-- End Google Tag Manager -->
+
+ <script>
+ window.axeptioSettings = {
+ clientId: "68963e315d089c7b7334b5d1",
+ cookiesVersion: "fr-08-08-2025_fr-EU",
+ googleConsentMode: {
+ default: {
+ analytics_storage: "denied",
+ ad_storage: "denied",
+ ad_user_data: "denied",
+ ad_personalization: "denied",
+ wait_for_update: 500
+ }
+ }
+ };
+
+ (function (d, s) {
+ var t = d.getElementsByTagName(s)[0], e = d.createElement(s);
+ e.async = true; e.src = "//static.axept.io/sdk.js";
+ t.parentNode.insertBefore(e, t);
+ })(document, "script");
+</script>
+
+ <script>
+ window.dataLayer = window.dataLayer || [];
+ function gtag() { dataLayer.push(arguments); }
+ gtag('js', new Date());
+ gtag('config', 'G-5B3PEQ65HX', {
+ send_page_view: true,
+ custom_parameters: {
+ content_group1: 'Calendar Page',
+ content_group2: 'Game'
+ }
+ });
+</script>
+
+ <!-- Primary Meta Tags -->
+ <title>Calendrier de Jeu - Projet Résurgence | Jours de Jeu & Reprise du RP</title>
+ <meta name="title" content="Calendrier de Jeu - Projet Résurgence">
+ <meta name="description"
+ content="Consultez le calendrier de Projet Résurgence : correspondance entre jours réels et dates de jeu, périodes de pause et date de reprise annoncée du roleplay géopolitique.">
+ <meta name="keywords"
+ content="calendrier projet résurgence, jours de jeu, date de jeu RP, reprise du RP, pause RP, roleplay géopolitique">
+ <meta name="robots" content="index, follow">
+ <meta name="language" content="French">
+ <meta name="author" content="Projet Résurgence">
+
+ <!-- Open Graph / Facebook -->
+ <meta property="og:type" content="website">
+ <meta property="og:url" content="https://projet-resurgence.fr/calendrier.html">
+ <meta property="og:title" content="Calendrier de Jeu - Projet Résurgence">
+ <meta property="og:description"
+ content="Jours de jeu, périodes de pause et reprise annoncée : le calendrier officiel de Projet Résurgence.">
+ <meta property="og:image" content="https://projet-resurgence.fr/images/banner.jpg">
+ <meta property="og:site_name" content="Projet Résurgence">
+ <meta property="og:locale" content="fr_FR">
+
+ <!-- Twitter -->
+ <meta property="twitter:card" content="summary_large_image">
+ <meta property="twitter:url" content="https://projet-resurgence.fr/calendrier.html">
+ <meta property="twitter:title" content="Calendrier de Jeu - Projet Résurgence">
+ <meta property="twitter:description"
+ content="Jours de jeu, périodes de pause et reprise annoncée du RP.">
+ <meta property="twitter:image" content="https://projet-resurgence.fr/images/banner.jpg">
+
+ <!-- Canonical URL -->
+ <link rel="canonical" href="https://projet-resurgence.fr/calendrier.html">
+
+ <!-- Resource hints for performance -->
+ <link rel="preload" href="./fonts/pressgothic.otf" as="font" type="font/otf" crossorigin="anonymous">
+ <link rel="preload" href="./styles/critical.css?v=2" as="style" onload="this.onload=null;this.rel='stylesheet'">
+ <noscript>
+ <link rel="stylesheet" href="./styles/critical.css?v=2">
+</noscript>
+ <link rel="preload" href="./styles/main.css?v=2.7.1" as="style">
+
+ <link rel="stylesheet" href="./styles/main.css?v=2.7.1">
+ <link rel="stylesheet" href="./styles/calendar.css?v=1.0.0">
+ <link rel="stylesheet" href="./styles/enhancements.css?v=1.6.0">
+ <link rel="icon" type="image/png" href="./images/final_logo_little.png">
+ <link rel="manifest" href="./manifest.json">
+ <meta name="theme-color" content="#D5B654">
+ <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+ <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+ <link rel="shortcut icon" href="/favicon/favicon.ico" />
+ <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+ <meta name="apple-mobile-web-app-title" content="Projet Resurgence" />
+
+ <!-- Structured Data (JSON-LD) -->
+ <script type="application/ld+json">
+ {
+ "@context": "https://schema.org",
+ "@type": "WebPage",
+ "name": "Calendrier de Jeu - Projet Résurgence",
+ "description": "Calendrier officiel de Projet Résurgence : jours de jeu, pauses et reprise annoncée du RP.",
+ "url": "https://projet-resurgence.fr/calendrier.html",
+ "inLanguage": "fr",
+ "isPartOf": {
+ "@type": "WebSite",
+ "name": "Projet Résurgence",
+ "url": "https://projet-resurgence.fr"
+ }
+ }
+</script>
+</head>
+
+<body class="pr-scope">
+ <a class="skip-link" href="#main-content">Aller au contenu principal</a>
+
+ <intersite-navbar current-site="home" hide-toggle logo-src="./favicon/favicon-96x96.png"></intersite-navbar>
+
+ <!-- Google Tag Manager (noscript) -->
+ <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PKRZXV9B" height="0" width="0"
+ style="display:none;visibility:hidden"></iframe></noscript>
+ <!-- End Google Tag Manager (noscript) -->
+
+ <!-- Header Component -->
+ <resurgence-header current-page="calendar"></resurgence-header>
+
+ <!-- Main Content -->
+ <main class="main cal-page" id="main-content">
+ <h1>Calendrier de jeu</h1>
+ <p class="cal-intro">
+ Chaque jour réel de RP correspond à un jour de jeu de l'an 2303. Cette page montre cette
+ correspondance, les périodes de pause, et la date de reprise quand elle est annoncée.
+ Cliquez un jour pour y attacher une note — les notes restent sur cet appareil.
+</p>
+
+ <div class="cal-banner" id="cal-resume-banner" style="display:none;"></div>
+
+ <!-- Administration (visible uniquement pour un administrateur connecté) -->
+ <section class="cal-card cal-admin" id="cal-admin" style="display:none;">
+ <h2 class="cal-card-title">Administration du calendrier</h2>
+ <p class="cal-admin-hint">
+ Ces actions modifient le jeu immédiatement et sont visibles par tous les joueurs.
+</p>
+
+ <div class="cal-admin-row">
+ <span class="cal-admin-status" id="cal-admin-status"></span>
+ <button class="cal-btn" id="cal-admin-pause-btn" onclick="calTogglePause()">Mettre en pause</button>
+ <button class="cal-btn" onclick="calOpenResumeModal()">Date de reprise</button>
+ <button class="cal-btn cal-btn-danger" onclick="calForceAdvance()">Avancer d'un jour de jeu</button>
+</div>
+
+ <h3 class="cal-card-title">Jours de jeu par mois</h3>
+ <div class="cal-playdays" id="cal-playdays"></div>
+ <button class="cal-btn cal-btn-primary" onclick="calSavePlaydays()">Enregistrer les jours de jeu</button>
+</section>
+
+ <section class="cal-card">
+ <div class="cal-toolbar">
+ <button class="cal-btn" id="cal-prev" onclick="calNavigate(-1)" aria-label="Mois précédent">‹</button>
+ <div class="cal-title" id="cal-title">—</div>
+ <button class="cal-btn" id="cal-next" onclick="calNavigate(1)" aria-label="Mois suivant">›</button>
+ <button class="cal-btn" id="cal-today" onclick="calGoToday()">Aujourd'hui</button>
+ <button class="cal-btn" id="cal-edit-resume-btn" style="display:none;" onclick="calOpenResumeModal()"
+ title="Planifier la date de reprise">Reprise</button>
+</div>
+
+ <div class="cal-legend">
+ <span class="cal-leg"><span class="cal-dot cal-dot-play"></span>Jour de jeu</span>
+ <span class="cal-leg"><span class="cal-dot cal-dot-pause"></span>En pause</span>
+ <span class="cal-leg"><span class="cal-dot cal-dot-preview"></span>Reprise prévisionnelle</span>
+ <span class="cal-leg"><span class="cal-dot cal-dot-offgame"></span>Hors de jeu</span>
+</div>
+
+ <div class="cal-weekdays">
+ <span>Lun</span><span>Mar</span><span>Mer</span><span>Jeu</span><span>Ven</span><span>Sam</span><span>Dim</span>
+</div>
+
+ <div class="cal-grid" id="cal-grid"></div>
+ <div class="cal-loading" id="cal-loading">Chargement du calendrier…</div>
+</section>
+</main>
+
+ <!-- Calendar note editor -->
+ <div class="cal-modal-overlay" id="cal-note-overlay" onclick="if(event.target===this)calCloseNote()">
+ <div class="cal-modal">
+ <div class="cal-modal-head">
+ <h4 id="cal-note-title">Note</h4>
+ <button class="cal-banner-close" onclick="calCloseNote()" aria-label="Fermer">✕</button>
+</div>
+ <div id="cal-note-state" class="cal-modal-state"></div>
+ <label class="cal-note-label" for="cal-note-day">Note du jour</label>
+ <textarea id="cal-note-day" class="cal-note-area" rows="3"
+ placeholder="Écrire une note pour ce jour… (Entrée pour enregistrer, Maj+Entrée pour un saut de ligne)"
+ onkeydown="calNoteKeydown(event)"></textarea>
+ <div id="cal-note-period-wrap" style="display:none;">
+ <label class="cal-note-label" id="cal-note-period-label" for="cal-note-period">Note de la période</label>
+ <textarea id="cal-note-period" class="cal-note-area" rows="3"
+ placeholder="Écrire une note pour toute la période…" onkeydown="calNoteKeydown(event)"></textarea>
+</div>
+ <div class="cal-modal-actions">
+ <button class="cal-btn" onclick="calCloseNote()">Annuler</button>
+ <button class="cal-btn cal-btn-primary" onclick="calSaveNote()">Enregistrer</button>
+</div>
+</div>
+</div>
+
+ <!-- Resume date editor (admin only) -->
+ <div class="cal-modal-overlay" id="cal-resume-overlay" onclick="if(event.target===this)calCloseResumeModal()">
+ <div class="cal-modal">
+ <div class="cal-modal-head">
+ <h4>Planifier la reprise du RP</h4>
+ <button class="cal-banner-close" onclick="calCloseResumeModal()" aria-label="Fermer">✕</button>
+</div>
+ <p class="cal-modal-state">Cette date est annoncée aux joueurs mais reste modifiable jusqu'à la reprise
+ effective.</p>
+ <label class="cal-note-label" for="cal-resume-date-input">Date de reprise prévue</label>
+ <input type="date" id="cal-resume-date-input" class="cal-input" />
+ <div class="cal-modal-actions">
+ <button class="cal-btn" onclick="calClearResumeDate()">Effacer la date</button>
+ <button class="cal-btn cal-btn-primary" onclick="calSaveResumeDate()">Enregistrer</button>
+</div>
+</div>
+</div>
+
+ <div class="cal-toasts" id="cal-toasts"></div>
+
+ <!-- Footer Component -->
+ <resurgence-footer></resurgence-footer>
+
+ <!-- JavaScript -->
+ <script type="module" src="./components/components.js?v=3.2.0"></script>
+ <script type="module" src="./styles/calendar.js?v=1.0.0"></script>
+ <script src="./styles/main.js?v=1.4.0"></script>
+ <script src="./styles/seo-optimizer.js"></script>
+ <script src="./styles/performance-optimizer.js?v=4"></script>
+</body>
+
+</html>

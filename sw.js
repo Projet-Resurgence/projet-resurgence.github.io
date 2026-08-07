@@ -1,10 +1,10 @@
 // Service Worker for Projet Résurgence Website
 // Provides offline functionality and advanced caching strategies
 
-const CACHE_NAME = 'resurgence-v1.6.0';
-const STATIC_CACHE = 'static-v1.6.0';
-const DYNAMIC_CACHE = 'dynamic-v1.6.0';
-const IMAGE_CACHE = 'images-v1.6.0';
+const CACHE_NAME = 'resurgence-v1.7.0';
+const STATIC_CACHE = 'static-v1.7.0';
+const DYNAMIC_CACHE = 'dynamic-v1.7.0';
+const IMAGE_CACHE = 'images-v1.7.0';
 
 // Static resources to cache immediately
 const staticAssets = [
@@ -89,6 +89,11 @@ self.addEventListener('fetch', (event) => {
 
     // Only handle requests from the same origin
     if (url.origin !== location.origin) {
+        return;
+    }
+
+    // Auth and live game data must never be cached or replayed offline.
+    if (url.pathname.startsWith('/api/') || url.pathname === '/callback') {
         return;
     }
 

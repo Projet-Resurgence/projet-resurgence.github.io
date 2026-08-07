@@ -4,8 +4,8 @@ Official website for Projet Résurgence Discord RP server. Static HTML/CSS/JS si
 
 ## Quick Facts
 
-- **Type:** Static site (no build step, no framework)
-- **Deployed via:** nginx Docker container (`Dockerfile` at root)
+- **Type:** Static pages (no build step, no framework) served by a thin Flask app
+- **Deployed via:** python:3.12-slim + gunicorn, listening on **port 80** (`Dockerfile` at root)
 - **URL:** `https://projet-resurgence.fr`
 - **Language:** French
 - **Default theme:** Dark
@@ -14,7 +14,13 @@ Official website for Projet Résurgence Discord RP server. Static HTML/CSS/JS si
 
 ```
 resurgence-web/
+├── app.py                      # Flask: serves the static pages + WebAuth SSO + calendar API
+├── settings.py                 # Env config (WebAuth URLs, JWT secret, PR_API URL, service client)
+│                               # NOTE: not config.py — .gitignore has `*config*`
+├── pr_api_service_auth.py      # Cached PR_API service token (calendar admin writes only)
+├── requirements.txt            # Flask, PyJWT, requests, gunicorn
 ├── index.html                  # Home page (hero, features, live stats, universe, FAQ, CTA)
+├── calendrier.html             # Game calendar (moved here from Game-Dashboard) + admin editing
 ├── regles.html                 # Game rules (static, anchor-linkable per category)
 ├── mecaniques.html             # Game systems/mechanics showcase (differentiation page)
 ├── guide.html                  # Player guide
@@ -22,14 +28,15 @@ resurgence-web/
 ├── rp-geopolitique.html        # Geopolitical RP page
 ├── univers.html                # Universe/lore page
 ├── 404.html                    # Custom branded 404 page (served via nginx error_page)
-├── sw.js                       # Service Worker (v1.3.0)
+├── sw.js                       # Service Worker (v1.7.0)
 ├── manifest.json               # PWA manifest
-├── sitemap.xml                 # XML sitemap (7 URLs)
+├── sitemap.xml                 # XML sitemap (8 URLs)
 ├── robots.txt                  # Robots directives
 ├── CNAME                       # GitHub Pages domain mapping
-├── Dockerfile                  # nginx:alpine deployment
+├── Dockerfile                  # python:3.12-slim + gunicorn on port 80
 ├── components/
 │   ├── components.js           # ComponentManager loader (dynamic imports)
+│   ├── auth.js                 # WebAuth SSO client (window.PRAuth) + header login wiring
 │   ├── header-component.js     # <resurgence-header> web component
 │   └── footer-component.js     # <resurgence-footer> web component
 ├── styles/
@@ -42,6 +49,8 @@ resurgence-web/
 │   ├── rules.css               # Rules page styles
 │   ├── mecaniques.css          # Mécaniques page styles
 │   ├── ressources.css          # Resources page styles
+│   ├── calendar.css            # Calendrier page styles
+│   ├── calendar.js             # Calendrier page logic (ES module, imports components/auth.js)
 │   ├── stats-loader.js         # Fetches live counts from PR_API into [data-stat] elements
 │   ├── seo-optimizer.js        # SEO utilities
 │   ├── performance-optimizer.js # Performance utilities
@@ -60,7 +69,7 @@ resurgence-web/
 
 ### Loading Order (index.html)
 
-1. **SW version check** (inline script) – compares `localStorage['sw-version']` to `v1.5.0`, clears caches + unregisters SW if mismatch
+1. **SW version check** (inline script) – compares `localStorage['sw-version']` to `v1.7.0`, clears caches + unregisters SW if mismatch
 2. **Google Tag Manager** – `GTM-PKRZXV9B`
 3. **Axeptio consent** – `clientId: "68963e315d089c7b7334b5d1"`, Google Consent Mode enabled
 4. **Google Analytics** – `G-5B3PEQ65HX`
@@ -77,7 +86,7 @@ resurgence-web/
 ### Web Components
 
 **`<resurgence-header current-page="...">`** – Shadow DOM, fixed header with navigation + theme toggle
-- Observed attribute: `current-page` (values: `home`, `server`, `universe`, `rules`, `guide`, `rp-geopolitique`, `resources`, `join`)
+- Observed attribute: `current-page` (values: `home`, `server`, `universe`, `rules`, `guide`, `rp-geopolitique`, `mecaniques`, `resources`, `calendar`, `join`)
 - Public API: `setActivePage(page)`, `setTheme(theme)`, `getCurrentTheme()`
 - Mobile menu at breakpoint `1040px`, hamburger → X animation
 - Theme persistence: `localStorage['resurgence-theme']`
@@ -92,12 +101,70 @@ resurgence-web/
 - `updatePageContext()` derives current page from `window.location.pathname`
 - Theme utilities: `getCurrentTheme()`, `setTheme(theme)`
 
+### Auth & backend (`app.py`)
+
+The pages are still plain HTML; `app.py` only adds what a file server cannot do.
+
+**WebAuth SSO** — same flow as calc./catalog./play.:
+
+| Route | Method | Purpose |
+|---|---|---|
+| `/api/auth/discord/url?next=/path` | GET | Builds the `auth.projet-resurgence.fr/sso/login` URL. `next` is site-relative only |
+| `/callback` | GET | Resolves `sso_token` (query or `pr_sso_token` cookie) → site JWT → redirects to `next?token=` |
+| `/api/auth/sso/bootstrap` | POST | Cookie-only: picks up a session started on another subdomain |
+| `/api/auth/verify` | POST | Validates a site JWT |
+| `/api/auth/logout` | GET | Clears the cookie, redirects to WebAuth `/sso/logout` |
+| `/api/me/header` | GET | Country flag for the header cog (auth required) |
+
+**Game calendar** — public reads, administrator writes:
+
+| Route | Method | Auth | PR_API |
+|---|---|---|---|
+| `/api/calendar` | GET | public | `GET /game/dates` |
+| `/api/pause-schedule` | GET | public | `GET /game/pause/schedule` |
+| `/api/game-date` | GET | public | `GET /game/date` |
+| `/api/playdays-per-month` | GET | public | `GET /game/playdays-per-month` |
+| `/api/admin/pause-schedule` | PUT | **admin** | `PUT /game/pause/schedule` (service token) |
+| `/api/admin/pause` | POST | **admin** | `POST /game/pause` (service token) |
+| `/api/admin/playdays-per-month` | PUT | **admin** | `PUT /game/playdays-per-month` (service token) |
+| `/api/admin/game-date/advance` | POST | **admin** | `POST /game/date/force-advance` (service token) |
+
+`@require_admin` = valid site JWT **and** `is_admin` (which comes from the
+WebAuth account payload: any `admin.*` scope). The client-side `isAdmin()` only
+decides whether to render the panel — never trust it alone.
+
+**Client side:** `components/auth.js` exports `ready/getUser/isAdmin/apiFetch/login/logout`
+and also publishes them as `window.PRAuth`. `header-component.js` calls
+`attachHeaderAuth(this)` so the Connexion button and the cog identity work on
+every page. Token lives in `localStorage['pr_web_token']`.
+
+**Environment (root `.env`):** `RESURGENCE_WEB_PUBLIC_URL`,
+`RESURGENCE_WEB_WEBAUTH_URL` (internal `http://webauth:5002`),
+`RESURGENCE_WEB_WEBAUTH_PUBLIC_URL`, `RESURGENCE_WEB_PR_API_URL` (internal
+`http://pr-api:5000`), `RESURGENCE_WEB_JWT_SECRET`, `RESURGENCE_WEB_SECRET_KEY`,
+`RESURGENCE_WEB_PR_API_CLIENT_ID` / `_SECRET`. Create the service client with
+`docker compose exec pr-api python add_resurgence_web_client.py` — it holds
+`admin.game.pause_schedule`, `admin.game.pause_resume`,
+`admin.game.advance_time`, `admin.game.change_settings` and nothing else.
+
+### Calendrier (`calendrier.html`)
+
+Moved here from the Game-Dashboard "Calendrier" tab (which no longer exists —
+`/calendrier` on `play.` is gone). Same rendering logic, restyled onto this
+site's theme tokens, plus an administration card that only an administrator
+sees: pause/resume the RP, announce a resume date, edit playdays-per-month,
+force-advance a playday.
+
+Day notes stay device-local (`localStorage['pr_calendar_notes']`) — they were
+never server-side.
+
 ### Service Worker (`sw.js`)
 
-- **Version:** `v1.5.0` (cache names: `static-v1.5.0`, `dynamic-v1.5.0`, `images-v1.5.0`)
+- **Version:** `v1.7.0` (cache names: `static-v1.7.0`, `dynamic-v1.7.0`, `images-v1.7.0`)
 - **Install:** Caches static assets + images, calls `skipWaiting()`
 - **Activate:** Cleans old caches, calls `clients.claim()`
 - **Fetch strategies:**
+  - `/api/` + `/callback` → bypassed entirely (never cached)
   - `/components/` + `/sw.js` → network-first
   - `destination=image` → cache-first
   - `destination=script|style` → cache-first
@@ -146,7 +213,7 @@ All CSS variables defined in `styles/theme.css`:
 ### SEO
 
 - **Meta:** Full Open Graph + Twitter Card + JSON-LD (Organization, WebSite, Game schemas)
-- **Sitemap:** 7 URLs (index, univers, regles, guide, rp-geopolitique, mecaniques, ressources)
+- **Sitemap:** 8 URLs (index, univers, regles, guide, rp-geopolitique, mecaniques, ressources, calendrier)
 - **robots.txt:** Allows all, disallows `/test-*`. Sitemap URL points to `https://projet-resurgence.fr/sitemap.xml` (NOT the old GitHub Pages domain)
 - **Resource hints:** `preload` for font, main.css, logo, main.js; `prefetch` for regles.html, guide.html
 - **Rules page (`regles.html`):** All 6 categories (hrp, rp, economique, technologique, militaire, territorial) are static HTML in the page itself — not fetched/rendered client-side. Deep-linkable via `#hrp #rp #economique #technologique #militaire #territorial`. Regenerate content with `node scripts/build-rules.mjs` after editing a `rules/*.md` file, then paste the printed HTML back into `regles.html`
@@ -196,17 +263,21 @@ of what's controllable from this repo.
 
 ### Docker / Nginx
 
-**Dockerfile:** `nginx:alpine`, copies `resurgence-web/` to `/usr/share/nginx/html/`, removes dev files
+**Dockerfile:** `python:3.12-slim`, copies `resurgence-web/` to `/app/`, installs
+`requirements.txt`, runs `gunicorn -w 2 -b 0.0.0.0:80 app:app`. Port **80** is
+deliberate — the root nginx vhost proxies to `resurgence-web:80`.
 
-**Nginx cache rules (baked into image):**
+**Cache rules (now in `app.py`'s `after_request`, previously nginx):**
 - `/sw.js` → `no-cache, no-store, must-revalidate` (CRITICAL: never cache)
 - `/components/` → `no-cache, must-revalidate`
 - `.(js|css|png|jpg|gif|ico|svg|woff|woff2|ttf|eot|webp|avif)` → `1y, public, immutable`
 - `.html` → `no-cache, no-store, must-revalidate`
 
-**Security headers:** X-Frame-Options SAMEORIGIN, X-Content-Type-Options nosniff, X-XSS-Protection, Referrer-Policy strict-origin-when-cross-origin
+Plus `no-store` on any 4xx (so a missing `.js` is not cached for a year) and on
+`/api/*` + `/callback`.
 
-**Gzip:** Enabled for text/css/json/js/xml/svg, min 256 bytes
+**Security headers:** the outer nginx vhost owns HSTS/CSP/X-Frame-Options;
+`app.py` adds `X-Content-Type-Options` and `Referrer-Policy` as a floor.
 
 ## PWA Manifest
 
@@ -220,15 +291,18 @@ of what's controllable from this repo.
 
 ## Critical Rules for AI
 
-1. **No build step** – All files are served as-is. Do not add bundlers, transpilers, or package managers
-2. **SW version** is `v1.5.0` in both `sw.js` (CACHE_NAME/STATIC_CACHE/DYNAMIC_CACHE/IMAGE_CACHE) and the inline `SW_VERSION` script — **present in all 7 pages** (`grep -rln SW_VERSION *.html`), not just `index.html`. Update all of them together when changing SW
+1. **No build step** – All front-end files are served as-is. Do not add bundlers, transpilers, or package managers. `app.py` serves them; it is not a framework for the pages
+2. **SW version** is `v1.7.0` in both `sw.js` (CACHE_NAME/STATIC_CACHE/DYNAMIC_CACHE/IMAGE_CACHE) and the inline `SW_VERSION` script — **present in all 8 pages** (`grep -rln SW_VERSION *.html`), not just `index.html`. Update all of them together when changing SW
 3. **Web components use Shadow DOM** – Styles inside components are scoped. Use CSS custom properties (`var(--*)`) for theming across shadow boundaries
 4. **Theme localStorage key** is `resurgence-theme` (values: `dark` | `light`)
-5. **Header component** uses `current-page` attribute for active nav highlighting. Page values: `home`, `server`, `universe`, `rules`, `guide`, `rp-geopolitique`, `mecaniques`, `resources`, `join`
+5. **Header component** uses `current-page` attribute for active nav highlighting. Page values: `home`, `server`, `universe`, `rules`, `guide`, `rp-geopolitique`, `mecaniques`, `resources`, `calendar`, `join`
 6. **Font file** is `pressgothic.otf` – preload with `as="font" type="font/otf" crossorigin`
-7. **Dockerfile removes** `.git`, `.vscode`, `test-results`, `test-scripts`, `CNAME`, `LICENSE`, `README.md`, `verify-seo.sh`, `analytics-report.txt` during build
+7. **Dockerfile removes** `.git`, `.vscode`, `test-results`, `test-scripts`, `CNAME`, `LICENSE`, `README.md`, `verify-seo.sh`, `analytics-report.txt` during build. The Python sources stay in the image (they run it) but `app.py` refuses to serve them — add any new source file to `_PRIVATE_FILES`
 8. **All analytics requires Axeptio consent** – `hasAnalyticsConsent()` checks `window.axeptio.getUserConsent()` before any tracking
-9. **Nginx never caches sw.js** – changing SW requires no nginx config change, but update version in inline script to force client cache purge
+9. **sw.js is never cached** – changing SW requires no nginx config change, but update version in inline script to force client cache purge
 10. **Cloudflare ignores origin no-cache headers for `/components/` and `/styles/`** — see dedicated section above. Any content change to a file under those paths needs its referencing `?v=` query string bumped in every HTML page that loads it, or Cloudflare can keep serving the old version indefinitely regardless of origin state. When in doubt, verify with a real browser against the live page (not a direct curl to the changed asset)
 11. **Discord invite URL:** `https://discord.projet-resurgence.fr/`
 12. **Contact email:** `contact@projet-resurgence.fr`
+13. **Never trust `isAdmin()` client-side** – it decides what to *render*. Every game-editing route is gated server-side by `@require_admin`, and PR_API re-checks the service-token scope on top
+14. **`RESURGENCE_WEB_PR_API_URL` must stay `http://pr-api:5000`** – the external URL goes through Cloudflare, which challenges server-to-server requests
+15. **The Service Worker must never cache `/api/*` or `/callback`** – the bypass is the first branch of the `fetch` handler in `sw.js`
