@@ -191,25 +191,36 @@ function calIso(year, monthIdx, day) {
     return `${year}-${m}-${d}`;
 }
 
+// Advance one playday, mirroring the backend's calculate_next_date.
+function calAdvancePlayday(year, month, playday) {
+    const total = calState.playdaysPerMonth[String(month)] || 1;
+    if (playday < total) return { year, month, playday: playday + 1 };
+    if (month < 12) return { year, month: month + 1, playday: 1 };
+    return { year: year + 1, month: 1, playday: 1 };
+}
+
 // Project the (year, month, playday) of an IRL day that falls on/after the
-// planned (but not-yet-guaranteed) resume date, by walking the same
-// playdays-per-month config the real calendar uses. Returns null if there's
-// no planned date, the day is before it, or there's no frontier year to base
-// "next year" off of.
+// planned (but not-yet-guaranteed) resume date, by walking forward from the
+// actual last known game date (the "frontier") the same way the backend
+// would once play resumes — one playday per real day. Works for any pause
+// (year-end, mid-year, ...), not just a resume that starts a new year.
+// Returns null if there's no planned date, the day is before it, or there's
+// no frontier date to project from.
 function calProjectPreview(iso) {
     const planned = calState.plannedResumeDate;
     if (!planned || iso < planned || !calState.frontierKey) return null;
 
-    const frontierYear = parseInt(calState.frontierKey.split('-')[0], 10);
-    let month = 1, playday = 1;
+    const [frontierYear, frontierMonth] = calState.frontierKey.split('-').map(Number);
+    const frontierPlayday = calState.monthMax[calState.frontierKey] || 1;
+    // The planned/resume day itself is the first playday advanced since the
+    // frontier (the game was static while paused).
+    let state = calAdvancePlayday(frontierYear, frontierMonth, frontierPlayday);
     let cursor = planned;
     while (cursor < iso) {
-        const total = calState.playdaysPerMonth[String(month)] || 1;
-        if (playday >= total) { playday = 1; month = month >= 12 ? 1 : month + 1; }
-        else { playday += 1; }
+        state = calAdvancePlayday(state.year, state.month, state.playday);
         cursor = calAddDays(cursor, 1);
     }
-    return { year: frontierYear + 1, month, playday };
+    return state;
 }
 
 // Classify an IRL day (ISO string) against the game date data.
