@@ -439,8 +439,12 @@ body.v-page {
 .v-callout__body > :last-child { margin-bottom: 0; }
 
 .v-section { scroll-margin-top: 96px; margin-bottom: 34px; }
+/* Le titre de chapitre (et son chapô) doivent respirer avant la première
+   section : sans cela le « 1. — » se colle au titre du chapitre et les deux
+   niveaux se lisent comme un seul bloc. */
+.v-chapter > .v-section:first-of-type { margin-top: 30px; }
 .v-section__title {
-  margin: 0 0 12px;
+  margin: 0 0 20px;
   font: 600 20px var(--v-title);
   letter-spacing: -0.01em;
   color: var(--v-ink);
@@ -485,9 +489,9 @@ body.v-page {
 .pr-content a { color: var(--v-gold); text-decoration: none; border-bottom: 1px solid var(--v-gold-line); }
 .pr-content a:hover { border-bottom-color: var(--v-gold); }
 
-.pr-content-h3 { margin: 30px 0 10px; font: 600 18px var(--v-title); color: var(--v-ink); }
-.pr-content-h4 { margin: 24px 0 8px; font: 600 15.5px var(--v-title); color: var(--v-ink); }
-.pr-content-h5 { margin: 20px 0 8px; font: 600 14px var(--v-title); color: var(--v-ink-soft); }
+.pr-content-h3 { margin: 30px 0 2px; font: 600 18px var(--v-title); color: var(--v-ink); }
+.pr-content-h4 { margin: 24px 0 2px; font: 600 15.5px var(--v-title); color: var(--v-ink); }
+.pr-content-h5 { margin: 20px 0 2px; font: 600 14px var(--v-title); color: var(--v-ink-soft); }
 
 .pr-content-list { margin: 0 0 18px; padding-left: 22px; max-width: var(--v-measure); }
 .pr-content-list li { margin-bottom: 7px; }
