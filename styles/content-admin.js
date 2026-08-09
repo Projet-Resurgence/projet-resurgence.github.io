@@ -56,6 +56,9 @@ const api = {
   createSection: (categoryId, body) => apiFetch(`/api/admin/content/categories/${categoryId}/sections`, {
     method: 'POST', body: JSON.stringify(body),
   }),
+  updateSection: (id, body) => apiFetch(`/api/admin/content/sections/${id}`, {
+    method: 'PUT', body: JSON.stringify(body),
+  }),
   deleteSection: (id) => apiFetch(`/api/admin/content/sections/${id}`, { method: 'DELETE' }),
   reorderSections: (categoryId, order) => apiFetch(`/api/admin/content/categories/${categoryId}/sections/reorder`, {
     method: 'POST', body: JSON.stringify({ order }),
@@ -68,6 +71,31 @@ function toast(message, kind = 'info') {
   el.textContent = message;
   document.body.appendChild(el);
   setTimeout(() => el.remove(), 4200);
+}
+
+const FLASH_KEY = 'pr_admin_flash';
+
+/**
+ * A toast that survives the reload we trigger ourselves. Publishing ends in
+ * `window.location.reload()`, so a plain toast() there is destroyed before
+ * anyone reads it — the page came back with no sign anything happened.
+ */
+function flash(message, kind = 'info') {
+  try { sessionStorage.setItem(FLASH_KEY, JSON.stringify({ message, kind })); }
+  catch (e) { toast(message, kind); }
+}
+
+function showFlash() {
+  let raw = null;
+  try {
+    raw = sessionStorage.getItem(FLASH_KEY);
+    sessionStorage.removeItem(FLASH_KEY);
+  } catch (e) { return; }
+  if (!raw) return;
+  try {
+    const { message, kind } = JSON.parse(raw);
+    if (message) toast(message, kind || 'info');
+  } catch (e) { /* corrupt entry, nothing to show */ }
 }
 
 /** Every write funnels through here so failures are reported the same way. */
@@ -650,12 +678,22 @@ async function review() {
  * and nothing to retry with.
  */
 async function publish(button, close) {
+  const count = store.countChanges(draft);
   for (const call of store.plan(draft)) {
     let result = null;
-    if (call.kind === 'category') result = await submit(api.updateCategory(call.id, call.body), null);
-    else if (call.kind === 'section') result = await submit(api.updateSection(call.id, call.body), null);
-    else if (call.kind === 'categoryOrder') result = await submit(api.reorderCategories(call.order), null);
-    else if (call.kind === 'sectionOrder') result = await submit(api.reorderSections(call.categoryId, call.order), null);
+    // Anything thrown here — a missing client method, a JSON body that will not
+    // serialise — used to reject silently and leave « Publication… » spinning
+    // for ever. A failed call is a failed call: report it and hand the button
+    // back so the administrator can retry.
+    try {
+      if (call.kind === 'category') result = await submit(api.updateCategory(call.id, call.body), null);
+      else if (call.kind === 'section') result = await submit(api.updateSection(call.id, call.body), null);
+      else if (call.kind === 'categoryOrder') result = await submit(api.reorderCategories(call.order), null);
+      else if (call.kind === 'sectionOrder') result = await submit(api.reorderSections(call.categoryId, call.order), null);
+    } catch (e) {
+      toast(`Publication interrompue : ${e.message}`, 'error');
+      result = null;
+    }
 
     if (!result) {
       button.disabled = false;
@@ -674,8 +712,8 @@ async function publish(button, close) {
   store.clear(CONTENT.space);
   draft = store.emptyDraft(CONTENT.space);
   close();
-  toast('Modifications publiées.', 'ok');
-  window.setTimeout(reload, 300);
+  flash(`${count} modification${count > 1 ? 's' : ''} publiée${count > 1 ? 's' : ''}.`, 'ok');
+  reload();
 }
 
 function discard() {
@@ -794,5 +832,7 @@ function mountControls() {
 }
 
 ready().then(() => {
-  if (isAdmin()) mountControls();
+  if (!isAdmin()) return;
+  mountControls();
+  showFlash();
 });
