@@ -71,6 +71,12 @@ _UNORDERED = re.compile(r"^\s*[-*]\s+(?P<text>.+)$")
 _ORDERED = re.compile(r"^\s*(?P<number>\d+)[.)]\s+(?P<text>.+)$")
 _QUOTE = re.compile(r"^\s*>\s?(?P<text>.*)$")
 _RULE = re.compile(r"^\s*(?:-{3,}|_{3,}|\*{3,})\s*$")
+# Une ligne entièrement soulignée est un intertitre : c'est la convention du
+# règlement (« __1.1 : Respect des ToS…__ » suivi de son paragraphe). Elle
+# reste un <p> — le plan de titres appartient aux `#` — mais porte une classe
+# pour que la mise en page la colle au texte qu'elle annonce au lieu de la
+# faire flotter à égale distance des deux.
+_SUBHEAD = re.compile(r"^\s*__(?P<text>(?:(?!__).)+)__\s*$")
 
 # Inline patterns, applied to already-escaped text in this exact order —
 # `__x__` must beat `_x_`, and `**x**` must beat `*x*`.
@@ -379,6 +385,12 @@ def render(markdown: str) -> str:
             i += 1
             continue
         _close_list(state, out)
+
+        subhead = _SUBHEAD.match(line)
+        if subhead:
+            out.append(f'<p class="pr-content-subhead">{_render_inline(line.strip())}</p>')
+            i += 1
+            continue
 
         out.append(f'<p>{_render_inline(line)}</p>')
         i += 1

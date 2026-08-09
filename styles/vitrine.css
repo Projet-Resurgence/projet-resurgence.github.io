@@ -489,6 +489,11 @@ body.v-page {
 .pr-content a { color: var(--v-gold); text-decoration: none; border-bottom: 1px solid var(--v-gold-line); }
 .pr-content a:hover { border-bottom-color: var(--v-gold); }
 
+/* Intertitre : collé à son paragraphe, détaché du bloc précédent. Sans cela
+   il flotte à égale distance des deux et on ne sait plus ce qu'il annonce. */
+.pr-content > p.pr-content-subhead { margin: 26px 0 2px; }
+.pr-content > p.pr-content-subhead:first-child { margin-top: 0; }
+
 .pr-content-h3 { margin: 30px 0 2px; font: 600 18px var(--v-title); color: var(--v-ink); }
 .pr-content-h4 { margin: 24px 0 2px; font: 600 15.5px var(--v-title); color: var(--v-ink); }
 .pr-content-h5 { margin: 20px 0 2px; font: 600 14px var(--v-title); color: var(--v-ink-soft); }
