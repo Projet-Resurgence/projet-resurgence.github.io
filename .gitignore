@@ -9,6 +9,10 @@ commands
 !*requirements.txt
 *json
 !context_datas/*.json
+# Généré par scripts/generate_bot_command_guide.py, commité, et COPY'é par le
+# Dockerfile : sans cette négation `*json` l'efface d'un clone frais et le
+# guide des commandes disparaît du forum RP (règle 16 du CLAUDE.md racine).
+!data/bot_commands.json
 *config*
 mapping-library/
 gnd_archives/

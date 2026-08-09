@@ -139,12 +139,16 @@
 
 	/* === LAYOUT === */
 	--header-height: 80px;
-	--container-max-width: 100%;
+	/* 100% collait le contenu aux bords de l'écran sur les pages qui n'ont pas
+	   la charte « Atlas » (rp-geopolitique, 404). Même gabarit que --v-shell. */
+	--container-max-width: 1440px;
 	--content-max-width: 1400px;
 	--content-min-width: 250px;
 	--card-min-width: 280px;
 	--card-standard-width: 300px;
-	--text-max-width: 600px;
+	/* Chapeau des hero (.hero-description). 600px cassait la phrase en trois
+	   lignes au milieu d'un écran vide. */
+	--text-max-width: 900px;
 
 	/* === UI COMPONENTS === */
 	/* Logo */

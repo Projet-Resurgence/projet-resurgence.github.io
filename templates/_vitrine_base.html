@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+ <!-- Force SW cache purge and update -->
+ <script>
+ (function() {
+ if (!('serviceWorker' in navigator)) return;
+ var SW_VERSION = 'v1.8.0';
+ var lastSW = localStorage.getItem('sw-version');
+ if (lastSW !== SW_VERSION) {
+ caches.keys().then(function(names) {
+ return Promise.all(names.map(function(n) { return caches.delete(n); }));
+ }).then(function() {
+ return navigator.serviceWorker.getRegistration();
+ }).then(function(reg) {
+ if (reg) return reg.unregister();
+ }).then(function() {
+ localStorage.setItem('sw-version', SW_VERSION);
+ location.reload();
+ });
+ }
+ })();
+</script>
+
+ <!-- Google Tag Manager -->
+ <script>(function (w, d, s, l, i) {
+ w[l] = w[l] || []; w[l].push({
+ 'gtm.start':
+ new Date().getTime(), event: 'gtm.js'
+ }); var f = d.getElementsByTagName(s)[0],
+ j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+ 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+ })(window, document, 'script', 'dataLayer', 'GTM-PKRZXV9B');</script>
+ <!-- End Google Tag Manager -->
+
+ <script>
+ window.axeptioSettings = {
+ clientId: "68963e315d089c7b7334b5d1",
+ cookiesVersion: "fr-08-08-2025_fr-EU",
+ googleConsentMode: {
+ default: {
+ analytics_storage: "denied",
+ ad_storage: "denied",
+ ad_user_data: "denied",
+ ad_personalization: "denied",
+ wait_for_update: 500
+ }
+ }
+ };
+
+ (function (d, s) {
+ var t = d.getElementsByTagName(s)[0], e = d.createElement(s);
+ e.async = true; e.src = "//static.axept.io/sdk.js";
+ t.parentNode.insertBefore(e, t);
+ })(document, "script");
+</script>
+
+ <script>
+ window.dataLayer = window.dataLayer || [];
+ function gtag() { dataLayer.push(arguments); }
+ gtag('js', new Date());
+ gtag('config', 'G-5B3PEQ65HX', { send_page_view: true });
+</script>
+
+ <title>{{ page.meta_title }}</title>
+ <meta name="title" content="{{ page.meta_title }}">
+ <meta name="description" content="{{ page.meta_description }}">
+ <meta name="robots" content="index, follow">
+ <meta name="language" content="French">
+ <meta name="author" content="Projet Résurgence">
+
+ <meta property="og:type" content="website">
+ <meta property="og:url" content="{{ public_url }}/{{ slug }}">
+ <meta property="og:title" content="{{ page.meta_title }}">
+ <meta property="og:description" content="{{ page.meta_description }}">
+ <meta property="og:image" content="{{ public_url }}/images/banner.jpg">
+ <meta property="og:site_name" content="Projet Résurgence">
+ <meta property="og:locale" content="fr_FR">
+
+ <meta property="twitter:card" content="summary_large_image">
+ <meta property="twitter:url" content="{{ public_url }}/{{ slug }}">
+ <meta property="twitter:title" content="{{ page.meta_title }}">
+ <meta property="twitter:description" content="{{ page.meta_description }}">
+ <meta property="twitter:image" content="{{ public_url }}/images/banner.jpg">
+
+ <link rel="canonical" href="{{ public_url }}/{{ slug }}">
+
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+ <link rel="preload" href="/fonts/pressgothic.otf" as="font" type="font/otf" crossorigin="anonymous">
+
+ <link rel="stylesheet" href="/styles/main.css?v=2.8.2">
+ <link rel="stylesheet" href="/styles/vitrine.css?v=1.5.0">
+ <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+ <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+ <link rel="shortcut icon" href="/favicon/favicon.ico" />
+ <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+ <link rel="manifest" href="/manifest.json">
+ <meta name="theme-color" content="#D5B654">
+ <meta name="apple-mobile-web-app-title" content="Projet Resurgence" />
+
+ <script type="application/ld+json">
+ {
+ "@context": "https://schema.org",
+ "@type": "WebPage",
+ "name": {{ page.meta_title | tojson }},
+ "description": {{ page.meta_description | tojson }},
+ "url": {{ (public_url ~ '/' ~ slug) | tojson }},
+ "inLanguage": "fr",
+ "isPartOf": {
+ "@type": "WebSite",
+ "name": "Projet Résurgence",
+ "url": {{ public_url | tojson }}
+ },
+ "publisher": { "@type": "Organization", "name": "Projet Résurgence" }
+ }
+</script>
+
+ <!-- PR Design System (shared tokens + components) -->
+ <link rel="stylesheet" href="/assets/pr-design-system/pr-design-system.css?v=11">
+ <script defer src="/assets/pr-design-system/pr-design-system.js?v=11"></script>
+ {% block head_extra %}{% endblock %}
+</head>
+
+<body class="pr-scope v-page">
+ <a class="skip-link" href="#main-content">Aller au contenu principal</a>
+
+ <intersite-navbar current-site="home" hide-toggle logo-src="/favicon/favicon-96x96.png"></intersite-navbar>
+
+ <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PKRZXV9B" height="0" width="0"
+ style="display:none;visibility:hidden"></iframe></noscript>
+
+ <resurgence-header current-page="{{ page.nav_page }}"></resurgence-header>
+
+ <main id="main-content">
+ {% block content %}{% endblock %}
+</main>
+
+ <resurgence-footer></resurgence-footer>
+
+ <script type="module" src="/components/components.js?v=4.1.0"></script>
+ <script src="/styles/main.js?v=1.4.0" defer></script>
+ {% block body_extra %}{% endblock %}
+</body>
+
+</html>

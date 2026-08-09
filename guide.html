@@ -9,7 +9,7 @@
  <script>
  (function() {
  if (!('serviceWorker' in navigator)) return;
- var SW_VERSION = 'v1.7.0';
+ var SW_VERSION = 'v1.8.0';
  var lastSW = localStorage.getItem('sw-version');
  if (lastSW !== SW_VERSION) {
  caches.keys().then(function(names) {
@@ -28,14 +28,10 @@
 
  <!-- Google Tag Manager -->
  <script>(function (w, d, s, l, i) {
- w[l] = w[l] || []; w[l].push({
- 'gtm.start':
- new Date().getTime(), event: 'gtm.js'
- }); var f = d.getElementsByTagName(s)[0],
- j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
- 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+ w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+ var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+ j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
  })(window, document, 'script', 'dataLayer', 'GTM-PKRZXV9B');</script>
- <!-- End Google Tag Manager -->
 
  <script>
  window.axeptioSettings = {
@@ -43,15 +39,11 @@
  cookiesVersion: "fr-08-08-2025_fr-EU",
  googleConsentMode: {
  default: {
- analytics_storage: "denied",
- ad_storage: "denied",
- ad_user_data: "denied",
- ad_personalization: "denied",
- wait_for_update: 500
+ analytics_storage: "denied", ad_storage: "denied",
+ ad_user_data: "denied", ad_personalization: "denied", wait_for_update: 500
  }
  }
  };
-
  (function (d, s) {
  var t = d.getElementsByTagName(s)[0], e = d.createElement(s);
  e.async = true; e.src = "//static.axept.io/sdk.js";
@@ -59,498 +51,207 @@
  })(document, "script");
 </script>
 
-
- <!-- Enhanced Analytics Configuration -->
  <script>
  window.dataLayer = window.dataLayer || [];
  function gtag() { dataLayer.push(arguments); }
  gtag('js', new Date());
- gtag('config', 'G-5B3PEQ65HX', {
- send_page_view: true,
- enhanced_measurement: {
- scroll_events: true,
- outbound_clicks: true,
- site_search: true,
- file_downloads: true
- },
- custom_parameters: {
- content_group1: 'Guide Page',
- content_group2: 'Documentation',
- content_group3: 'Tutorial Content'
- }
- });
-
- window.trackEvent = function (eventName, parameters = {}) {
- gtag('event', eventName, {
- event_category: parameters.category || 'User Interaction',
- event_label: parameters.label || '',
- value: parameters.value || 0,
- custom_parameters: {
- page_type: 'guide',
- ...parameters.custom
- }
- });
- };
+ gtag('config', 'G-5B3PEQ65HX', { send_page_view: true });
 </script>
 
- <!-- Primary Meta Tags -->
- <title>Guide du Débutant - Projet Résurgence | Comment Commencer le RP Géopolitique</title>
- <meta name="title" content="Guide du Débutant - Projet Résurgence">
- <meta name="description"
- content="Guide complet pour débuter sur Projet Résurgence. Apprenez à créer votre nation, comprendre l'économie et maîtriser le roleplay géopolitique francophone.">
- <meta name="keywords"
- content="guide projet résurgence, tutoriel RP géopolitique, débuter roleplay français, créer nation virtuelle, guide discord français, aide débutant RP">
+ <title>Guide du débutant - Projet Résurgence</title>
+ <meta name="title" content="Guide du débutant - Projet Résurgence">
+ <meta name="description" content="De zéro à votre première décision d'État en 30 minutes : cinq étapes, chacune terminée par une action concrète sur le Discord.">
+ 
  <meta name="robots" content="index, follow">
  <meta name="language" content="French">
  <meta name="author" content="Projet Résurgence">
+ 
 
- <!-- Open Graph / Facebook -->
  <meta property="og:type" content="website">
- <meta property="og:url" content="https://projet-resurgence.fr/guide.html">
- <meta property="og:title" content="Guide du Débutant - Projet Résurgence">
+ <meta property="og:url" content="https://projet-resurgence.fr/guide">
+ <meta property="og:title" content="Guide du débutant - Projet Résurgence">
  <meta property="og:description"
- content="Apprenez à créer votre nation et maîtriser le roleplay géopolitique avec notre guide complet pour débutants.">
+ content="De zéro à votre première décision d'État en 30 minutes : cinq étapes, chacune terminée par une action concrète sur le Discord.">
  <meta property="og:image" content="https://projet-resurgence.fr/images/banner.jpg">
  <meta property="og:image:width" content="1055">
  <meta property="og:image:height" content="630">
- <meta property="og:image:alt" content="Bannière du Guide du Débutant">
- <meta property="og:image:type" content="image/jpeg">
  <meta property="og:site_name" content="Projet Résurgence">
  <meta property="og:locale" content="fr_FR">
 
- <!-- Twitter -->
  <meta property="twitter:card" content="summary_large_image">
- <meta property="twitter:url" content="https://projet-resurgence.fr/guide.html">
- <meta property="twitter:title" content="Guide du Débutant - Projet Résurgence">
+ <meta property="twitter:url" content="https://projet-resurgence.fr/guide">
+ <meta property="twitter:title" content="Guide du débutant - Projet Résurgence">
  <meta property="twitter:description"
- content="Guide complet pour débuter sur notre serveur de roleplay géopolitique.">
+ content="De zéro à votre première décision d'État en 30 minutes : cinq étapes, chacune terminée par une action concrète sur le Discord.">
  <meta property="twitter:image" content="https://projet-resurgence.fr/images/banner.jpg">
- <meta property="twitter:image:width" content="1055">
- <meta property="twitter:image:height" content="630">
- <meta property="twitter:image:alt" content="Bannière du Guide du Débutant">
- <meta property="twitter:image:type" content="image/jpeg">
 
- <!-- Canonical URL -->
- <link rel="canonical" href="https://projet-resurgence.fr/guide.html">
-
- <!-- Resource hints for performance -->
+ <link rel="canonical" href="https://projet-resurgence.fr/guide">
+  
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
  <link rel="preload" href="./fonts/pressgothic.otf" as="font" type="font/otf" crossorigin="anonymous">
- <link rel="preload" href="./styles/critical.css?v=2" as="style" onload="this.onload=null;this.rel='stylesheet'">
- <noscript>
- <link rel="stylesheet" href="./styles/critical.css?v=2">
-</noscript>
- <link rel="preload" href="./styles/main.css?v=2.7.1" as="style">
- <link rel="preload" href="./images/final_logo_centered_little.webp" as="image" type="image/webp">
- <link rel="preload" href="./images/final_logo_centered_little.png" as="image" type="image/png">
- <link rel="preload" href="./styles/main.js?v=1.4.0" as="script">
- <link rel="prefetch" href="./index.html">
- <link rel="prefetch" href="./regles.html">
+ <link rel="preload" href="./images/europe-map.png" as="image">
 
- <link rel="stylesheet" href="./styles/main.css?v=2.7.1">
- <link rel="stylesheet" href="./styles/guide.css?v=1.2.1">
- <link rel="stylesheet" href="./styles/enhancements.css?v=1.6.0">
- <link rel="icon" type="image/png" href="./images/final_logo_little.png">
- <link rel="manifest" href="./manifest.json">
- <meta name="theme-color" content="#D5B654">
+ <link rel="stylesheet" href="./styles/main.css?v=2.8.2">
+ <link rel="stylesheet" href="./styles/vitrine.css?v=1.5.0">
  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
  <link rel="shortcut icon" href="/favicon/favicon.ico" />
  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+ <link rel="manifest" href="./manifest.json">
+ <meta name="theme-color" content="#D5B654">
  <meta name="apple-mobile-web-app-title" content="Projet Resurgence" />
 
-
- <!-- Structured Data (JSON-LD) -->
  <script type="application/ld+json">
  {
  "@context": "https://schema.org",
  "@type": "WebPage",
- "name": "Guide du Débutant - Projet Résurgence",
- "description": "Guide complet pour débuter sur Projet Résurgence. Apprenez à créer votre nation, comprendre l'économie et maîtriser le roleplay géopolitique francophone",
- "url": "https://projet-resurgence.fr/guide.html",
+ "name": "Guide du débutant - Projet Résurgence",
+ "description": "De zéro à votre première décision d'État en 30 minutes : cinq étapes, chacune terminée par une action concrète sur le Discord.",
+ "url": "https://projet-resurgence.fr/guide",
  "inLanguage": "fr",
- "isPartOf": {
- "@type": "WebSite",
- "name": "Projet Résurgence",
- "url": "https://projet-resurgence.fr"
- },
- "about": {
- "@type": "Game",
- "name": "Projet Résurgence - RP Géopolitique",
- "genre": "Role-playing game",
- "gamePlatform": "Discord"
- },
- "author": {
- "@type": "Organization",
- "name": "Projet Résurgence"
- },
- "publisher": {
- "@type": "Organization",
- "name": "Projet Résurgence"
- },
- "educationalUse": "Tutorial",
- "typicalAgeRange": "16-99",
- "audience": {
- "@type": "Audience",
- "audienceType": "French speakers interested in geopolitical roleplay"
- }
+ "isPartOf": {"@type": "WebSite", "name": "Projet Résurgence", "url": "https://projet-resurgence.fr"}
  }
 </script>
- <!-- PR Design System (shared tokens + components) -->
+
  <link rel="stylesheet" href="https://projet-resurgence.fr/assets/pr-design-system/pr-design-system.css?v=11">
  <script defer src="https://projet-resurgence.fr/assets/pr-design-system/pr-design-system.js?v=11"></script>
 </head>
 
-<body class="pr-scope">
+<body class="pr-scope v-page">
  <a class="skip-link" href="#main-content">Aller au contenu principal</a>
 
  <intersite-navbar current-site="home" hide-toggle logo-src="./favicon/favicon-96x96.png"></intersite-navbar>
 
- <!-- Google Tag Manager (noscript) -->
  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PKRZXV9B" height="0" width="0"
  style="display:none;visibility:hidden"></iframe></noscript>
- <!-- End Google Tag Manager (noscript) -->
 
- <!-- Header Component -->
  <resurgence-header current-page="guide"></resurgence-header>
 
- <!-- Main Content -->
- <main class="main" id="main-content">
- <!-- Hero Section -->
- <section class="hero guide-hero">
- <div class="container">
- <div class="hero-content">
- <h1 class="hero-title">Guide du Débutant</h1>
- <p class="hero-subtitle">Premiers Pas dans Projet Résurgence</p>
- <p class="hero-description">
- Bienvenue dans le monde post-apocalyptique de 2303. Ce guide complet vous accompagne pour créer votre nation et débuter votre aventure géopolitique.
-</p>
-</div>
-</div>
-</section>
+ <main id="main-content">
 
- <!-- Introduction au Contexte -->
- <section class="features" data-reveal>
- <div class="container">
- <h2 class="section-title"> Contexte : Le Monde de 2303</h2>
- <div class="guide-intro">
- <p>Nous sommes en <strong>2303</strong>, dans un monde post-apocalyptique où l'humanité se reconstruit après l'effondrement du 21ème siècle. Les anciens États ont disparu, laissant place à de nouvelles nations émergentes qui luttent pour la survie, la prospérité et la domination.</p>
+ <section class="v-shell" style="padding-top:56px;padding-bottom:20px">
+ <span class="v-eyebrow">Guide du débutant</span>
+ <h1 class="v-h1">De zéro à votre première<br>décision d'État en 30 minutes.</h1>
+ <p class="v-lede">Aucune expérience de RP n'est requise. Suivez les cinq étapes dans
+ l'ordre ; chacune se termine par une action concrète sur le Discord.</p>
+ </section>
 
- <div class="context-features">
- <div class="context-item">
- <h3> Géopolitique</h3>
- <p>Reconstruction des civilisations sur les ruines de l'ancien monde avec de nouveaux systèmes politiques et économiques.</p>
-</div>
- <div class="context-item">
- <h3> Technologie</h3>
- <p>Recherche et redécouverte des technologies perdues, des niveaux primitifs aux innovations futuristes.</p>
-</div>
- <div class="context-item">
- <h3> Conflits</h3>
- <p>Luttes pour les territoires et ressources dans un monde où chaque région compte pour la survie.</p>
-</div>
- <div class="context-item">
- <h3> Économie</h3>
- <p>Systèmes économiques complexes avec commerce, industrie et gestion des ressources rares.</p>
-</div>
-</div>
-</div>
+ <section class="v-shell" style="padding-top:24px;padding-bottom:64px">
+ <div class="v-steps">
+
+ <div class="v-steps__marker is-done"><i>1</i><b></b></div>
+ <div class="v-steps__body">
+ <h3>Rejoindre et lire l'essentiel</h3>
+ <p>Entrez sur le Discord, acceptez le règlement, et lisez le chapitre Roleplay —
+ c'est le seul indispensable avant de jouer.</p>
+ <a class="v-btn-ghost" href="/regles#rp">Ouvrir le chapitre Roleplay →</a>
+ </div>
+ <div class="v-steps__side">
+ <div class="v-sidecard">
+ <span class="v-sidecard__label">Salon</span>
+ <p class="v-sidecard__value">#règlement</p>
+ </div>
+ </div>
+
+ <div class="v-steps__marker is-current"><i>2</i><b></b></div>
+ <div class="v-steps__body">
+ <h3>Choisir un territoire</h3>
+ <p>Ouvrez la carte, repérez une région libre. Sa population et ses ressources
+ détermineront votre point de départ économique — un désert et un delta fluvial
+ ne se jouent pas pareil.</p>
+ <a class="v-btn-ghost" href="https://map.projet-resurgence.fr/" target="_blank" rel="noopener">Ouvrir la carte interactive →</a>
+ </div>
+ <div class="v-steps__side">
+ <div style="position:relative;height:160px;border:1px solid var(--v-gold-line);overflow:hidden;background:var(--v-bg-panel)">
+ <img src="./images/europe-map.png" alt="Extrait de la carte du jeu"
+ style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.45;filter:grayscale(1)">
+ <span class="v-blip" style="left:48%;top:44%"></span>
+ <span style="position:absolute;left:10px;bottom:10px;font:400 10px var(--v-mono);color:var(--v-gold)">RÉGION LIBRE</span>
+ </div>
+ </div>
+
+ <div class="v-steps__marker"><i>3</i><b></b></div>
+ <div class="v-steps__body">
+ <h3>Remplir la fiche de nation</h3>
+ <p>Nom, régime, doctrine, drapeau. Rien d'irréversible : tout peut évoluer en jeu,
+ y compris le régime — surtout le régime. Vous démarrez avec 1 000 000 000 de PIB,
+ 2 points politiques et 2 points diplomatiques.</p>
+ </div>
+ <div class="v-steps__side">
+ <div class="v-sidecard">
+ <span class="v-sidecard__label">Fiche de nation</span>
+ <dl style="margin-top:10px">
+ <div><dt>Nom officiel</dt><dd>République d'Aral</dd></div>
+ <div><dt>Régime</dt><dd>Fédération</dd></div>
+ <div><dt>Capitale</dt><dd>Moynaq</dd></div>
+ <div><dt>Doctrine</dt><dd style="color:var(--v-ink-faint)">à définir</dd></div>
+ </dl>
+ </div>
+ </div>
+
+ <div class="v-steps__marker"><i>4</i><b></b></div>
+ <div class="v-steps__body">
+ <h3>Passer votre premier budget</h3>
+ <p>Le calculateur vous dit ce que coûtent logements, centrales et routes. Dépenser
+ tout dès le premier tour est l'erreur la plus fréquente des nouveaux.</p>
+ <a class="v-btn-ghost" href="https://calc.projet-resurgence.fr/" target="_blank" rel="noopener">Ouvrir le calculateur →</a>
+ </div>
+ <div class="v-steps__side">
+ <div class="v-sidecard is-tip">
+ <span class="v-sidecard__label" style="color:var(--v-gold)">Conseil</span>
+ <p style="margin:6px 0 0;font:400 12.5px/1.6 var(--v-body);color:var(--v-ink-muted)">
+ Gardez 20 % de trésorerie. Une crise arrive toujours plus tôt qu'un technocentre.</p>
+ </div>
+ </div>
+
+ <div class="v-steps__marker"><i>5</i></div>
+ <div class="v-steps__body">
+ <h3>Écrire votre premier acte</h3>
+ <p>Une déclaration, une réforme, une main tendue à un voisin. À partir de là,
+ le monde vous répond. Si l'action a un coût, indiquez-le : sans montant, elle est
+ considérée comme non financée.</p>
+ </div>
+ <div class="v-steps__side">
+ <a class="v-btn" style="display:block;text-align:center" href="https://discord.projet-resurgence.fr/" target="_blank" rel="noopener">Commencer maintenant</a>
+ </div>
+
  </div>
  </section>
 
- <hr class="section-divider">
-
- <!-- Démarrage Rapide -->
- <section class="features" data-reveal>
- <div class="container">
- <h2 class="section-title"> Démarrage Rapide</h2>
-
- <div class="step-timeline">
- <div class="step-item">
- <div class="step-number">1</div>
- <div class="step-content">
- <h3>Rejoindre le Discord</h3>
- <p>Rejoignez notre serveur Discord et présentez-vous dans les canaux d'accueil. L'équipe d'administration vous guidera pour vos premiers pas.</p>
- <a href="https://discord.projet-resurgence.fr/" class="btn btn-primary">Rejoindre Discord</a>
-</div>
-</div>
-
- <div class="step-item">
- <div class="step-number">2</div>
- <div class="step-content">
- <h3>Lire les Règles</h3>
- <p>Étudiez attentivement les règlements HRP et RP. Ces règles garantissent un environnement de jeu équitable et immersif pour tous.</p>
- <a href="regles.html" class="btn btn-secondary">Voir les Règles</a>
-</div>
-</div>
-
- <div class="step-item">
- <div class="step-number">3</div>
- <div class="step-content">
- <h3>Comprendre l'Univers</h3>
- <p>Lisez le contexte du monde de 2303 et les mécaniques de jeu. Familiarisez-vous avec l'économie, la technologie et la diplomatie.</p>
- <a href="univers.html" class="btn btn-secondary">Explorer l'Univers</a>
-</div>
-</div>
-
- <div class="step-item">
- <div class="step-number">4</div>
- <div class="step-content">
- <h3>Créer votre Nation</h3>
- <p>Concevez votre nation avec la fiche de création. Réfléchissez à son histoire, sa culture, son gouvernement et ses objectifs.</p>
-</div>
-</div>
-
- <div class="step-item">
- <div class="step-number">5</div>
- <div class="step-content">
- <h3>Validation et Début</h3>
- <p>Soumettez votre fiche pour validation. Une fois approuvée, recevez vos rôles Discord et commencez votre aventure géopolitique !</p>
-</div>
-</div>
-</div>
+ <section class="v-split">
+ <div>
+ <span class="v-eyebrow">Ensuite</span>
+ <h2 class="v-h2">Les erreurs qui coûtent cher</h2>
+ <div class="pr-content" style="margin-top:18px">
+ <ul class="pr-content-list">
+ <li>Dépenser toute la trésorerie au premier tour.</li>
+ <li>Déséquilibrer les secteurs : le rapport tertiaire ⩾ primaire ⩾ secondaire fait l'inflation.</li>
+ <li>Écrire une action sans en préciser le coût — elle sera lue comme non financée.</li>
+ <li>Lever une armée que l'économie ne peut pas entretenir.</li>
+ <li>Faire rédiger l'action par une IA : la mise en forme, oui ; la rédaction, pénalisée.</li>
+ </ul>
+ </div>
+ </div>
+ <div>
+ <span class="v-eyebrow">Pour aller plus loin</span>
+ <h2 class="v-h2">Où lire quoi</h2>
+ <nav class="v-chroniclist" style="margin-top:20px">
+ <a href="/regles"><span class="v-chroniclist__tag">Règlement</span><span class="v-chroniclist__title">Ce qui est autorisé, et ce qui est sanctionné</span></a>
+ <a href="/mecaniques"><span class="v-chroniclist__tag">Mécaniques</span><span class="v-chroniclist__title">Comment les chiffres sont calculés</span></a>
+ <a href="/forum-rp"><span class="v-chroniclist__tag">Forum RP</span><span class="v-chroniclist__title">Quotients politiques et rôles caractéristiques</span></a>
+ <a href="/univers"><span class="v-chroniclist__tag">Univers</span><span class="v-chroniclist__title">Dans quel monde vous écrivez</span></a>
+ </nav>
  </div>
  </section>
 
- <hr class="section-divider">
-
- <!-- Fiche de Création -->
- <section class="features" data-reveal>
- <div class="container">
- <h2 class="section-title"> Fiche de Création de Pays</h2>
- <div class="creation-form">
- <p class="form-intro">Voici la fiche officielle à remplir pour créer votre nation. Prenez le temps de bien réfléchir à chaque section car elle définira l'identité de votre pays dans l'univers de Projet Résurgence.</p>
- 
- <div class="form-section">
- <div class="form-field">
- <h3> Nom de votre pays</h3>
- <p>Choisissez un nom évocateur qui reflète l'identité de votre nation post-apocalyptique. Évitez les noms d'États existants dans le monde réel.</p>
-</div>
-
- <div class="form-field">
- <h3> Nom du Dirigeant</h3>
- <p>Qui dirige votre nation ? Un président, un empereur, un conseil, ou autre ? Si votre système n'a pas de dirigeant unique, précisez-le.</p>
-</div>
-
- <div class="form-field">
- <h3> Région sur la carte</h3>
- <p>Indiquez le <strong>numéro de la région</strong> que vous souhaitez occuper et précisez sa localisation géographique (ex: Europe de l'Est, Amérique du Nord, Asie du Sud-Est, etc.). Consultez la carte disponible sur le serveur Discord.</p>
-</div>
-
- <div class="form-field">
- <h3> Description de votre système économique</h3>
- <p><em>Système économique + idéologie socio-économique</em></p>
- <p>Décrivez précisément mais brièvement comment votre économie est organisée.</p>
- <div class="example">
- <strong>Exemple :</strong> <em>"J'ai une économie capitaliste libérale, mon État maintient cependant un contrôle sur les marchés et le système financier."</em>
-</div>
- <div class="tips">
- <strong>Types économiques possibles :</strong> Capitalisme, socialisme, économie planifiée, économie de marché, troc, économie de survie, corporatisme, etc.
-</div>
-</div>
-
- <div class="form-field">
- <h3> Description de votre système politique</h3>
- <p><em>Structure du pouvoir + Idéologie socio-politique + Source du pouvoir</em></p>
- <p>Décrivez précisément mais brièvement comment votre système politique est organisé.</p>
- <div class="example">
- <strong>Exemple :</strong> <em>"J'ai une république semi-présidentielle, les représentants sont élus démocratiquement tous les 5 ans. Mon pays est organisé de manière fédérale."</em>
-</div>
- <div class="tips">
- <strong>Types politiques possibles :</strong> Démocratie, dictature, théocratie, technocratie, anarchie organisée, conseil tribal, féodalisme moderne, etc.
-</div>
-</div>
-
- <div class="form-field">
- <h3> Description de votre politique religieuse</h3>
- <p>Comment la religion est-elle traitée dans votre pays ? Y a-t-il une religion d'État, une séparation, ou une persécution ?</p>
- <div class="example">
- <strong>Exemple :</strong> <em>"Mon pays est séculaire et ne légifère pas sur la religion, chacun est libre de pratiquer comme il le souhaite."</em>
-</div>
-</div>
-
- <div class="form-field">
- <h3> Capitale</h3>
- <p>Nom de votre ville capitale. Elle peut être une ancienne ville reconstruite ou une nouvelle cité fondée après l'apocalypse.</p>
-</div>
-
- <div class="form-field optional">
- <h3> (OPTIONNEL) Description de l'histoire de votre pays</h3>
- <p>Racontez brièvement comment votre pays a vu le jour après l'effondrement de l'ancien monde. Cette section aide à créer des événements personnalisés mais reste optionnelle.</p>
- <div class="tips">
- <strong>Questions à considérer :</strong> Comment vos ancêtres ont-ils survécu ? Quels défis ont-ils surmontés ? Y a-t-il des événements fondateurs importants ?
-</div>
-</div>
-
- <div class="form-field">
- <h3> Objectifs</h3>
- <p>Décrivez vos principaux objectifs dans le roleplay. Que voulez-vous accomplir avec votre nation ?</p>
- <div class="tips">
- <strong>Exemples d'objectifs :</strong> Expansion territoriale, développement technologique, influence diplomatique, reconstruction, domination économique, préservation culturelle, etc.
-</div>
-</div>
-
- <div class="form-field">
- <h3> Image du Drapeau</h3>
- <p>Fournissez une image de votre drapeau national. Elle peut être créée par vous-même ou trouvée en ligne, mais doit être appropriée au contexte post-apocalyptique.</p>
-</div>
-</div>
-</div>
- </div>
- </section>
-
- <hr class="section-divider">
-
- <!-- Conseils pour la Création -->
- <section class="features" data-reveal>
- <div class="container">
- <h2 class="section-title"> Conseils pour une Bonne Création</h2>
- <div class="tips-grid pr-grid">
- <div class="tip-card">
- <h3> Cohérence</h3>
- <p>Assurez-vous que tous les éléments de votre nation s'harmonisent entre eux. Un système politique, économique et religieux qui se complètent créent une nation crédible.</p>
-</div>
- 
- <div class="tip-card">
- <h3> Contexte Post-Apocalyptique</h3>
- <p>Votre nation doit s'intégrer dans le monde de 2303. Réfléchissez aux conséquences de l'effondrement sur votre société et comment elle s'est adaptée.</p>
-</div>
- 
- <div class="tip-card">
- <h3> Équilibre</h3>
- <p>Évitez les nations trop parfaites ou trop puissantes. Chaque force doit avoir ses faiblesses, chaque avantage ses inconvénients pour un jeu équilibré.</p>
-</div>
- 
- <div class="tip-card">
- <h3> Originalité</h3>
- <p>Apportez une touche personnelle à votre création. Qu'est-ce qui rend votre nation unique dans ce monde post-apocalyptique ?</p>
-</div>
- 
- <div class="tip-card">
- <h3> Recherche</h3>
- <p>Inspirez-vous de l'histoire réelle, de la fiction, ou de vos propres idées, mais adaptez tout au contexte de l'univers du serveur.</p>
-</div>
- 
- <div class="tip-card">
- <h3> Interaction</h3>
- <p>Pensez à la façon dont votre nation pourra interagir avec les autres. La diplomatie, le commerce et même les conflits font partie du jeu.</p>
-</div>
-</div>
- </div>
- </section>
-
-
-
- <hr class="section-divider">
-
- <!-- Premiers Pas Après Validation -->
- <section class="features" data-reveal>
- <div class="container">
- <h2 class="section-title"> Premiers Pas Après Validation</h2>
- 
- <div class="first-steps">
- <div class="step-category">
- <h3> Mise en Place</h3>
- <ul>
- <li>Explorez vos canaux Discord dédiés</li>
- <li>Configurez votre gouvernement et ses membres</li>
- <li>Rédigez votre première présentation officielle</li>
- <li>Définissez votre politique intérieure initiale</li>
-</ul>
-</div>
- 
- <div class="step-category">
- <h3> Développement</h3>
- <ul>
- <li>Planifiez vos premiers investissements économiques</li>
- <li>Choisissez vos priorités technologiques</li>
- <li>Organisez votre première construction d'infrastructure</li>
- <li>Établissez votre stratégie de développement à long terme</li>
-</ul>
-</div>
- 
- <div class="step-category">
- <h3> Diplomatie</h3>
- <ul>
- <li>Présentez-vous aux nations voisines</li>
- <li>Évaluez les opportunités d'alliance</li>
- <li>Établissez vos premières relations commerciales</li>
- <li>Participez aux discussions internationales</li>
-</ul>
-</div>
- 
- <div class="step-category">
- <h3> Sécurité</h3>
- <ul>
- <li>Organisez vos forces armées initiales</li>
- <li>Évaluez les menaces potentielles</li>
- <li>Planifiez votre stratégie de défense</li>
- <li>Considérez vos besoins en équipement militaire</li>
-</ul>
-</div>
-</div>
- </div>
- </section>
-
- <hr class="section-divider">
-
- <!-- FAQ -->
- <section class="features" data-reveal>
- <div class="container">
- <h2 class="section-title"> Questions Fréquentes</h2>
- 
- <div class="faq-grid pr-grid">
- <div class="faq-item">
- <h3>Combien de temps pour la validation ?</h3>
- <p>Entre 1-3 jours selon la complexité et la disponibilité du staff.</p>
-</div>
- <div class="faq-item">
- <h3>Puis-je avoir plusieurs nations ?</h3>
- <p>Non, une seule nation par personne, sans exception.</p>
-</div>
- <div class="faq-item">
- <h3>Puis-je modifier ma nation après validation ?</h3>
- <p>Les modifications mineures sont acceptées. Les changements majeurs nécessitent justification RP.</p>
-</div>
- <div class="faq-item">
- <h3>Dois-je être connecté tous les jours ?</h3>
- <p>Non, mais une activité régulière est appréciée.</p>
-</div>
-</div>
- </div>
- </section>
-
-
-
- <hr class="section-divider">
-
- <!-- Call to Action -->
- <section class="cta" data-reveal>
- <div class="container">
- <h2>Prêt à Façonner l'Avenir ?</h2>
- <p>
- Le monde de 2303 vous attend. Créez votre nation, forgez votre destinée et participez à la reconstruction de l'humanité dans cet univers post-apocalyptique riche en possibilités.
-</p>
- <div class="btn-group">
- <a href="https://discord.projet-resurgence.fr/" class="btn btn-primary">Rejoindre Discord</a>
- <a href="regles.html" class="btn btn-secondary">Lire les Règles</a>
- <a href="mecaniques.html" class="btn btn-secondary">Découvrir les Mécaniques</a>
-</div>
-</div>
-</section>
 </main>
 
- <!-- Footer Component -->
  <resurgence-footer></resurgence-footer>
 
- <!-- JavaScript -->
- <!-- Web Components -->
- <script type="module" src="./components/components.js?v=3.2.0"></script>
-
- <!-- Application Scripts -->
- <script src="./styles/main.js?v=1.4.0"></script>
- <script src="./styles/seo-optimizer.js"></script>
- <script src="./styles/performance-optimizer.js?v=4"></script>
- <script defer src="./styles/enhancements.js?v=2.1.1"></script>
+ <script type="module" src="./components/components.js?v=4.1.0"></script>
+ <script src="./styles/main.js?v=1.4.0" defer></script>
 </body>
 
 </html>

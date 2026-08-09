@@ -29,3 +29,23 @@ JWT_EXPIRATION_HOURS = 24
 PR_API_URL = os.getenv("RESURGENCE_WEB_PR_API_URL", "http://pr-api:5000").rstrip("/")
 PR_API_CLIENT_ID = os.getenv("RESURGENCE_WEB_PR_API_CLIENT_ID", "resurgence-web")
 PR_API_CLIENT_SECRET = os.getenv("RESURGENCE_WEB_PR_API_CLIENT_SECRET", "")
+
+# ── Editorial content (règlement / univers / forum RP) ──────────────────────
+# Images pasted into the editor are written here and served back at /uploads/.
+# In Docker this is the `content_uploads` named volume; the container is
+# recreated on every deploy, so anything written outside a volume is lost.
+UPLOADS_DIR = Path(
+    os.getenv("RESURGENCE_WEB_UPLOADS_DIR", str(BASE_DIR / "uploads"))
+).resolve()
+
+MAX_UPLOAD_BYTES = int(os.getenv("RESURGENCE_WEB_MAX_UPLOAD_BYTES", 8 * 1024 * 1024))
+
+# Raster + vector images only. No SVG: it is an XML document that can carry
+# script, and these files are served from the site's own origin.
+ALLOWED_IMAGE_TYPES = {
+    "image/png": ".png",
+    "image/jpeg": ".jpg",
+    "image/webp": ".webp",
+    "image/gif": ".gif",
+    "image/avif": ".avif",
+}

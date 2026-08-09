@@ -1,0 +1,125 @@
+{# ============================================================================
+   Mise en page « documentation » — maquette 2a.
+
+   Le règlement ET le forum RP passent tous les deux par ce fichier, sans un
+   seul octet de différence : c'est ce qui garantit que la présentation du
+   forum RP suit exactement celle du règlement, aujourd'hui et après chaque
+   retouche. Ne créez pas de variante par page — ajoutez une variable.
+   ========================================================================= #}
+{% extends "_vitrine_base.html" %}
+
+{% block content %}
+<div class="v-doc">
+
+  <aside class="v-doc__aside" aria-label="Navigation dans {{ page.title }}">
+    <div class="v-search">
+      <span aria-hidden="true">⌕</span>
+      <input type="search" id="doc-search" placeholder="Chercher…"
+             aria-label="Chercher dans {{ page.title }}" autocomplete="off">
+      <kbd>/</kbd>
+    </div>
+
+    {# Les « + » et les poignées de glissement sont injectés ici par
+       content-admin.js, et seulement pour un administrateur. #}
+    <span class="v-aside__title" id="doc-catnav-title">Catégories</span>
+    <nav class="v-catnav" id="doc-catnav">
+      {% for category in categories %}
+      <a href="#{{ category.slug }}" data-category="{{ category.slug }}"
+         data-category-id="{{ category.id }}">
+        <span>{{ category.title }}</span>
+        <span class="v-count">{{ category.sections | length }}</span>
+      </a>
+      {% else %}
+      <p class="v-aside__title" style="text-transform:none;letter-spacing:0">Aucune catégorie.</p>
+      {% endfor %}
+    </nav>
+
+    <span class="v-aside__title" id="doc-toc-title">Sur cette page</span>
+    <nav class="v-toc" id="doc-toc" aria-label="Sommaire de la catégorie courante"></nav>
+  </aside>
+
+  <div class="v-doc__main">
+    <header>
+      <span class="v-eyebrow">{{ page.eyebrow }}</span>
+      <h1 class="v-h1">{{ page.title }}</h1>
+      <p class="v-lede">{{ page.lede }}</p>
+    </header>
+
+    <div id="doc-admin-bar" hidden></div>
+
+    {% if unavailable %}
+    <p class="v-empty">Le service de contenu est momentanément indisponible.
+      Le texte revient dès qu'il répond de nouveau.</p>
+    {% elif not categories %}
+    <p class="v-empty">Aucun contenu publié pour l'instant.</p>
+    {% endif %}
+
+    {% for category in categories %}
+    {% set chapter_index = loop.index %}
+    <section class="v-chapter" id="{{ category.slug }}"
+             data-category-id="{{ category.id }}" data-category-slug="{{ category.slug }}">
+      <div class="v-chapter__meta">
+        <span class="v-eyebrow"><span data-field="icon">{{ category.icon }}</span> Chapitre {{ chapter_index }}</span>
+        <span class="v-rule"></span>
+        <span class="v-note">
+          {{ category.sections | length }} section{{ 's' if category.sections | length > 1 }}
+          {%- if category.updated_at %} · révisé le {{ category.updated_at[8:10] }}/{{ category.updated_at[5:7] }}{% endif %}
+        </span>
+      </div>
+
+      <h2 class="v-chapter__title" data-field="title">{{ category.title }}</h2>
+      {% if category.description %}<p class="v-chapter__desc" data-field="description">{{ category.description }}</p>{% endif %}
+
+      {% if category.summary_html %}
+      <div class="v-callout">
+        <span class="v-callout__label">En bref</span>
+        <div class="v-callout__body pr-content" data-field="summary">{{ category.summary_html | safe }}</div>
+      </div>
+      {% endif %}
+
+      {% for section in category.sections %}
+      <article class="v-section" id="{{ category.slug }}-{{ section.slug }}"
+               data-section-id="{{ section.id }}">
+        <h3 class="v-section__title">
+          <a href="#{{ category.slug }}-{{ section.slug }}"><span class="v-section__num">{{ chapter_index }}.{{ loop.index }} — </span><span data-field="title">{{ section.title }}</span></a>
+        </h3>
+        <div class="pr-content" data-field="body">{{ section.body_html | safe }}</div>
+        {% if section.callout_html %}
+        <div class="v-callout" style="margin-top:6px">
+          <span class="v-callout__label" data-field="callout_label">{{ section.callout_label or 'À retenir' }}</span>
+          <div class="v-callout__body pr-content" data-field="callout_body">{{ section.callout_html | safe }}</div>
+        </div>
+        {% endif %}
+      </article>
+      {% endfor %}
+    </section>
+    {% endfor %}
+
+    <div class="v-doc__foot">
+      <div>
+        <strong>Une question sur cette page ?</strong>
+        <span>Le salon #aide répond en général dans l'heure.</span>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a class="v-btn" href="https://discord.projet-resurgence.fr/" target="_blank" rel="noopener">Poser la question sur Discord</a>
+        <a class="v-btn-ghost" href="/guide">Lire le guide →</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block body_extra %}
+<script>
+  window.PR_CONTENT = {
+    space: {{ space | tojson }},
+    slug: {{ slug | tojson }},
+    title: {{ page.title | tojson }},
+  };
+</script>
+<link rel="stylesheet" href="/assets/rp-text-block/rp-text-block.css?v=1.2.0">
+<script src="/assets/rp-text-block/rp-text-block.js?v=1.2.0"></script>
+<script type="module" src="/styles/content-doc.js?v=1.0.0"></script>
+<script type="module" src="/styles/content-admin.js?v=1.2.0"></script>
+<script type="module" src="/styles/command-guide.js?v=1.0.0"></script>
+{% endblock %}

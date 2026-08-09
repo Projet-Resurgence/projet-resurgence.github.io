@@ -1,0 +1,4277 @@
+{
+  "bots": [
+    {
+      "categories": [
+        {
+          "commands": [
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Pays dont afficher le solde (optionnel, votre pays par défaut)",
+                  "name": "country",
+                  "required": false,
+                  "type": "pays"
+                }
+              ],
+              "brief": "Affiche le solde d'un pays ou utilisateur.",
+              "cog": "economy",
+              "description": "Consulte le solde monétaire d'un pays spécifique ou de votre propre pays.",
+              "details": "Affiche le solde monétaire d'un pays avec son classement.",
+              "examples": [
+                {
+                  "command": "bal",
+                  "effect": "Affiche votre propre solde"
+                },
+                {
+                  "command": "bal @France",
+                  "effect": "Affiche le solde de la France"
+                },
+                {
+                  "command": "bal 123456789",
+                  "effect": "Affiche le solde du pays avec cet ID"
+                }
+              ],
+              "features": [
+                "Affiche le solde d'argent du pays spécifié",
+                "Montre le classement du pays dans le leaderboard économique",
+                "Si aucun pays n'est spécifié, affiche votre propre solde"
+              ],
+              "name": "bal",
+              "notes": [],
+              "usage": "bal [pays]"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Optionnel. Référence du prêt à consulter",
+                  "name": "reference",
+                  "required": false,
+                  "type": "texte"
+                }
+              ],
+              "brief": "Vérifie les informations d'un emprunt spécifique ou vos emprunts totaux.",
+              "cog": "economy",
+              "description": "Affiche les détails d'un emprunt ou un résumé de tous vos emprunts.",
+              "details": "Consulte les informations détaillées sur vos emprunts.",
+              "examples": [
+                {
+                  "command": "check_debt",
+                  "effect": "Résumé de tous vos emprunts"
+                },
+                {
+                  "command": "check_debt 123_4567AB",
+                  "effect": "Détails de l'emprunt spécifique"
+                }
+              ],
+              "features": [
+                "Sans référence : affiche un résumé de tous vos emprunts",
+                "Avec référence : affiche les détails complets d'un emprunt spécifique",
+                "Informations sur les montants, taux et échéances"
+              ],
+              "name": "check_debt",
+              "notes": [],
+              "usage": "check_debt [reference]"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Pays qui recevra l'argent (mention, nom ou ID)",
+                  "name": "country",
+                  "required": true,
+                  "type": "pays"
+                },
+                {
+                  "description": "Montant à transférer (nombre, pourcentage comme '50%', ou 'all'/'half')",
+                  "name": "amount",
+                  "required": true,
+                  "type": "texte"
+                }
+              ],
+              "brief": "Transfère de l'argent à un autre pays.",
+              "cog": "economy",
+              "description": "Effectue un transfert d'argent de votre pays vers un autre pays.",
+              "details": "Transfère de l'argent de votre pays vers un autre pays.",
+              "examples": [
+                {
+                  "command": "give @France 1000",
+                  "effect": "Donne 1000 d'argent à la France"
+                },
+                {
+                  "command": "give Allemagne 50%",
+                  "effect": "Donne 50% de votre solde à l'Allemagne"
+                },
+                {
+                  "command": "give 123456789 all",
+                  "effect": "Donne tout votre argent au pays avec cet ID"
+                }
+              ],
+              "features": [
+                "Vérifie que vous avez suffisamment d'argent",
+                "Transfère le montant spécifié au pays destinataire",
+                "Enregistre la transaction dans les logs économiques",
+                "Supporte les montants relatifs (%, all, half)"
+              ],
+              "name": "give",
+              "notes": [
+                {
+                  "items": [
+                    "Nombre exact : `1000`, `50000`",
+                    "Pourcentage : `50%` (50% de votre solde)",
+                    "Mots-clés : `all` (tout), `half` (moitié)"
+                  ],
+                  "title": "Montants supportés"
+                },
+                {
+                  "items": [
+                    "Vous devez avoir suffisamment d'argent",
+                    "Le pays destinataire doit être valide"
+                  ],
+                  "title": "Restrictions"
+                }
+              ],
+              "usage": "give <pays_destinataire> <montant>"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Optionnel. Pays à consulter (défaut : votre pays)",
+                  "name": "country",
+                  "required": false,
+                  "type": "pays"
+                }
+              ],
+              "brief": "Affiche la liste détaillée des emprunts d'un pays.",
+              "cog": "economy",
+              "description": "Liste tous les emprunts actifs d'un pays avec leurs détails.",
+              "details": "Affiche la liste complète des emprunts d'un pays.",
+              "examples": [
+                {
+                  "command": "list_debts",
+                  "effect": "Vos emprunts"
+                },
+                {
+                  "command": "list_debts @France",
+                  "effect": "Emprunts de la France"
+                }
+              ],
+              "features": [
+                "Liste tous les emprunts actifs d'un pays",
+                "Affiche les références, montants et échéances",
+                "Triés par montant restant décroissant",
+                "Informations détaillées pour chaque emprunt"
+              ],
+              "name": "list_debts",
+              "notes": [],
+              "usage": "list_debts [country]"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Montant de l'emprunt",
+                  "name": "montant",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Durée du prêt en années",
+                  "name": "années",
+                  "required": true,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "Demande un emprunt bancaire selon votre statut géopolitique.",
+              "cog": "economy",
+              "description": "Contracte un emprunt avec taux d'intérêt basé sur le statut du pays.",
+              "details": "Demande un emprunt bancaire avec conditions selon votre statut géopolitique.",
+              "examples": [
+                {
+                  "command": "loan 1000000 3",
+                  "effect": "Emprunter 1M sur 3 ans"
+                },
+                {
+                  "command": "loan 500000 5",
+                  "effect": "Emprunter 500K sur 5 ans"
+                }
+              ],
+              "features": [
+                "Calcul automatique du taux d'intérêt selon le statut géopolitique",
+                "Validation de l'éligibilité basée sur le PIB et la stabilité",
+                "Génération automatique d'une référence unique pour le prêt",
+                "Ajout immédiat des fonds au trésor national"
+              ],
+              "name": "loan",
+              "notes": [
+                {
+                  "items": [
+                    "Superpuissance : 0.0% - 1.0%",
+                    "Grande Puissance : 1.0% - 2.0%",
+                    "Puissance majeure : 2.0% - 4.0%",
+                    "Puissance mineure : 4.0% - 6.0%",
+                    "Non Puissance : 6.0% - 10.0%"
+                  ],
+                  "title": "Taux d'intérêt par statut"
+                },
+                {
+                  "items": [
+                    "Le montant total des dettes ne peut excéder 50% du PIB",
+                    "La stabilité du pays doit être supérieure à 20",
+                    "Durée : entre 2 et 5 ans"
+                  ],
+                  "title": "Conditions d'éligibilité"
+                }
+              ],
+              "usage": "loan <amount> <years>"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Pays dont afficher le solde (optionnel, votre pays par défaut)",
+                  "name": "country",
+                  "required": false,
+                  "type": "pays"
+                }
+              ],
+              "brief": "Alias pour la commande bal - affiche le solde.",
+              "cog": "economy",
+              "description": "Consulte le solde monétaire d'un pays (même fonctionnalité que 'bal').",
+              "details": "Alias de la commande 'bal' pour afficher le solde monétaire.",
+              "examples": [
+                {
+                  "command": "money",
+                  "effect": "Affiche votre propre solde"
+                },
+                {
+                  "command": "money @France",
+                  "effect": "Affiche le solde de la France"
+                }
+              ],
+              "features": [
+                "Identique à la commande 'bal'",
+                "Affiche le solde d'argent du pays spécifié",
+                "Montre le classement du pays dans le leaderboard économique"
+              ],
+              "name": "money",
+              "notes": [],
+              "usage": "money [pays]"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Montant à payer au bot (nombre, pourcentage comme '15%', ou 'all'/'half')",
+                  "name": "amount",
+                  "required": true,
+                  "type": "texte"
+                }
+              ],
+              "brief": "Paye de l'argent au bot (retire de l'argent de votre solde).",
+              "cog": "economy",
+              "description": "Effectue un paiement au bot, retirant l'argent de votre solde.",
+              "details": "Paye de l'argent au bot, retirant le montant de votre solde.",
+              "examples": [
+                {
+                  "command": "pay 2000",
+                  "effect": "Paye 2000 d'argent au bot"
+                },
+                {
+                  "command": "pay 15%",
+                  "effect": "Paye 15% de votre solde au bot"
+                },
+                {
+                  "command": "pay half",
+                  "effect": "Paye la moitié de votre solde au bot"
+                }
+              ],
+              "features": [
+                "Retire le montant spécifié de votre solde",
+                "Vérifie que vous avez suffisamment d'argent",
+                "Enregistre la transaction dans les logs économiques",
+                "Supporte les montants relatifs (%, all, half)",
+                "Utile pour les achats, taxes, ou pénalités"
+              ],
+              "name": "pay",
+              "notes": [
+                {
+                  "items": [
+                    "Nombre exact : `1000`, `5000`",
+                    "Pourcentage : `10%` (10% de votre solde)",
+                    "Mots-clés : `all` (tout), `half` (moitié)"
+                  ],
+                  "title": "Montants supportés"
+                },
+                {
+                  "items": [
+                    "Vous devez avoir suffisamment d'argent",
+                    "Vous devez appartenir à un pays valide"
+                  ],
+                  "title": "Restrictions"
+                }
+              ],
+              "usage": "pay <montant>"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Référence du prêt à rembourser",
+                  "name": "reference",
+                  "required": true,
+                  "type": "texte"
+                },
+                {
+                  "description": "Optionnel. Montant à rembourser (défaut : totalité)",
+                  "name": "amount",
+                  "required": false,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "Rembourse tout ou partie d'un emprunt.",
+              "cog": "economy",
+              "description": "Effectue un remboursement total ou partiel d'un emprunt existant.",
+              "details": "Rembourse un emprunt existant de manière totale ou partielle.",
+              "examples": [
+                {
+                  "command": "repay_debt 123_4567AB",
+                  "effect": "Remboursement total"
+                },
+                {
+                  "command": "repay_debt 123_4567AB 500000",
+                  "effect": "Remboursement partiel de 500K"
+                }
+              ],
+              "features": [
+                "Remboursement partiel ou total d'un emprunt",
+                "Suppression automatique de l'emprunt si entièrement remboursé",
+                "Vérification automatique des fonds disponibles",
+                "Mise à jour instantanée du solde"
+              ],
+              "name": "repay_debt",
+              "notes": [],
+              "usage": "repay_debt <reference> [amount]"
+            }
+          ],
+          "key": "economy",
+          "label": "Économie"
+        },
+        {
+          "commands": [
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Pays dont afficher les points diplomatiques (optionnel, votre pays par défaut)",
+                  "name": "target",
+                  "required": false,
+                  "type": "pays"
+                }
+              ],
+              "brief": "Affiche les points diplomatiques d'un pays ou utilisateur.",
+              "cog": "points",
+              "description": "Consulte les points diplomatiques d'un pays spécifique ou de votre propre pays.",
+              "details": "Affiche les points diplomatiques d'un pays avec son classement.",
+              "examples": [
+                {
+                  "command": "points_d",
+                  "effect": "Affiche vos propres points diplomatiques"
+                },
+                {
+                  "command": "points_d @France",
+                  "effect": "Affiche les points diplomatiques de la France"
+                },
+                {
+                  "command": "points_d 123456789",
+                  "effect": "Affiche les points diplomatiques du pays avec cet ID"
+                }
+              ],
+              "features": [
+                "Affiche le nombre de points diplomatiques du pays spécifié",
+                "Montre le classement du pays dans le leaderboard des points diplomatiques",
+                "Si aucun pays n'est spécifié, affiche vos propres points diplomatiques"
+              ],
+              "name": "points_d",
+              "notes": [
+                {
+                  "items": [
+                    "Relations internationales",
+                    "Négociations diplomatiques",
+                    "Traités et accords",
+                    "Influence diplomatique"
+                  ],
+                  "title": "Utilité des points diplomatiques"
+                }
+              ],
+              "usage": "points_d [pays]"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Pays dont afficher les points politiques (optionnel, votre pays par défaut)",
+                  "name": "target",
+                  "required": false,
+                  "type": "pays"
+                }
+              ],
+              "brief": "Affiche les points politiques d'un pays ou utilisateur.",
+              "cog": "points",
+              "description": "Consulte les points politiques d'un pays spécifique ou de votre propre pays.",
+              "details": "Affiche les points politiques d'un pays avec son classement.",
+              "examples": [
+                {
+                  "command": "points_p",
+                  "effect": "Affiche vos propres points politiques"
+                },
+                {
+                  "command": "points_p @France",
+                  "effect": "Affiche les points politiques de la France"
+                },
+                {
+                  "command": "points_p 123456789",
+                  "effect": "Affiche les points politiques du pays avec cet ID"
+                }
+              ],
+              "features": [
+                "Affiche le nombre de points politiques du pays spécifié",
+                "Montre le classement du pays dans le leaderboard des points politiques",
+                "Si aucun pays n'est spécifié, affiche vos propres points politiques"
+              ],
+              "name": "points_p",
+              "notes": [
+                {
+                  "items": [
+                    "Actions internes au pays (réformes, lois, etc.)",
+                    "Gestion gouvernementale",
+                    "Influence politique interne"
+                  ],
+                  "title": "Utilité des points politiques"
+                }
+              ],
+              "usage": "points_p [pays]"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Nombre de points diplomatiques à utiliser (défaut : 1)",
+                  "name": "amount",
+                  "required": false,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "Utilise des points diplomatiques de votre pays.",
+              "cog": "points",
+              "description": "Dépense des points diplomatiques de votre pays pour des actions diplomatiques.",
+              "details": "Utilise des points diplomatiques de votre pays pour des actions diplomatiques.",
+              "examples": [
+                {
+                  "command": "use_pd",
+                  "effect": "Utilise 1 point diplomatique"
+                },
+                {
+                  "command": "use_pd 2",
+                  "effect": "Utilise 2 points diplomatiques"
+                },
+                {
+                  "command": "use_pd 4",
+                  "effect": "Utilise 4 points diplomatiques"
+                }
+              ],
+              "features": [
+                "Retire le montant spécifié de vos points diplomatiques",
+                "Vérifie que votre pays a suffisamment de points diplomatiques",
+                "Enregistre l'utilisation dans les logs économiques",
+                "Montant par défaut : 1 point diplomatique"
+              ],
+              "name": "use_pd",
+              "notes": [
+                {
+                  "items": [
+                    "Négociations internationales",
+                    "Signature de traités",
+                    "Actions diplomatiques",
+                    "Relations internationales"
+                  ],
+                  "title": "Utilisations typiques"
+                },
+                {
+                  "items": [
+                    "Vous devez appartenir à un pays valide",
+                    "Votre pays doit avoir suffisamment de points diplomatiques"
+                  ],
+                  "title": "Restrictions"
+                }
+              ],
+              "usage": "use_pd [montant]"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Nombre de points politiques à utiliser (défaut : 1)",
+                  "name": "amount",
+                  "required": false,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "Utilise des points politiques de votre pays.",
+              "cog": "points",
+              "description": "Dépense des points politiques de votre pays pour des actions internes.",
+              "details": "Utilise des points politiques de votre pays pour des actions internes.",
+              "examples": [
+                {
+                  "command": "use_pp",
+                  "effect": "Utilise 1 point politique"
+                },
+                {
+                  "command": "use_pp 3",
+                  "effect": "Utilise 3 points politiques"
+                },
+                {
+                  "command": "use_pp 5",
+                  "effect": "Utilise 5 points politiques"
+                }
+              ],
+              "features": [
+                "Retire le montant spécifié de vos points politiques",
+                "Vérifie que votre pays a suffisamment de points politiques",
+                "Enregistre l'utilisation dans les logs économiques",
+                "Montant par défaut : 1 point politique"
+              ],
+              "name": "use_pp",
+              "notes": [
+                {
+                  "items": [
+                    "Réformes internes",
+                    "Changements de lois",
+                    "Actions gouvernementales",
+                    "Gestion politique interne"
+                  ],
+                  "title": "Utilisations typiques"
+                },
+                {
+                  "items": [
+                    "Vous devez appartenir à un pays valide",
+                    "Votre pays doit avoir suffisamment de points politiques"
+                  ],
+                  "title": "Restrictions"
+                }
+              ],
+              "usage": "use_pp [montant]"
+            }
+          ],
+          "key": "points",
+          "label": "Points politiques & diplomatiques"
+        },
+        {
+          "commands": [
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "ID de la région à annexer",
+                  "name": "region_id",
+                  "required": true,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "Annexe une région au pays de l'utilisateur.",
+              "cog": "regions",
+              "description": "Transfère la propriété d'une région vers le pays de l'utilisateur.",
+              "details": "Annexe une région au pays de l'utilisateur qui exécute la commande.",
+              "examples": [
+                {
+                  "command": "annex 5",
+                  "effect": "Annexe la région avec l'ID 5 à votre pays"
+                }
+              ],
+              "features": [
+                "Transfère la propriété d'une région vers votre pays",
+                "Met à jour automatiquement les statistiques de population",
+                "Vérifie les permissions avant l'annexion"
+              ],
+              "name": "annex",
+              "notes": [
+                {
+                  "items": [
+                    "Vous devez appartenir à un pays",
+                    "La région doit exister",
+                    "Nécessite les permissions appropriées"
+                  ],
+                  "title": "Restrictions"
+                }
+              ],
+              "usage": "annex <region_id>"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "",
+                  "name": "region_id",
+                  "required": true,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "Récupère les données d'une région par son ID.",
+              "cog": "regions",
+              "description": "Récupère et affiche les données complètes d'une région spécifique.",
+              "details": "Récupère les données complètes d'une région en utilisant son ID.",
+              "examples": [],
+              "features": [],
+              "name": "get_region_datas",
+              "notes": [],
+              "usage": "get_region_datas <region_id>"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "ID de la région à analyser",
+                  "name": "region_id",
+                  "required": true,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "Calcule les conditions météorologiques actuelles d'une région.",
+              "cog": "regions",
+              "description": "Détermine le temps actuel basé sur le climat, la saison et les probabilités météo.",
+              "details": "Calcule les conditions météorologiques actuelles d'une région.",
+              "examples": [
+                {
+                  "command": "get_region_weather 5",
+                  "effect": "Calcule le temps dans la région ID 5"
+                },
+                {
+                  "command": "get_region_weather 42",
+                  "effect": "Conditions météo de la région 42"
+                }
+              ],
+              "features": [
+                "Analyse le climat de la région via la carte climatique",
+                "Détermine la saison actuelle selon l'hémisphère",
+                "Calcule le temps probable selon les probabilités définies",
+                "Affiche des informations détaillées sur les conditions météo"
+              ],
+              "name": "get_region_weather",
+              "notes": [
+                {
+                  "items": [
+                    "Le type de climat de la région (11 climats différents)",
+                    "La saison actuelle (4 saisons + saisons tropicales)",
+                    "Les probabilités de chaque type de temps pour cette combinaison"
+                  ],
+                  "title": "Calcul"
+                },
+                {
+                  "items": [
+                    "Mousson, Orage, Pluie, Bruine",
+                    "Neige, Grêle, Brouillard, Vent fort"
+                  ],
+                  "title": "Types de temps"
+                }
+              ],
+              "usage": "get_region_weather <region_id>"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "",
+                  "name": "region_id",
+                  "required": true,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "Détermine la saison actuelle pour une région donnée.",
+              "cog": "regions",
+              "description": "Retourne la saison actuelle pour une région spécifique.",
+              "details": "Détermine la saison actuelle dans une région.",
+              "examples": [],
+              "features": [],
+              "name": "season_for_region",
+              "notes": [],
+              "usage": "season_for_region <region_id>"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "ID de la région à libérer (autocomplete : vos régions uniquement)",
+                  "name": "region_id",
+                  "required": true,
+                  "type": "texte"
+                }
+              ],
+              "brief": "Retire une région de votre pays.",
+              "cog": "regions",
+              "description": "Libère une région appartenant à votre pays.",
+              "details": "Retire la propriété d'une région appartenant à votre pays.",
+              "examples": [
+                {
+                  "command": "unannex 5",
+                  "effect": "Libère la région 5 de votre pays"
+                }
+              ],
+              "features": [
+                "Libère une région de votre pays (la rend sans propriétaire)",
+                "Uniquement vos propres régions sont accessibles"
+              ],
+              "name": "unannex",
+              "notes": [
+                {
+                  "items": [
+                    "La région doit appartenir à votre pays",
+                    "Nécessite la permission can_build (gouvernement)"
+                  ],
+                  "title": "Restrictions"
+                }
+              ],
+              "usage": "unannex <region_id>"
+            }
+          ],
+          "key": "regions",
+          "label": "Régions & territoire"
+        },
+        {
+          "commands": [
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Valeur du secteur tertiaire",
+                  "name": "tertiaire",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Valeur du secteur primaire",
+                  "name": "primaire",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Valeur du secteur secondaire",
+                  "name": "secondaire",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "PIB actuel en milliards (ex: 5.2 pour 5,2 milliards)",
+                  "name": "pib_actuel",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Population totale du pays",
+                  "name": "population",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Le pays pour lequel calculer les statistiques (optionnel, par défaut votre pays)",
+                  "name": "country",
+                  "required": false,
+                  "type": "pays"
+                },
+                {
+                  "description": "Présence d'un organe de régulation économique",
+                  "name": "organe_regulation",
+                  "required": false,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "Le pays fournit-il des aides sociales ?",
+                  "name": "aides_sociales",
+                  "required": false,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "Le pays fournit-il de la nourriture ?",
+                  "name": "nourriture_fournie",
+                  "required": false,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "Le pays pratique-t-il l'esclavage ?",
+                  "name": "esclavage",
+                  "required": false,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "Le pays dispose-t-il d'un système de santé ?",
+                  "name": "sante",
+                  "required": false,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "Le pays dispose-t-il d'un système éducatif ?",
+                  "name": "education",
+                  "required": false,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "Le pays a-t-il fait des annexions ?",
+                  "name": "annexions",
+                  "required": false,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "Le pays a-t-il un salaire minimum ?",
+                  "name": "salaire_minimum",
+                  "required": false,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "Le pays subit-il une catastrophe en cours ?",
+                  "name": "catastrophe",
+                  "required": false,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "Niveau de catastrophe (1-10, défaut: 4)",
+                  "name": "score_catastrophe",
+                  "required": false,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Niveau et efficacité de la propagande",
+                  "name": "propagande",
+                  "required": false,
+                  "type": "texte"
+                },
+                {
+                  "description": "Niveau de présence policière",
+                  "name": "police",
+                  "required": false,
+                  "type": "texte"
+                },
+                {
+                  "description": "Niveau de répression",
+                  "name": "repression",
+                  "required": false,
+                  "type": "texte"
+                },
+                {
+                  "description": "L'État pratique-t-il la censure ?",
+                  "name": "censure",
+                  "required": false,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "Y a-t-il répression religieuse ?",
+                  "name": "repression_religieuse",
+                  "required": false,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "Y a-t-il eu un coup d'État récent ?",
+                  "name": "coup_etat",
+                  "required": false,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "Le pays est-il en conflit armé ?",
+                  "name": "relation_tendue_etat",
+                  "required": false,
+                  "type": "texte"
+                },
+                {
+                  "description": "Y a-t-il une activité politique déstabilisante ?",
+                  "name": "activite_politique_negative",
+                  "required": false,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "Événement négatif récent",
+                  "name": "evenement_negatif",
+                  "required": false,
+                  "type": "texte"
+                }
+              ],
+              "brief": "",
+              "cog": "statistics",
+              "description": "Calcule toutes les statistiques en une fois (inflation, chômage, pauvreté, croissance, stabilité).",
+              "details": "",
+              "examples": [],
+              "features": [],
+              "name": "calculate_all_stats",
+              "notes": [],
+              "usage": ""
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Valeur du secteur tertiaire",
+                  "name": "tertiaire",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Valeur du secteur primaire",
+                  "name": "primaire",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Valeur du secteur secondaire",
+                  "name": "secondaire",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Type d'économie (planifiée/socialiste ou autre)",
+                  "name": "type_economie",
+                  "required": true,
+                  "type": "texte"
+                },
+                {
+                  "description": "Présence d'aides sociales (True/False)",
+                  "name": "aides_sociales",
+                  "required": true,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "Taux d'inflation en %",
+                  "name": "inflation",
+                  "required": true,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "",
+              "cog": "statistics",
+              "description": "Calcule le taux de chômage selon les paramètres économiques donnés.",
+              "details": "",
+              "examples": [],
+              "features": [],
+              "name": "chomage",
+              "notes": [],
+              "usage": ""
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Numéro de page à afficher (défaut: 1)",
+                  "name": "page",
+                  "required": false,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Nombre de pays par page (1 à 25, défaut: 10)",
+                  "name": "per_page",
+                  "required": false,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "",
+              "cog": "statistics",
+              "description": "Classement des pays par niveau technologique global (du plus haut au plus bas).",
+              "details": "",
+              "examples": [],
+              "features": [],
+              "name": "classement_tech",
+              "notes": [],
+              "usage": ""
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "PIB actuel en milliards (ex: 5.2 pour 5,2 milliards)",
+                  "name": "pib_actuel",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "",
+                  "name": "type_economique",
+                  "required": true,
+                  "type": "texte"
+                },
+                {
+                  "description": "Taux d'inflation en % (ex: 3.5 pour 3,5%)",
+                  "name": "inflation",
+                  "required": false,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Taux de chômage en % (ex: 8.2 pour 8,2%)",
+                  "name": "chomage",
+                  "required": false,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Taux de pauvreté en % (ex: 12.0 pour 12%)",
+                  "name": "pauvrete",
+                  "required": false,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "",
+              "cog": "statistics",
+              "description": "Calcule la limitation de croissance économique basée sur le PIB actuel et les facteurs économiques.",
+              "details": "",
+              "examples": [],
+              "features": [],
+              "name": "croissance",
+              "notes": [],
+              "usage": ""
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Valeur du secteur secondaire",
+                  "name": "secondaire",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Valeur du secteur primaire",
+                  "name": "primaire",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Valeur du secteur tertiaire",
+                  "name": "tertiaire",
+                  "required": true,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "",
+              "cog": "statistics",
+              "description": "Calcule le rapport entre les secteurs économiques",
+              "details": "",
+              "examples": [],
+              "features": [],
+              "name": "get_rapport",
+              "notes": [],
+              "usage": ""
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "",
+                  "name": "years",
+                  "required": false,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "",
+              "cog": "statistics",
+              "description": "Simule la croissance économique avec des plafonds par tranches de PIB (base: 1 milliard).",
+              "details": "",
+              "examples": [],
+              "features": [],
+              "name": "growth_simulation",
+              "notes": [],
+              "usage": ""
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Le pays dont on veut évaluer les logements (optionnel, par défaut votre pays)",
+                  "name": "country",
+                  "required": false,
+                  "type": "pays"
+                }
+              ],
+              "brief": "",
+              "cog": "statistics",
+              "description": "Évalue la qualité et la disponibilité des logements d'un pays.",
+              "details": "",
+              "examples": [],
+              "features": [],
+              "name": "housing_quality",
+              "notes": [],
+              "usage": ""
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Valeur du secteur tertiaire",
+                  "name": "tertiaire",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Valeur du secteur primaire",
+                  "name": "primaire",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Valeur du secteur secondaire",
+                  "name": "secondaire",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "",
+                  "name": "old_inflation",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Type d'économie (planifiée/socialiste ou autre)",
+                  "name": "type_economie",
+                  "required": true,
+                  "type": "texte"
+                },
+                {
+                  "description": "Présence d'un organe de régulation (True/False)",
+                  "name": "organe_regulation",
+                  "required": true,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "Présence d'aides sociales (True/False)",
+                  "name": "aides_sociales",
+                  "required": true,
+                  "type": "oui/non"
+                }
+              ],
+              "brief": "",
+              "cog": "statistics",
+              "description": "Calculateur d'inflation + chômage.",
+              "details": "",
+              "examples": [],
+              "features": [],
+              "name": "infla_chomage",
+              "notes": [],
+              "usage": ""
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Valeur du secteur tertiaire",
+                  "name": "tertiaire",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Valeur du secteur primaire",
+                  "name": "primaire",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Valeur du secteur secondaire",
+                  "name": "secondaire",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Type d'économie (planifiée/socialiste ou autre)",
+                  "name": "type_economie",
+                  "required": true,
+                  "type": "texte"
+                },
+                {
+                  "description": "Présence d'un organe de régulation (True/False)",
+                  "name": "organe_regulation",
+                  "required": true,
+                  "type": "oui/non"
+                }
+              ],
+              "brief": "",
+              "cog": "statistics",
+              "description": "Calcule l'inflation selon les paramètres économiques donnés.",
+              "details": "",
+              "examples": [],
+              "features": [],
+              "name": "inflation",
+              "notes": [],
+              "usage": ""
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Population totale du pays (ex: 10350000)",
+                  "name": "population",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "PIB total du pays (ex: 1000000000)",
+                  "name": "pib",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Taux de chômage en %",
+                  "name": "chomage",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Taux d'inflation en %",
+                  "name": "inflation",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Type d'économie du pays",
+                  "name": "economie",
+                  "required": true,
+                  "type": "texte"
+                },
+                {
+                  "description": "Niveau de catastrophe (défaut: 4)",
+                  "name": "score_catastrophe",
+                  "required": false,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Le pays fournit-il de la nourriture ?",
+                  "name": "nourriture_fournie",
+                  "required": false,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "Le pays pratique-t-il l’esclavage ?",
+                  "name": "esclavage",
+                  "required": false,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "Le pays dispose-t-il d’un système de santé ?",
+                  "name": "sante",
+                  "required": false,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "Le pays dispose-t-il d’un système éducatif ?",
+                  "name": "education",
+                  "required": false,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "Le pays fournit-il des aides sociales ?",
+                  "name": "aides_sociales",
+                  "required": false,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "Le pays a-t-il fait des annexions ?",
+                  "name": "annexions",
+                  "required": false,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "Le pays a-t-il un salaire minimum ?",
+                  "name": "salaire_minimum",
+                  "required": false,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "Le pays subit-il une catastrophe en cours ?",
+                  "name": "catastrophe",
+                  "required": false,
+                  "type": "oui/non"
+                }
+              ],
+              "brief": "",
+              "cog": "statistics",
+              "description": "Afficher les statistiques économiques et de pauvreté d'un pays",
+              "details": "",
+              "examples": [],
+              "features": [],
+              "name": "pauvrete",
+              "notes": [],
+              "usage": ""
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Pays concerné",
+                  "name": "country",
+                  "required": true,
+                  "type": "pays"
+                },
+                {
+                  "description": "Niveau de catastrophe (défaut: 4)",
+                  "name": "score_catastrophe",
+                  "required": false,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Le pays fournit-il de la nourriture ?",
+                  "name": "nourriture_fournie",
+                  "required": false,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "Le pays pratique-t-il l’esclavage ?",
+                  "name": "esclavage",
+                  "required": false,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "Le pays dispose-t-il d’un système de santé ?",
+                  "name": "sante",
+                  "required": false,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "Le pays dispose-t-il d’un système éducatif ?",
+                  "name": "education",
+                  "required": false,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "Le pays fournit-il des aides sociales ?",
+                  "name": "aides_sociales",
+                  "required": false,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "Le pays a-t-il fait des annexions ?",
+                  "name": "annexions",
+                  "required": false,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "Le pays a-t-il un salaire minimum ?",
+                  "name": "salaire_minimum",
+                  "required": false,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "Le pays subit-il une catastrophe en cours ?",
+                  "name": "catastrophe",
+                  "required": false,
+                  "type": "oui/non"
+                }
+              ],
+              "brief": "",
+              "cog": "statistics",
+              "description": "Calcule la pauvreté d'un pays à partir de ses données enregistrées.",
+              "details": "",
+              "examples": [],
+              "features": [],
+              "name": "pauvrete_country",
+              "notes": [],
+              "usage": ""
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "",
+                  "name": "country",
+                  "required": true,
+                  "type": "pays"
+                }
+              ],
+              "brief": "",
+              "cog": "statistics",
+              "description": "Calcule le score de présence policière basé sur divers facteurs.",
+              "details": "",
+              "examples": [],
+              "features": [],
+              "name": "police_presence",
+              "notes": [],
+              "usage": ""
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Structure du pouvoir politique du pays",
+                  "name": "structure_pouvoir",
+                  "required": true,
+                  "type": "texte"
+                },
+                {
+                  "description": "Système économique en place",
+                  "name": "systeme_economique",
+                  "required": true,
+                  "type": "texte"
+                },
+                {
+                  "description": "Idéologie socio-politique dominante",
+                  "name": "ideologie_socio_politique",
+                  "required": true,
+                  "type": "texte"
+                },
+                {
+                  "description": "Source de légitimité du pouvoir",
+                  "name": "source_pouvoir",
+                  "required": true,
+                  "type": "texte"
+                },
+                {
+                  "description": "Religion d'État ou statut religieux",
+                  "name": "religion",
+                  "required": true,
+                  "type": "texte"
+                },
+                {
+                  "description": "Niveau et efficacité de la propagande d'État",
+                  "name": "propagande",
+                  "required": true,
+                  "type": "texte"
+                },
+                {
+                  "description": "Niveau de présence et de contrôle policier",
+                  "name": "police",
+                  "required": true,
+                  "type": "texte"
+                },
+                {
+                  "description": "Niveau de répression exercé par l'État",
+                  "name": "repression",
+                  "required": true,
+                  "type": "texte"
+                },
+                {
+                  "description": "Le logement est-il fourni gratuitement par l'État ?",
+                  "name": "logement_fourni",
+                  "required": true,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "Niveau de confort et qualité des logements",
+                  "name": "qualite_logement",
+                  "required": true,
+                  "type": "texte"
+                },
+                {
+                  "description": "Les besoins de base de la population sont-ils satisfaits ?",
+                  "name": "besoins_satisfaits",
+                  "required": true,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "L'emploi est-il garanti ou fourni par l'État ?",
+                  "name": "emplois_fournis",
+                  "required": true,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "L'État pratique-t-il la censure des médias/informations ?",
+                  "name": "censure",
+                  "required": true,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "Y a-t-il répression ou discrimination religieuse ?",
+                  "name": "repression_religieuse",
+                  "required": true,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "Y a-t-il eu un coup d'État récent (moins d'un an) ?",
+                  "name": "coup_etat",
+                  "required": true,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "Le pays est-il en conflit armé avec un autre État ?",
+                  "name": "conflit_avec_etat",
+                  "required": true,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "Y a-t-il des tensions diplomatiques importantes ?",
+                  "name": "tension_avec_etat",
+                  "required": true,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "Y a-t-il une activité politique déstabilisante ?",
+                  "name": "activite_politique_negative",
+                  "required": true,
+                  "type": "oui/non"
+                },
+                {
+                  "description": "",
+                  "name": "population",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Événement négatif récent affectant la stabilité",
+                  "name": "evenement_negatif",
+                  "required": false,
+                  "type": "texte"
+                }
+              ],
+              "brief": "",
+              "cog": "statistics",
+              "description": "Calcule un score de stabilité politique complet basé sur tous les paramètres.",
+              "details": "",
+              "examples": [],
+              "features": [],
+              "name": "stability",
+              "notes": [],
+              "usage": ""
+            }
+          ],
+          "key": "statistics",
+          "label": "Statistiques"
+        },
+        {
+          "commands": [
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Type of filter to apply",
+                  "name": "filter_type",
+                  "required": false,
+                  "type": "texte"
+                },
+                {
+                  "description": "Value to filter by",
+                  "name": "filter_value",
+                  "required": false,
+                  "type": "texte"
+                }
+              ],
+              "brief": "Display the countries map with territories colored by country.",
+              "cog": "mapping",
+              "description": "Display a map showing country territories with consistent colors and legend.",
+              "details": "Display a map showing country territories with consistent colors and legend.",
+              "examples": [],
+              "features": [],
+              "name": "countries_map",
+              "notes": [
+                {
+                  "items": [
+                    "Unoccupied regions are shown in white",
+                    "Occupied regions are colored by country",
+                    "Includes a legend showing country names and colors",
+                    "Water areas remain unchanged"
+                  ],
+                  "title": "Features"
+                },
+                {
+                  "items": [
+                    "countries_map : Display the full world political map",
+                    "countries_map continent Europe : Display only European countries",
+                    "countries_map geographical_area \"Afrique du Sud\" : Display only South African regions",
+                    "countries_map country France : Display only French territory"
+                  ],
+                  "title": "Examples"
+                }
+              ],
+              "usage": "countries_map [continent|geographical_area|country] [filter_value]"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Type de filtre à appliquer",
+                  "name": "filter_type",
+                  "required": false,
+                  "type": "texte"
+                },
+                {
+                  "description": "Valeur du filtre",
+                  "name": "filter_value",
+                  "required": false,
+                  "type": "texte"
+                }
+              ],
+              "brief": "Affiche une carte du monde colorée par hémisphère.",
+              "cog": "mapping",
+              "description": "Génère une carte colorée montrant les différents hémisphères (nord, sud, équateur).",
+              "details": "Génère une carte du monde colorée selon l'hémisphère de chaque région.",
+              "examples": [
+                {
+                  "command": "hemisphere_map",
+                  "effect": "Carte mondiale des hémisphères"
+                },
+                {
+                  "command": "hemisphere_map continent Amérique",
+                  "effect": "Hémisphères de l'Amérique"
+                },
+                {
+                  "command": "hemisphere_map country France",
+                  "effect": "Hémisphères des régions françaises"
+                }
+              ],
+              "features": [],
+              "name": "hemisphere_map",
+              "notes": [
+                {
+                  "items": [
+                    "🔵 Bleu : Hémisphère Nord",
+                    "🔴 Rouge : Hémisphère Sud",
+                    "🟢 Vert : Équateur",
+                    "⚪ Gris : Hémisphère non défini"
+                  ],
+                  "title": "Couleurs"
+                }
+              ],
+              "usage": "hemisphere_map [continent|geographical_area|country] [filter_value]"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "ID de la région à analyser",
+                  "name": "region_id",
+                  "required": true,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "Analyse la couleur climatique dominante d'une région.",
+              "cog": "mapping",
+              "description": "Analyse la carte climatique pour déterminer la couleur/climat dominant d'une région.",
+              "details": "Analyse la carte climatique pour déterminer quel climat domine dans une région.",
+              "examples": [
+                {
+                  "command": "region_climate 5",
+                  "effect": "Analyse le climat de la région ID 5"
+                }
+              ],
+              "features": [
+                "Charge la carte climatique (climate_map.png)",
+                "Identifie la couleur de climat couvrant le plus de pixels dans la région",
+                "Affiche la répartition des différents climats"
+              ],
+              "name": "region_climate",
+              "notes": [
+                {
+                  "items": [
+                    "Couleur dominante (RGB et hexadécimal)",
+                    "Pourcentage de couverture",
+                    "Distribution de toutes les couleurs climatiques présentes"
+                  ],
+                  "title": "Informations retournées"
+                }
+              ],
+              "usage": "region_climate <region_id>"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Type of filter to apply",
+                  "name": "filter_type",
+                  "required": false,
+                  "type": "texte"
+                },
+                {
+                  "description": "Value to filter by",
+                  "name": "filter_value",
+                  "required": false,
+                  "type": "texte"
+                }
+              ],
+              "brief": "Display the raw regions map.",
+              "cog": "mapping",
+              "description": "Display the raw regions map with optional filtering.",
+              "details": "Display the raw regions map with optional filtering.",
+              "examples": [],
+              "features": [],
+              "name": "regions_map",
+              "notes": [
+                {
+                  "items": [
+                    "regions_map : Display the full world regions map",
+                    "regions_map continent Europe : Display only European regions",
+                    "regions_map geographical_area \"Afrique du Sud\" : Display only South African regions",
+                    "regions_map country France : Display only French regions"
+                  ],
+                  "title": "Examples"
+                }
+              ],
+              "usage": "regions_map [continent|geographical_area|country] [filter_value]"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Type of statistic to display",
+                  "name": "stat_type",
+                  "required": true,
+                  "type": "texte"
+                },
+                {
+                  "description": "Type of filter to apply",
+                  "name": "filter_type",
+                  "required": false,
+                  "type": "texte"
+                },
+                {
+                  "description": "Value to filter by",
+                  "name": "filter_value",
+                  "required": false,
+                  "type": "texte"
+                }
+              ],
+              "brief": "Display statistical heatmaps showing various economic and demographic indicators.",
+              "cog": "mapping",
+              "description": "Generate heatmap visualizations for economic and demographic statistics.",
+              "details": "Generate heatmap visualizations with color gradients from blue (low) to red (high).",
+              "examples": [],
+              "features": [],
+              "name": "stats_map",
+              "notes": [
+                {
+                  "items": [
+                    "population_density : Population density per region",
+                    "gdp_country : Total GDP by country",
+                    "gdp_per_capita : GDP per capita by country",
+                    "stability : Political stability index by country",
+                    "poverty : Poverty rate by country",
+                    "inflation : Inflation rate by country",
+                    "unemployment : Unemployment rate by country",
+                    "housing_capacity : Total housing capacity by region"
+                  ],
+                  "title": "Available statistics"
+                },
+                {
+                  "items": [
+                    "stats_map population_density : World population density map",
+                    "stats_map gdp_country continent Europe : European GDP map",
+                    "stats_map unemployment : World unemployment map"
+                  ],
+                  "title": "Examples"
+                }
+              ],
+              "usage": "stats_map <stat_type> [continent|geographical_area|country] [filter_value]"
+            }
+          ],
+          "key": "mapping",
+          "label": "Cartographie"
+        },
+        {
+          "commands": [
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "",
+                  "name": "doctrine_type",
+                  "required": true,
+                  "type": "texte"
+                }
+              ],
+              "brief": "",
+              "cog": "doctrines",
+              "description": "",
+              "details": "",
+              "examples": [],
+              "features": [],
+              "name": "get_doctrines_of_type",
+              "notes": [],
+              "usage": ""
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "",
+                  "name": "separator_role",
+                  "required": true,
+                  "type": "rôle"
+                }
+              ],
+              "brief": "",
+              "cog": "doctrines",
+              "description": "Seed doctrine roles above a given role.\n\nUsage: /seed_doctrines <separator_role>\nThe command will create separators and doctrine roles for the five categories\nand insert/update Doctrine rows in the database with the created role IDs.",
+              "details": "",
+              "examples": [],
+              "features": [],
+              "name": "seed_doctrines",
+              "notes": [],
+              "usage": ""
+            }
+          ],
+          "key": "doctrines",
+          "label": "Doctrines"
+        },
+        {
+          "commands": [
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Pays à analyser",
+                  "name": "country",
+                  "required": true,
+                  "type": "texte"
+                },
+                {
+                  "description": "Année de début (optionnel)",
+                  "name": "start_year",
+                  "required": false,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Année de fin (optionnel)",
+                  "name": "end_year",
+                  "required": false,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "",
+              "cog": "history_commands_example",
+              "description": "Affiche l'historique économique d'un pays.",
+              "details": "",
+              "examples": [],
+              "features": [],
+              "name": "history_economy",
+              "notes": [],
+              "usage": ""
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "ID de la région",
+                  "name": "region_id",
+                  "required": true,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "",
+              "cog": "history_commands_example",
+              "description": "Affiche l'historique des propriétaires d'une région.",
+              "details": "",
+              "examples": [],
+              "features": [],
+              "name": "history_ownership",
+              "notes": [],
+              "usage": ""
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "ID de la région",
+                  "name": "region_id",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Année de début (optionnel)",
+                  "name": "start_year",
+                  "required": false,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Année de fin (optionnel)",
+                  "name": "end_year",
+                  "required": false,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "",
+              "cog": "history_commands_example",
+              "description": "Affiche l'historique démographique d'une région.",
+              "details": "",
+              "examples": [],
+              "features": [],
+              "name": "history_population",
+              "notes": [],
+              "usage": ""
+            }
+          ],
+          "key": "history_commands_example",
+          "label": "Historique"
+        }
+      ],
+      "command_count": 40,
+      "key": "clea",
+      "name": "C.L.E.A.",
+      "role": "Économie, territoire, statistiques et cartographie"
+    },
+    {
+      "categories": [
+        {
+          "commands": [
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Pays dont afficher les informations",
+                  "name": "country",
+                  "required": true,
+                  "type": "pays"
+                }
+              ],
+              "brief": "Affiche les informations détaillées d'un pays.",
+              "cog": "country_management",
+              "description": "Affiche les informations détaillées d'un pays spécifique.",
+              "details": "Affiche les informations détaillées d'un pays avec toutes ses statistiques.",
+              "examples": [
+                {
+                  "command": "country_infos France",
+                  "effect": "Affiche toutes les informations sur la France"
+                }
+              ],
+              "features": [
+                "Informations générales (nom, dirigeants, idéologies, capitale)",
+                "Ressources économiques (balance, points politiques/diplomatiques)",
+                "Territoires possédés avec population totale",
+                "Capacité de logement (nombre de personnes pouvant être logées)",
+                "Forces militaires (soldats actifs, réserve, police)",
+                "Technologies publiques développées",
+                "Statistiques économiques (PIB, inflation, chômage, pauvreté)"
+              ],
+              "name": "country_infos",
+              "notes": [],
+              "usage": "country_infos <country>"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Pays dont afficher les membres du gouvernement",
+                  "name": "country",
+                  "required": false,
+                  "type": "pays"
+                }
+              ],
+              "brief": "Liste les membres du gouvernement d'un pays et leurs permissions.",
+              "cog": "country_management",
+              "description": "Liste tous les membres du gouvernement d'un pays spécifique avec leurs permissions.",
+              "details": "Liste les membres du gouvernement d'un pays avec leurs permissions.",
+              "examples": [
+                {
+                  "command": "",
+                  "effect": "`list_government_members France`"
+                }
+              ],
+              "features": [
+                "Récupère tous les membres du gouvernement d'un pays",
+                "Affiche leurs rôles et permissions spécifiques",
+                "Présente les informations dans un format clair"
+              ],
+              "name": "list_government_members",
+              "notes": [],
+              "usage": "list_government_members <country>"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Pays à renommer",
+                  "name": "country",
+                  "required": true,
+                  "type": "pays"
+                },
+                {
+                  "description": "Nouveau nom du pays",
+                  "name": "new_name",
+                  "required": true,
+                  "type": "texte"
+                }
+              ],
+              "brief": "Renomme un pays.",
+              "cog": "country_management",
+              "description": "Renomme un pays spécifique.",
+              "details": "Renomme un pays donné.",
+              "examples": [
+                {
+                  "command": "rename_country France République Française",
+                  "effect": "Renomme la France en République Française"
+                }
+              ],
+              "features": [
+                "Change le nom officiel d'un pays",
+                "Met à jour le nom du rôle Discord associé",
+                "Met à jour le nom du salon public Discord associé"
+              ],
+              "name": "rename_country",
+              "notes": [],
+              "usage": "rename_country <country> <new_name>"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "",
+                  "name": "country",
+                  "required": true,
+                  "type": "pays"
+                },
+                {
+                  "description": "",
+                  "name": "ideology_type",
+                  "required": true,
+                  "type": "texte"
+                },
+                {
+                  "description": "",
+                  "name": "new_ideology_id",
+                  "required": true,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "",
+              "cog": "country_management",
+              "description": "Change a country's ideology.",
+              "details": "",
+              "examples": [],
+              "features": [],
+              "name": "set_country_ideology",
+              "notes": [],
+              "usage": ""
+            }
+          ],
+          "key": "country_management",
+          "label": "Pays & gouvernement"
+        },
+        {
+          "commands": [
+            {
+              "aliases": [],
+              "arguments": [],
+              "brief": "Affiche toutes les structures, infrastructures et centrales du pays.",
+              "cog": "structures",
+              "description": "Affiche un récapitulatif complet de toutes les constructions du pays.",
+              "details": "Affiche un aperçu complet de toutes les constructions de votre pays.",
+              "examples": [
+                {
+                  "command": "check_all_structures",
+                  "effect": "Affiche toutes vos constructions"
+                }
+              ],
+              "features": [
+                "Résumé de toutes les structures (usines, bases, etc.)",
+                "Récapitulatif des infrastructures de transport",
+                "Vue d'ensemble de la production électrique",
+                "Statistiques globales et coûts totaux"
+              ],
+              "name": "check_all_structures",
+              "notes": [
+                {
+                  "items": [
+                    "Nombre total de structures par type",
+                    "Longueur totale d'infrastructures",
+                    "Production électrique totale",
+                    "Investissement total en construction",
+                    "Répartition par région"
+                  ],
+                  "title": "Informations affichées"
+                },
+                {
+                  "items": [
+                    "Capacité de production totale",
+                    "Capacité de logement disponible",
+                    "Coût total investi",
+                    "Efficacité énergétique"
+                  ],
+                  "title": "Calculs"
+                }
+              ],
+              "usage": "check_all_structures"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "",
+                  "name": "country",
+                  "required": false,
+                  "type": "pays"
+                }
+              ],
+              "brief": "Affiche la production électrique du pays.",
+              "cog": "structures",
+              "description": "Affiche un récapitulatif de toute la production électrique du pays.",
+              "details": "Affiche toutes les informations sur la production électrique de votre pays.",
+              "examples": [
+                {
+                  "command": "check_electricity",
+                  "effect": "Affiche votre production électrique"
+                }
+              ],
+              "features": [
+                "Liste toutes les centrales électriques par type",
+                "Calcule la production totale en MWh",
+                "Affiche les coûts d'exploitation",
+                "Montre la répartition par source d'énergie"
+              ],
+              "name": "check_electricity",
+              "notes": [
+                {
+                  "items": [
+                    "Type de centrale (Nucléaire, Thermique, etc.)",
+                    "Niveau et production MWh",
+                    "Coût de construction et d'exploitation",
+                    "Taux de danger et consommation de ressources",
+                    "Région d'implantation"
+                  ],
+                  "title": "Informations affichées"
+                },
+                {
+                  "items": [
+                    "Production totale en MWh",
+                    "Coût moyen par MWh",
+                    "Répartition des sources d'énergie",
+                    "Investissement total"
+                  ],
+                  "title": "Calculs"
+                }
+              ],
+              "usage": "check_electricity"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "",
+                  "name": "region_id",
+                  "required": true,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "Permet de vérifier tous les logements d'une région spécifique, le pourcentage de population logée, et le confort moyen.",
+              "cog": "structures",
+              "description": "Affiche tous les logements d'une région, le pourcentage de population logée et le confort moyen.",
+              "details": "Affiche tous les logements d'une région spécifique, le pourcentage de population logée, et le confort moyen.",
+              "examples": [],
+              "features": [],
+              "name": "check_housing",
+              "notes": [],
+              "usage": "check_housing <region_id>"
+            },
+            {
+              "aliases": [],
+              "arguments": [],
+              "brief": "Affiche toutes les infrastructures du pays.",
+              "cog": "structures",
+              "description": "Affiche un récapitulatif de toutes les infrastructures construites par le pays.",
+              "details": "Affiche toutes les infrastructures de votre pays avec leurs détails.",
+              "examples": [
+                {
+                  "command": "check_infrastructure",
+                  "effect": "Affiche toutes vos infrastructures"
+                }
+              ],
+              "features": [
+                "Liste toutes les infrastructures par région",
+                "Affiche le type et la longueur de chaque infrastructure",
+                "Montre le coût total investi",
+                "Calcule les statistiques globales"
+              ],
+              "name": "check_infrastructure",
+              "notes": [
+                {
+                  "items": [
+                    "Type d'infrastructure (Route, Autoroute, etc.)",
+                    "Longueur en kilomètres",
+                    "Coût total de construction",
+                    "Région de construction"
+                  ],
+                  "title": "Informations affichées"
+                }
+              ],
+              "usage": "check_infrastructure"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "ID de la région où construire",
+                  "name": "region_id",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "ID de la densité de logement",
+                  "name": "density_id",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "ID du style architectural",
+                  "name": "style_id",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "ID de la qualité de construction",
+                  "name": "quality_id",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Nombre de personnes (capacité du logement)",
+                  "name": "capacity",
+                  "required": true,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "Construit un logement avec configuration personnalisée.",
+              "cog": "structures",
+              "description": "Construit un bâtiment de logement avec densité, style et qualité spécifiques.",
+              "details": "Construit un bâtiment de logement en spécifiant tous les paramètres.",
+              "examples": [
+                {
+                  "command": "construct_housing 15 1 2 3 1000",
+                  "effect": "Construit un logement pour 1000 personnes dans la région 15"
+                }
+              ],
+              "features": [
+                "Choisissez la densité du logement (très basse à très haute)",
+                "Sélectionnez le style architectural (archaïque à monumentale)",
+                "Définissez la qualité de construction (très bonne à très mauvaise)",
+                "Spécifiez la capacité d'accueil (nombre de personnes)",
+                "Le coût dépend de tous ces paramètres",
+                "Le niveau de confort dépend de la configuration choisie"
+              ],
+              "name": "construct_housing",
+              "notes": [
+                {
+                  "items": [
+                    "Densité : Affecte le coût de base par personne et le confort",
+                    "Style : Multiplie le coût et ajoute du confort",
+                    "Qualité : Multiplie le coût et ajoute du confort",
+                    "Capacité : Nombre de personnes que le logement peut accueillir"
+                  ],
+                  "title": "Paramètres"
+                },
+                {
+                  "items": [
+                    "Utilisez `/housing_options` pour voir toutes les options disponibles",
+                    "Le confort total = densité + style + qualité (max 100)",
+                    "Coût = base * capacité * style_mult * qualité_mult"
+                  ],
+                  "title": "Conseil"
+                }
+              ],
+              "usage": "construct_housing <region_id> <density_id> <style_id> <quality_id> <capacity>"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Type d'infrastructure à construire.",
+                  "name": "infra_type",
+                  "required": true,
+                  "type": "texte"
+                },
+                {
+                  "description": "Longueur en kilomètres à construire.",
+                  "name": "length_km",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "ID de la région où construire.",
+                  "name": "region_id",
+                  "required": true,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "Construit une infrastructure.",
+              "cog": "structures",
+              "description": "Construit une infrastructure du type spécifié sur une longueur donnée.",
+              "details": "Construit une infrastructure dans une région spécifiée.",
+              "examples": [
+                {
+                  "command": "construct_infrastructure Route 25.5 15",
+                  "effect": "Construit 25,5 km de route dans la région 15."
+                }
+              ],
+              "features": [],
+              "name": "construct_infrastructure",
+              "notes": [],
+              "usage": "construct_infrastructure <infra_type> <length_km> <region_id>"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Type de centrale électrique à construire.",
+                  "name": "plant_type",
+                  "required": true,
+                  "type": "texte"
+                },
+                {
+                  "description": "Niveau de la centrale à construire.",
+                  "name": "level",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Nombre de centrales à construire.",
+                  "name": "amount",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "ID de la région où construire.",
+                  "name": "region_id",
+                  "required": true,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "Construit une centrale électrique.",
+              "cog": "structures",
+              "description": "Construit une centrale électrique du type et niveau spécifiés.",
+              "details": "Construit une centrale électrique dans une région spécifiée.",
+              "examples": [
+                {
+                  "command": "construct_power_plant Solaire 3 15",
+                  "effect": "Construit une centrale solaire de niveau 3 dans la région 15."
+                }
+              ],
+              "features": [],
+              "name": "construct_power_plant",
+              "notes": [],
+              "usage": "construct_power_plant <plant_type> <level> <region_id>"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Type de structure à construire.",
+                  "name": "structure_type",
+                  "required": true,
+                  "type": "texte"
+                },
+                {
+                  "description": "Spécialisation de la structure.",
+                  "name": "specialisation",
+                  "required": true,
+                  "type": "texte"
+                },
+                {
+                  "description": "Niveau des structures à construire (1-7).",
+                  "name": "level",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Nombre de structures à construire.",
+                  "name": "amount",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "ID de la région où construire.",
+                  "name": "region_id",
+                  "required": true,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "Construit un certain nombre de structures d'un niveau spécifié.",
+              "cog": "structures",
+              "description": "Construit plusieurs structures du niveau indiqué et débite le coût correspondant.",
+              "details": "Construit une ou plusieurs structures en fonction des paramètres indiqués, tout en vérifiant le solde de l'utilisateur.",
+              "examples": [
+                {
+                  "command": "construct_structure Usine Terrestre 3 2 15",
+                  "effect": "Construit 2 usines terrestres de niveau 3 dans la région 15."
+                }
+              ],
+              "features": [],
+              "name": "construct_structure",
+              "notes": [],
+              "usage": "construct_structure <type> <specialisation> <level> <amount> <region_id>"
+            },
+            {
+              "aliases": [
+                "sell_structure"
+              ],
+              "arguments": [
+                {
+                  "description": "ID de la structure à détruire",
+                  "name": "structure_id",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Logements seulement : nombre de places à supprimer (tout si omis)",
+                  "name": "capacity",
+                  "required": false,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "Détruit une structure (logement inclus) et rembourse 25%.",
+              "cog": "structures",
+              "description": "Détruit n'importe quelle structure par son ID et récupère 25% de sa valeur.",
+              "details": "Détruit une structure appartenant à votre pays et récupère 25% de sa valeur de construction.",
+              "examples": [
+                {
+                  "command": "delete_structure 1234",
+                  "effect": "Détruit entièrement la structure 1234"
+                },
+                {
+                  "command": "delete_structure 1234 500",
+                  "effect": "Supprime 500 places du logement 1234"
+                }
+              ],
+              "features": [
+                "Fonctionne pour TOUTES les structures, logements compris",
+                "Récupère 25% du coût de construction original",
+                "Supprime définitivement la structure de votre inventaire",
+                "Libère l'espace dans la région",
+                "Pour un logement uniquement : `capacity` permet de ne détruire"
+              ],
+              "name": "delete_structure",
+              "notes": [
+                {
+                  "items": [
+                    "La structure doit vous appartenir",
+                    "`capacity` n'est accepté que pour les logements",
+                    "La capacité à détruire ne peut pas dépasser la capacité totale",
+                    "Les structures en production pourraient être affectées"
+                  ],
+                  "title": "Restrictions"
+                },
+                {
+                  "items": [
+                    "Utilisez `structures` pour voir toutes vos structures et leurs IDs"
+                  ],
+                  "title": "Conseil"
+                }
+              ],
+              "usage": "delete_structure <structure_id> [capacity]"
+            },
+            {
+              "aliases": [],
+              "arguments": [],
+              "brief": "Affiche toutes les options de logement disponibles.",
+              "cog": "structures",
+              "description": "Liste toutes les densités, styles et qualités de logement avec leurs caractéristiques.",
+              "details": "Affiche un récapitulatif complet de toutes les options de configuration de logement.",
+              "examples": [
+                {
+                  "command": "housing_options",
+                  "effect": "Affiche toutes les options disponibles"
+                }
+              ],
+              "features": [],
+              "name": "housing_options",
+              "notes": [
+                {
+                  "items": [
+                    "**Densités** : Coût de base par personne et points de confort",
+                    "**Styles** : Multiplicateur de prix et points de confort",
+                    "**Qualités** : Multiplicateur de prix et points de confort"
+                  ],
+                  "title": "Informations affichées"
+                },
+                {
+                  "items": [
+                    "Planifier vos constructions de logements",
+                    "Comparer les coûts et bénéfices de chaque option",
+                    "Optimiser le rapport coût/confort"
+                  ],
+                  "title": "Utilité"
+                }
+              ],
+              "usage": "housing_options"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Pays ciblé (optionnel, par défaut votre pays)",
+                  "name": "country",
+                  "required": false,
+                  "type": "pays"
+                }
+              ],
+              "brief": "Liste toutes les infrastructures du pays.",
+              "cog": "structures",
+              "description": "Affiche la liste des infrastructures appartenant au pays.",
+              "details": "Affiche toutes les infrastructures d'un pays avec leurs détails.",
+              "examples": [
+                {
+                  "command": "infrastructures",
+                  "effect": "Vos infrastructures"
+                },
+                {
+                  "command": "infrastructures @France",
+                  "effect": "Infrastructures de la France"
+                }
+              ],
+              "features": [
+                "Liste toutes les infrastructures par région",
+                "Affiche le type, longueur et coût total",
+                "Calcule la longueur totale par type",
+                "Montre l'investissement total en infrastructures"
+              ],
+              "name": "infrastructures",
+              "notes": [],
+              "usage": "infrastructures [country]"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Type de centrale à consulter (optionnel).",
+                  "name": "plant_type",
+                  "required": false,
+                  "type": "texte"
+                }
+              ],
+              "brief": "Affiche les informations sur les types de centrales électriques.",
+              "cog": "structures",
+              "description": "Affiche les types de centrales disponibles et leurs niveaux.",
+              "details": "Affiche des informations sur les centrales électriques disponibles.",
+              "examples": [
+                {
+                  "command": "power_plant_info",
+                  "effect": "Affiche tous les types de centrales"
+                },
+                {
+                  "command": "power_plant_info éolien onshore",
+                  "effect": "Affiche les détails des éoliennes onshore"
+                }
+              ],
+              "features": [
+                "Sans argument : affiche tous les types disponibles avec leurs niveaux",
+                "Avec argument : affiche les détails d'un type spécifique",
+                "Montre les niveaux minimum et maximum disponibles",
+                "Indique les coûts par niveau"
+              ],
+              "name": "power_plant_info",
+              "notes": [],
+              "usage": "power_plant_info [plant_type]"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Pays ciblé (optionnel, par défaut votre pays)",
+                  "name": "country",
+                  "required": false,
+                  "type": "pays"
+                },
+                {
+                  "description": "Afficher les centrales en construction (défaut: True)",
+                  "name": "show_construction",
+                  "required": false,
+                  "type": "oui/non"
+                }
+              ],
+              "brief": "Liste toutes les centrales électriques du pays.",
+              "cog": "structures",
+              "description": "Affiche la liste des centrales électriques appartenant au pays.",
+              "details": "Affiche toutes les centrales électriques d'un pays avec leurs détails.",
+              "examples": [
+                {
+                  "command": "power_plants",
+                  "effect": "Vos centrales électriques"
+                },
+                {
+                  "command": "power_plants @France",
+                  "effect": "Centrales de la France"
+                },
+                {
+                  "command": "power_plants @France False",
+                  "effect": "Centrales opérationnelles uniquement"
+                }
+              ],
+              "features": [
+                "Liste toutes les centrales par région",
+                "Affiche le type, niveau, production et danger",
+                "Calcule la production totale d'énergie",
+                "Montre l'efficacité énergétique globale",
+                "Affiche les centrales en construction (optionnel)"
+              ],
+              "name": "power_plants",
+              "notes": [],
+              "usage": "power_plants [country] [show_construction]"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "ID de l'infrastructure à vendre",
+                  "name": "infra_id",
+                  "required": true,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "Vend une infrastructure spécifique.",
+              "cog": "structures",
+              "description": "Vend une infrastructure par son ID et récupère de l'argent.",
+              "details": "Vend une infrastructure appartenant à votre pays et récupère 25% de sa valeur de construction.",
+              "examples": [
+                {
+                  "command": "sell_infrastructure 1234",
+                  "effect": "Vend l'infrastructure avec l'ID 1234"
+                }
+              ],
+              "features": [
+                "Vend une infrastructure spécifique par son ID",
+                "Récupère 25% du coût de construction original",
+                "Supprime définitivement l'infrastructure de votre inventaire"
+              ],
+              "name": "sell_infrastructure",
+              "notes": [
+                {
+                  "items": [
+                    "L'infrastructure doit vous appartenir"
+                  ],
+                  "title": "Restrictions"
+                },
+                {
+                  "items": [
+                    "Utilisez `infrastructures` pour voir toutes vos infrastructures et leurs IDs"
+                  ],
+                  "title": "Conseil"
+                }
+              ],
+              "usage": "sell_infrastructure <infra_id>"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "ID de la centrale électrique à vendre",
+                  "name": "plant_id",
+                  "required": true,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "Vend une centrale électrique spécifique.",
+              "cog": "structures",
+              "description": "Vend une centrale électrique par son ID et récupère de l'argent.",
+              "details": "Vend une centrale électrique appartenant à votre pays et récupère 25% de sa valeur de construction.",
+              "examples": [
+                {
+                  "command": "sell_power_plant 1234",
+                  "effect": "Vend la centrale avec l'ID 1234"
+                }
+              ],
+              "features": [
+                "Vend une centrale électrique spécifique par son ID",
+                "Récupère 25% du coût de construction original",
+                "Supprime définitivement la centrale de votre inventaire"
+              ],
+              "name": "sell_power_plant",
+              "notes": [
+                {
+                  "items": [
+                    "La centrale doit vous appartenir"
+                  ],
+                  "title": "Restrictions"
+                },
+                {
+                  "items": [
+                    "Utilisez `power_plants` pour voir toutes vos centrales et leurs IDs"
+                  ],
+                  "title": "Conseil"
+                }
+              ],
+              "usage": "sell_power_plant <plant_id>"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Type de structure dont afficher les coûts (ou 'all' pour tous)",
+                  "name": "structure_type",
+                  "required": false,
+                  "type": "texte"
+                }
+              ],
+              "brief": "Affiche les coûts de construction des structures.",
+              "cog": "structures",
+              "description": "Affiche les coûts de construction pour tous les types de structures ou un type spécifique.",
+              "details": "Affiche un tableau détaillé des coûts de construction pour les structures.",
+              "examples": [
+                {
+                  "command": "structure_costs",
+                  "effect": "Affiche tous les coûts de construction"
+                },
+                {
+                  "command": "structure_costs Usine",
+                  "effect": "Affiche uniquement les coûts des usines"
+                },
+                {
+                  "command": "structure_costs Base",
+                  "effect": "Affiche uniquement les coûts des bases"
+                }
+              ],
+              "features": [
+                "Affiche les coûts par niveau pour chaque type de structure",
+                "Permet de consulter tous les types ou un type spécifique",
+                "Aide à planifier les budgets de construction",
+                "Référence complète des prix du jeu"
+              ],
+              "name": "structure_costs",
+              "notes": [
+                {
+                  "items": [
+                    "Coût par niveau (1-7) pour chaque type",
+                    "Progression des prix selon le niveau",
+                    "Formatage monétaire pour faciliter la lecture"
+                  ],
+                  "title": "Informations affichées"
+                },
+                {
+                  "items": [
+                    "Usine : Structures de production industrielle",
+                    "Base : Infrastructure militaire",
+                    "Ecole : Établissements d'éducation",
+                    "Logement : Structures résidentielles",
+                    "Centrale : Centrales électriques",
+                    "Technocentre : Centres de recherche"
+                  ],
+                  "title": "Types disponibles"
+                }
+              ],
+              "usage": "structure_costs [type]"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "ID de la structure dont afficher les informations",
+                  "name": "structure_id",
+                  "required": true,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "Affiche les détails d'une structure spécifique.",
+              "cog": "structures",
+              "description": "Affiche les informations détaillées d'une structure incluant la capacité de production.",
+              "details": "Affiche les informations complètes d'une structure spécifique.",
+              "examples": [
+                {
+                  "command": "structure_info 1234",
+                  "effect": "Affiche les détails de la structure ID 1234"
+                }
+              ],
+              "features": [
+                "Montre tous les détails de la structure (type, spécialisation, niveau)",
+                "Affiche l'emplacement (région) de la structure",
+                "Indique la capacité et la population actuelle",
+                "Pour les usines : détails des slots de production utilisés/disponibles"
+              ],
+              "name": "structure_info",
+              "notes": [
+                {
+                  "items": [
+                    "Type et spécialisation de la structure",
+                    "Niveau de la structure (1-7)",
+                    "Région d'implantation",
+                    "Capacité maximale et population actuelle",
+                    "Slots de production (pour les usines uniquement)"
+                  ],
+                  "title": "Informations affichées"
+                },
+                {
+                  "items": [
+                    "La structure doit vous appartenir",
+                    "Vous devez fournir l'ID exact de la structure"
+                  ],
+                  "title": "Restrictions"
+                },
+                {
+                  "items": [
+                    "Utilisez `structures` pour obtenir les IDs de vos structures"
+                  ],
+                  "title": "Conseil"
+                }
+              ],
+              "usage": "structure_info <structure_id>"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Type de structure à afficher (Usine, Base, Ecole, Logement, Centrale, Technocentre, ou 'all')",
+                  "name": "structure_type",
+                  "required": false,
+                  "type": "texte"
+                },
+                {
+                  "description": "Pays dont afficher les structures (optionnel, vous par défaut)",
+                  "name": "country",
+                  "required": false,
+                  "type": "pays"
+                }
+              ],
+              "brief": "Affiche les structures d'un utilisateur.",
+              "cog": "structures",
+              "description": "Affiche les structures d'un utilisateur par type.",
+              "details": "Affiche un résumé détaillé de toutes les structures ou d'un type spécifique.",
+              "examples": [
+                {
+                  "command": "structures",
+                  "effect": "Affiche toutes vos structures"
+                },
+                {
+                  "command": "structures Usine",
+                  "effect": "Affiche seulement vos usines"
+                },
+                {
+                  "command": "structures all @utilisateur",
+                  "effect": "Affiche toutes les structures de l'utilisateur"
+                }
+              ],
+              "features": [
+                "Affiche toutes les structures ou filtré par type",
+                "Groupe par type, spécialisation et niveau",
+                "Montre les quantités, capacités totales et régions",
+                "Permet de consulter les structures d'autres utilisateurs"
+              ],
+              "name": "structures",
+              "notes": [
+                {
+                  "items": [
+                    "Usine : Production industrielle",
+                    "Base : Infrastructure militaire",
+                    "Ecole : Formation et éducation",
+                    "Logement : Capacité de population",
+                    "Centrale : Production d'énergie",
+                    "Technocentre : Recherche et développement"
+                  ],
+                  "title": "Types de structures"
+                }
+              ],
+              "usage": "structures [type] [user]"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "ID du logement à améliorer",
+                  "name": "structure_id",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Nouveau style architectural (optionnel)",
+                  "name": "style_id",
+                  "required": false,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Nouvelle qualité de construction (optionnel)",
+                  "name": "quality_id",
+                  "required": false,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Nombre de places à ajouter (optionnel)",
+                  "name": "capacity",
+                  "required": false,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "Améliore un logement existant.",
+              "cog": "structures",
+              "description": "Améliore le style, la qualité et/ou la capacité d'un logement.",
+              "details": "Améliore un logement en modifiant son style, sa qualité et/ou sa capacité.",
+              "examples": [],
+              "features": [
+                "Upgrade le style architectural (uniquement vers un style supérieur ou égal)",
+                "Upgrade la qualité de construction (uniquement vers une qualité supérieure ou égale)",
+                "Augmente la capacité d'accueil (nombre de personnes à ajouter)",
+                "Coût = différence entre le nouveau et l'ancien coût de construction"
+              ],
+              "name": "upgrade_housing",
+              "notes": [
+                {
+                  "items": [
+                    "Le style ne peut pas être dégradé",
+                    "La qualité ne peut pas être dégradée",
+                    "Au moins un paramètre d'amélioration doit être fourni"
+                  ],
+                  "title": "Restrictions"
+                },
+                {
+                  "items": [
+                    "Utilisez `housing_info` pour voir la configuration actuelle d'un logement"
+                  ],
+                  "title": "Conseil"
+                }
+              ],
+              "usage": "upgrade_housing <structure_id> [style_id] [quality_id] [capacity]"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Groupe de centrales à améliorer",
+                  "name": "plant_id",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Nouveau niveau cible (uniquement les niveaux supérieurs au niveau actuel)",
+                  "name": "niveau",
+                  "required": false,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Nombre de centrales supplémentaires à ajouter au niveau actuel",
+                  "name": "centrales",
+                  "required": false,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "Améliore le niveau ou augmente la quantité d'une centrale.",
+              "cog": "structures",
+              "description": "Monte le niveau et/ou ajoute des centrales à un groupe existant.",
+              "details": "Monte le niveau d'un groupe de centrales et/ou en ajoute de nouvelles.",
+              "examples": [
+                {
+                  "command": "upgrade_plant 42 niveau:5",
+                  "effect": "Monte le groupe 42 au niveau 5"
+                },
+                {
+                  "command": "upgrade_plant 42 centrales:3",
+                  "effect": "Ajoute 3 centrales au groupe 42"
+                },
+                {
+                  "command": "upgrade_plant 42 niveau:5 centrales:3",
+                  "effect": "Monte au niveau 5 ET ajoute 3 centrales"
+                }
+              ],
+              "features": [],
+              "name": "upgrade_plant",
+              "notes": [],
+              "usage": "upgrade_plant <plant_id> [niveau] [centrales]"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "ID de la structure à améliorer",
+                  "name": "structure_id",
+                  "required": true,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "Améliore une structure d'un niveau.",
+              "cog": "structures",
+              "description": "Améliore une structure existante au niveau supérieur.",
+              "details": "Améliore une structure existante pour la faire passer au niveau supérieur.",
+              "examples": [
+                {
+                  "command": "upgrade_structure 1234",
+                  "effect": "Améliore la structure ID 1234 d'un niveau"
+                }
+              ],
+              "features": [
+                "Améliore une structure d'un niveau (par exemple, niveau 3 → niveau 4)",
+                "Calcule automatiquement le coût de l'amélioration (différence entre les niveaux)",
+                "Vérifie les prérequis technologiques",
+                "Débite uniquement le coût de l'amélioration"
+              ],
+              "name": "upgrade_structure",
+              "notes": [
+                {
+                  "items": [
+                    "Usine : Production industrielle",
+                    "Base : Infrastructure militaire",
+                    "Ecole : Formation et éducation",
+                    "Technocentre : Recherche et développement"
+                  ],
+                  "title": "Types améliorables"
+                },
+                {
+                  "items": [
+                    "La structure doit vous appartenir",
+                    "Le niveau maximum est 7",
+                    "Le niveau technologique requis doit être atteint (pour Usines et Technocentres)",
+                    "Vous devez avoir suffisamment de fonds",
+                    "Seuls les types listés ci-dessus peuvent être améliorés"
+                  ],
+                  "title": "Restrictions"
+                },
+                {
+                  "items": [
+                    "Le coût est la différence entre le prix du nouveau niveau et celui de l'ancien niveau",
+                    "Exemple : Niveau 3 coûte 1000, Niveau 4 coûte 1500 → Amélioration = 500"
+                  ],
+                  "title": "Coût"
+                },
+                {
+                  "items": [
+                    "Utilisez `structure_info <id>` pour vérifier le niveau actuel avant amélioration",
+                    "Utilisez `structure_costs` pour consulter les coûts par niveau"
+                  ],
+                  "title": "Conseil"
+                }
+              ],
+              "usage": "upgrade_structure <structure_id>"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Pays à consulter (optionnel, votre pays par défaut)",
+                  "name": "country",
+                  "required": false,
+                  "type": "pays"
+                },
+                {
+                  "description": "ID de région pour filtrer (optionnel)",
+                  "name": "region_id",
+                  "required": false,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "Affiche les logements d'un pays ou d'une région.",
+              "cog": "structures",
+              "description": "Liste les logements avec densité, style, qualité, coût et valeur de destruction.",
+              "details": "Affiche la liste paginée des logements d'un pays ou d'une région spécifique.",
+              "examples": [
+                {
+                  "command": "view_housing",
+                  "effect": "Vos logements"
+                },
+                {
+                  "command": "view_housing @France",
+                  "effect": "Logements de la France"
+                },
+                {
+                  "command": "view_housing @France 42",
+                  "effect": "Logements de la France dans la région 42"
+                }
+              ],
+              "features": [
+                "Liste tous les logements avec leurs caractéristiques complètes",
+                "Affiche le coût de construction et la valeur de destruction (25%)",
+                "Filtre optionnel par région",
+                "Pagination automatique (6 logements par page)"
+              ],
+              "name": "view_housing",
+              "notes": [],
+              "usage": "view_housing [pays] [region_id]"
+            }
+          ],
+          "key": "structures",
+          "label": "Bâtiments & infrastructures"
+        },
+        {
+          "commands": [
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Spécialisation à filtrer (optionnel).",
+                  "name": "specialisation",
+                  "required": false,
+                  "type": "texte"
+                }
+              ],
+              "brief": "Liste les technocentres disponibles pour le développement.",
+              "cog": "technology",
+              "description": "Affiche les technocentres disponibles pour le développement technologique.",
+              "details": "Liste les technocentres disponibles pour le développement.",
+              "examples": [
+                {
+                  "command": "available_technocentres",
+                  "effect": "Affiche tous les technocentres disponibles"
+                },
+                {
+                  "command": "available_technocentres Terrestre",
+                  "effect": "Affiche les technocentres terrestres disponibles"
+                }
+              ],
+              "features": [
+                "Affiche tous les technocentres disponibles (non utilisés)",
+                "Peut filtrer par spécialisation si spécifiée",
+                "Montre le niveau et la localisation"
+              ],
+              "name": "available_technocentres",
+              "notes": [],
+              "usage": "available_technocentres [specialisation]"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "ID du technocentre dont annuler le développement.",
+                  "name": "structure_id",
+                  "required": true,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "Annule le développement d'une technologie.",
+              "cog": "technology",
+              "description": "Annule le développement en cours dans un technocentre.",
+              "details": "Annule un développement technologique en cours.",
+              "examples": [
+                {
+                  "command": "cancel_tech_dev 123",
+                  "effect": "Annule le développement du technocentre 123."
+                }
+              ],
+              "features": [
+                "Annule le développement en cours",
+                "Libère le technocentre pour d'autres développements",
+                "Rembourse les coûts de développement"
+              ],
+              "name": "cancel_tech_dev",
+              "notes": [],
+              "usage": "cancel_tech_dev <structure_id>"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "ID de la production à annuler.",
+                  "name": "production_id",
+                  "required": true,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "Annule une production en cours.",
+              "cog": "technology",
+              "description": "Annule une production technologique en cours par son ID.",
+              "details": "Annule une production en cours.",
+              "examples": [
+                {
+                  "command": "cancel_tech_prod 42",
+                  "effect": "Annule la production avec l'ID 42."
+                }
+              ],
+              "features": [
+                "Annule la production spécifiée",
+                "Libère les slots de production dans la structure",
+                "Rembourse le coût de production (coût unitaire × quantité)"
+              ],
+              "name": "cancel_tech_prod",
+              "notes": [],
+              "usage": "cancel_tech_prod <production_id>"
+            },
+            {
+              "aliases": [],
+              "arguments": [],
+              "brief": "Convertit l'expérience technologique en points.",
+              "cog": "technology",
+              "description": "Convertit votre expérience technologique en points technologiques (10 exp = 1 point).",
+              "details": "Convertit l'expérience technologique en points.",
+              "examples": [
+                {
+                  "command": "convert_tech_exp",
+                  "effect": "Convertit toute votre exp en points"
+                }
+              ],
+              "features": [
+                "Convertit l'expérience technologique accumulée en points technologiques",
+                "Taux de conversion : **10 EXP = 1 point technologique**",
+                "Convertit automatiquement toute l'expérience disponible"
+              ],
+              "name": "convert_tech_exp",
+              "notes": [
+                {
+                  "items": [
+                    "**Brevets militaires** : +2 EXP par technologie créée",
+                    "**Maximum par an** : 20 EXP via brevets"
+                  ],
+                  "title": "Comment gagner de l'exp"
+                },
+                {
+                  "items": [
+                    "Nécessite la permission `can_spend_points` dans le gouvernement"
+                  ],
+                  "title": "Permissions"
+                }
+              ],
+              "usage": "convert_tech_exp"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Type de technologie (terrestre, aerienne, navale, armes)",
+                  "name": "specialisation",
+                  "required": true,
+                  "type": "texte"
+                },
+                {
+                  "description": "ID du technocentre pour le développement",
+                  "name": "technocentre_id",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "URL de l'image de la technologie",
+                  "name": "image_url",
+                  "required": true,
+                  "type": "texte"
+                }
+              ],
+              "brief": "Crée une nouvelle technologie avec développement automatique.",
+              "cog": "technology",
+              "description": "Lance la création d'une nouvelle technologie avec sélection du technocentre pour le développement.",
+              "details": "Crée une nouvelle technologie et lance automatiquement son développement.",
+              "examples": [
+                {
+                  "command": "",
+                  "effect": "`create_tech terrestre 123 https://example.com/image.png`"
+                }
+              ],
+              "features": [
+                "Guide l'utilisateur à travers les formulaires de création",
+                "Vérifie la disponibilité du technocentre sélectionné",
+                "Soumet la technologie pour validation par le staff",
+                "Lance automatiquement le développement après approbation",
+                "Débite automatiquement les coûts de développement"
+              ],
+              "name": "create_tech",
+              "notes": [
+                {
+                  "items": [
+                    "1. Remplissage des formulaires de technologie\n        2. Validation par le staff militaire\n        3. Évaluation de la difficulté et calcul des coûts\n        4. Création dans la base de données\n        5. Lancement automatique du développement"
+                  ],
+                  "title": "Processus"
+                }
+              ],
+              "usage": "create_tech <specialisation> <technocentre_id> <image_url>"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "ID de la technologie (ou C<id> pour civil)",
+                  "name": "tech_id",
+                  "required": true,
+                  "type": "texte"
+                }
+              ],
+              "brief": "Affiche les informations d'une technologie par son ID.",
+              "cog": "technology",
+              "description": "Récupère et affiche toutes les informations d'une technologie en utilisant son ID.",
+              "details": "Affiche les informations complètes d'une technologie.",
+              "examples": [
+                {
+                  "command": "get_infos 42",
+                  "effect": "Affiche les informations de la technologie avec l'ID 42"
+                }
+              ],
+              "features": [
+                "Récupère les données de la technologie depuis la base de données",
+                "Affiche les informations techniques et de développement",
+                "Montre les attributs spécifiques de la technologie",
+                "Inclut l'image et les coûts de production"
+              ],
+              "name": "get_infos",
+              "notes": [
+                {
+                  "items": [
+                    "Nom et nom d'origine de la technologie",
+                    "Niveau et spécialisation",
+                    "Coûts de développement et production",
+                    "Temps de développement et slots utilisés",
+                    "Pays développeur",
+                    "Attributs techniques détaillés"
+                  ],
+                  "title": "Informations affichées"
+                },
+                {
+                  "items": [
+                    "Nécessite un ID de technologie valide",
+                    "Les technologies secrètes peuvent avoir des restrictions d'accès"
+                  ],
+                  "title": "Restrictions"
+                }
+              ],
+              "usage": "get_infos <tech_id>"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Domaine technologique à améliorer",
+                  "name": "tech_field",
+                  "required": true,
+                  "type": "texte"
+                }
+              ],
+              "brief": "Améliore un niveau technologique.",
+              "cog": "technology",
+              "description": "Utilise des points technologiques pour améliorer un domaine.",
+              "details": "Améliore un niveau technologique en dépensant des points.",
+              "examples": [
+                {
+                  "command": "level_up_tech Global",
+                  "effect": "Améliore le niveau Global"
+                },
+                {
+                  "command": "level_up_tech Aerien",
+                  "effect": "Améliore le niveau Aérien"
+                },
+                {
+                  "command": "level_up_tech \"Balistique et Spatial\"",
+                  "effect": "Améliore Balistique (2 pts)"
+                }
+              ],
+              "features": [
+                "Améliore un domaine technologique d'un niveau",
+                "Débite automatiquement les points technologiques",
+                "Vérifie les conditions (points suffisants, limite Global)"
+              ],
+              "name": "level_up_tech",
+              "notes": [
+                {
+                  "items": [
+                    "Global : Niveau global (limite pour tous) - **2 points**",
+                    "Aerien : Technologies aériennes - **1 point**",
+                    "Terrestre : Technologies terrestres - **1 point**",
+                    "Maritime : Technologies maritimes - **1 point**",
+                    "Industrie : Technologies industrielles - **1 point**",
+                    "Balistique et Spatial : Technologies spatiales - **2 points**",
+                    "Non Conventionnel : Armes non conventionnelles - **2 points**"
+                  ],
+                  "title": "Domaines disponibles"
+                },
+                {
+                  "items": [
+                    "Le niveau Global doit toujours être >= aux autres niveaux",
+                    "Coûts : Global/Balistique/Non Conventionnel = 2 pts, Autres = 1 pt",
+                    "Niveau 7+ : coût x2 pour tous les domaines",
+                    "Nécessite les permissions de dépense de points"
+                  ],
+                  "title": "Règles"
+                },
+                {
+                  "items": [
+                    "Nécessite la permission `can_spend_points` dans le gouvernement"
+                  ],
+                  "title": "Permissions"
+                }
+              ],
+              "usage": "level_up_tech <tech_field>"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Pays (défaut = votre pays)",
+                  "name": "country",
+                  "required": false,
+                  "type": "pays"
+                },
+                {
+                  "description": "Mode d'affichage",
+                  "name": "mode",
+                  "required": false,
+                  "type": "texte"
+                }
+              ],
+              "brief": "Liste les technologies du pays.",
+              "cog": "technology",
+              "description": "Affiche les technologies, licences reçues ou licences distribuées.",
+              "details": "Affiche les technologies du pays.",
+              "examples": [],
+              "features": [],
+              "name": "list_techs",
+              "notes": [],
+              "usage": "list_techs [country] [mode]"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "",
+                  "name": "country",
+                  "required": false,
+                  "type": "pays"
+                }
+              ],
+              "brief": "Liste les technologies validées en attente de développement.",
+              "cog": "technology",
+              "description": "Affiche les technologies validées qui n'ont pas encore commencé leur développement.",
+              "details": "Affiche les technologies validées en attente de développement.",
+              "examples": [],
+              "features": [],
+              "name": "pending_techs",
+              "notes": [],
+              "usage": "pending_techs [country]"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Pays dont révoquer la licence",
+                  "name": "target_country",
+                  "required": true,
+                  "type": "pays"
+                },
+                {
+                  "description": "ID de la technologie",
+                  "name": "tech_id",
+                  "required": true,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "Révoque une licence technologique accordée à un pays.",
+              "cog": "technology",
+              "description": "Retire une licence de production ou commerciale à un pays.",
+              "details": "Révoque une licence technologique d'un pays.",
+              "examples": [],
+              "features": [],
+              "name": "revoke_patent_license",
+              "notes": [
+                {
+                  "items": [
+                    "Seul le pays ayant accordé la licence peut la révoquer"
+                  ],
+                  "title": "Restrictions"
+                }
+              ],
+              "usage": "revoke_patent_license <country> <tech_id>"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Pays acheteur",
+                  "name": "buyer_country",
+                  "required": true,
+                  "type": "pays"
+                },
+                {
+                  "description": "Type de licence: production ou commercial",
+                  "name": "license_type",
+                  "required": true,
+                  "type": "texte"
+                },
+                {
+                  "description": "ID de la technologie",
+                  "name": "tech_id",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Coût de la licence (optionnel)",
+                  "name": "cost",
+                  "required": false,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "Vend une licence de technologie à un pays.",
+              "cog": "technology",
+              "description": "Accorde une licence de production ou commerciale à un pays.",
+              "details": "Vend une licence technologique à un pays.",
+              "examples": [],
+              "features": [],
+              "name": "sell_patent_license",
+              "notes": [
+                {
+                  "items": [
+                    "production : Le pays peut produire localement uniquement",
+                    "commercial : Le pays peut produire ET vendre à d'autres pays"
+                  ],
+                  "title": "Types"
+                },
+                {
+                  "items": [
+                    "Vous devez être le développeur de la technologie OU posséder une licence commerciale"
+                  ],
+                  "title": "Restrictions"
+                }
+              ],
+              "usage": "sell_patent_license <country> <type> <tech_id> [cost]"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Pays acheteur",
+                  "name": "buyer_country",
+                  "required": true,
+                  "type": "pays"
+                },
+                {
+                  "description": "ID de la technologie",
+                  "name": "technology_id",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Quantité à vendre",
+                  "name": "quantity",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Prix (optionnel)",
+                  "name": "price",
+                  "required": false,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Prix par unité",
+                  "name": "per_unit",
+                  "required": false,
+                  "type": "oui/non"
+                }
+              ],
+              "brief": "Vend des technologies de votre inventaire à un autre pays.",
+              "cog": "technology",
+              "description": "Transfère des technologies de votre inventaire vers un autre pays.",
+              "details": "Vend des technologies de votre inventaire à un autre pays.",
+              "examples": [
+                {
+                  "command": "sell_technology \"France\" 12 5 1000",
+                  "effect": "Vend 5 unités de tech 12 pour 1000 au total"
+                },
+                {
+                  "command": "sell_technology \"France\" 12 5 200 True",
+                  "effect": "Vend 5 unités à 200 par unité"
+                }
+              ],
+              "features": [
+                "Transfère des technologies de votre inventaire vers un autre pays",
+                "Gère les paiements et les transactions sécurisées",
+                "Supporte les prix par unité ou totaux"
+              ],
+              "name": "sell_technology",
+              "notes": [],
+              "usage": "sell_technology <buyer_country> <technology_id> <quantity> [price] [per_unit]"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "ID de l'usine",
+                  "name": "structure_id",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "ID de la technologie",
+                  "name": "technology_id",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "Quantité à produire",
+                  "name": "quantity",
+                  "required": true,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "Démarre la production d'une technologie dans une usine.",
+              "cog": "technology",
+              "description": "Lance la production d'une technologie licenciée dans une usine.",
+              "details": "Démarre la production d'une technologie dans une usine.",
+              "examples": [
+                {
+                  "command": "start_production 5 12 10",
+                  "effect": "Produit 10 unités de la technologie 12 dans l'usine 5"
+                }
+              ],
+              "features": [
+                "Lance la production d'une technologie licenciée dans une usine",
+                "Vérifie la capacité de l'usine, les ressources et les licences",
+                "Démarre automatiquement le processus de production"
+              ],
+              "name": "start_production",
+              "notes": [],
+              "usage": "start_production <structure_id> <technology_id> <quantity>"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "ID de la technologie à développer",
+                  "name": "tech_id",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "ID du technocentre où développer",
+                  "name": "technocentre_id",
+                  "required": true,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "Lance le développement d'une technologie créée.",
+              "cog": "technology",
+              "description": "Débite les coûts et lance le développement d'une technologie dans un technocentre.",
+              "details": "Lance le développement d'une technologie.",
+              "examples": [
+                {
+                  "command": "start_tech_dev 42 5",
+                  "effect": "Lance le développement de la tech 42 dans le technocentre 5"
+                }
+              ],
+              "features": [
+                "Vérifie que la technologie existe et appartient au pays",
+                "Vérifie que le technocentre est disponible",
+                "Débite automatiquement les coûts de développement",
+                "Lance le développement pour la durée spécifiée"
+              ],
+              "name": "start_tech_dev",
+              "notes": [
+                {
+                  "items": [
+                    "Nécessite la permission `can_spend_money` dans le gouvernement"
+                  ],
+                  "title": "Permissions"
+                }
+              ],
+              "usage": "start_tech_dev <tech_id> <technocentre_id>"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "ID du technocentre à vérifier (optionnel).",
+                  "name": "structure_id",
+                  "required": false,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "Affiche l'état des développements technologiques.",
+              "cog": "technology",
+              "description": "Affiche l'état des développements technologiques en cours.",
+              "details": "Affiche l'état des développements technologiques.",
+              "examples": [
+                {
+                  "command": "tech_dev_status",
+                  "effect": "Affiche tous les développements en cours"
+                },
+                {
+                  "command": "tech_dev_status 123",
+                  "effect": "Affiche le développement du technocentre 123"
+                }
+              ],
+              "features": [
+                "Si aucun ID n'est fourni, affiche tous les développements du pays",
+                "Si un ID est fourni, affiche les détails du développement pour ce technocentre",
+                "Montre le temps restant et les coûts"
+              ],
+              "name": "tech_dev_status",
+              "notes": [],
+              "usage": "tech_dev_status [structure_id]"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Pays à consulter (optionnel)",
+                  "name": "country",
+                  "required": false,
+                  "type": "pays"
+                }
+              ],
+              "brief": "Affiche le statut de votre expérience technologique.",
+              "cog": "technology",
+              "description": "Affiche l'expérience technologique et les points d'un pays.",
+              "details": "Affiche le statut de l'expérience technologique.",
+              "examples": [
+                {
+                  "command": "tech_exp_status",
+                  "effect": "Affiche votre statut"
+                },
+                {
+                  "command": "tech_exp_status France",
+                  "effect": "Affiche le statut de la France"
+                }
+              ],
+              "features": [
+                "Affiche l'expérience technologique actuelle",
+                "Montre combien de points peuvent être obtenus",
+                "Affiche les points technologiques disponibles",
+                "Indique la progression vers le prochain point"
+              ],
+              "name": "tech_exp_status",
+              "notes": [],
+              "usage": "tech_exp_status [country]"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Optionnel. Pays dont afficher les niveaux (défaut: votre pays)",
+                  "name": "country",
+                  "required": false,
+                  "type": "pays"
+                }
+              ],
+              "brief": "Affiche les niveaux technologiques de votre pays.",
+              "cog": "technology",
+              "description": "Affiche tous les niveaux technologiques et les points disponibles.",
+              "details": "Affiche un résumé complet des niveaux technologiques.",
+              "examples": [
+                {
+                  "command": "tech_levels",
+                  "effect": "Affiche vos niveaux technologiques"
+                },
+                {
+                  "command": "tech_levels France",
+                  "effect": "Affiche les niveaux de la France"
+                }
+              ],
+              "features": [
+                "Affiche tous les niveaux technologiques du pays",
+                "Montre les points technologiques disponibles",
+                "Indique le coût pour améliorer chaque niveau",
+                "Montre quels niveaux peuvent être améliorés"
+              ],
+              "name": "tech_levels",
+              "notes": [
+                {
+                  "items": [
+                    "**Niveau Global** : Limite maximale pour tous les autres niveaux",
+                    "**Niveaux spécialisés** : Aérien, Terrestre, Maritime, Industrie",
+                    "**Niveaux avancés** : Balistique et Spatial, Non Conventionnel"
+                  ],
+                  "title": "Système de niveaux"
+                },
+                {
+                  "items": [
+                    "Global, Balistique et Spatial, Non Conventionnel : **2 points** par niveau",
+                    "Autres domaines : **1 point** par niveau",
+                    "**Niveau 7+** : coût x2 pour tous les domaines"
+                  ],
+                  "title": "Coûts d'amélioration"
+                },
+                {
+                  "items": [
+                    "Les niveaux spécialisés ne peuvent pas dépasser le niveau Global",
+                    "Exemple : Si Global = 5, Aérien ne peut pas atteindre niveau 6"
+                  ],
+                  "title": "Restrictions"
+                }
+              ],
+              "usage": "tech_levels [country]"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Pays (défaut = votre pays)",
+                  "name": "country",
+                  "required": false,
+                  "type": "pays"
+                }
+              ],
+              "brief": "Affiche l'inventaire de technologies d'un pays.",
+              "cog": "technology",
+              "description": "Affiche les quantités de technologies (militaires et civiles) dans l'inventaire d'un pays.",
+              "details": "Affiche l'inventaire de technologies du pays.",
+              "examples": [],
+              "features": [],
+              "name": "view_inventory",
+              "notes": [],
+              "usage": "view_inventory [country]"
+            },
+            {
+              "aliases": [],
+              "arguments": [],
+              "brief": "Affiche les productions en cours pour votre pays.",
+              "cog": "technology",
+              "description": "Liste toutes les productions actuellement en cours.",
+              "details": "Affiche les productions en cours pour votre pays.",
+              "examples": [
+                {
+                  "command": "view_productions",
+                  "effect": "Affiche toutes vos productions en cours"
+                }
+              ],
+              "features": [
+                "Liste toutes les productions actuellement en cours",
+                "Affiche les détails : usine, technologie, quantité, date de fin",
+                "Montre le temps restant pour chaque production"
+              ],
+              "name": "view_productions",
+              "notes": [],
+              "usage": "view_productions"
+            }
+          ],
+          "key": "technology",
+          "label": "Technologies & armement"
+        },
+        {
+          "commands": [
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "",
+                  "name": "unite_a",
+                  "required": true,
+                  "type": "texte"
+                },
+                {
+                  "description": "",
+                  "name": "unite_b",
+                  "required": true,
+                  "type": "texte"
+                },
+                {
+                  "description": "",
+                  "name": "terrain",
+                  "required": true,
+                  "type": "texte"
+                },
+                {
+                  "description": "",
+                  "name": "meteo",
+                  "required": false,
+                  "type": "texte"
+                },
+                {
+                  "description": "",
+                  "name": "temperature",
+                  "required": false,
+                  "type": "texte"
+                },
+                {
+                  "description": "",
+                  "name": "orga_a",
+                  "required": false,
+                  "type": "texte"
+                },
+                {
+                  "description": "",
+                  "name": "orga_b",
+                  "required": false,
+                  "type": "texte"
+                },
+                {
+                  "description": "",
+                  "name": "exp_a",
+                  "required": false,
+                  "type": "texte"
+                },
+                {
+                  "description": "",
+                  "name": "exp_b",
+                  "required": false,
+                  "type": "texte"
+                },
+                {
+                  "description": "",
+                  "name": "accl_a",
+                  "required": false,
+                  "type": "texte"
+                },
+                {
+                  "description": "",
+                  "name": "accl_b",
+                  "required": false,
+                  "type": "texte"
+                },
+                {
+                  "description": "",
+                  "name": "logi_a",
+                  "required": false,
+                  "type": "texte"
+                },
+                {
+                  "description": "",
+                  "name": "logi_b",
+                  "required": false,
+                  "type": "texte"
+                },
+                {
+                  "description": "",
+                  "name": "soldats_a",
+                  "required": false,
+                  "type": "nombre"
+                },
+                {
+                  "description": "",
+                  "name": "soldats_b",
+                  "required": false,
+                  "type": "nombre"
+                },
+                {
+                  "description": "",
+                  "name": "support_a",
+                  "required": false,
+                  "type": "texte"
+                },
+                {
+                  "description": "",
+                  "name": "support_b",
+                  "required": false,
+                  "type": "texte"
+                },
+                {
+                  "description": "",
+                  "name": "specialite_a",
+                  "required": false,
+                  "type": "texte"
+                },
+                {
+                  "description": "",
+                  "name": "specialite_b",
+                  "required": false,
+                  "type": "texte"
+                },
+                {
+                  "description": "",
+                  "name": "plan_a",
+                  "required": false,
+                  "type": "texte"
+                },
+                {
+                  "description": "",
+                  "name": "plan_b",
+                  "required": false,
+                  "type": "texte"
+                },
+                {
+                  "description": "",
+                  "name": "tech_diff",
+                  "required": false,
+                  "type": "nombre"
+                },
+                {
+                  "description": "",
+                  "name": "aquatic",
+                  "required": false,
+                  "type": "texte"
+                },
+                {
+                  "description": "",
+                  "name": "avantage_staff",
+                  "required": false,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "",
+              "cog": "military",
+              "description": "Simule un combat entre deux unités avec tous les modificateurs.\n\nArgs:\n    unite_a: Type d'unité A (ex: infanterie, char moyen, forces spéciales)\n    unite_b: Type d'unité B\n    terrain: Type de terrain (haute montagne, montagne, plateaux, collines, urbain, forêt, jungle, marais, désert, plaines, steppes, toundra, taiga, savanne)\n    meteo: Météo (mousson, orage, pluie, tempête de sable, blizzard, neige, brouillard, calme)\n    temperature: Température (très chaude, chaude, moyenne, froide, très froide)\n    orga_a: Organisation A (excellente, élevée, moyenne, basse, très basse, déroute)\n    orga_b: Organisation B\n    exp_a: Expérience A (sans expérience, entrainé, expérimenté, élite)\n    exp_b: Expérience B\n    accl_a: Acclimatation A (natif de la région, acclimatation par entrainement, aucune)\n    accl_b: Acclimatation B\n    logi_a: Logistique A (excellente, bonne, moyenne, mauvaise, désastreuse)\n    logi_b: Logistique B\n    soldats_a: Nombre de soldats de l'unité A\n    soldats_b: Nombre de soldats de l'unité B\n    support_a: Support de l'unité A (artillerie, aérien, génie, attaque chimique)\n    support_b: Support de l'unité B\n    specialite_a: Spécialité des Forces Spéciales A (parachutistes, montagnards, marines)\n    specialite_b: Spécialité des Forces Spéciales B\n    plan_a: Qualité du plan de bataille A (très bon, bon, moyen, mauvais, désastreux)\n    plan_b: Qualité du plan de bataille B\n    tech_diff: Différence de niveau technologique (positif = A supérieur)\n    aquatic: Modificateur aquatique (rien, rivière, débarquement, îles)\n    avantage_staff: Bonus arbitraire donné par le staff",
+              "details": "",
+              "examples": [],
+              "features": [],
+              "name": "combat",
+              "notes": [],
+              "usage": ""
+            },
+            {
+              "aliases": [],
+              "arguments": [],
+              "brief": "",
+              "cog": "military",
+              "description": "Affiche l'aide détaillée pour le calculateur de combat.",
+              "details": "",
+              "examples": [],
+              "features": [],
+              "name": "combat_help",
+              "notes": [],
+              "usage": ""
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Pays dont afficher le nombre d'unités (optionnel, votre pays par défaut)",
+                  "name": "country",
+                  "required": false,
+                  "type": "pays"
+                },
+                {
+                  "description": "",
+                  "name": "unit_type",
+                  "required": false,
+                  "type": "texte"
+                }
+              ],
+              "brief": "",
+              "cog": "military",
+              "description": "Commande pour obtenir le nombre d'unités d'un pays.\n\nArgs:\n    ctx (commands.Context): Le contexte de la commande.\n    country (CountryConverter): Le pays dont on veut connaître le nombre d'unités.\n    unit_type (str): Le type d'unité à vérifier (par défaut \"soldier\").\n\nReturns:\n    None",
+              "details": "",
+              "examples": [],
+              "features": [],
+              "name": "get_units",
+              "notes": [],
+              "usage": ""
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "",
+                  "name": "goal",
+                  "required": true,
+                  "type": "nombre"
+                },
+                {
+                  "description": "",
+                  "name": "unit_type",
+                  "required": true,
+                  "type": "texte"
+                }
+              ],
+              "brief": "",
+              "cog": "military",
+              "description": "Commande pour recruter des unités militaires dans le pays.\n\nArgs:\n    ctx (commands.Context): Le contexte de la commande.\n    goal (int): L'objectif de recrutement.\n    unit_type (str): Le type d'unité à recruter (par défaut \"all\").\n\nReturns:\n    None",
+              "details": "",
+              "examples": [],
+              "features": [],
+              "name": "recruit",
+              "notes": [],
+              "usage": ""
+            }
+          ],
+          "key": "military",
+          "label": "Militaire"
+        },
+        {
+          "commands": [
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Organisation cible",
+                  "name": "org",
+                  "required": true,
+                  "type": "texte"
+                },
+                {
+                  "description": "Pays à ajouter",
+                  "name": "country",
+                  "required": true,
+                  "type": "pays"
+                },
+                {
+                  "description": "Rôle du pays dans l'organisation",
+                  "name": "role",
+                  "required": false,
+                  "type": "texte"
+                }
+              ],
+              "brief": "Ajoute un pays à une organisation.",
+              "cog": "organization_management",
+              "description": "Ajoute un pays comme membre d'une organisation existante.",
+              "details": "",
+              "examples": [],
+              "features": [],
+              "name": "add_country_to_org",
+              "notes": [],
+              "usage": ""
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Organisation cible",
+                  "name": "org",
+                  "required": true,
+                  "type": "texte"
+                },
+                {
+                  "description": "Pays dont modifier le rôle",
+                  "name": "country",
+                  "required": true,
+                  "type": "pays"
+                },
+                {
+                  "description": "Nouveau rôle",
+                  "name": "new_role",
+                  "required": true,
+                  "type": "texte"
+                }
+              ],
+              "brief": "Modifie le rôle d'un pays dans une organisation.",
+              "cog": "organization_management",
+              "description": "Change le rôle (fondateur/membre/spectateur) d'un pays dans une organisation.",
+              "details": "",
+              "examples": [],
+              "features": [],
+              "name": "edit_country_org_role",
+              "notes": [],
+              "usage": ""
+            },
+            {
+              "aliases": [],
+              "arguments": [],
+              "brief": "Liste toutes les organisations.",
+              "cog": "organization_management",
+              "description": "Affiche la liste de toutes les organisations existantes.",
+              "details": "",
+              "examples": [],
+              "features": [],
+              "name": "list_orgs",
+              "notes": [],
+              "usage": ""
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "",
+                  "name": "org",
+                  "required": true,
+                  "type": "texte"
+                }
+              ],
+              "brief": "Affiche les informations d'une organisation.",
+              "cog": "organization_management",
+              "description": "Affiche les détails d'une organisation et ses membres.",
+              "details": "",
+              "examples": [],
+              "features": [],
+              "name": "org_info",
+              "notes": [],
+              "usage": ""
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Organisation cible",
+                  "name": "org",
+                  "required": true,
+                  "type": "texte"
+                },
+                {
+                  "description": "Pays à retirer",
+                  "name": "country",
+                  "required": true,
+                  "type": "pays"
+                }
+              ],
+              "brief": "Retire un pays d'une organisation.",
+              "cog": "organization_management",
+              "description": "Retire un pays d'une organisation existante.",
+              "details": "",
+              "examples": [],
+              "features": [],
+              "name": "remove_country_from_org",
+              "notes": [],
+              "usage": ""
+            }
+          ],
+          "key": "organization_management",
+          "label": "Organisations internationales"
+        },
+        {
+          "commands": [
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Date à comparer (format: YYYY-MM-DD)",
+                  "name": "date",
+                  "required": true,
+                  "type": "texte"
+                }
+              ],
+              "brief": "Calcule la différence entre deux dates RP.",
+              "cog": "game_management",
+              "description": "Calcule la différence entre la date actuelle et une date donnée.",
+              "details": "Calcule la différence entre la date actuelle du RP et une date spécifiée.",
+              "examples": [
+                {
+                  "command": "date_difference 2303-03-15",
+                  "effect": "Calcule la différence avec cette date"
+                }
+              ],
+              "features": [
+                "Calcule les différences en jours, mois et années",
+                "Supporte les formats de date multiples",
+                "Affiche le résultat de manière lisible"
+              ],
+              "name": "date_difference",
+              "notes": [],
+              "usage": "date_difference <date>"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Date à consulter (format: YYYY-MM-DD)",
+                  "name": "date",
+                  "required": true,
+                  "type": "texte"
+                }
+              ],
+              "brief": "Récupère une date RP ancienne.",
+              "cog": "game_management",
+              "description": "Affiche des informations sur une date RP spécifique.",
+              "details": "Récupère et affiche des informations sur une date RP spécifique.",
+              "examples": [
+                {
+                  "command": "get_old_date 2303-01-01",
+                  "effect": "Affiche les infos du 1er janvier 2303"
+                }
+              ],
+              "features": [
+                "Affiche les détails d'une date passée",
+                "Montre le contexte historique",
+                "Vérifie la validité de la date"
+              ],
+              "name": "get_old_date",
+              "notes": [],
+              "usage": "get_old_date <date>"
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "",
+                  "name": "index",
+                  "required": false,
+                  "type": "nombre"
+                }
+              ],
+              "brief": "Le saviez vous ? Un ensemble de funfacts!",
+              "cog": "game_management",
+              "description": "Affiche un fait amusant aléatoire sur le serveur.",
+              "details": "",
+              "examples": [],
+              "features": [],
+              "name": "lsv",
+              "notes": [],
+              "usage": ""
+            },
+            {
+              "aliases": [],
+              "arguments": [
+                {
+                  "description": "Pays à analyser (avec autocomplétion)",
+                  "name": "country",
+                  "required": true,
+                  "type": "pays"
+                }
+              ],
+              "brief": "Vérifie la puissance d'un pays.",
+              "cog": "game_management",
+              "description": "Analyse et affiche la puissance globale d'un pays.",
+              "details": "Analyse la puissance globale d'un pays selon plusieurs critères.",
+              "examples": [
+                {
+                  "command": "power_checker @《🇫🇷》France",
+                  "effect": "Analyse la puissance de la France"
+                }
+              ],
+              "features": [
+                "Calcule la puissance économique",
+                "Évalue la puissance militaire",
+                "Analyse l'influence diplomatique",
+                "Donne un score global"
+              ],
+              "name": "power_checker",
+              "notes": [],
+              "usage": "power_checker <country>"
+            }
+          ],
+          "key": "game_management",
+          "label": "Compte & partie"
+        }
+      ],
+      "command_count": 58,
+      "key": "marc",
+      "name": "M.A.R.C.",
+      "role": "Militaire, technologies, structures et gestion du pays"
+    }
+  ],
+  "version": 1
+}

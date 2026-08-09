@@ -12,24 +12,20 @@ things a static file server cannot do:
 """
 
 import os
-from functools import wraps
 from urllib.parse import urlencode
 
-import jwt
 import requests
 from flask import (
     Flask,
     jsonify,
     redirect,
+    render_template,
     request,
     send_from_directory,
 )
 
 from settings import (
     BASE_DIR,
-    JWT_ALGORITHM,
-    JWT_EXPIRATION_HOURS,
-    JWT_SECRET,
     PR_API_URL,
     PUBLIC_URL,
     SECRET_KEY,
@@ -37,15 +33,27 @@ from settings import (
     WEBAUTH_PUBLIC_URL,
     WEBAUTH_URL,
 )
+from auth_guard import (
+    generate_jwt_token,
+    require_admin,
+    require_auth,
+    verify_jwt_token,
+)
+from content_api import content_bp, render_space
 from pr_api_service_auth import service_auth_headers
 
 app = Flask(__name__, static_folder=None)
 app.config["SECRET_KEY"] = SECRET_KEY
+app.register_blueprint(content_bp)
 
 # Source files that live in the repo but must never be served over HTTP.
 _PRIVATE_FILES = {
     "app.py",
     "settings.py",
+    "auth_guard.py",
+    "content_api.py",
+    "content_markdown.py",
+    "bot_commands.py",
     "pr_api_service_auth.py",
     "requirements.txt",
     "Dockerfile",
@@ -56,7 +64,15 @@ _PRIVATE_FILES = {
     "verify-seo.sh",
     "analytics-report.txt",
 }
-_PRIVATE_DIRS = ("scripts/", "rules/", "test-scripts/", "test-results/", "__pycache__/")
+_PRIVATE_DIRS = (
+    "scripts/",
+    "rules/",
+    "templates/",
+    "uploads/",
+    "test-scripts/",
+    "test-results/",
+    "__pycache__/",
+)
 
 
 # ── HTTP helpers ────────────────────────────────────────────────────────────
@@ -110,52 +126,6 @@ def _resolve_sso_account(token: str | None):
         return data.get("account")
     except Exception:
         return None
-
-
-def generate_jwt_token(payload: dict) -> str:
-    from datetime import datetime, timedelta
-
-    token_payload = {
-        **payload,
-        "exp": datetime.utcnow() + timedelta(hours=JWT_EXPIRATION_HOURS),
-        "iat": datetime.utcnow(),
-    }
-    return jwt.encode(token_payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
-
-
-def verify_jwt_token(token: str):
-    try:
-        return jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
-    except (jwt.ExpiredSignatureError, jwt.InvalidTokenError):
-        return None
-
-
-def require_auth(f):
-    @wraps(f)
-    def decorated(*args, **kwargs):
-        auth_header = request.headers.get("Authorization", "")
-        if not auth_header.startswith("Bearer "):
-            return jsonify({"success": False, "error": "Missing authorization"}), 401
-        payload = verify_jwt_token(auth_header.split(" ")[1])
-        if not payload:
-            return jsonify({"success": False, "error": "Invalid or expired token"}), 401
-        request.user = payload
-        return f(*args, **kwargs)
-
-    return decorated
-
-
-def require_admin(f):
-    """Pure administrator only — the gate for every game-editing endpoint."""
-
-    @wraps(f)
-    @require_auth
-    def decorated(*args, **kwargs):
-        if not request.user.get("is_admin"):
-            return jsonify({"success": False, "error": "Admin access required"}), 403
-        return f(*args, **kwargs)
-
-    return decorated
 
 
 @app.route("/api/auth/discord/url")
@@ -428,6 +398,87 @@ def health():
 @app.route("/")
 def home():
     return _send("index.html")
+
+
+# ── Editorial pages (server-rendered from PR_API) ───────────────────────────
+#
+# These three are the only pages that are NOT static files. Their content is
+# administrator-editable, and rendering it server-side is what keeps the whole
+# règlement visible to crawlers and to readers without JavaScript — the same
+# reason the old regles.html pasted its rules in as static HTML.
+
+_EDITORIAL_PAGES = {
+    "regles": {
+        "space": "rules",
+        "template": "regles.html",
+        "nav_page": "rules",
+        "title": "Règles & Règlement",
+        "eyebrow": "Règlement du serveur",
+        "lede": "Comment écrire votre nation, ce qui est crédible dans cet univers, "
+        "et ce qui vous fera refuser une action par le staff.",
+        "meta_title": "Règles et Règlement - Projet Résurgence | Serveur RP Géopolitique Francophone",
+        "meta_description": "Règlement complet de Projet Résurgence : HRP, roleplay, "
+        "économie, technologie, militaire et territorial. Toutes les règles, "
+        "classées par catégorie.",
+    },
+    "univers": {
+        "space": "context",
+        "template": "univers.html",
+        "nav_page": "universe",
+        "title": "L'Univers",
+        "eyebrow": "Contexte RP · An 2303",
+        "lede": "Tout s'est effondré, la nature a repris ce qu'elle pouvait, et ceux "
+        "qui restent rebâtissent des États sur les ruines des anciens.",
+        "meta_title": "Univers et Contexte RP - Projet Résurgence",
+        "meta_description": "Le monde de 2303 : le contexte post-apocalyptique de "
+        "Projet Résurgence, ses chroniques et ses puissances.",
+    },
+    "forum-rp": {
+        "space": "forum_rp",
+        "template": "forum-rp.html",
+        "nav_page": "forum-rp",
+        "title": "Forum RP",
+        "eyebrow": "Informations de jeu",
+        "lede": "Les fiches d'information du forum : quotients, rôles, procédures — "
+        "tout ce que les salons Discord expliquaient, rassemblé et consultable.",
+        "meta_title": "Forum RP - Projet Résurgence",
+        "meta_description": "Les fiches d'information du forum RP de Projet "
+        "Résurgence : quotient politique, rôles caractéristiques, procédures de jeu.",
+    },
+}
+
+
+def _render_editorial(slug: str):
+    page = _EDITORIAL_PAGES[slug]
+    content = render_space(page["space"])
+    return render_template(
+        page["template"],
+        page=page,
+        slug=slug,
+        space=page["space"],
+        content=content,
+        categories=content.get("categories", []),
+        unavailable=content.get("unavailable", False),
+        public_url=PUBLIC_URL,
+    )
+
+
+@app.route("/regles")
+@app.route("/regles.html")
+def page_regles():
+    return _render_editorial("regles")
+
+
+@app.route("/univers")
+@app.route("/univers.html")
+def page_univers():
+    return _render_editorial("univers")
+
+
+@app.route("/forum-rp")
+@app.route("/forum-rp.html")
+def page_forum_rp():
+    return _render_editorial("forum-rp")
 
 
 @app.route("/<path:filename>")

@@ -13,7 +13,7 @@ class ComponentManager {
 
 		try {
 			// Load header component
-			const { default: ResurgenceHeader } = await import('./header-component.js?v=2.9.0');
+			const { default: ResurgenceHeader } = await import('./header-component.js?v=3.1.0');
 
 			// Load footer component
 			const { default: ResurgenceFooter } = await import('./footer-component.js?v=1.7.0');
@@ -102,9 +102,7 @@ class ComponentManager {
 		} else if (pathname.includes('index.html') || pathname === '/') {
 			// Check for hash to determine specific section
 			const hash = window.location.hash;
-			if (hash === '#serveur') {
-				currentPage = 'server';
-			} else if (hash === '#rejoindre') {
+			if (hash === '#rejoindre') {
 				currentPage = 'join';
 			} else {
 				currentPage = 'home';

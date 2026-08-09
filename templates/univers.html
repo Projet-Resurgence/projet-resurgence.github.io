@@ -1,0 +1,129 @@
+{# L'univers — maquette 2d : plein cadre narratif.
+
+   Même données que le règlement (catégories + sections éditables), autre
+   rythme : la première catégorie est la chronique mise en avant, les suivantes
+   sont listées dans la colonne de droite. #}
+{% extends "_vitrine_base.html" %}
+
+{% set featured = categories[0] if categories else None %}
+{% set others = categories[1:] if categories else [] %}
+
+{% block content %}
+<section class="v-chronicle">
+  <img src="/images/aral_clear.png" alt="" aria-hidden="true">
+  <div class="v-chronicle__veil"></div>
+  <div class="v-shell">
+    {# La chronique mise en avant s'écrit ici, pas plus bas : son titre et son
+       chapô SONT le bandeau. Les marqueurs permettent au mode édition de les
+       modifier là où ils se lisent (content-admin.js). #}
+    <div class="v-chronicle__copy"{% if featured %} data-category-id="{{ featured.id }}"{% endif %}>
+      <span class="v-eyebrow">{{ page.eyebrow }}</span>
+      <h1 class="v-h1"{% if featured %} data-field="title"{% endif %}>{{ featured.title if featured else page.title }}</h1>
+      <p class="v-lede"{% if featured %} data-field="description"{% endif %}>{{ featured.description if featured and featured.description else page.lede }}</p>
+    </div>
+  </div>
+</section>
+
+<div class="v-univers">
+  <div class="v-univers__main">
+    <div id="doc-admin-bar" hidden></div>
+
+    {% if unavailable %}
+    <p class="v-empty">Le service de contenu est momentanément indisponible.</p>
+    {% elif not featured %}
+    <p class="v-empty">Aucune chronique publiée pour l'instant.</p>
+    {% endif %}
+
+    {% for category in categories %}
+    {% set chapter_index = loop.index %}
+    <section class="v-chapter" id="{{ category.slug }}"
+             data-category-id="{{ category.id }}" data-category-slug="{{ category.slug }}">
+      {% if not loop.first %}
+      <div class="v-chapter__meta">
+        {# Le numéro vient de l'icône (« I », « II », …) quand elle en porte un :
+           le compteur du gabarit compterait l'introduction comme chronique 1,
+           et Chapitre I serait affiché « Chronique 2 ». #}
+        <span class="v-eyebrow">Chronique <span data-field="icon">{{ category.icon or chapter_index }}</span></span>
+        <span class="v-rule"></span>
+      </div>
+      <h2 class="v-chapter__title" data-field="title">{{ category.title }}</h2>
+      {% if category.description %}<p class="v-chapter__desc" data-field="description">{{ category.description }}</p>{% endif %}
+      {% endif %}
+
+      {% if category.summary_html %}
+      <div class="v-callout">
+        <span class="v-callout__label">En bref</span>
+        <div class="v-callout__body pr-content" data-field="summary">{{ category.summary_html | safe }}</div>
+      </div>
+      {% endif %}
+
+      {% for section in category.sections %}
+      <article class="v-section" id="{{ category.slug }}-{{ section.slug }}"
+               data-section-id="{{ section.id }}">
+        {# Une chronique d'une seule section : son titre répète celui de la
+           chronique juste au-dessus. On ne l'affiche donc pas. #}
+        {% if category.sections | length > 1 and not (loop.first and chapter_index == 1) %}
+        <h3 class="v-section__title">
+          <a href="#{{ category.slug }}-{{ section.slug }}"><span data-field="title">{{ section.title }}</span></a>
+        </h3>
+        {% endif %}
+        <div class="pr-content" data-field="body">{{ section.body_html | safe }}</div>
+        {% if section.callout_html %}
+        <div class="v-callout" style="margin-top:6px">
+          <span class="v-callout__label" data-field="callout_label">{{ section.callout_label or 'À retenir' }}</span>
+          <div class="v-callout__body pr-content" data-field="callout_body">{{ section.callout_html | safe }}</div>
+        </div>
+        {% endif %}
+      </article>
+      {% endfor %}
+    </section>
+    {% endfor %}
+  </div>
+
+  <aside class="v-univers__side">
+    {# Même rôle que la colonne « Catégories » du règlement : c'est la
+       navigation de la page, donc c'est là que l'administrateur ajoute et
+       réordonne les chroniques (content-admin.js). #}
+    <span class="v-aside__title" id="doc-catnav-title">Autres chroniques</span>
+    <nav class="v-chroniclist" id="doc-catnav">
+      {% for category in others %}
+      <a href="#{{ category.slug }}" data-category="{{ category.slug }}"
+         data-category-id="{{ category.id }}">
+        <span class="v-chroniclist__tag">{{ category.icon or category.slug[:8] }}</span>
+        <span class="v-chroniclist__title">{{ category.title }}</span>
+      </a>
+      {% else %}
+      <p class="v-lede" style="font-size:13px">Les autres chroniques arrivent.</p>
+      {% endfor %}
+    </nav>
+
+    <div class="v-quotebox">
+      <span>Le monde en une phrase</span>
+      <p>Tout s'est effondré, la nature a repris ce qu'elle pouvait, et ceux qui
+        restent rebâtissent des États sur les ruines des anciens.</p>
+    </div>
+
+    <div class="v-quotebox" style="border-color:var(--v-line-strong);background:none">
+      <span>Aller plus loin</span>
+      <p style="display:flex;flex-direction:column;gap:8px">
+        <a href="/regles">Le règlement, chapitre par chapitre →</a>
+        <a href="/forum-rp">Les fiches du forum RP →</a>
+        <a href="/mecaniques">Ce que la base de données calcule →</a>
+      </p>
+    </div>
+  </aside>
+</div>
+{% endblock %}
+
+{% block body_extra %}
+<script>
+  window.PR_CONTENT = {
+    space: {{ space | tojson }},
+    slug: {{ slug | tojson }},
+    title: {{ page.title | tojson }},
+  };
+</script>
+<link rel="stylesheet" href="/assets/rp-text-block/rp-text-block.css?v=1.2.0">
+<script src="/assets/rp-text-block/rp-text-block.js?v=1.2.0"></script>
+<script type="module" src="/styles/content-admin.js?v=1.2.0"></script>
+{% endblock %}

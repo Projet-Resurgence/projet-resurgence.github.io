@@ -1,6 +1,6 @@
 /* Critical CSS - Above-the-fold styles with dark theme as default */
 /* Import theme variables */
-@import './theme.css';
+@import './theme.css?v=6';
 
 /* Base critical styles only - theme variables imported from theme.css */
 

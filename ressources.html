@@ -9,7 +9,7 @@
  <script>
  (function() {
  if (!('serviceWorker' in navigator)) return;
- var SW_VERSION = 'v1.7.0';
+ var SW_VERSION = 'v1.8.0';
  var lastSW = localStorage.getItem('sw-version');
  if (lastSW !== SW_VERSION) {
  caches.keys().then(function(names) {
@@ -28,14 +28,10 @@
 
  <!-- Google Tag Manager -->
  <script>(function (w, d, s, l, i) {
- w[l] = w[l] || []; w[l].push({
- 'gtm.start':
- new Date().getTime(), event: 'gtm.js'
- }); var f = d.getElementsByTagName(s)[0],
- j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
- 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+ w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+ var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+ j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
  })(window, document, 'script', 'dataLayer', 'GTM-PKRZXV9B');</script>
- <!-- End Google Tag Manager -->
 
  <script>
  window.axeptioSettings = {
@@ -43,15 +39,11 @@
  cookiesVersion: "fr-08-08-2025_fr-EU",
  googleConsentMode: {
  default: {
- analytics_storage: "denied",
- ad_storage: "denied",
- ad_user_data: "denied",
- ad_personalization: "denied",
- wait_for_update: 500
+ analytics_storage: "denied", ad_storage: "denied",
+ ad_user_data: "denied", ad_personalization: "denied", wait_for_update: 500
  }
  }
  };
-
  (function (d, s) {
  var t = d.getElementsByTagName(s)[0], e = d.createElement(s);
  e.async = true; e.src = "//static.axept.io/sdk.js";
@@ -59,421 +51,184 @@
  })(document, "script");
 </script>
 
-
- <!-- Enhanced Analytics Configuration -->
  <script>
  window.dataLayer = window.dataLayer || [];
  function gtag() { dataLayer.push(arguments); }
  gtag('js', new Date());
- gtag('config', 'G-5B3PEQ65HX', {
- send_page_view: true,
- enhanced_measurement: {
- scroll_events: true,
- outbound_clicks: true,
- site_search: true,
- file_downloads: true
- },
- custom_parameters: {
- content_group1: 'Resources Page',
- content_group2: 'Tools',
- content_group3: 'External Links'
- }
- });
-
- window.trackEvent = function (eventName, parameters = {}) {
- gtag('event', eventName, {
- event_category: parameters.category || 'User Interaction',
- event_label: parameters.label || '',
- value: parameters.value || 0,
- custom_parameters: {
- page_type: 'resources',
- ...parameters.custom
- }
- });
- };
+ gtag('config', 'G-5B3PEQ65HX', { send_page_view: true });
 </script>
 
-
- <!-- Primary Meta Tags -->
- <title>Liens Utiles & Ressources - Projet Résurgence | Outils du Serveur RP Géopolitique</title>
- <meta name="title" content="Liens Utiles & Ressources - Projet Résurgence">
- <meta name="description"
- content="Accédez aux outils et ressources de Projet Résurgence : carte interactive du monde, calculateur économique, et lien Discord. Tout pour optimiser votre expérience de roleplay géopolitique.">
- <meta name="keywords"
- content="outils projet résurgence, carte interactive RP, calculateur économique, ressources roleplay, discord français, outils géopolitique, serveur RP francophone">
+ <title>Ressources &amp; outils - Projet Résurgence</title>
+ <meta name="title" content="Ressources &amp; outils - Projet Résurgence">
+ <meta name="description" content="Six applications, une base de données : carte interactive, calculateur économique, panel technologique, catalogue militaire, tableau de bord et Discord.">
+ 
  <meta name="robots" content="index, follow">
  <meta name="language" content="French">
  <meta name="author" content="Projet Résurgence">
+ 
 
- <!-- Open Graph / Facebook -->
  <meta property="og:type" content="website">
- <meta property="og:url" content="https://projet-resurgence.fr/ressources.html">
- <meta property="og:title" content="Liens Utiles & Ressources - Projet Résurgence">
+ <meta property="og:url" content="https://projet-resurgence.fr/ressources">
+ <meta property="og:title" content="Ressources &amp; outils - Projet Résurgence">
  <meta property="og:description"
- content="Découvrez les outils essentiels pour votre aventure géopolitique : carte interactive, calculateur économique et accès Discord.">
+ content="Six applications, une base de données : carte interactive, calculateur économique, panel technologique, catalogue militaire, tableau de bord et Discord.">
  <meta property="og:image" content="https://projet-resurgence.fr/images/banner.jpg">
  <meta property="og:image:width" content="1055">
  <meta property="og:image:height" content="630">
- <meta property="og:image:alt" content="Bannière des Ressources Projet Résurgence">
- <meta property="og:image:type" content="image/jpeg">
  <meta property="og:site_name" content="Projet Résurgence">
  <meta property="og:locale" content="fr_FR">
 
- <!-- Twitter -->
  <meta property="twitter:card" content="summary_large_image">
- <meta property="twitter:url" content="https://projet-resurgence.fr/ressources.html">
- <meta property="twitter:title" content="Liens Utiles & Ressources - Projet Résurgence">
+ <meta property="twitter:url" content="https://projet-resurgence.fr/ressources">
+ <meta property="twitter:title" content="Ressources &amp; outils - Projet Résurgence">
  <meta property="twitter:description"
- content="Accédez aux outils essentiels : carte interactive, calculateur économique et Discord.">
+ content="Six applications, une base de données : carte interactive, calculateur économique, panel technologique, catalogue militaire, tableau de bord et Discord.">
  <meta property="twitter:image" content="https://projet-resurgence.fr/images/banner.jpg">
- <meta property="twitter:image:width" content="1055">
- <meta property="twitter:image:height" content="630">
- <meta property="twitter:image:alt" content="Bannière des Ressources Projet Résurgence">
- <meta property="twitter:image:type" content="image/jpeg">
 
- <!-- Canonical URL -->
- <link rel="canonical" href="https://projet-resurgence.fr/ressources.html">
-
- <!-- Resource hints for performance -->
+ <link rel="canonical" href="https://projet-resurgence.fr/ressources">
+  
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
  <link rel="preload" href="./fonts/pressgothic.otf" as="font" type="font/otf" crossorigin="anonymous">
- <link rel="preload" href="./styles/critical.css?v=2" as="style" onload="this.onload=null;this.rel='stylesheet'">
- <noscript>
- <link rel="stylesheet" href="./styles/critical.css?v=2">
-</noscript>
- <link rel="preload" href="./styles/main.css?v=2.7.1" as="style">
- <link rel="preload" href="./images/final_logo_centered_little.webp" as="image" type="image/webp">
- <link rel="preload" href="./images/final_logo_centered_little.png" as="image" type="image/png">
- <link rel="preload" href="./styles/main.js?v=1.4.0" as="script">
- <link rel="prefetch" href="./index.html">
- <link rel="prefetch" href="./guide.html">
- <link rel="dns-prefetch" href="//map.projet-resurgence.fr">
- <link rel="dns-prefetch" href="//calc.projet-resurgence.fr">
+ 
 
- <link rel="stylesheet" href="./styles/main.css?v=2.7.1">
- <link rel="stylesheet" href="./styles/ressources.css?v=1.1.0">
- <link rel="stylesheet" href="./styles/enhancements.css?v=1.6.0">
- <link rel="icon" type="image/png" href="./images/final_logo_little.png">
- <link rel="manifest" href="./manifest.json">
- <meta name="theme-color" content="#D5B654">
+ <link rel="stylesheet" href="./styles/main.css?v=2.8.2">
+ <link rel="stylesheet" href="./styles/vitrine.css?v=1.5.0">
  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
  <link rel="shortcut icon" href="/favicon/favicon.ico" />
  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+ <link rel="manifest" href="./manifest.json">
+ <meta name="theme-color" content="#D5B654">
  <meta name="apple-mobile-web-app-title" content="Projet Resurgence" />
 
- <!-- Structured Data (JSON-LD) -->
  <script type="application/ld+json">
  {
  "@context": "https://schema.org",
  "@type": "WebPage",
- "name": "Liens Utiles & Ressources - Projet Résurgence",
- "description": "Accédez aux outils et ressources de Projet Résurgence : carte interactive, calculateur économique et lien Discord pour le roleplay géopolitique.",
- "url": "https://projet-resurgence.fr/ressources.html",
+ "name": "Ressources &amp; outils - Projet Résurgence",
+ "description": "Six applications, une base de données : carte interactive, calculateur économique, panel technologique, catalogue militaire, tableau de bord et Discord.",
+ "url": "https://projet-resurgence.fr/ressources",
  "inLanguage": "fr",
- "isPartOf": {
- "@type": "WebSite",
- "name": "Projet Résurgence",
- "url": "https://projet-resurgence.fr"
- },
- "about": {
- "@type": "Game",
- "name": "Projet Résurgence - RP Géopolitique",
- "genre": "Role-playing game",
- "gamePlatform": "Discord"
- },
- "author": {
- "@type": "Organization",
- "name": "Projet Résurgence"
- },
- "publisher": {
- "@type": "Organization",
- "name": "Projet Résurgence"
- },
- "mainEntity": {
- "@type": "ItemList",
- "itemListElement": [
- {
- "@type": "ListItem",
- "position": 1,
- "name": "Carte Interactive",
- "url": "https://map.projet-resurgence.fr"
- },
- {
- "@type": "ListItem",
- "position": 2,
- "name": "Calculateur Économique",
- "url": "https://calc.projet-resurgence.fr"
- },
- {
- "@type": "ListItem",
- "position": 3,
- "name": "Serveur Discord",
- "url": "https://discord.projet-resurgence.fr"
- }
- ]
- }
+ "isPartOf": {"@type": "WebSite", "name": "Projet Résurgence", "url": "https://projet-resurgence.fr"}
  }
 </script>
- <!-- PR Design System (shared tokens + components) -->
+
  <link rel="stylesheet" href="https://projet-resurgence.fr/assets/pr-design-system/pr-design-system.css?v=11">
  <script defer src="https://projet-resurgence.fr/assets/pr-design-system/pr-design-system.js?v=11"></script>
 </head>
 
-<body class="pr-scope">
+<body class="pr-scope v-page">
  <a class="skip-link" href="#main-content">Aller au contenu principal</a>
 
  <intersite-navbar current-site="home" hide-toggle logo-src="./favicon/favicon-96x96.png"></intersite-navbar>
 
- <!-- Google Tag Manager (noscript) -->
  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PKRZXV9B" height="0" width="0"
  style="display:none;visibility:hidden"></iframe></noscript>
- <!-- End Google Tag Manager (noscript) -->
 
- <!-- Header Component -->
  <resurgence-header current-page="resources"></resurgence-header>
 
- <!-- Main Content -->
- <main class="main" id="main-content">
- <!-- Hero Section -->
- <section class="hero resources-hero">
- <div class="container">
- <div class="hero-content">
- <h1 class="hero-title">Liens Utiles</h1>
- <p class="hero-subtitle">Outils & Ressources</p>
- <p class="hero-description">
- Retrouvez tous les outils essentiels pour optimiser votre expérience de roleplay géopolitique 
- sur Projet Résurgence.
-</p>
-</div>
-</div>
-</section>
+ <main id="main-content">
 
- <!-- Resources Grid Section -->
- <section class="features resources-section" data-reveal>
- <div class="container">
- <h2 class="section-title"> Nos Outils</h2>
- 
- <div class="resources-grid pr-grid pr-min-lg" id="resourcesGrid">
- 
- <!-- Map Card -->
- <a href="https://map.projet-resurgence.fr" class="resource-card" target="_blank" rel="noopener" 
- data-resource="map" onclick="trackResourceClick('map')" data-reveal data-reveal-delay="1">
- <div class="resource-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg></div>
- <div class="resource-content">
- <h3 class="resource-title">Carte Interactive</h3>
- <p class="resource-description">
- Explorez le monde de 2303 en temps réel. Visualisez les territoires des nations, 
- les frontières, les régions stratégiques et l'état actuel du roleplay géopolitique.
-</p>
- <div class="resource-meta">
- <span class="resource-tag"> Visualisation</span>
- <span class="resource-tag"> Temps réel</span>
-</div>
-</div>
- <div class="resource-arrow">→</div>
-</a>
-
- <!-- Calculator Card -->
- <a href="https://calc.projet-resurgence.fr" class="resource-card" target="_blank" rel="noopener"
- data-resource="calculator" onclick="trackResourceClick('calculator')" data-reveal data-reveal-delay="2">
- <div class="resource-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="12" x2="9" y2="12.01"/><line x1="12" y1="12" x2="12" y2="12.01"/><line x1="15" y1="12" x2="15" y2="12.01"/><line x1="9" y1="16" x2="9" y2="16.01"/><line x1="12" y1="16" x2="12" y2="16.01"/><line x1="15" y1="16" x2="15" y2="16.01"/></svg></div>
- <div class="resource-content">
- <h3 class="resource-title">Calculateur Économique</h3>
- <p class="resource-description">
- Planifiez vos constructions et votre économie. Calculez les coûts de logements, 
- centrales électriques, infrastructures et optimisez votre mix énergétique.
-</p>
- <div class="resource-meta">
- <span class="resource-tag"> Économie</span>
- <span class="resource-tag"> Énergie</span>
-</div>
-</div>
- <div class="resource-arrow">→</div>
-</a>
-
- <!-- Discord Card -->
- <a href="https://discord.projet-resurgence.fr" class="resource-card" target="_blank" rel="noopener"
- data-resource="discord" onclick="trackResourceClick('discord')" data-reveal data-reveal-delay="3">
- <div class="resource-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
- <div class="resource-content">
- <h3 class="resource-title">Serveur Discord</h3>
- <p class="resource-description">
- Rejoignez notre communauté active ! Le Discord est le cœur du jeu : diplomatie, 
- événements, économie et roleplay se déroulent tous sur notre serveur.
-</p>
- <div class="resource-meta">
- <span class="resource-tag"> Jeu principal</span>
- <span class="resource-tag"> Communauté</span>
-</div>
-</div>
- <div class="resource-arrow">→</div>
-</a>
-
- <!-- TechPanel Card -->
- <a href="https://tech.projet-resurgence.fr" class="resource-card" target="_blank" rel="noopener"
- data-resource="techpanel" onclick="trackResourceClick('techpanel')" data-reveal data-reveal-delay="4">
- <div class="resource-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg></div>
- <div class="resource-content">
- <h3 class="resource-title">Panel Technologique</h3>
- <p class="resource-description">
- Gérez votre arbre technologique. Créez, améliorez et déverrouillez des technologies 
- pour votre nation, en utilisant les ressources et la production disponibles.
-</p>
- <div class="resource-meta">
- <span class="resource-tag"> Recherche</span>
- <span class="resource-tag"> Production</span>
-</div>
-</div>
- <div class="resource-arrow">→</div>
-</a>
-
- <!-- Military Catalog Card -->
- <a href="https://catalog.projet-resurgence.fr" class="resource-card" target="_blank" rel="noopener"
- data-resource="catalog" onclick="trackResourceClick('catalog')" data-reveal data-reveal-delay="5">
- <div class="resource-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div>
- <div class="resource-content">
- <h3 class="resource-title">Catalogue Militaire</h3>
- <p class="resource-description">
- Parcourez le catalogue des équipements militaires disponibles à l'achat. 
- Comparez les caractéristiques des véhicules, aéronefs, navires et armements 
- pour équiper efficacement vos forces armées.
- </p>
- <div class="resource-meta">
- <span class="resource-tag"> Militaire</span>
- <span class="resource-tag"> Équipements</span>
+ <section class="v-shell" style="padding-top:46px;padding-bottom:30px;display:flex;align-items:flex-end;justify-content:space-between;gap:40px;flex-wrap:wrap">
+ <div>
+ <span class="v-eyebrow">Outils du projet</span>
+ <h1 class="v-h1">Six applications, une base de données.</h1>
+ <p class="v-lede">Tout ce que vous faites sur Discord se reflète ici, et inversement.
+ Ces outils sont ouverts, même sans compte.</p>
  </div>
- </div>
- <div class="resource-arrow">→</div>
- </a>
+ <span class="v-status">TOUS LES SERVICES EN LIGNE</span>
+ </section>
 
- <!-- Game Dashboard Card -->
- <a href="https://play.projet-resurgence.fr" class="resource-card" target="_blank" rel="noopener"
- data-resource="dashboard" onclick="trackResourceClick('dashboard')" data-reveal data-reveal-delay="6">
- <div class="resource-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg></div>
- <div class="resource-content">
- <h3 class="resource-title">Tableau de Bord Joueur</h3>
- <p class="resource-description">
- Accédez à votre dashboard personnel : statistiques de votre nation, 
- aperçu économique, technologies en cours, unités militaires et 
- actions diplomatiques — tout en un coup d'œil.
- </p>
- <div class="resource-meta">
- <span class="resource-tag"> Dashboard</span>
- <span class="resource-tag"> Stats</span>
- </div>
- </div>
- <div class="resource-arrow">→</div>
- </a>
+ <section class="v-shell" style="padding-bottom:64px">
+ <table class="v-tools">
+ <thead>
+ <tr><th>Outil</th><th>Ce qu'il fait</th><th>Adresse</th><th>État</th></tr>
+ </thead>
+ <tbody>
+ <tr class="is-featured">
+ <td>
+ <a class="v-tools__name" href="https://map.projet-resurgence.fr/" target="_blank" rel="noopener">
+ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+ Carte interactive</a>
+ </td>
+ <td class="v-tools__what">Le monde de 2303 en temps réel : territoires, frontières, régions stratégiques.</td>
+ <td class="v-tools__addr">map.</td>
+ <td class="v-tools__state is-live">MAJ J+1</td>
+ </tr>
+ <tr>
+ <td>
+ <a class="v-tools__name" href="https://calc.projet-resurgence.fr/" target="_blank" rel="noopener">
+ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="12" x2="9" y2="12.01"/><line x1="12" y1="12" x2="12" y2="12.01"/><line x1="15" y1="12" x2="15" y2="12.01"/><line x1="9" y1="16" x2="9" y2="16.01"/><line x1="12" y1="16" x2="12" y2="16.01"/><line x1="15" y1="16" x2="15" y2="16.01"/></svg>
+ Calculateur économique</a>
+ </td>
+ <td class="v-tools__what">Coûts de logements, centrales et infrastructures ; optimisation du mix énergétique.</td>
+ <td class="v-tools__addr">calc.</td>
+ <td class="v-tools__state">EN LIGNE</td>
+ </tr>
+ <tr>
+ <td>
+ <a class="v-tools__name" href="https://tech.projet-resurgence.fr/" target="_blank" rel="noopener">
+ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+ Panel technologique</a>
+ </td>
+ <td class="v-tools__what">Arbre de recherche : créez, améliorez et débloquez les technologies de votre nation.</td>
+ <td class="v-tools__addr">tech.</td>
+ <td class="v-tools__state">EN LIGNE</td>
+ </tr>
+ <tr>
+ <td>
+ <a class="v-tools__name" href="https://catalog.projet-resurgence.fr/" target="_blank" rel="noopener">
+ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+ Catalogue militaire</a>
+ </td>
+ <td class="v-tools__what">Véhicules, aéronefs, navires et armements — caractéristiques et prix comparés.</td>
+ <td class="v-tools__addr">catalog.</td>
+ <td class="v-tools__state">EN LIGNE</td>
+ </tr>
+ <tr>
+ <td>
+ <a class="v-tools__name" href="https://play.projet-resurgence.fr/" target="_blank" rel="noopener">
+ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+ Tableau de bord joueur</a>
+ </td>
+ <td class="v-tools__what">Votre nation d'un coup d'œil : économie, recherches, unités, actions diplomatiques.</td>
+ <td class="v-tools__addr">play.</td>
+ <td class="v-tools__state">EN LIGNE</td>
+ </tr>
+ <tr>
+ <td>
+ <a class="v-tools__name" href="https://discord.projet-resurgence.fr/" target="_blank" rel="noopener">
+ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+ Serveur Discord</a>
+ </td>
+ <td class="v-tools__what">Le cœur du jeu : diplomatie, événements et RP se déroulent tous ici.</td>
+ <td class="v-tools__addr">discord.</td>
+ <td class="v-tools__state is-live"><span data-stat="bot_commands">190+</span> CMD</td>
+ </tr>
+ </tbody>
+ </table>
 
-</div>
+ <div class="v-doc__foot" style="margin:44px 0 0;padding:26px 0;border-top:1px solid var(--v-line);background:none">
+ <div>
+ <strong>Un outil ne répond pas ?</strong>
+ <span>Signalez-le sur le Discord — le statut affiché ici n'est pas une sonde.</span>
+ </div>
+ <div style="display:flex;gap:10px;flex-wrap:wrap">
+ <a class="v-btn" href="https://discord.projet-resurgence.fr/" target="_blank" rel="noopener">Prévenir sur Discord</a>
+ <a class="v-btn-ghost" href="/mecaniques">Comprendre les systèmes →</a>
+ </div>
  </div>
  </section>
 
- <hr class="section-divider">
-
- <!-- Additional Info Section -->
- <section class="features" data-reveal>
- <div class="container">
- <h2 class="section-title"> Comment utiliser ces outils ?</h2>
- 
- <div class="info-cards">
- <div class="info-card">
- <h3> La Carte</h3>
- <p>
- La carte interactive vous permet de visualiser l'état actuel du monde. 
- Cliquez sur les régions pour voir les détails des nations, leurs territoires 
- et les zones de conflit potentielles.
-</p>
-</div>
- 
- <div class="info-card">
- <h3> Le Calculateur</h3>
- <p>
- Avant de construire des logements ou des infrastructures, utilisez le calculateur 
- pour estimer les coûts et planifier votre budget. Idéal pour optimiser votre 
- production d'électricité selon votre population.
-</p>
-</div>
- 
- <div class="info-card">
- <h3> Le Discord</h3>
- <p>
- Tout le roleplay se passe sur Discord. C'est là que vous gérerez votre nation, 
- négocierez avec les autres pays, participerez aux événements et vivrez 
- l'aventure géopolitique de 2303.
-</p>
-</div>
-
- <div class="info-card">
- <h3> Le Panel Tech</h3>
- <p>
- Accédez à votre arbre de recherches pour débloquer et améliorer les technologies 
- de votre nation. Gérez les files de production et suivez l'avancement 
- de vos projets en cours.
-</p>
-</div>
-
- <div class="info-card">
- <h3> Le Catalogue Militaire</h3>
- <p>
- Consultez la liste complète des équipements militaires disponibles à l'achat. 
- Comparez les caractéristiques des véhicules, aéronefs, navires et armements 
- pour équiper efficacement vos forces armées.
-</p>
-</div>
-</div>
- </div>
- </section>
-
- <hr class="section-divider">
-
- <!-- Call to Action -->
- <section class="cta" data-reveal>
- <div class="container">
- <h2>Prêt à commencer ?</h2>
- <p>
- Explorez nos outils et rejoignez la communauté pour vivre une expérience de roleplay 
- géopolitique unique dans un monde post-apocalyptique.
-</p>
- <div class="btn-group">
- <a href="https://discord.projet-resurgence.fr" class="btn btn-primary" target="_blank" rel="noopener">
- Rejoindre Discord
-</a>
- <a href="guide.html" class="btn btn-secondary">Guide du Débutant</a>
- <a href="mecaniques.html" class="btn btn-secondary">Découvrir les Mécaniques</a>
-</div>
-</div>
-</section>
 </main>
 
- <!-- Footer Component -->
  <resurgence-footer></resurgence-footer>
 
- <!-- JavaScript -->
- <!-- Web Components -->
- <script type="module" src="./components/components.js?v=3.2.0"></script>
-
- <!-- Analytics for resource clicks -->
- <script>
- function trackResourceClick(resourceName) {
- if (window.trackEvent) {
- window.trackEvent('resource_click', {
- category: 'Resources',
- label: resourceName,
- custom: {
- resource_type: resourceName,
- page_section: 'resources_grid'
- }
- });
- }
- }
-</script>
-
- <!-- Application Scripts -->
- <script src="./styles/main.js?v=1.4.0"></script>
- <script src="./styles/seo-optimizer.js"></script>
- <script src="./styles/performance-optimizer.js?v=4"></script>
- <script defer src="./styles/enhancements.js?v=2.1.1"></script>
+ <script type="module" src="./components/components.js?v=4.1.0"></script>
+ <script src="./styles/main.js?v=1.4.0" defer></script>
+ <script src="./styles/stats-loader.js?v=1.1.0" defer></script>
 </body>
 
 </html>
