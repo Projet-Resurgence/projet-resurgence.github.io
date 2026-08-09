@@ -40,11 +40,13 @@ from auth_guard import (
     verify_jwt_token,
 )
 from content_api import content_bp, render_space
+from link_preview import link_preview_bp
 from pr_api_service_auth import service_auth_headers
 
 app = Flask(__name__, static_folder=None)
 app.config["SECRET_KEY"] = SECRET_KEY
 app.register_blueprint(content_bp)
+app.register_blueprint(link_preview_bp)
 
 # Source files that live in the repo but must never be served over HTTP.
 _PRIVATE_FILES = {
@@ -53,6 +55,7 @@ _PRIVATE_FILES = {
     "auth_guard.py",
     "content_api.py",
     "content_markdown.py",
+    "link_preview.py",
     "bot_commands.py",
     "pr_api_service_auth.py",
     "requirements.txt",
@@ -411,6 +414,7 @@ _EDITORIAL_PAGES = {
     "regles": {
         "space": "rules",
         "template": "regles.html",
+        "og_image": "/images/banners/regles.png",
         "nav_page": "rules",
         "title": "Règles & Règlement",
         "eyebrow": "Règlement du serveur",
@@ -424,6 +428,7 @@ _EDITORIAL_PAGES = {
     "univers": {
         "space": "context",
         "template": "univers.html",
+        "og_image": "/images/banners/univers.png",
         "nav_page": "universe",
         "title": "L'Univers",
         "eyebrow": "Contexte RP · An 2303",
@@ -436,6 +441,7 @@ _EDITORIAL_PAGES = {
     "forum-rp": {
         "space": "forum_rp",
         "template": "forum-rp.html",
+        "og_image": "/images/banners/forum-rp.png",
         "nav_page": "forum-rp",
         "title": "Forum RP",
         "eyebrow": "Informations de jeu",
@@ -509,17 +515,28 @@ def not_found(_e):
 def cache_headers(response):
     """Mirror the cache policy the previous nginx image baked in."""
     path = request.path
+    last_segment = path.rsplit("/", 1)[-1]
+    has_extension = "." in last_segment
     if response.status_code >= 400:
         # Never let a 404 for a missing asset be cached for a year.
         response.headers["Cache-Control"] = "no-store"
-    elif path == "/sw.js" or path.endswith(".html") or path == "/":
+    elif path == "/sw.js" or path.endswith(".html") or path == "/" or not has_extension:
+        # Extensionless paths are dynamic pages (index, and the server-rendered
+        # /regles, /univers, /forum-rp) — same document-caching policy as
+        # *.html, not the "no header at all" default they used to fall through
+        # to. A path with no dot is never a static asset in this app.
         response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
         response.headers["Pragma"] = "no-cache"
     elif path.startswith("/components/"):
         response.headers["Cache-Control"] = "no-cache, must-revalidate"
+    elif path in ("/api/link-preview/image", "/api/link-preview/icon"):
+        # An immutable third-party banner or favicon, already proxied and
+        # validated. These are the only things under /api/ that are static
+        # assets, and re-fetching them on every hover would be silly.
+        response.headers["Cache-Control"] = "public, max-age=21600"
     elif path.startswith("/api/") or path == "/callback":
         response.headers["Cache-Control"] = "no-store"
-    elif path.rsplit(".", 1)[-1] in (
+    elif last_segment.rsplit(".", 1)[-1] in (
         "js", "css", "png", "jpg", "jpeg", "gif", "ico", "svg",
         "woff", "woff2", "ttf", "eot", "webp", "avif", "otf",
     ):

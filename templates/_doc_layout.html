@@ -59,7 +59,7 @@
     <section class="v-chapter" id="{{ category.slug }}"
              data-category-id="{{ category.id }}" data-category-slug="{{ category.slug }}">
       <div class="v-chapter__meta">
-        <span class="v-eyebrow"><span data-field="icon">{{ category.icon }}</span> Chapitre {{ chapter_index }}</span>
+        <span class="v-eyebrow"><span data-field="icon">{{ category.icon or '' }}</span> Chapitre {{ chapter_index }}</span>
         <span class="v-rule"></span>
         <span class="v-note">
           {{ category.sections | length }} section{{ 's' if category.sections | length > 1 }}
@@ -117,9 +117,10 @@
     title: {{ page.title | tojson }},
   };
 </script>
-<link rel="stylesheet" href="/assets/rp-text-block/rp-text-block.css?v=1.2.0">
-<script src="/assets/rp-text-block/rp-text-block.js?v=1.2.0"></script>
-<script type="module" src="/styles/content-doc.js?v=1.0.0"></script>
-<script type="module" src="/styles/content-admin.js?v=1.3.0"></script>
+<link rel="stylesheet" href="/assets/rp-text-block/rp-text-block.css?v=1.4.0">
+<script src="/assets/rp-text-block/rp-text-block.js?v=1.4.0"></script>
+<script type="module" src="/styles/content-doc.js?v=1.1.0"></script>
+<script type="module" src="/styles/content-admin.js?v=1.6.0"></script>
 <script type="module" src="/styles/command-guide.js?v=1.0.0"></script>
+<script type="module" src="/styles/link-preview.js?v=1.0.2"></script>
 {% endblock %}

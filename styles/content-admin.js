@@ -187,14 +187,98 @@ function editMode() {
 }
 
 /**
- * Switching modes reloads: leaving edit mode has to put the *published* HTML
- * back on screen, and only the server renders that. The draft is in
- * localStorage, so nothing typed is lost by the round trip.
+ * Switching modes no longer reloads.
+ *
+ * It used to, for one reason: leaving edit mode has to put the *published* HTML
+ * back on screen and only the server renders that. So we keep the server's
+ * render — a clone of every editable region is taken before the first editor is
+ * mounted, and switching off restores it. Entering never needed a round trip at
+ * all; the published source is already in memory from `loadPublished()`.
+ *
+ * The cost of the old behaviour was a full page load, a scroll to the top and a
+ * flash of unstyled content on every flick of the switch, for a state change
+ * that touches nothing outside `.v-doc__main`.
  */
+let pristine = null;                // [{ host, clone }] — the server's render
+
+/** The regions edit mode rewrites. /univers writes into its hero too. */
+function editableRegions() {
+  return [
+    ...document.querySelectorAll('.v-doc__main, .v-univers__main'),
+    ...document.querySelectorAll('.v-chronicle__copy[data-category-id]'),
+  ];
+}
+
+function snapshotRegions() {
+  if (pristine) return;
+  pristine = editableRegions().map((host) => ({ host, clone: host.cloneNode(true) }));
+}
+
+function restoreRegions() {
+  if (!pristine) { reload(); return; }
+  pristine.forEach(({ host, clone }) => {
+    // Cloned again on every restore so the snapshot survives a second switch.
+    host.replaceChildren(...clone.cloneNode(true).childNodes);
+  });
+  // Rows and controls edit mode added outside those regions (the completed
+  // chronicle rail) have no published counterpart to restore to.
+  document.querySelectorAll('[data-edit-only]').forEach((node) => node.remove());
+  const heading = document.getElementById('doc-catnav-title');
+  if (heading && railHeading !== null) heading.firstChild.nodeValue = railHeading;
+}
+
+function enterEditMode() {
+  snapshotRegions();
+  mountInlineEditors();
+  const catnav = document.getElementById('doc-catnav');
+  if (catnav && catnav.classList.contains('v-chroniclist')) completeChronicleRail(catnav);
+  if (catnav) decorateNav(catnav);
+}
+
+/**
+ * Keep the reader where they were across the swap.
+ *
+ * A textarea holding a chapter's markdown is not the height of that chapter
+ * rendered, so every section above the viewport changes height at once and a
+ * preserved `scrollY` lands on a different part of the document — switching the
+ * mode moved you several chapters away. Anchoring to an element instead of to a
+ * pixel offset is immune to that: whatever happens above it, the section you
+ * were reading stays under the same point of the screen.
+ */
+function anchorScroll() {
+  const marks = [...document.querySelectorAll('.v-section[data-section-id], .v-chapter[data-category-id]')];
+  if (!marks.length) return () => {};
+  // The one nearest the reading line, from either side.
+  const mark = marks.reduce((best, el) => {
+    const d = Math.abs(el.getBoundingClientRect().top - 120);
+    return best && best.d <= d ? best : { el, d };
+  }, null);
+  const key = mark.el.dataset.sectionId
+    ? `.v-section[data-section-id="${mark.el.dataset.sectionId}"]`
+    : `.v-chapter[data-category-id="${mark.el.dataset.categoryId}"]`;
+  const wasAt = mark.el.getBoundingClientRect().top;
+
+  return () => {
+    const again = document.querySelector(key);
+    if (!again) return;
+    window.scrollTo({ top: Math.max(0, window.scrollY + again.getBoundingClientRect().top - wasAt) });
+  };
+}
+
 function setEditMode(on) {
   persist();
   try { localStorage.setItem(EDIT_KEY, on ? '1' : '0'); } catch (e) { /* private mode */ }
-  reload();
+  const restoreScroll = anchorScroll();
+  document.body.classList.toggle('v-admin-edit', on);
+  if (on) enterEditMode();
+  else restoreRegions();
+  // Two frames: the textareas size themselves in the first one (`grow()`), so
+  // measuring before that would anchor to a height that is about to change.
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    restoreScroll();
+    // The navigation tracks live nodes; the ones it highlighted are gone.
+    window.dispatchEvent(new Event('resize'));
+  }));
 }
 
 // ── Inline fields ─────────────────────────────────────────────────────────
@@ -573,6 +657,7 @@ function completeChronicleRail(nav) {
     link.href = `#${chapter.dataset.categorySlug}`;
     link.dataset.category = chapter.dataset.categorySlug;
     link.dataset.categoryId = id;
+    link.dataset.editOnly = '1';   // removed again when edit mode is switched off
     link.innerHTML = `<span class="v-chroniclist__tag">${index + 1}</span>`
       + `<span class="v-chroniclist__title"></span>`;
     link.querySelector('.v-chroniclist__title').textContent =
@@ -582,8 +667,13 @@ function completeChronicleRail(nav) {
     nav.insertBefore(link, nav.children[index] || null);
   });
   const heading = document.getElementById('doc-catnav-title');
-  if (heading) heading.firstChild.nodeValue = 'Chroniques';
+  if (heading) {
+    if (railHeading === null) railHeading = heading.firstChild.nodeValue;
+    heading.firstChild.nodeValue = 'Chroniques';
+  }
 }
+
+let railHeading = null;             // « Autres chroniques », before edit mode
 
 // ── Review and publish ────────────────────────────────────────────────────
 
@@ -755,6 +845,14 @@ function activeChapter() {
   return document.querySelector(slug ? `.v-chapter[data-category-slug="${slug}"]` : '.v-chapter');
 }
 
+/**
+ * The bar lives at the top of the navigation column, not above the text.
+ *
+ * Two reasons: the aside is already sticky, so the switch stays reachable
+ * however far down the chapter one is reading; and « Publier »/« Annuler »
+ * only mean anything in edit mode — shown while reading, they invite a click
+ * that can only ever say « aucune modification ».
+ */
 function buildBar(editing) {
   if (!bar) return;
   bar.hidden = false;
@@ -775,9 +873,19 @@ function buildBar(editing) {
   count.className = 'v-admin-bar__count';
   count.id = 'doc-admin-count';
 
-  bar.append(label, toggle, count,
+  const actions = document.createElement('div');
+  actions.className = 'v-admin-bar__actions';
+  actions.append(
     button('Annuler', 'Jeter les modifications non publiées', discard, 'is-discard'),
-    button('Publier…', 'Relire les modifications puis publier', review, 'is-primary'));
+    button('Publier…', 'Relire les modifications puis publier', review, 'is-primary'),
+  );
+
+  bar.append(label, toggle, count, actions);
+
+  // Out of `.v-doc__main` and into the navigation column — which also takes it
+  // out of the region edit mode restores, so switching off cannot destroy it.
+  const aside = document.querySelector('.v-doc__aside, .v-univers__side');
+  if (aside) aside.prepend(bar);
 }
 
 function mountControls() {
@@ -803,10 +911,13 @@ function mountControls() {
   }
 
   loadPublished().then(() => {
-    if (editing) mountInlineEditors();
+    // Taken before any editor is mounted, and after buildBar() has moved the
+    // bar out: this clone is what « Mode édition » off restores, in place of
+    // the full page reload it used to do.
+    snapshotRegions();
+    if (editing) enterEditMode();
 
     if (catnav) {
-      if (editing && catnav.classList.contains('v-chroniclist')) completeChronicleRail(catnav);
       decorateNav(catnav);
       makeSortable(catnav, stageCategoryOrder);
     }

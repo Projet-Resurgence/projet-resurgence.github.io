@@ -1,6 +1,10 @@
-// Calendrier de jeu — moved here from the Game-Dashboard "Calendrier" tab.
+// Calendrier de jeu — Atlas design (3a).
 //
-// Public reads work logged out. The admin block (pause, announced resume date,
+// Le mois comme relevé : la correspondance réel ↔ 2303 est écrite dans chaque
+// case, l'administration passe du bloc en tête de page à un encart de colonne,
+// et le bandeau de reprise dit ce qui reste jouable pendant la pause.
+//
+// Public reads work logged out. The admin encart (pause, announced resume date,
 // playdays-per-month, force-advance) only renders for a logged-in administrator,
 // and every write is re-checked server-side by @require_admin.
 
@@ -152,13 +156,16 @@ function calFmtDate(iso) {
 }
 
 // For a pause day, return the bounding period { start, end }.
-// end === null means the pause is current/predicted (no game day after it),
-// so its end can't be known.
+// end === null means the pause is current/predicted (no game day after it).
 function calPausePeriod(iso) {
     const latest = calState.latestReal;
+    const planned = calState.plannedResumeDate;
     if (!latest || iso > latest) {
-        // Ongoing/future pause: starts the day after the last game day.
-        return { start: latest ? calAddDays(latest, 1) : iso, end: null };
+        const start = latest ? calAddDays(latest, 1) : iso;
+        // When a resume date is planned, the pause ends the day before it
+        // (the bot unpauses one day ahead so the 07:00 tick can fire).
+        const end = planned && planned > start ? calAddDays(planned, -1) : null;
+        return { start, end };
     }
     let start = iso;
     for (let d = calAddDays(iso, -1); d >= calState.firstReal && !calState.dateMap[d]; d = calAddDays(d, -1)) {
@@ -171,10 +178,7 @@ function calPausePeriod(iso) {
     return { start, end };
 }
 
-// Total playdays for a given game (year, month). The playdays-per-month
-// config is the *current* year's limit, so it only applies to the latest
-// (frontier) month, which may still be in progress. Every other year/month
-// is complete, so its real total is the highest playday actually recorded.
+// Total playdays for a given game (year, month).
 function calMonthTotal(gameYear, gameMonth, fallback) {
     const key = gameYear + '-' + gameMonth;
     let total = calState.monthMax[key] || fallback;
@@ -199,28 +203,52 @@ function calAdvancePlayday(year, month, playday) {
     return { year: year + 1, month: 1, playday: 1 };
 }
 
+// Walk forward one real day at a time from the planned resume date, mirroring
+// the backend's fully-automatic mid-year pause: whenever the walk would roll
+// June (6) into July (7), that rollover is held back for 2 real days (shown
+// as plain pause cells) before July 1 actually lands.
+function calWalkPreview(targetIso) {
+    const [frontierYear, frontierMonth] = calState.frontierKey.split('-').map(Number);
+    const frontierPlayday = calState.monthMax[calState.frontierKey] || 1;
+    let state = { year: frontierYear, month: frontierMonth, playday: frontierPlayday };
+    let gapRemaining = 0;
+    let pendingState = null;
+    let cursor = calState.plannedResumeDate;
+    for (;;) {
+        let dayResult;
+        if (gapRemaining > 0) {
+            gapRemaining--;
+            if (gapRemaining === 0 && pendingState) {
+                // Gap over: this day is July 1 itself, not a further advance.
+                state = pendingState;
+                pendingState = null;
+                dayResult = { pause: false, state: { ...state } };
+            } else {
+                dayResult = { pause: true };
+            }
+        } else {
+            const next = calAdvancePlayday(state.year, state.month, state.playday);
+            if (state.month === 6 && next.month === 7) {
+                gapRemaining = 2; // 2 real days held back before July 1 lands
+                pendingState = next;
+                dayResult = { pause: true };
+            } else {
+                state = next;
+                dayResult = { pause: false, state: { ...state } };
+            }
+        }
+        if (cursor === targetIso) return dayResult;
+        cursor = calAddDays(cursor, 1);
+    }
+}
+
 // Project the (year, month, playday) of an IRL day that falls on/after the
-// planned (but not-yet-guaranteed) resume date, by walking forward from the
-// actual last known game date (the "frontier") the same way the backend
-// would once play resumes — one playday per real day. Works for any pause
-// (year-end, mid-year, ...), not just a resume that starts a new year.
-// Returns null if there's no planned date, the day is before it, or there's
-// no frontier date to project from.
+// planned resume date, by walking forward from the actual last known game date.
 function calProjectPreview(iso) {
     const planned = calState.plannedResumeDate;
     if (!planned || iso < planned || !calState.frontierKey) return null;
-
-    const [frontierYear, frontierMonth] = calState.frontierKey.split('-').map(Number);
-    const frontierPlayday = calState.monthMax[calState.frontierKey] || 1;
-    // The planned/resume day itself is the first playday advanced since the
-    // frontier (the game was static while paused).
-    let state = calAdvancePlayday(frontierYear, frontierMonth, frontierPlayday);
-    let cursor = planned;
-    while (cursor < iso) {
-        state = calAdvancePlayday(state.year, state.month, state.playday);
-        cursor = calAddDays(cursor, 1);
-    }
-    return state;
+    const result = calWalkPreview(iso);
+    return result.pause ? null : result.state;
 }
 
 // Classify an IRL day (ISO string) against the game date data.
@@ -238,7 +266,7 @@ function calClassify(iso) {
 
 async function loadCalendar(force = false) {
     calState.notes = calLoadNotes();
-    if (calState.loaded && !force) { renderCalendar(); calRenderBanner(); return; }
+    if (calState.loaded && !force) { renderCalendar(); calRenderBanner(); renderTodayCard(); renderMonthStats(); return; }
     if (calState.loading) return;
     calState.loading = true;
     const loadingEl = document.getElementById('cal-loading');
@@ -265,7 +293,6 @@ async function loadCalendar(force = false) {
             calState.dateMap = map;
             calState.monthMax = monthMax;
             calState.frontierKey = frontierKey;
-            // dates are returned ordered by real_date asc; first/last bound the range
             calState.firstReal = dates.length ? dates[0].real_date : null;
             calState.latestReal = dates.length ? dates[dates.length - 1].real_date : null;
             calState.loaded = true;
@@ -280,6 +307,8 @@ async function loadCalendar(force = false) {
         if (loadingEl) loadingEl.style.display = 'none';
         renderCalendar();
         calRenderBanner();
+        renderTodayCard();
+        renderMonthStats();
         renderAdminPanel();
     }
 }
@@ -292,6 +321,7 @@ function calNavigate(delta) {
     calState.viewMonth = m;
     calState.viewYear = y;
     renderCalendar();
+    renderMonthStats();
 }
 
 function calGoToday() {
@@ -299,16 +329,26 @@ function calGoToday() {
     calState.viewYear = now.getFullYear();
     calState.viewMonth = now.getMonth();
     renderCalendar();
+    renderMonthStats();
 }
+
+// ── Render : grille du mois ─────────────────────────────────────────
 
 function renderCalendar() {
     const grid = document.getElementById('cal-grid');
     const title = document.getElementById('cal-title');
+    const rangeEl = document.getElementById('cal-month-range');
     if (!grid || !title) return;
 
     const year = calState.viewYear;
     const month = calState.viewMonth;
     title.textContent = `${CAL_MONTHS[month]} ${year}`;
+
+    // Show the 2303 range for the current view month, if any game dates fall in it.
+    if (rangeEl) {
+        const range = calMonthRange(year, month);
+        rangeEl.textContent = range ? `— ${range}` : '';
+    }
 
     const todayIso = calIso(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
     const firstDow = (new Date(year, month, 1).getDay() + 6) % 7; // Monday-first offset
@@ -325,31 +365,26 @@ function renderCalendar() {
         let body = '';
         const dayNote = calState.notes[iso];
         let periodNote = null;
+
         if (info.type === 'play') {
-            // A few catch-up days carry several game days; show the latest one.
-            // (gds is ordered by game time, so the last entry is the latest.)
+            // Show the 2303 date inside the cell — "14 mars" style.
             const gd = info.gds[info.gds.length - 1];
-            const total = calMonthTotal(gd.year, gd.month, gd.playday);
-            body = `<div class="cal-gamedate">${CAL_MONTHS[gd.month - 1]} `
-                 + `<span class="cal-pd">${gd.playday}/${total}</span>`
-                 + `<span class="cal-yr">${gd.year}</span></div>`;
+            body = `<span class="cal-gamedate">${CAL_MONTHS_SHORT[gd.month - 1]} ${gd.playday}</span>`;
+            if (info.gds.length > 1) {
+                body += `<span class="cal-tag">${info.gds.length}j</span>`;
+            }
         } else if (info.type === 'preview') {
             const pv = info.preview;
-            const total = calState.playdaysPerMonth[String(pv.month)] || pv.playday;
-            body = `<div class="cal-gamedate">${CAL_MONTHS[pv.month - 1]} `
-                 + `<span class="cal-pd">${pv.playday}/${total}</span>`
-                 + `<span class="cal-yr">${pv.year}</span></div>`
-                 + `<span class="cal-preview-badge" title="Date prévisionnelle — non garantie, peut changer">★</span>`;
+            body = `<span class="cal-gamedate">${CAL_MONTHS_SHORT[pv.month - 1]} ${pv.playday}</span>`
+                  + `<span class="cal-preview-badge" title="Date prévisionnelle — non garantie, peut changer">★</span>`;
         } else if (info.type === 'pause') {
             const p = calPausePeriod(iso);
             periodNote = calState.notes[calPeriodKey(p)] || null;
-            const range = p.end === null
-                ? `<span class="cal-range">depuis ${calFmtDate(p.start)}<br>fin indéfinie</span>`
-                : `<span class="cal-range">${calFmtDate(p.start)} → ${calFmtDate(p.end)}</span>`;
-            body = '<span class="cal-tag cal-tag-pause">En pause</span>' + range;
+            body = '<span class="cal-tag">pause</span>';
         } else {
-            body = '<span class="cal-tag cal-tag-offgame">Hors de jeu</span>';
+            body = '<span class="cal-tag">hors jeu</span>';
         }
+
         if (dayNote) body += `<div class="cal-note-text">${calEsc(dayNote)}</div>`;
         if (periodNote) body += `<div class="cal-note-text cal-note-text-period">${calEsc(periodNote)}</div>`;
         const badge = (dayNote || periodNote) ? '<span class="cal-note-badge">✎</span>' : '';
@@ -360,14 +395,116 @@ function renderCalendar() {
     grid.innerHTML = html;
 }
 
-// ── Reprise du RP : banner + admin edit ─────────────────────────────
+// Find the 2303 date range that falls within the viewed real month.
+function calMonthRange(year, month) {
+    const start = calIso(year, month, 1);
+    const end = calIso(year, month, new Date(year, month + 1, 0).getDate());
+    let first = null, last = null;
+    for (let d = start; d <= end; d = calAddDays(d, 1)) {
+        const gds = calState.dateMap[d];
+        if (gds && gds.length) {
+            const gd = gds[0];
+            const label = `${gd.playday} ${CAL_MONTHS_SHORT[gd.month - 1]}`;
+            if (!first) first = label;
+            const gdLast = gds[gds.length - 1];
+            last = `${gdLast.playday} ${CAL_MONTHS_SHORT[gdLast.month - 1]}`;
+        }
+        // Also check preview dates.
+        const preview = calProjectPreview(d);
+        if (preview) {
+            const label = `${preview.playday} ${CAL_MONTHS_SHORT[preview.month - 1]}`;
+            if (!first) first = label;
+            last = label;
+        }
+    }
+    if (!first) return null;
+    return first === last ? `du ${first} 2303` : `du ${first} au ${last} 2303`;
+}
+
+// ── Render : « Aujourd'hui » card ───────────────────────────────────
+
+function renderTodayCard() {
+    const card = document.getElementById('cal-today-card');
+    if (!card) return;
+
+    const todayIso = calIso(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+    const info = calClassify(todayIso);
+
+    // Real date
+    const [, m, d] = todayIso.split('-').map(Number);
+    document.getElementById('cal-today-real').textContent =
+        `${String(d).padStart(2, '0')}.${String(m).padStart(2, '0')}.${todayIso.slice(0, 4)}`;
+
+    // Game date
+    if (info.type === 'play') {
+        const gd = info.gds[info.gds.length - 1];
+        document.getElementById('cal-today-game').textContent =
+            `${CAL_MONTHS_SHORT[gd.month - 1]} ${gd.playday} ${gd.year}`;
+    } else if (info.type === 'preview') {
+        const pv = info.preview;
+        document.getElementById('cal-today-game').textContent =
+            `${CAL_MONTHS_SHORT[pv.month - 1]} ${pv.playday} ${pv.year} (prev.)`;
+    } else if (info.type === 'pause') {
+        document.getElementById('cal-today-game').textContent = 'En pause';
+    } else {
+        document.getElementById('cal-today-game').textContent = 'Hors de jeu';
+    }
+
+    // Days played (total game dates recorded)
+    const totalPlayed = Object.values(calState.dateMap).reduce((sum, gds) => sum + gds.length, 0);
+    document.getElementById('cal-today-played').textContent = String(totalPlayed);
+
+    // Next play day
+    let nextDay = null;
+    if (calState.plannedResumeDate && todayIso < calState.plannedResumeDate) {
+        const [ry, rm, rd] = calState.plannedResumeDate.split('-').map(Number);
+        nextDay = `${CAL_WEEKDAYS[new Date(Date.UTC(ry, rm - 1, rd)).getUTCDay()].slice(0, 3)} ${rd}.${String(rm).padStart(2, '0')}`;
+    } else {
+        for (let d = calAddDays(todayIso, 1); d <= calAddDays(todayIso, 365); d = calAddDays(d, 1)) {
+            const gds = calState.dateMap[d];
+            if (gds && gds.length) {
+                const [ny, nm, nd] = d.split('-').map(Number);
+                nextDay = `${CAL_WEEKDAYS[new Date(Date.UTC(ny, nm - 1, nd)).getUTCDay()].slice(0, 3)} ${nd}.${String(nm).padStart(2, '0')}`;
+                break;
+            }
+        }
+    }
+    document.getElementById('cal-today-next').textContent = nextDay || '—';
+
+    card.hidden = false;
+}
+
+// ── Render : « Ce mois-ci » stats ───────────────────────────────────
+
+function renderMonthStats() {
+    const year = calState.viewYear;
+    const month = calState.viewMonth;
+    const start = calIso(year, month, 1);
+    const end = calIso(year, month, new Date(year, month + 1, 0).getDate());
+
+    let playDays = 0, pauseDays = 0;
+    for (let d = start; d <= end; d = calAddDays(d, 1)) {
+        const info = calClassify(d);
+        if (info.type === 'play') playDays++;
+        else if (info.type === 'pause') pauseDays++;
+    }
+
+    // Game advance: how many playdays in this month
+    let advance = 0;
+    for (let d = start; d <= end; d = calAddDays(d, 1)) {
+        const gds = calState.dateMap[d];
+        if (gds) advance += gds.length;
+    }
+
+    document.getElementById('cal-stat-play').textContent = String(playDays);
+    document.getElementById('cal-stat-pause').textContent = String(pauseDays);
+    document.getElementById('cal-stat-advance').textContent = `${advance} j`;
+}
+
+// ── Reprise du RP : bandeau + admin edit ────────────────────────────
 
 function calRenderBanner() {
     const banner = document.getElementById('cal-resume-banner');
-    const editBtn = document.getElementById('cal-edit-resume-btn');
-    const admin = isAdmin();
-
-    if (editBtn) editBtn.style.display = admin ? 'inline-flex' : 'none';
     if (!banner) return;
 
     if (!calState.isPaused) {
@@ -381,14 +518,16 @@ function calRenderBanner() {
             banner.style.display = 'none';
             return;
         }
-        banner.className = 'cal-banner cal-banner-announce';
-        banner.innerHTML = `<span>Reprise du RP annoncée ! Le jeu reprendra le `
-            + `<strong>${calFmtFull(calState.plannedResumeDate)}</strong>.</span>`
-            + `<button class="cal-banner-close" onclick="calDismissBanner()" title="Fermer">✕</button>`;
+        banner.className = 'cal-resume-strip';
+        banner.innerHTML = `<span class="cal-resume-strip__label">Reprise annoncée</span>`
+            + `<span class="cal-resume-strip__text">Le RP reprend le <b>${calFmtFull(calState.plannedResumeDate)}</b> au matin. `
+            + `D'ici là les commandes économiques restent ouvertes, les actions militaires sont gelées.</span>`
+            + `<button class="cal-resume-strip__close" onclick="calDismissBanner()" title="Fermer">✕</button>`;
         banner.style.display = 'flex';
-    } else if (admin) {
-        banner.className = 'cal-banner cal-banner-admin-nudge';
-        banner.innerHTML = `<span>Le jeu est en pause et aucune date de reprise n'est encore planifiée.</span>`
+    } else if (isAdmin()) {
+        banner.className = 'cal-resume-strip';
+        banner.innerHTML = `<span class="cal-resume-strip__label">En pause</span>`
+            + `<span class="cal-resume-strip__text">Le jeu est en pause et aucune date de reprise n'est encore planifiée.</span>`
             + `<button class="cal-btn" onclick="calOpenResumeModal()">Planifier</button>`;
         banner.style.display = 'flex';
     } else {

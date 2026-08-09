@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none" stroke-width="1.6" role="img" aria-label="Frontières et flux">
+  <rect x="0" y="0" width="1200" height="630" fill="#0b0b0b"/>
+  <rect x="24" y="24" width="1152" height="582" fill="none" stroke="#D5B654" opacity=".28"/>
+  <path d="M24 64V24H64M1136 24H1176V64M1176 566V606H1136M64 606H24V566" stroke="#D5B654" opacity=".55"/>
+  <g stroke="#D5B654" opacity=".3">
+    <path d="M200 460 L300 300 L470 250 L610 330 L560 470 L370 500 Z"/>
+    <path d="M610 330 L790 240 L960 290 L980 440 L790 470 L560 470"/>
+  </g>
+  <g stroke="#D5B654" opacity=".55" stroke-dasharray="7 6"><path d="M610 330 L560 470"/></g>
+  <g stroke="#D5B654" opacity=".5"><path d="M360 380 L700 380"/><path d="M676 368 L700 380 L676 392"/></g>
+  <g fill="#D5B654"><circle cx="360" cy="380" r="6"/><circle cx="790" cy="350" r="6"/></g>
+  <g stroke="#D5B654" opacity=".35"><circle cx="790" cy="350" r="20"/><circle cx="790" cy="350" r="34"/></g>
+</svg>

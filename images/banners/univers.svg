@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none" stroke-width="1.6" role="img" aria-label="Courbes de niveau">
+  <rect x="0" y="0" width="1200" height="630" fill="#0b0b0b"/>
+  <rect x="24" y="24" width="1152" height="582" fill="none" stroke="#D5B654" opacity=".28"/>
+  <path d="M24 64V24H64M1136 24H1176V64M1176 566V606H1136M64 606H24V566" stroke="#D5B654" opacity=".55"/>
+  <g stroke="#D5B654" opacity=".3">
+    <path d="M-40 390 C 180 314, 360 446, 600 366 S 1000 244, 1240 314"/>
+    <path d="M-40 446 C 180 370, 360 502, 600 422 S 1000 300, 1240 370"/>
+    <path d="M-40 334 C 180 258, 360 390, 600 310 S 1000 188, 1240 258"/>
+    <path d="M-40 278 C 180 202, 360 334, 600 254 S 1000 132, 1240 202"/>
+    <path d="M-40 502 C 180 426, 360 558, 600 478 S 1000 356, 1240 426"/>
+  </g>
+  <path d="M0 210H1200" stroke="#D5B654" opacity=".5"/>
+  <circle cx="600" cy="366" r="5" fill="#D5B654"/>
+</svg>

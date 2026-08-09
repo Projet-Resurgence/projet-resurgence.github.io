@@ -273,6 +273,20 @@ the section already owns the `h3` above them), `-`/`1.` lists, `>` citations,
 !commands[all]                                 guide des commandes des bots
 ```
 
+Les trois marqueurs média acceptent une **taille facultative** en fin de
+parenthèse — `(url =640)` fixe la largeur affichée, `(url =640x360)` fixe en
+plus le rapport d'un lecteur vidéo (l'iframe porte `aspect-ratio: 16/9` par
+défaut, donc le rapport va sur elle, pas sur la figure). Un suffixe qui ne
+s'analyse pas laisse la ligne en texte brut plutôt que de mettre `x.png =gros`
+dans un attribut `src`. Les dialogues « image / vidéo / lien » de
+`rp-text-block` exposent les champs correspondants.
+
+`!video` et `!embed` posés **au milieu d'une phrase** (et non sur leur propre
+ligne) deviennent un simple lien : un lecteur intégré n'a pas de sens en plein
+paragraphe. Sans cette règle, `_INLINE_LINK` attrapait le `[titre](url)` et
+laissait `!embed` en toutes lettres devant le lien — ce qui est arrivé en
+production sur le règlement.
+
 **Only YouTube, Vimeo and Dailymotion are ever put in an `<iframe>`.** Any other
 host asked for as a video renders as a link card instead — an editor must not be
 able to frame an arbitrary origin into this site's own page. The nginx
@@ -355,6 +369,54 @@ docker compose exec resurgence-web python scripts/seed_content.py
 
 It refuses to run against a space that already has categories (`--force` to
 override) — re-seeding an edited règlement would silently discard the edits.
+
+#### Aperçu au survol d'un hyperlien (`link_preview.py` + `styles/link-preview.js`)
+
+Hovering a link inside `.pr-content` shows a card with the target's title,
+description and banner. Internal anchors are described from the page itself
+with no network call; external links go through two routes:
+
+| Route | Answers |
+|---|---|
+| `GET /api/link-preview?url=` | `{ title, description, site_name, host, image, icon }` |
+| `GET /api/link-preview/image?url=` | the banner bytes, keyed by the **page** URL |
+| `GET /api/link-preview/icon?url=` | the favicon bytes, same key, same guards |
+
+This is the only place resurgence-web fetches a URL somebody else chose, so it
+is the site's SSRF surface — this container reaches PR_API, the database and
+the bots by hostname. Four things hold it shut, and none are decorative:
+
+- **Address guard.** http/https only; the host is resolved and *every* address
+  it answers with must be public unicast (a split public/loopback answer is
+  refused — that is DNS rebinding). Re-checked on each redirect hop, max 3
+  hops, 4 s timeout, 512 KB read cap, `trust_env = False`.
+- **Allow-set.** Only hosts that the published content already links to may be
+  previewed, derived from PR_API's three spaces on a 10-minute TTL. An
+  administrator adding a link is enough; there is no second list.
+- **The banner and the favicon are proxied, never hot-linked.** The vhost CSP is
+  `img-src 'self' …` with no blanket `https:`, and hot-linking would hand every
+  reader's IP to the linked site. The third-party image address stays
+  server-side (`image_src`); the browser only ever sees our own path. The image
+  routes are keyed by the *page* URL, so they cannot be pointed at an arbitrary
+  target, and the content-type must really be an image. **The banner route
+  accepts `image/svg+xml`** (unlike uploads, `content_api.py`) — every page's
+  `og:image` is one of the `images/banners/*.svg` line-art files, and a
+  browser never executes script inside an SVG reached via `<img src>`, only
+  via inline/`<object>`/navigation. The favicon route stays PNG/JPEG/WebP/
+  GIF/AVIF/ICO only; no page needs an SVG favicon here.
+- **No second renderer.** The endpoint returns text; the card is filled with
+  `textContent`. Rule 16 holds — `content_markdown.py` stays the only renderer.
+
+Previews, banners and favicons are cached in-process (6 h; failures 15 min, so
+a dead host is not refetched on every hover).
+
+**Un lien interne montre la bannière de la page visée.** Le document est déjà
+récupéré pour en tirer le titre et la première phrase : `ownImages()` y lit
+aussi `og:image` et `link[rel~="icon"]`. Chaque page éditoriale déclare la
+sienne (`og_image` dans `_EDITORIAL_PAGES`, fichiers `images/preview/*.jpg`),
+donc les variantes suivent sans table de correspondance côté client. Seul le
+**chemin** de l'`og:image` est gardé : il est absolu sur le domaine public,
+et `img-src 'self'` le rejetterait ailleurs (stack locale, préproduction).
 
 ### Calendrier (`calendrier.html`)
 

@@ -400,6 +400,13 @@ body.v-page {
 
 .v-chapter { scroll-margin-top: 96px; }
 .v-chapter + .v-chapter { margin-top: 72px; padding-top: 56px; border-top: 1px solid var(--v-line); }
+/* Piste de défilement. Le document cesse de défiler dès que le bas du dernier
+   chapitre atteint le bas de la fenêtre : sans cette réserve, cliquer sur
+   l'avant-dernier chapitre ne peut pas l'amener en haut de l'écran, et la
+   navigation semble sauter au chapitre suivant. Elle ne coûte rien quand le
+   dernier chapitre est déjà long. */
+.v-doc__main > .v-chapter:last-of-type,
+.v-univers__main > .v-chapter:last-of-type { min-height: calc(100vh - 240px); }
 
 .v-chapter__meta {
   display: flex;
@@ -579,6 +586,96 @@ body.v-page {
 }
 .pr-content-embed-title { flex: 1; font: 500 14px var(--v-body); color: var(--v-ink); }
 .pr-content-embed-go { color: var(--v-gold); }
+/* `!embed[…]` posé au milieu d'une phrase : une carte n'a pas de sens là, un
+   lien si. Rendu comme les autres liens du corps de texte. */
+.pr-content-embed-inline {
+  color: var(--v-gold);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ── Aperçu au survol d'un hyperlien ──────────────────────────────────── */
+
+.pr-linkcard {
+  position: absolute;
+  z-index: 900;
+  width: 330px;
+  max-width: calc(100vw - 24px);
+  border: 1px solid var(--v-line-strong);
+  border-left: 2px solid var(--v-gold);
+  background: var(--v-bg-panel);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.14s ease, transform 0.14s ease;
+  pointer-events: none;
+}
+
+.pr-linkcard.is-open {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.pr-linkcard__banner {
+  border-bottom: 1px solid var(--v-line);
+  background: var(--v-bg-void);
+}
+
+.pr-linkcard__banner img {
+  display: block;
+  width: 100%;
+  height: 148px;
+  object-fit: cover;
+}
+
+.pr-linkcard__body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 14px 14px;
+}
+
+.pr-linkcard__site {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--v-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--v-gold);
+}
+
+/* Beaucoup de favicons sont des `.ico` 16px : on ne les agrandit pas. */
+.pr-linkcard__favicon {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  border-radius: 3px;
+}
+
+.pr-linkcard__title {
+  font-family: var(--v-title);
+  font-size: 15px;
+  line-height: 1.3;
+  color: var(--v-ink);
+}
+
+.pr-linkcard__desc {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--v-ink-muted);
+}
+
+.pr-linkcard--internal { border-left-color: var(--v-line-strong); }
+.pr-linkcard--internal .pr-linkcard__site { color: var(--v-ink-faint); }
+
+@media (prefers-reduced-motion: reduce) {
+  .pr-linkcard { transition: none; }
+}
 
 /* ── Bandeaux « Recevable / Refusé » réutilisables ────────────────────── */
 
@@ -608,6 +705,8 @@ body.v-page {
     linear-gradient(90deg, rgba(213, 182, 84, 0.04) 1px, transparent 1px);
   background-size: 46px 46px;
 }
+/* Le motif de page et son voile sont posés en fond ; tout le reste passe
+   au-dessus (`.v-hero-grid::before` est la trame, elle reste dessous). */
 .v-hero-grid > * { position: relative; }
 
 .v-kpi { display: flex; flex-direction: column; gap: 1px; background: var(--v-line); border: 1px solid var(--v-line); }
@@ -687,11 +786,17 @@ body.v-page {
   max-height: calc(100vh - 84px);
   overflow-y: auto;
 }
+/* Lettrine. Le `line-height: 0.78` d'origine écrasait la boîte sous la hauteur
+   d'ascendante : un É, un À ou un Î perdait son accent, coupé net en haut —
+   et la moitié des chroniques commencent par un mot accentué en français. La
+   hauteur de ligne pleine laisse la place aux diacritiques ; le décalage se
+   fait au `margin`, pas en rognant la boîte. */
 .v-univers__main .pr-content > p:first-of-type::first-letter {
   float: left;
-  font: 700 58px/0.78 var(--v-title);
+  font: 700 54px/1 var(--v-title);
   color: var(--v-gold);
-  margin: 6px 10px 0 0;
+  margin: 0 10px 0 0;
+  padding-top: 2px;
 }
 .v-chroniclist { display: flex; flex-direction: column; margin-top: 16px; }
 .v-chroniclist a {
@@ -789,17 +894,31 @@ body.v-page {
 
 .pr-spoiler.is-revealed { background: var(--v-line-strong); color: var(--v-ink); }
 
+/* La barre est déplacée dans la colonne de navigation par content-admin.js.
+   Elle y reste collée en haut : l'aside défile pour son propre compte, donc
+   sans `sticky` l'interrupteur disparaît dès qu'on descend dans la liste des
+   chapitres. Les marges négatives la font toucher les bords de l'aside. */
 .v-admin-bar {
+  position: sticky;
+  top: 0;
+  z-index: 3;
   display: flex;
-  align-items: center;
-  gap: 14px;
-  margin: 0 0 28px;
-  padding: 12px 16px;
-  border: 1px solid var(--v-gold-line);
-  background: var(--v-gold-wash);
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  margin: -28px -20px 20px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--v-gold-line);
+  /* Opaque : la colonne défile *sous* cette barre, un fond translucide
+     laisserait passer les noms de chapitres. */
+  background: linear-gradient(var(--v-gold-wash), var(--v-gold-wash)), var(--v-bg-panel);
 }
+.v-admin-bar__actions { display: flex; gap: 8px; }
+.v-admin-bar__actions .v-admin-btn { flex: 1; text-align: center; }
+/* Hors édition, publier et annuler n'ont rien sur quoi mordre. */
+body:not(.v-admin-edit) .v-admin-bar__actions { display: none; }
+
 .v-admin-bar__label {
-  flex: 1;
   font: 500 11px var(--v-mono);
   letter-spacing: 0.16em;
   text-transform: uppercase;

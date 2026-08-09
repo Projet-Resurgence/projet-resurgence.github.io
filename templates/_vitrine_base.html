@@ -77,7 +77,7 @@
  <meta property="og:url" content="{{ public_url }}/{{ slug }}">
  <meta property="og:title" content="{{ page.meta_title }}">
  <meta property="og:description" content="{{ page.meta_description }}">
- <meta property="og:image" content="{{ public_url }}/images/banner.jpg">
+ <meta property="og:image" content="{{ public_url }}{{ page.og_image | default('/images/banner.jpg', true) }}">
  <meta property="og:site_name" content="Projet Résurgence">
  <meta property="og:locale" content="fr_FR">
 
@@ -85,7 +85,7 @@
  <meta property="twitter:url" content="{{ public_url }}/{{ slug }}">
  <meta property="twitter:title" content="{{ page.meta_title }}">
  <meta property="twitter:description" content="{{ page.meta_description }}">
- <meta property="twitter:image" content="{{ public_url }}/images/banner.jpg">
+ <meta property="twitter:image" content="{{ public_url }}{{ page.og_image | default('/images/banner.jpg', true) }}">
 
  <link rel="canonical" href="{{ public_url }}/{{ slug }}">
 
@@ -95,7 +95,7 @@
  <link rel="preload" href="/fonts/pressgothic.otf" as="font" type="font/otf" crossorigin="anonymous">
 
  <link rel="stylesheet" href="/styles/main.css?v=2.8.2">
- <link rel="stylesheet" href="/styles/vitrine.css?v=1.7.0">
+ <link rel="stylesheet" href="/styles/vitrine.css?v=1.12.0">
  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
  <link rel="shortcut icon" href="/favicon/favicon.ico" />

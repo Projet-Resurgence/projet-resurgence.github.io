@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none" stroke-width="1.6" role="img" aria-label="Graticule et relevés">
+  <rect x="0" y="0" width="1200" height="630" fill="#0b0b0b"/>
+  <rect x="24" y="24" width="1152" height="582" fill="none" stroke="#D5B654" opacity=".28"/>
+  <path d="M24 64V24H64M1136 24H1176V64M1176 566V606H1136M64 606H24V566" stroke="#D5B654" opacity=".55"/>
+  <g stroke="#D5B654" stroke-width="1" opacity=".32">
+    <path d="M0 155H1200M0 245H1200M0 315H1200M0 385H1200M0 475H1200"/>
+    <ellipse cx="600" cy="315" rx="120" ry="210"/><ellipse cx="600" cy="315" rx="280" ry="210"/><ellipse cx="600" cy="315" rx="460" ry="210"/>
+    <circle cx="600" cy="315" r="210"/>
+  </g>
+  <g fill="#D5B654"><circle cx="424" cy="259" r="4"/><circle cx="712" cy="363" r="4"/><circle cx="808" cy="243" r="3"/></g>
+  <g stroke="#D5B654" opacity=".45"><circle cx="424" cy="259" r="12"/><circle cx="712" cy="363" r="17"/></g>
+</svg>

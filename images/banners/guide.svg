@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none" stroke-width="1.6" role="img" aria-label="Parcours en cinq étapes">
+  <rect x="0" y="0" width="1200" height="630" fill="#0b0b0b"/>
+  <rect x="24" y="24" width="1152" height="582" fill="none" stroke="#D5B654" opacity=".28"/>
+  <path d="M24 64V24H64M1136 24H1176V64M1176 566V606H1136M64 606H24V566" stroke="#D5B654" opacity=".55"/>
+  <path d="M180 420 L360 420 L360 315 L560 315 L560 390 L760 390 L760 235 L1000 235" stroke="#D5B654" opacity=".45"/>
+  <g stroke="#D5B654"><circle cx="180" cy="420" r="24"/><circle cx="360" cy="315" r="24"/><circle cx="560" cy="390" r="24"/><circle cx="760" cy="235" r="24"/></g>
+  <circle cx="1000" cy="235" r="24" fill="#D5B654"/>
+  <g fill="#D5B654" font-family="'IBM Plex Mono',ui-monospace,monospace" font-size="18" text-anchor="middle" dominant-baseline="central">
+    <text x="180" y="421">1</text><text x="360" y="316">2</text><text x="560" y="391">3</text><text x="760" y="236">4</text>
+  </g>
+  <text x="1000" y="236" fill="#0b0b0b" font-family="'IBM Plex Mono',ui-monospace,monospace" font-size="18" text-anchor="middle" dominant-baseline="central">5</text>
+</svg>
