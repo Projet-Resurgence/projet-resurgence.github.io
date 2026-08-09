@@ -178,15 +178,13 @@ function calPausePeriod(iso) {
     return { start, end };
 }
 
-// Total playdays for a given game (year, month).
+// Total playdays for a given game (year, month). The configured count wins
+// whenever known — it's correct for past, current and not-yet-reached
+// months alike; monthMax/fallback only cover months missing from config.
 function calMonthTotal(gameYear, gameMonth, fallback) {
     const key = gameYear + '-' + gameMonth;
-    let total = calState.monthMax[key] || fallback;
-    if (key === calState.frontierKey) {
-        const cfg = calState.playdaysPerMonth[String(gameMonth)] || 0;
-        total = Math.max(total, cfg);
-    }
-    return total;
+    const cfg = calState.playdaysPerMonth[String(gameMonth)];
+    return cfg || calState.monthMax[key] || fallback;
 }
 
 function calIso(year, monthIdx, day) {
@@ -213,10 +211,13 @@ function calWalkPreview(targetIso) {
     let state = { year: frontierYear, month: frontierMonth, playday: frontierPlayday };
     let gapRemaining = 0;
     let pendingState = null;
+    let permanentPause = false; // year-end pause: indefinite, staff-resumed — never auto-continues
     let cursor = calState.plannedResumeDate;
     for (;;) {
         let dayResult;
-        if (gapRemaining > 0) {
+        if (permanentPause) {
+            dayResult = { pause: true };
+        } else if (gapRemaining > 0) {
             gapRemaining--;
             if (gapRemaining === 0 && pendingState) {
                 // Gap over: this day is July 1 itself, not a further advance.
@@ -228,7 +229,12 @@ function calWalkPreview(targetIso) {
             }
         } else {
             const next = calAdvancePlayday(state.year, state.month, state.playday);
-            if (state.month === 6 && next.month === 7) {
+            if (state.month === 12 && next.month === 1) {
+                // Dec -> Jan is the indefinite year-end pause: no known resume
+                // date exists yet, so the forecast cannot project past it.
+                permanentPause = true;
+                dayResult = { pause: true };
+            } else if (state.month === 6 && next.month === 7) {
                 gapRemaining = 2; // 2 real days held back before July 1 lands
                 pendingState = next;
                 dayResult = { pause: true };
@@ -367,15 +373,17 @@ function renderCalendar() {
         let periodNote = null;
 
         if (info.type === 'play') {
-            // Show the 2303 date inside the cell — "14 mars" style.
+            // Show the full 2303 date inside the cell — "Mars 2303 · 14/30".
             const gd = info.gds[info.gds.length - 1];
-            body = `<span class="cal-gamedate">${CAL_MONTHS_SHORT[gd.month - 1]} ${gd.playday}</span>`;
+            const total = calMonthTotal(gd.year, gd.month, gd.playday);
+            body = `<span class="cal-gamedate">${CAL_MONTHS[gd.month - 1]} ${gd.year} · ${gd.playday}/${total}</span>`;
             if (info.gds.length > 1) {
                 body += `<span class="cal-tag">${info.gds.length}j</span>`;
             }
         } else if (info.type === 'preview') {
             const pv = info.preview;
-            body = `<span class="cal-gamedate">${CAL_MONTHS_SHORT[pv.month - 1]} ${pv.playday}</span>`
+            const total = calMonthTotal(pv.year, pv.month, pv.playday);
+            body = `<span class="cal-gamedate">${CAL_MONTHS[pv.month - 1]} ${pv.year} · ${pv.playday}/${total}</span>`
                   + `<span class="cal-preview-badge" title="Date prévisionnelle — non garantie, peut changer">★</span>`;
         } else if (info.type === 'pause') {
             const p = calPausePeriod(iso);
