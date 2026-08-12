@@ -205,14 +205,14 @@ function calAdvancePlayday(year, month, playday) {
 // the backend's fully-automatic mid-year pause: whenever the walk would roll
 // June (6) into July (7), that rollover is held back for 2 real days (shown
 // as plain pause cells) before July 1 actually lands.
-function calWalkPreview(targetIso) {
+function calWalkPreview(targetIso, startCursor) {
     const [frontierYear, frontierMonth] = calState.frontierKey.split('-').map(Number);
     const frontierPlayday = calState.monthMax[calState.frontierKey] || 1;
     let state = { year: frontierYear, month: frontierMonth, playday: frontierPlayday };
     let gapRemaining = 0;
     let pendingState = null;
-    let permanentPause = false; // year-end pause: indefinite, staff-resumed — never auto-continues
-    let cursor = calState.plannedResumeDate;
+    let permanentPause = false;
+    let cursor = startCursor;
     for (;;) {
         let dayResult;
         if (permanentPause) {
@@ -251,9 +251,16 @@ function calWalkPreview(targetIso) {
 // Project the (year, month, playday) of an IRL day that falls on/after the
 // planned resume date, by walking forward from the actual last known game date.
 function calProjectPreview(iso) {
+    if (!calState.frontierKey) return null;
     const planned = calState.plannedResumeDate;
-    if (!planned || iso < planned || !calState.frontierKey) return null;
-    const result = calWalkPreview(iso);
+    if (planned) {
+        if (iso < planned) return null;
+        const result = calWalkPreview(iso, planned);
+        return result.pause ? null : result.state;
+    }
+    if (!calState.latestReal || iso <= calState.latestReal) return null;
+    const startCursor = calAddDays(calState.latestReal, 1);
+    const result = calWalkPreview(iso, startCursor);
     return result.pause ? null : result.state;
 }
 
