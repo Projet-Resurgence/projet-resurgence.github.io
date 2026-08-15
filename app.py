@@ -11,12 +11,14 @@ things a static file server cannot do:
     without going through the VPN-only admin panel.
 """
 
+import json
 import os
 from urllib.parse import urlencode
 
 import requests
 from flask import (
     Flask,
+    Response,
     jsonify,
     redirect,
     render_template,
@@ -26,6 +28,8 @@ from flask import (
 
 from settings import (
     BASE_DIR,
+    MAP_PUBLIC_URL,
+    PR_API_PUBLIC_URL,
     PR_API_URL,
     PUBLIC_URL,
     SECRET_KEY,
@@ -391,6 +395,36 @@ def _is_private(rel_path: str) -> bool:
 
 def _send(rel_path: str):
     return send_from_directory(BASE_DIR, rel_path)
+
+
+@app.route("/env.js")
+def env_js():
+    """Runtime origins for the browser, as ``window.PR_ENV``.
+
+    Most of this site is static HTML served straight off disk, so there is no
+    template pass in which to interpolate an origin. Serving them from a tiny
+    script instead keeps the pages environment-agnostic: the same index.html
+    talks to api.projet-resurgence.fr in production and api.pr.localhost on a
+    local stack, with nothing to edit in between.
+
+    Deliberately uncached — it is a few hundred bytes and getting a stale origin
+    after a domain change is far more expensive than re-fetching it.
+    """
+    payload = json.dumps(
+        {
+            "apiUrl": PR_API_PUBLIC_URL,
+            "authUrl": WEBAUTH_PUBLIC_URL,
+            "siteUrl": PUBLIC_URL,
+            "mapUrl": MAP_PUBLIC_URL,
+        },
+        separators=(",", ":"),
+    )
+    response = Response(
+        f"window.PR_ENV=Object.freeze({payload});\n",
+        mimetype="application/javascript",
+    )
+    response.headers["Cache-Control"] = "no-store"
+    return response
 
 
 @app.route("/health")

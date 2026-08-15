@@ -13,6 +13,13 @@
 import { NAV_CSS } from './site-header.js?v=2.6.0';
 import { attachHeaderAuth } from './auth.js?v=1.0.0';
 
+// Served by /env.js so the same static HTML works on every environment; the
+// literal is only the production fallback if that script failed to load.
+// Root CLAUDE.md rule 10: never bake an environment URL into code.
+const PR_API_ORIGIN =
+    (typeof window !== 'undefined' && window.PR_ENV && window.PR_ENV.apiUrl) ||
+    'https://api.projet-resurgence.fr';
+
 // Univers, Règlement and Forum RP are the three administrator-editable pages —
 // same data shape, same layout — so they share one "Documentation" menu rather
 // than three sibling tabs that look unrelated.
@@ -222,7 +229,7 @@ class ResurgenceHeader extends HTMLElement {
                             subtitle="Site Officiel"
                             logo-src="./favicon/favicon-96x96.png"
                             theme-key="resurgence-theme"
-                            year-endpoint="https://api.projet-resurgence.fr/game/date">
+                            year-endpoint="${PR_API_ORIGIN}/game/date">
                 <div slot="nav" class="tabs">
                     <ul class="nav-list">${links}</ul>
                 </div>
