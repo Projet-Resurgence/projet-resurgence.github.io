@@ -521,6 +521,31 @@ def page_forum_rp():
     return _render_editorial("forum-rp")
 
 
+# Les pages sans extension sont la forme canonique du site. `/guide.html`
+# servait le même document avec un 200, ce qui donnait deux URL indexables pour
+# une page — et les trois signaux se contredisaient : `guide.html` déclarait sa
+# canonique à `/guide`, le sitemap soumettait `/guide.html`, et la navigation
+# interne pointait `guide.html` sur chaque page du site. Une canonique que tous
+# les liens contredisent ne vaut pas grand-chose.
+#
+# La redirection permanente rend la canonique auto-portante : il n'existe plus
+# qu'une seule URL servie. Les liens `.html` déjà postés sur Discord continuent
+# de fonctionner — c'est justement ce que fait un 301.
+#
+# `404.html` est exclu : il est rendu par le gestionnaire d'erreur avec son
+# propre code, pas atteint par une requête.
+_NO_PRETTY_REDIRECT = {"404.html"}
+
+
+def _pretty_target(filename: str):
+    """L'URL canonique d'un chemin `.html`, ou None s'il n'y en a pas."""
+    if not filename.endswith(".html") or filename in _NO_PRETTY_REDIRECT:
+        return None
+    if filename == "index.html":
+        return "/"
+    return "/" + filename[: -len(".html")]
+
+
 @app.route("/<path:filename>")
 def site_file(filename):
     if _is_private(filename):
@@ -530,6 +555,12 @@ def site_file(filename):
         candidate.relative_to(BASE_DIR)
     except ValueError:
         return not_found(None)
+
+    target = _pretty_target(filename)
+    if target and candidate.is_file():
+        query = request.query_string.decode()
+        return redirect(f"{target}?{query}" if query else target, code=301)
+
     if candidate.is_file():
         return _send(filename)
     # Pretty URLs: /calendrier -> calendrier.html
