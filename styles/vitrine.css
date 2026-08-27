@@ -709,8 +709,8 @@ body.v-page {
    au-dessus (`.v-hero-grid::before` est la trame, elle reste dessous). */
 .v-hero-grid > * { position: relative; }
 
-.v-kpi { display: flex; flex-direction: column; gap: 1px; background: var(--v-line); border: 1px solid var(--v-line); }
-.v-kpi__row { display: flex; justify-content: space-between; gap: 16px; padding: 12px 14px; background: var(--v-bg-base); }
+.v-kpi { display: flex; flex-direction: column; gap: 1px; background: var(--v-line); border: 1px solid var(--v-line); min-width: 0; }
+.v-kpi__row { display: flex; justify-content: space-between; gap: 16px; padding: 12px 14px; background: var(--v-bg-base); flex-wrap: wrap; min-width: 0; }
 .v-kpi__row dt { font: 400 11px var(--v-mono); color: var(--v-ink-faint); text-transform: uppercase; margin: 0; }
 .v-kpi__row dd { margin: 0; font: 500 11px var(--v-mono); color: var(--v-gold); }
 
@@ -863,6 +863,24 @@ body.v-page {
 }
 
 /* ── Responsive ───────────────────────────────────────────────────────── */
+
+/* Chapeau « texte + panneau de chiffres » (mécaniques). Écrit en classe et
+   non en style inline, parce qu'un style inline ne peut pas porter la requête
+   média ci-dessous : la colonne de droite restait à 300px fixes, et sur un
+   téléphone de 360px la somme 300 + 60 de gouttière dépassait la largeur de
+   .v-shell, gouttières comprises. Le panneau sortait de 18px par la droite,
+   sans défilement — la page est en overflow-x masqué — donc les valeurs
+   étaient simplement coupées. */
+.v-hero-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 60px;
+  align-items: end;
+}
+
+@media (max-width: 860px) {
+  .v-hero-split { grid-template-columns: minmax(0, 1fr); gap: 32px; align-items: start; }
+}
 
 @media (max-width: 1040px) {
   .v-doc { grid-template-columns: 1fr; }
