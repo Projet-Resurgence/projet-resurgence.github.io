@@ -25,7 +25,13 @@
         elements.forEach(function (el) {
             var key = STAT_KEYS[el.dataset.stat];
             var value = key ? data[key] : undefined;
-            if (typeof value !== 'number') return;
+            // Un zero n'est pas une mesure, c'est une source absente. Le
+            // compte des commandes du bot vient de fichiers deposes par CLEA et
+            // MARC dans le volume bot_stats ; tant qu'un bot n'a pas publie le
+            // sien, l'API renvoie 0 en toute bonne foi. Ecrire « 0+ » dans le
+            // bulletin d'accueil serait pire que la valeur de repli ecrite dans
+            // le HTML, que ce module est justement cense preserver.
+            if (typeof value !== 'number' || !isFinite(value) || value <= 0) return;
             el.dataset.statValue = value;
             el.textContent = value + '+';
         });
