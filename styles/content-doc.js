@@ -100,6 +100,72 @@ window.addEventListener('resize', onScroll, { passive: true });
 if ('onscrollend' in window) window.addEventListener('scrollend', () => { heldUntil = 0; syncNav(); });
 
 /** Smooth jump that honours the sticky header, without the native hash jump. */
+// ── Navigation mobile ─────────────────────────────────────────────────────
+//
+// Sous 1040 px l'aside cesse d'etre une colonne collante : il devient un
+// panneau hors-champ (voir vitrine.css), et ce bouton l'ouvre. C'est le meme
+// aside, pas une copie — un second sommaire aurait divergé du premier au
+// premier changement.
+//
+// Tout est facultatif : sans JavaScript le bouton n'apparait pas (il est
+// masqué tant que la classe n'est pas posée), l'aside reste dans le flux, et
+// chaque chapitre garde son ancre. La page ne perd rien.
+
+const docRoot = document.querySelector('.v-doc');
+const navToggle = document.getElementById('doc-nav-toggle');
+const navScrim = document.getElementById('doc-nav-scrim');
+let navReturnFocus = null;
+
+const navIsOpen = () => !!docRoot?.classList.contains('is-nav-open');
+
+function setNavOpen(open) {
+  if (!docRoot || !navToggle) return;
+  docRoot.classList.toggle('is-nav-open', open);
+  navToggle.setAttribute('aria-expanded', String(open));
+  navToggle.setAttribute(
+    'aria-label',
+    open ? 'Fermer la navigation du document' : 'Ouvrir la navigation du document'
+  );
+  if (navScrim) navScrim.hidden = !open;
+  // Le document ne doit pas continuer a defiler derriere le panneau, sinon on
+  // le referme sur un autre chapitre que celui qu'on visait.
+  document.body.classList.toggle('is-doc-nav-open', open);
+
+  if (open) {
+    navReturnFocus = document.activeElement;
+    // Ouvrir sur le champ de recherche : c'est le geste le plus frequent, et
+    // ca donne au panneau un premier point de focus sans piege a tabulation.
+    search?.focus({ preventScroll: true });
+  } else {
+    if (navReturnFocus === search || search?.contains?.(document.activeElement)) {
+      navToggle.focus({ preventScroll: true });
+    } else if (navReturnFocus instanceof HTMLElement) {
+      navReturnFocus.focus({ preventScroll: true });
+    }
+    navReturnFocus = null;
+  }
+}
+
+navToggle?.addEventListener('click', () => setNavOpen(!navIsOpen()));
+navScrim?.addEventListener('click', () => setNavOpen(false));
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && navIsOpen()) {
+    e.preventDefault();
+    // Le panneau ouvre sur le champ de recherche, et l'autre gestionnaire
+    // d'Echap vide ce champ. Sans cette coupure, une seule touche fermerait le
+    // panneau ET effacerait la recherche qu'on venait de taper.
+    e.stopImmediatePropagation();
+    setNavOpen(false);
+  }
+});
+
+// Repasser en grand ecran laisse sinon `is-nav-open` et le verrou de
+// defilement en place sur une mise en page qui n'a plus de panneau.
+window.matchMedia('(min-width: 1041px)').addEventListener('change', (e) => {
+  if (e.matches && navIsOpen()) setNavOpen(false);
+});
+
 function goTo(el) {
   const top = el.getBoundingClientRect().top + window.scrollY - READING_LINE + 24;
   window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
@@ -114,6 +180,9 @@ function navigate(e, nav, resolve) {
   holdSpy();
   resolve(target, link);
   history.replaceState(null, '', link.getAttribute('href'));
+  // Fermer avant de defiler : le verrou de defilement du panneau empecherait
+  // `goTo` d'aller ou que ce soit.
+  setNavOpen(false);
   goTo(target);
 }
 

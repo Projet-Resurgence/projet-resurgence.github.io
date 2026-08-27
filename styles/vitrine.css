@@ -299,6 +299,12 @@ body.v-page {
 
 /* ── Documentation : règlement / univers / forum RP (2a) ──────────────── */
 
+/* Le declencheur mobile n'existe qu'en dessous de 1040 px (voir la requete
+   media plus bas) ; au-dessus, la colonne laterale est deja visible en
+   permanence et un bouton flottant n'aurait rien a ouvrir. */
+.v-doc__navfab,
+.v-doc__scrim { display: none; }
+
 .v-doc {
   display: grid;
   grid-template-columns: 268px minmax(0, 1fr);
@@ -884,7 +890,85 @@ body.v-page {
 
 @media (max-width: 1040px) {
   .v-doc { grid-template-columns: 1fr; }
-  .v-doc__aside { position: static; max-height: none; border-right: 0; border-bottom: 1px solid var(--v-line); }
+
+  /* L'aside devient un panneau hors-champ appele par .v-doc__navfab. Il etait
+     `position: static` et s'empilait au-dessus du texte : sur telephone, la
+     navigation d'un reglement long disparaissait des qu'on commencait a lire.
+     Le panneau garde le meme balisage — recherche, categories et sommaire —
+     donc il n'y a rien a maintenir en double. */
+  .v-doc__aside {
+    position: fixed;
+    z-index: 60;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: min(86vw, 320px);
+    max-height: none;
+    padding-top: 20px;
+    border-right: 1px solid var(--v-line);
+    border-bottom: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    transform: translateX(-101%);
+    visibility: hidden;
+    transition: transform 0.22s ease, visibility 0s linear 0.22s;
+  }
+  .v-doc.is-nav-open .v-doc__aside {
+    transform: none;
+    visibility: visible;
+    transition: transform 0.22s ease, visibility 0s;
+  }
+
+  .v-doc__navfab {
+    position: fixed;
+    z-index: 62;
+    right: 16px;
+    bottom: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 12px 16px;
+    border: 1px solid var(--v-line-strong);
+    border-radius: 999px;
+    background: var(--v-bg-panel);
+    color: var(--v-ink);
+    font: 600 13px var(--v-title);
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.34);
+    cursor: pointer;
+  }
+  .v-doc__navfab-bars,
+  .v-doc__navfab-bars::before,
+  .v-doc__navfab-bars::after {
+    display: block;
+    width: 16px;
+    height: 2px;
+    background: var(--v-gold);
+  }
+  .v-doc__navfab-bars { position: relative; }
+  .v-doc__navfab-bars::before,
+  .v-doc__navfab-bars::after { content: ''; position: absolute; left: 0; }
+  .v-doc__navfab-bars::before { top: -5px; }
+  .v-doc__navfab-bars::after { top: 5px; }
+
+  .v-doc__scrim {
+    /* `display` doit etre repose ici : la regle de base hors media le met a
+       `none` pour le grand ecran, et sans ce rappel le voile ne serait jamais
+       visible nulle part. */
+    display: block;
+    position: fixed;
+    z-index: 59;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.52);
+  }
+  /* Une regle d'auteur l'emporte sur la feuille du navigateur : sans ce rappel
+     explicite, l'attribut `hidden` pose par le script ne masquerait plus rien. */
+  .v-doc__scrim[hidden] { display: none; }
+
+  /* Le panneau ouvert prend le defilement : sans ca le document continue de
+     glisser derriere lui, et on referme sur un autre chapitre que celui qu'on
+     visait. */
+  body.is-doc-nav-open { overflow: hidden; }
+
   .v-doc__main { padding: 32px 24px 56px; }
   .v-doc__foot { margin: 40px -24px 0; padding: 24px; }
   .v-atlas__inner { grid-template-columns: 1fr; gap: 32px; }
