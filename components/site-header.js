@@ -7,16 +7,13 @@
  * identical — same height, same font sizes — on every app that mounts it.
  *
  * Layout is a single 56 px row:
- *   [navbar arrow] [logo] [title/subtitle]
+ *   [navbar arrow] [logo] [title/subtitle] [country ident]
  *   [nav slot] [actions slot] [cog dropdown]
- *
- * Country identity (flag + name + id) + username live INSIDE the cog dropdown
- * as a `.menu-user` block above slotted menu items, NOT in the header row.
  *
  * The component fully owns the nav tab system:
  *   - Injected CSS in <head> styles slotted .tab-btn / .nav-link / .tab-group
  *     as underline tabs (TechPanel look) — apps stop shipping their own nav CSS.
- *   - Nav tabs stay in the header row and scroll horizontally when overflowing.
+ *   - Nav tabs stay in the header row while they fit; overflow becomes a menu.
  *   - NAV_CSS is exported for shadow DOM consumers (e.g. <resurgence-header>)
  *     that slot nav from their own shadow tree.
  *
@@ -37,9 +34,16 @@
  * bubbling composed `pr-logout` event — each app implements its own
  * logout flow in a document-level listener.
  *
- * Country identity: call `setUser({country_name, country_id, flag_url,
- * username})` (merges with previous calls, so fields can arrive in any
- * order) to render flag + name + id + username inside the cog dropdown.
+ * Country identity: call `setUser({country_name, country_id, flag_url, username})`
+ * (merges with previous calls, so fields can arrive in any order) to show the
+ * flag + name + (id) block next to the brand, with a ‹› collapse toggle
+ * persisted in localStorage.
+ *
+ * Balance: call `setBalance(value)` to show "Bal: <value>" on the left of the
+ * nav slot (fr-FR thousands grouping). Below 900px, the inline balance and
+ * the header country-ident both hide and their data reappears inside the cog
+ * dropdown instead (`.menu-user` + `.menu-balance`), so identity/balance are
+ * never lost, just relocated to where there's room.
  *
  * Requires a sibling `<intersite-navbar hide-toggle current-site="...">` on
  * the page — this component's arrow button calls its public toggle() API.
@@ -50,6 +54,7 @@
  */
 
 const YEAR_CACHE_KEY = 'pr-site-header-rp-year';
+const IDENT_COLLAPSE_KEY = 'pr-header-ident-collapsed';
 const INJECTED_ID = 'pr-nav-injected-styles';
 
 const ICON_PATHS = {
@@ -67,14 +72,12 @@ function iconSvg(name) {
 // ── Injected nav CSS ─────────────────────────────────────────────────────
 // Styles slotted .tab-btn / .nav-link / .tab-group in the light DOM so every
 // app gets the same TechPanel underline-tab look without shipping its own CSS.
-// Nav tabs stay in the header row and scroll horizontally when overflowing;
-// no burger / overlay.
+// Nav tabs stay in the header row while they fit. Component exposes them as a
+// vertical overlay once data-nav-menu-open is set.
 export const NAV_CSS = `
 pr-site-header .tabs,
 pr-site-header .header-nav {
   display: flex;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
   align-items: center;
   gap: 2px;
   min-width: 0;
@@ -88,6 +91,23 @@ pr-site-header .header-nav {
 
 pr-site-header .tabs::-webkit-scrollbar,
 pr-site-header .header-nav::-webkit-scrollbar { display: none; }
+
+pr-site-header[data-nav-overflow][data-nav-menu-open] .tabs,
+pr-site-header[data-nav-overflow][data-nav-menu-open] .header-nav {
+  flex-direction: column; align-items: stretch; gap: 2px; overflow: visible;
+}
+pr-site-header[data-nav-overflow][data-nav-menu-open] .tab-btn,
+pr-site-header[data-nav-overflow][data-nav-menu-open] .nav-link,
+pr-site-header[data-nav-overflow][data-nav-menu-open] .tab-group-btn {
+  width: 100%; height: 42px; justify-content: flex-start;
+  border-bottom: 0; border-left: 2px solid transparent;
+}
+pr-site-header[data-nav-overflow][data-nav-menu-open] .tab-btn.active,
+pr-site-header[data-nav-overflow][data-nav-menu-open] .nav-link.active,
+pr-site-header[data-nav-overflow][data-nav-menu-open] .tab-group.group-active > .tab-group-btn {
+  border-left-color: #D5B654; background: rgba(213,182,84,.1);
+}
+pr-site-header[data-nav-overflow][data-nav-menu-open] .tab-group { width: 100%; }
 
 pr-site-header .tab-btn,
 pr-site-header .nav-link {
@@ -125,14 +145,12 @@ pr-site-header .nav-link.active {
 
 pr-site-header .tab-group {
   position: relative;
-  flex: 0 0 auto;
 }
 
 pr-site-header .tab-group-btn {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  flex: 0 0 auto;
 }
 
 pr-site-header .tab-group-arrow {
@@ -140,7 +158,8 @@ pr-site-header .tab-group-arrow {
   transition: transform 0.15s;
 }
 
-pr-site-header .tab-group.open .tab-group-arrow {
+pr-site-header .tab-group.open .tab-group-arrow,
+pr-site-header .tab-group:hover .tab-group-arrow {
   transform: rotate(180deg);
 }
 
@@ -149,10 +168,13 @@ pr-site-header .tab-group.group-active > .tab-group-btn {
   border-bottom-color: #D5B654;
 }
 
-pr-site-header .tab-dropdown {
+pr-site-header .tab-dropdown,
+.tab-dropdown.rp-floating {
   display: none;
   position: fixed;
-  z-index: 200;
+  top: 0;
+  left: 0;
+  z-index: 1000;
   flex-direction: column;
   min-width: 190px;
   padding: 8px;
@@ -163,16 +185,31 @@ pr-site-header .tab-dropdown {
   box-shadow: 0 8px 30px rgba(0,0,0,0.45);
 }
 
-pr-site-header .tab-group.open .tab-dropdown {
+pr-site-header .tab-dropdown.open,
+.tab-dropdown.rp-floating.open {
   display: flex;
 }
 
-pr-site-header .tab-dropdown-item {
+pr-site-header .tab-dropdown-item,
+.tab-dropdown.rp-floating .tab-dropdown-item {
   display: flex;
   align-items: center;
   gap: 8px;
   width: 100%;
   text-align: left;
+  /* Ces entrées sont des <a> : un lien peut s'ouvrir dans un onglet
+     (ctrl+clic, clic molette, « ouvrir dans un nouvel onglet »), ce qu'un
+     <button onclick="location.href=…"> ne pourra jamais faire. Le soulignement
+     par défaut n'a donc pas sa place ici.
+
+     Cette règle vivait dans src/site-header.js et dans aucune des copies
+     servies : la distribution de ce fichier n'existait pas, et le test qui la
+     verrouillait ne lisait que la source. Les menus déroulants arrivaient donc
+     soulignés sur tous les services, sous un test vert.
+
+     (Sans accent grave ici : cette CSS est dans un template literal, et un
+     accent grave dans un commentaire termine la chaîne.) */
+  text-decoration: none;
   padding: 8px 12px;
   background: none;
   border: none;
@@ -185,12 +222,14 @@ pr-site-header .tab-dropdown-item {
   white-space: nowrap;
 }
 
-pr-site-header .tab-dropdown-item:hover {
+pr-site-header .tab-dropdown-item:hover,
+.tab-dropdown.rp-floating .tab-dropdown-item:hover {
   background: #2d2d2d;
   color: #f0f0f0;
 }
 
-pr-site-header .tab-dropdown-item.active {
+pr-site-header .tab-dropdown-item.active,
+.tab-dropdown.rp-floating .tab-dropdown-item.active {
   color: #D5B654;
   background: rgba(213,182,84,0.12);
 }
@@ -200,16 +239,20 @@ pr-site-header[data-theme="light"] .nav-link:hover {
   color: #1a202c;
 }
 
-pr-site-header[data-theme="light"] .tab-dropdown {
+pr-site-header[data-theme="light"] .tab-dropdown,
+pr-site-header[data-theme="light"] ~ .tab-dropdown.rp-floating,
+.tab-dropdown.rp-floating.rp-theme-light {
   background: #ffffff;
   border-color: rgba(0,0,0,0.14);
 }
 
-pr-site-header[data-theme="light"] .tab-dropdown-item {
+pr-site-header[data-theme="light"] .tab-dropdown-item,
+.tab-dropdown.rp-floating.rp-theme-light .tab-dropdown-item {
   color: #4a5568;
 }
 
-pr-site-header[data-theme="light"] .tab-dropdown-item:hover {
+pr-site-header[data-theme="light"] .tab-dropdown-item:hover,
+.tab-dropdown.rp-floating.rp-theme-light .tab-dropdown-item:hover {
   background: #eef1f4;
   color: #1a202c;
 }
@@ -238,6 +281,7 @@ const CSS = `
   --_border-mid: rgba(255, 255, 255, 0.12);
   --_text-secondary: #c0c0c0;
   --_text-muted: #808080;
+  --_text-faint: rgba(255, 255, 255, 0.35);
   --_danger: #ef4444;
 }
 
@@ -248,6 +292,7 @@ const CSS = `
   --_border-mid: rgba(0, 0, 0, 0.14);
   --_text-secondary: #4a5568;
   --_text-muted: #718096;
+  --_text-faint: rgba(0, 0, 0, 0.3);
 }
 
 svg { width: 1em; height: 1em; }
@@ -358,7 +403,59 @@ a.brand {
   white-space: nowrap;
 }
 
+.country-ident {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: 0;
+  flex-shrink: 0;
+  padding-left: 0.6rem;
+  border-left: 1px solid var(--_border-mid);
+}
 
+.country-ident[hidden] { display: none; }
+
+.ci-flag {
+  width: 24px;
+  height: 16px;
+  object-fit: cover;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.ci-name {
+  font-family: 'Rajdhani', system-ui, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--_gold);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 240px;
+}
+
+.ci-id {
+  font-size: 0.72rem;
+  color: var(--_text-muted);
+  white-space: nowrap;
+}
+
+.country-ident.collapsed .ci-name { max-width: 64px; }
+.country-ident.collapsed .ci-id { display: none; }
+
+.ci-toggle {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  color: var(--_text-muted);
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  font-size: 0.85rem;
+}
+
+.ci-toggle:hover { color: var(--_gold); }
 
 .header-nav {
   flex: 1 1 auto;
@@ -367,9 +464,95 @@ a.brand {
   align-items: center;
 }
 
+.nav-menu-btn {
+  display: none;
+  flex: 0 0 36px;
+  width: 36px;
+  height: 34px;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--_border-mid);
+  border-radius: 999px;
+  background: var(--_bg-raised);
+  color: var(--_gold);
+  cursor: pointer;
+  font: 700 .9rem/1 system-ui, sans-serif;
+}
+:host([data-nav-overflow]) .nav-menu-btn { display:inline-flex; }
+:host([data-nav-overflow]) .header-nav { flex:0 0 auto; }
+/* Barre d'onglets rangée : elle reste dessinée (c'est elle qu'on remesure au
+   redimensionnement) mais elle est garée CONTRE LE BORD DROIT de l'en-tête,
+   pas à sa position statique.
+   'width:max-content' la fait déborder de la largeur de l'écran — 486 px sur
+   un téléphone de 360 — et 'visibility:hidden' n'y change rien : un élément
+   invisible occupe toujours la boîte de défilement. Garée à gauche, elle
+   ajoutait donc ~173 px de largeur défilante à CHAQUE page du dashboard. Le
+   symptôme n'était pas la barre, invisible, mais tout le reste : la page
+   pannait latéralement, et les éléments 'position:fixed' — au premier rang la
+   croix de fermeture des notifications — se retrouvaient hors du champ que le
+   téléphone affichait.
+   Contre le bord droit, le débordement part vers la GAUCHE, et un dépassement
+   à gauche n'est pas défilable en écriture latine : il ne compte pas dans
+   'scrollWidth'. La mesure, elle, est intacte — sync() retire l'attribut
+   avant de mesurer, donc jamais dans cet état.
+   NB : ce bloc vit dans un template literal — pas de backtick ici. */
+:host([data-nav-overflow]:not([data-nav-menu-open])) ::slotted([slot="nav"]) {
+  position:absolute !important; right:0 !important; left:auto !important;
+  width:max-content !important; max-width:none !important;
+  visibility:hidden; pointer-events:none;
+}
+:host([data-nav-overflow][data-nav-menu-open]) ::slotted([slot="nav"]) {
+  position:fixed !important; z-index:200; top:62px; left:8px; right:8px;
+  display:flex !important; flex-direction:column; align-items:stretch;
+  width:auto; max-width:none; max-height:calc(100vh - 76px); overflow-y:auto;
+  box-sizing:border-box; padding:8px;
+  color:var(--_text-secondary); background:var(--_bg-raised);
+  border:1px solid var(--_border-mid); border-radius:10px;
+  box-shadow:0 14px 42px rgba(0,0,0,.55);
+}
+.nav-menu-bars,.nav-menu-bars::before,.nav-menu-bars::after { width:16px; height:2px; border-radius:2px; background:currentColor; content:''; display:block; }
+.nav-menu-bars { position:relative; }
+.nav-menu-bars::before { position:absolute; top:-5px; }
+.nav-menu-bars::after { position:absolute; top:5px; }
+:host([data-nav-menu-open]) .nav-menu-bars { background:transparent; }
+:host([data-nav-menu-open]) .nav-menu-bars::before { top:0; transform:rotate(45deg); }
+:host([data-nav-menu-open]) .nav-menu-bars::after { top:0; transform:rotate(-45deg); }
+
+.balance-inline {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  padding-right: 0.85rem;
+  margin-right: 0.35rem;
+  border-right: 1px solid var(--_border-mid);
+  font-family: 'Inter', system-ui, sans-serif;
+  white-space: nowrap;
+}
+
+.balance-inline[hidden] { display: none; }
+
+.balance-inline .bal-label {
+  color: var(--_text-muted);
+  font-size: 0.8rem;
+}
+
+.balance-inline .bal-value {
+  color: var(--_gold);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  font-size: 0.92rem;
+}
+
+@media (max-width: 900px) {
+  .balance-inline { display: none !important; }
+}
+
 ::slotted([slot="nav"]) {
   display: flex;
   align-items: center;
+  flex: 1 1 auto;
   min-width: 0;
   max-width: 100%;
 }
@@ -435,6 +618,14 @@ a.brand {
 .menu-item, ::slotted([slot="menu"]) {
   display: flex;
   align-items: center;
+  /* Ces entrées sont des <a> : elles arrivent soulignées. Comme
+     .tab-dropdown-item, la règle vivait dans la source et dans aucune copie
+     servie — même dérive, même cause. */
+  text-decoration: none;
+  /* Centré horizontalement : les entrées étaient collées à gauche, chacune sur
+     toute la largeur du menu, ce qui laissait une bande vide à droite d'autant
+     plus visible que les libellés sont courts. */
+  justify-content: center;
   gap: 8px;
   width: 100%;
   box-sizing: border-box;
@@ -445,11 +636,27 @@ a.brand {
   color: var(--_text-secondary);
   font-family: inherit;
   font-size: 0.85rem;
-  text-align: left;
+  text-align: center;
   cursor: pointer;
   white-space: nowrap;
   transition: background 0.15s, color 0.15s;
 }
+
+/* Boîte d'icône de taille fixe : les entrées natives (span+svg pour le thème,
+   svg nu pour la déconnexion) et les entrées slottées (span[data-icon] hydraté
+   par icons.js) doivent aligner leur texte sur la même colonne. Sans largeur
+   imposée, chaque forme mesure son icône à sa façon et le libellé se décale. */
+.menu-item > svg,
+.menu-item > span:first-child {
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-item > span:first-child > svg { width: 16px; height: 16px; }
 
 .menu-item:hover, ::slotted([slot="menu"]:hover) {
   background: var(--_bg-hover);
@@ -468,8 +675,11 @@ a.brand {
 
 .menu-sep[hidden] { display: none; }
 
+/* Cog fallback for balance + country identity when the header row can't fit
+   them (see the 900px breakpoint below). Hidden on wide screens even when
+   populated with data — [hidden] (no data) always wins over the media query. */
 .menu-user {
-  display: flex;
+  display: none;
   align-items: center;
   gap: 8px;
   padding: 8px 12px;
@@ -515,11 +725,38 @@ a.brand {
   text-overflow: ellipsis;
 }
 
-.menu-user[hidden] { display: none; }
+.menu-user-country[hidden] { display: none; }
 
+.menu-balance {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px 8px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.85rem;
+}
+
+.menu-balance .bal-label { color: var(--_text-muted); }
+.menu-balance .bal-value { color: var(--_gold); font-weight: 700; letter-spacing: 0.02em; }
+
+@media (max-width: 900px) {
+  .menu-user:not([hidden]) { display: flex; }
+  .menu-balance:not([hidden]) { display: flex; }
+  .menu-sep-user:not([hidden]) { display: block; }
+}
+
+/* Progressive collapse: keep header content inside the viewport.
+   brand-group (.brand-group ~243px) + country-ident (~353px when name+id
+   visible) + header-actions (≥34px cog, often larger actions slot) all
+   have flex-shrink:0, so their combined min-width would overflow a narrow
+   viewport past 100% — pushing body scrollWidth past clientWidth.
+   At 900px the header stops trying to shrink identity/balance in place and
+   hands both off to the cog dropdown (.menu-user / .menu-balance above)
+   instead, so nothing gets truncated illegibly. */
 @media (max-width: 900px) {
   .site-header { padding: 0 1rem; gap: 0.6rem; }
   .brand-subtitle { display: none; }
+  .country-ident { display: none !important; }
 }
 
 @media (max-width: 480px) {
@@ -528,6 +765,23 @@ a.brand {
   .brand-icon { width: 32px; height: 32px; }
   .brand-icon img { width: 22px; height: 22px; }
 }
+
+/* Le tiroir Game Dashboard est navigation unique sur téléphone. Garder le
+   second menu compact ou l'engrenage ici crée deux chemins concurrents. */
+@media (max-width: 768px) {
+  .nav-toggle, .cog-wrap { display: none !important; }
+  .nav-menu-btn { display: none !important; }
+}
+
+/* Embedded mode (page lives inside an iframe on another site):
+   hide logged-in user identity + balance everywhere in the header,
+   mirroring intersite-navbar's iframe early-out.
+   The host page is responsible for conveying identity if it needs to. */
+:host([data-hide-ident]) .country-ident,
+:host([data-hide-ident]) .balance-inline,
+:host([data-hide-ident]) .menu-user,
+:host([data-hide-ident]) .menu-sep-user,
+:host([data-hide-ident]) .menu-balance { display: none !important; }
 `;
 
 class PrSiteHeader extends HTMLElement {
@@ -551,12 +805,19 @@ class PrSiteHeader extends HTMLElement {
   }
 
   connectedCallback() {
+    try {
+      if (window.self !== window.top) this.setAttribute('data-hide-ident', '');
+    } catch (_) {
+      this.setAttribute('data-hide-ident', '');
+    }
     this._injectNavCSS();
     this._render();
     this._rendered = true;
     this._bindNavToggle();
     this._bindTheme();
     this._bindCog();
+    this._bindIdent();
+    this._bindNavOverflow();
     this._loadRpYear();
   }
 
@@ -564,7 +825,9 @@ class PrSiteHeader extends HTMLElement {
     document.removeEventListener('navbar-open', this._onNavbarOpen);
     document.removeEventListener('navbar-close', this._onNavbarClose);
     document.removeEventListener('click', this._onDocClick);
+    document.removeEventListener('click', this._onNavDocClick);
     if (this._resizeObserver) this._resizeObserver.disconnect();
+    if (this._navResizeFallback) window.removeEventListener('resize', this._navResizeFallback);
   }
 
   _subtitleText() {
@@ -601,7 +864,23 @@ class PrSiteHeader extends HTMLElement {
             </div>
           </a>
         </div>
-        <div class="header-nav"><slot name="nav"></slot></div>
+        <div class="country-ident" id="countryIdent" hidden>
+          <img class="ci-flag" id="ciFlag" alt="" hidden>
+          <span class="ci-name" id="ciName"></span>
+          <span class="ci-id" id="ciId"></span>
+          <button class="ci-toggle" id="ciToggle" type="button"
+            title="Réduire / agrandir le nom du pays" aria-label="Réduire / agrandir le nom du pays">
+            ${iconSvg('chevrons-lr')}
+          </button>
+        </div>
+        <div class="header-nav">
+          <div class="balance-inline" id="balanceInline" hidden>
+            <span class="bal-label">Bal:</span>
+            <strong class="bal-value" id="balanceValue"></strong>
+          </div>
+          <slot name="nav"></slot>
+          <button class="nav-menu-btn" id="navMenuBtn" type="button" aria-label="Ouvrir les rubriques" aria-expanded="false"><span class="nav-menu-bars"></span></button>
+        </div>
         <div class="header-actions">
           <slot name="actions"></slot>
           <div class="cog-wrap">
@@ -617,7 +896,11 @@ class PrSiteHeader extends HTMLElement {
                   <span class="menu-user-country" id="menuUserCountry"></span>
                 </div>
               </div>
-              <div class="menu-sep" id="menuSepUser" hidden></div>
+              <div class="menu-balance" id="menuBalance" hidden>
+                <span class="bal-label">Bal:</span>
+                <strong class="bal-value" id="menuBalanceValue"></strong>
+              </div>
+              <div class="menu-sep menu-sep-user" id="menuSepUser" hidden></div>
               <slot name="menu"></slot>
               <div class="menu-sep" id="menuSep" hidden></div>
               <button class="menu-item" id="themeItem" type="button" role="menuitem">
@@ -741,14 +1024,86 @@ class PrSiteHeader extends HTMLElement {
     document.addEventListener('click', this._onDocClick);
   }
 
+  _bindNavOverflow() {
+    const slot = this.shadowRoot.querySelector('slot[name="nav"]');
+    const button = this.shadowRoot.getElementById('navMenuBtn');
+    let scroller = null;
+
+    const sync = () => {
+      this.removeAttribute('data-nav-overflow');
+      const overflow = !!scroller && scroller.scrollWidth > scroller.clientWidth + 2;
+      this.toggleAttribute('data-nav-overflow', overflow);
+      if (!overflow) {
+        this.removeAttribute('data-nav-menu-open');
+        button.setAttribute('aria-expanded', 'false');
+      }
+    };
+    const attach = () => {
+      scroller = slot.assignedElements({ flatten: true })[0] || null;
+      this._navScroller = scroller;
+      requestAnimationFrame(() => {
+        sync();
+      });
+    };
+    const setOpen = open => {
+      this.toggleAttribute('data-nav-menu-open', open);
+      button.setAttribute('aria-expanded', String(open));
+      button.setAttribute('aria-label', open ? 'Fermer les rubriques' : 'Ouvrir les rubriques');
+    };
+    button.addEventListener('click', event => {
+      event.stopPropagation();
+      setOpen(!this.hasAttribute('data-nav-menu-open'));
+    });
+    slot.addEventListener('click', event => {
+      if (!event.target.closest('.tab-group-btn')) setOpen(false);
+    });
+    this._onNavDocClick = event => {
+      if (!event.composedPath().includes(this)) setOpen(false);
+    };
+    document.addEventListener('click', this._onNavDocClick);
+    slot.addEventListener('slotchange', attach);
+    if (typeof ResizeObserver === 'function') {
+      this._resizeObserver = new ResizeObserver(sync);
+      this._resizeObserver.observe(this);
+    } else {
+      window.addEventListener('resize', sync);
+      this._navResizeFallback = sync;
+    }
+    attach();
+  }
+
+  _bindIdent() {
+    const ident = this.shadowRoot.getElementById('countryIdent');
+    try {
+      if (localStorage.getItem(IDENT_COLLAPSE_KEY) === 'true') ident.classList.add('collapsed');
+    } catch (_) { /* ignore */ }
+    this.shadowRoot.getElementById('ciToggle').addEventListener('click', () => {
+      const collapsed = ident.classList.toggle('collapsed');
+      try { localStorage.setItem(IDENT_COLLAPSE_KEY, String(collapsed)); } catch (_) { /* ignore */ }
+    });
+  }
+
   setUser(user = {}) {
     this._user = { ...this._user, ...user };
     const u = this._user;
+    const ident = this.shadowRoot.getElementById('countryIdent');
+    const flag = this.shadowRoot.getElementById('ciFlag');
+    this.shadowRoot.getElementById('ciName').textContent = u.country_name || '';
+    this.shadowRoot.getElementById('ciName').title = u.country_name || '';
+    this.shadowRoot.getElementById('ciId').textContent =
+      (u.country_id !== undefined && u.country_id !== null && u.country_id !== '') ? `(${u.country_id})` : '';
+    if (u.flag_url) {
+      flag.src = u.flag_url;
+      flag.hidden = false;
+    } else {
+      flag.hidden = true;
+    }
+    ident.hidden = !u.country_name;
+
     const menuUser = this.shadowRoot.getElementById('menuUser');
     const menuUserName = this.shadowRoot.getElementById('menuUserName');
     const menuUserCountry = this.shadowRoot.getElementById('menuUserCountry');
     const menuUserFlag = this.shadowRoot.getElementById('menuUserFlag');
-    const menuSepUser = this.shadowRoot.getElementById('menuSepUser');
     menuUserName.textContent = u.username || '';
     const idSuffix = (u.country_id !== undefined && u.country_id !== null && u.country_id !== '') ? ` (${u.country_id})` : '';
     menuUserCountry.textContent = (u.country_name || '') + idSuffix;
@@ -759,18 +1114,41 @@ class PrSiteHeader extends HTMLElement {
     } else {
       menuUserFlag.hidden = true;
     }
-    const showUser = !!(u.username || u.country_name || u.flag_url);
-    menuUser.hidden = !showUser;
-    menuSepUser.hidden = !showUser;
+    menuUser.hidden = !(u.username || u.country_name);
+
+    this._syncMenuSepUser();
     this.setLoggedIn(true);
+  }
+
+  setBalance(value) {
+    this._balance = value;
+    const has = value !== null && value !== undefined && value !== '';
+    const text = has ? Number(value).toLocaleString('fr-FR') : '';
+    const balanceValue = this.shadowRoot.getElementById('balanceValue');
+    const menuBalanceValue = this.shadowRoot.getElementById('menuBalanceValue');
+    if (balanceValue) balanceValue.textContent = text;
+    if (menuBalanceValue) menuBalanceValue.textContent = text;
+    this.shadowRoot.getElementById('balanceInline').hidden = !has;
+    this.shadowRoot.getElementById('menuBalance').hidden = !has;
+    this._syncMenuSepUser();
+  }
+
+  _syncMenuSepUser() {
+    const menuUser = this.shadowRoot.getElementById('menuUser');
+    const menuBalance = this.shadowRoot.getElementById('menuBalance');
+    this.shadowRoot.getElementById('menuSepUser').hidden = menuUser.hidden && menuBalance.hidden;
   }
 
   setLoggedIn(loggedIn) {
     this.shadowRoot.getElementById('logoutItem').hidden = !loggedIn;
     if (!loggedIn) {
       this._user = {};
+      this._balance = null;
+      this.shadowRoot.getElementById('countryIdent').hidden = true;
       this.shadowRoot.getElementById('menuUser').hidden = true;
-      this.shadowRoot.getElementById('menuSepUser').hidden = true;
+      this.shadowRoot.getElementById('balanceInline').hidden = true;
+      this.shadowRoot.getElementById('menuBalance').hidden = true;
+      this._syncMenuSepUser();
     }
   }
 

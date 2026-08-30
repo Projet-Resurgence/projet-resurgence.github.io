@@ -10,7 +10,7 @@
 // shadow DOM, the injected <head> CSS won't reach slotted nav links — we
 // import NAV_CSS from site-header.js and include it in our own shadow styles.
 
-import { NAV_CSS } from './site-header.js?v=2.6.0';
+import { NAV_CSS } from './site-header.js?v=2.14.0';
 import { attachHeaderAuth } from './auth.js?v=1.0.0';
 
 // Served by /env.js so the same static HTML works on every environment; the
