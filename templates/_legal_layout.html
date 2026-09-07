@@ -1,0 +1,24 @@
+{# ============================================================================
+   Mise en page des pages légales.
+
+   Elles partagent l'en-tête et le pied du site, mais PAS `_doc_layout.html` :
+   celui-ci est piloté par le contenu éditorial venu de PR_API, que le staff
+   modifie depuis le site. Une mention légale n'est pas du contenu éditorial —
+   son historique doit être traçable, et git est fait pour ça.
+
+   Tout est rendu CÔTÉ SERVEUR : un robot, un lecteur d'écran ou un navigateur
+   sans JavaScript doit voir le texte au premier chargement. Une obligation
+   légale affichée par un script est une obligation qu'on peut manquer.
+   ========================================================================= #}
+{% extends "_vitrine_base.html" %}
+
+{% block content %}
+{# `_vitrine_base` ouvre déjà <main id="main-content"> autour de ce bloc. #}
+<article class="v-legal">
+  <header class="v-legal-head">
+    <h1>{{ legal_title }}</h1>
+    {% if legal_updated %}<p class="v-legal-date">Dernière mise à jour : {{ legal_updated }}</p>{% endif %}
+  </header>
+  {% block legal_body %}{% endblock %}
+</article>
+{% endblock %}

@@ -521,6 +521,105 @@ def page_forum_rp():
     return _render_editorial("forum-rp")
 
 
+# ── Pages légales ───────────────────────────────────────────────────────────
+#
+# Elles ne passent PAS par `_render_editorial` : ce dernier sert le contenu que
+# le staff modifie depuis le site (règlement, univers, forum RP), stocké dans
+# PR_API. Une mention légale n'est pas du contenu éditorial — son historique
+# doit être traçable, et une page qui dépend d'un service distant peut se
+# retrouver vide le jour où ce service tombe. Or l'absence de mentions légales
+# est la seule de ces obligations qui soit directement sanctionnée.
+#
+# Elles sont donc rendues depuis le dépôt, côté serveur, sans appel réseau.
+
+LEGAL_UPDATED = "7 septembre 2026"
+
+# `_vitrine_base.html` construit le <title>, les balises Open Graph, la
+# canonique et le JSON-LD à partir de `page` et `slug`. Les pages éditoriales
+# les reçoivent de PR_API ; celles-ci les déclarent ici, une fois.
+_LEGAL_PAGES = {
+    "mentions-legales": {
+        "meta_title": "Mentions légales — Projet Résurgence",
+        "meta_description": (
+            "Éditeur, hébergeur et contacts du site Projet Résurgence, "
+            "serveur de jeu de rôle géopolitique francophone."
+        ),
+        "nav_page": "",
+    },
+    "confidentialite": {
+        "meta_title": "Politique de confidentialité — Projet Résurgence",
+        "meta_description": (
+            "Quelles données Projet Résurgence conserve, pendant combien de "
+            "temps, pourquoi, et comment en demander la suppression."
+        ),
+        "nav_page": "",
+    },
+    "cgu": {
+        "meta_title": "Conditions générales d'utilisation — Projet Résurgence",
+        "meta_description": (
+            "Les règles d'accès au site et au serveur Projet Résurgence : "
+            "compte, contenus publiés, sanctions, responsabilités."
+        ),
+        "nav_page": "",
+    },
+}
+
+
+@app.route("/mentions-legales")
+def page_mentions_legales():
+    from legal_identity import HOST, publisher
+
+    return render_template(
+        "mentions-legales.html",
+        page=_LEGAL_PAGES["mentions-legales"],
+        slug="mentions-legales",
+        legal_title="Mentions légales",
+        legal_updated=LEGAL_UPDATED,
+        publisher=publisher(),
+        host=HOST,
+        public_url=PUBLIC_URL,
+    )
+
+
+@app.route("/confidentialite")
+def page_confidentialite():
+    from data_retention import rows
+    from legal_identity import PROCESSORS
+
+    return render_template(
+        "confidentialite.html",
+        page=_LEGAL_PAGES["confidentialite"],
+        slug="confidentialite",
+        legal_title="Politique de confidentialité",
+        legal_updated=LEGAL_UPDATED,
+        retentions=rows(),
+        processors=PROCESSORS,
+        public_url=PUBLIC_URL,
+    )
+
+
+@app.route("/cgu")
+def page_cgu():
+    return render_template(
+        "cgu.html",
+        page=_LEGAL_PAGES["cgu"],
+        slug="cgu",
+        legal_title="Conditions générales d'utilisation",
+        legal_updated=LEGAL_UPDATED,
+        public_url=PUBLIC_URL,
+    )
+
+
+# Ces pages n'existent pas sur le disque : le passage `.html` -> canonique du
+# gestionnaire attrape-tout ne les voit donc pas, et `/cgu.html` tomberait en
+# 404. Le lien a pourtant toutes les chances d'être écrit comme ça quelque part.
+@app.route("/mentions-legales.html")
+@app.route("/confidentialite.html")
+@app.route("/cgu.html")
+def legal_html_redirect():
+    return redirect(request.path[: -len(".html")], code=301)
+
+
 # Les pages sans extension sont la forme canonique du site. `/guide.html`
 # servait le même document avec un 200, ce qui donnait deux URL indexables pour
 # une page — et les trois signaux se contredisaient : `guide.html` déclarait sa

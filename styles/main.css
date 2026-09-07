@@ -1212,3 +1212,113 @@ img {
         margin-right: 4px;
     }
 }
+/* ── Bande légale ────────────────────────────────────────────────────────────
+   Rendue par le serveur, en dehors du pied de page. Ce dernier est un web
+   component : ses liens vivent dans un shadow DOM que seul JavaScript
+   construit. Sans cette bande, une page servie pendant que `components.js`
+   échoue — ou lue par un robot — n'offrirait aucun accès aux mentions légales.
+   Elle est donc dans `main.css`, le seul feuille chargée par TOUTES les pages,
+   et pas dans `vitrine.css` que `404.html` et `rp-geopolitique.html` ignorent.
+   ────────────────────────────────────────────────────────────────────────── */
+.legal-strip {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 0.5rem 1.25rem;
+	padding: 1rem;
+	font-size: 0.85rem;
+	background-color: var(--bg-secondary, #14161a);
+	border-top: 1px solid var(--bg-tertiary, #23262c);
+}
+
+.legal-strip a {
+	color: var(--text-secondary, #a8adb7);
+	text-decoration: none;
+}
+
+.legal-strip a:hover,
+.legal-strip a:focus-visible {
+	color: var(--primary-gold, #d5b654);
+	text-decoration: underline;
+}
+
+/* ── Pages légales ────────────────────────────────────────────────────────── */
+.v-legal {
+	max-width: 52rem;
+	margin: 0 auto;
+	padding: 2.5rem 1.25rem 4rem;
+	line-height: 1.65;
+}
+
+.v-legal h1 {
+	color: var(--primary-gold, #d5b654);
+	margin-bottom: 0.25rem;
+}
+
+.v-legal-date {
+	color: var(--text-muted, #7c828d);
+	font-size: 0.9rem;
+	margin-top: 0;
+}
+
+.v-legal section {
+	margin-top: 2.5rem;
+}
+
+.v-legal h2 {
+	font-size: 1.35rem;
+	border-bottom: 1px solid var(--bg-tertiary, #23262c);
+	padding-bottom: 0.4rem;
+}
+
+.v-legal dt {
+	font-weight: 600;
+	margin-top: 0.9rem;
+}
+
+.v-legal dd {
+	margin: 0.2rem 0 0 0;
+	color: var(--text-secondary, #a8adb7);
+}
+
+/* Le tableau des durées est la partie la plus large de ces pages : sur mobile
+   il doit défiler dans son propre cadre plutôt que d'élargir le document. */
+.v-legal-table {
+	display: block;
+	overflow-x: auto;
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 1rem;
+	font-size: 0.92rem;
+}
+
+.v-legal-table th,
+.v-legal-table td {
+	border: 1px solid var(--bg-tertiary, #23262c);
+	padding: 0.55rem 0.7rem;
+	text-align: left;
+	vertical-align: top;
+}
+
+.v-legal-table th {
+	background-color: var(--bg-secondary, #14161a);
+	color: var(--primary-gold, #d5b654);
+	white-space: nowrap;
+}
+
+/* Un défaut de configuration doit se voir sur la page, pas seulement dans les
+   logs : ces mentions-là sont obligatoires, et un blanc discret passerait pour
+   une mise en page. */
+.v-legal-warning {
+	border-left: 3px solid #c8553d;
+	background-color: rgba(200, 85, 61, 0.09);
+	padding: 0.7rem 1rem;
+	margin: 1rem 0;
+}
+
+.v-legal-note {
+	color: var(--text-muted, #7c828d);
+	font-size: 0.9rem;
+	border-left: 2px solid var(--bg-tertiary, #23262c);
+	padding-left: 0.9rem;
+}

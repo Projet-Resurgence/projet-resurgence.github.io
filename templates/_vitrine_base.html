@@ -143,6 +143,17 @@
 
  <resurgence-footer></resurgence-footer>
 
+ <!-- Le pied de page est un web component : ses liens vivent dans un shadow
+      DOM construit par JavaScript. Ils suffisent pour un visiteur, pas pour
+      une obligation légale — un lecteur d'écran sans JS, un crawler ou une
+      page servie pendant que `components.js` échoue ne verraient aucune
+      mention légale. Ce rappel-ci est dans le HTML rendu par le serveur. -->
+ <nav class="legal-strip" aria-label="Informations légales">
+  <a href="/mentions-legales">Mentions légales</a>
+  <a href="/confidentialite">Confidentialité</a>
+  <a href="/cgu">Conditions d'utilisation</a>
+</nav>
+
  <!-- Runtime origins (window.PR_ENV). Classic script: runs before the
       deferred/module scripts below, which read it. -->
  <script src="/env.js"></script>
