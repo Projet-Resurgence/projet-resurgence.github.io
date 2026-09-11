@@ -368,20 +368,14 @@ def update_playdays_per_month():
 def force_advance_game_date():
     """Force the playday forward by one, ignoring the pause + duplicate checks."""
     try:
-        # `run_monthly_cycles` : avancer la date ne suffit pas. Au premier jour
-        # d'un mois, trois cycles doivent tourner — construction des centrales,
-        # production, développement des technologies. Sans eux, un administrateur
-        # avance le temps depuis ce calendrier et les technologies de tous les
-        # pays restent bloquées au même nombre de mois restants : du temps de jeu
-        # passe, et rien n'avance.
-        #
-        # Le bot MARC lance ces cycles lui-même après avoir appelé la même route.
-        # Le drapeau vaut donc `false` par défaut côté PR_API — les lancer pour
-        # tout le monde les exécuterait deux fois — et `true` ici, qui était le
-        # chemin qui n'appelait rien.
+        # Les cycles mensuels — centrales, production, développement — partent
+        # de PR_API, dans la même requête que l'avancement. Rien à demander
+        # ici : c'était justement le défaut. Ce chemin ne les lançait pas, et
+        # 176 technologies en développement n'avançaient pas quand un
+        # administrateur passait par ce calendrier.
         resp = api_post(
             "/game/date/force-advance",
-            json_data={"skip_checks": True, "run_monthly_cycles": True},
+            json_data={"skip_checks": True},
             headers=service_auth_headers(),
         )
         payload = resp.json()
