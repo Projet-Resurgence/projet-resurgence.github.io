@@ -67,9 +67,13 @@ _PRIVATE_FILES = {
     "CLAUDE.md",
     "README.md",
     "LICENSE",
-    "CNAME",
     "verify-seo.sh",
     "analytics-report.txt",
+    # Banc de test interne — une page en anglais, intitulée « Comprehensive
+    # Website Testing Suite », qui répondait 200 à qui devinait l'URL. Elle ne
+    # fait aucun appel réseau, donc rien ne fuitait ; mais un outil interne
+    # n'est pas une page du site, et cette liste existe pour ça.
+    "test-website.html",
 }
 _PRIVATE_DIRS = (
     "scripts/",

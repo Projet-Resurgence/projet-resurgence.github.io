@@ -9,8 +9,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY resurgence-web/ /app/
 
 # Non-web files. app.py also refuses to serve the sources that remain.
-RUN rm -f /app/CNAME \
-          /app/Dockerfile \
+RUN rm -f /app/Dockerfile \
+          /app/test-website.html \
           /app/LICENSE \
           /app/README.md \
           /app/robots.txt.bak \
