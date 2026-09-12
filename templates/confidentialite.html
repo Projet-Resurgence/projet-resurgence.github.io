@@ -1,7 +1,19 @@
 {% extends "_legal_layout.html" %}
+{# Le sommaire de la colonne de gauche. Chaque entrée doit viser une
+   section existante et porter son titre exact :
+   `test_legal_pages_use_their_width` le vérifie, parce qu'une ancre
+   vers un id absent ne lève pas — elle dépose en haut de page. #}
+{% set legal_sections = [
+  ('ce-qu-on-collecte-et-pourquoi', "Ce qu'on collecte, et pourquoi"),
+  ('combien-de-temps', 'Combien de temps'),
+  ('a-qui-les-donnees-sont-transmises', 'À qui les données sont transmises'),
+  ('cookies', 'Cookies'),
+  ('vos-droits', 'Vos droits'),
+  ('mineurs', 'Mineurs'),
+] %}
 {% block legal_body %}
 
-<section>
+<section id="ce-qu-on-collecte-et-pourquoi">
   <h2>Ce qu'on collecte, et pourquoi</h2>
   <p>
     Projet Résurgence n'a ni régie publicitaire, ni traceur d'audience, ni
@@ -15,7 +27,7 @@
   </p>
 </section>
 
-<section>
+<section id="combien-de-temps">
   <h2>Combien de temps</h2>
   <p>
     Ce tableau est rendu depuis la même déclaration que celle que le programme
@@ -47,7 +59,7 @@
   </table>
 </section>
 
-<section>
+<section id="a-qui-les-donnees-sont-transmises">
   <h2>À qui les données sont transmises</h2>
   <dl>
     {% for p in processors %}
@@ -56,7 +68,7 @@
   </dl>
 </section>
 
-<section>
+<section id="cookies">
   <h2>Cookies</h2>
   <p>
     Le site ne dépose que des cookies <strong>strictement nécessaires</strong> :
@@ -70,7 +82,7 @@
   </p>
 </section>
 
-<section>
+<section id="vos-droits">
   <h2>Vos droits</h2>
   <p>
     Vous pouvez demander l'accès, la rectification, l'effacement de vos données,
@@ -112,7 +124,7 @@
   </p>
 </section>
 
-<section>
+<section id="mineurs">
   <h2>Mineurs</h2>
   <p>
     En France, un mineur de moins de 15 ans ne peut consentir seul au traitement

@@ -1,7 +1,17 @@
 {% extends "_legal_layout.html" %}
+{# Le sommaire de la colonne de gauche. Chaque entrée doit viser une
+   section existante et porter son titre exact :
+   `test_legal_pages_use_their_width` le vérifie, parce qu'une ancre
+   vers un id absent ne lève pas — elle dépose en haut de page. #}
+{% set legal_sections = [
+  ('editeur-du-site', 'Éditeur du site'),
+  ('hebergeur', 'Hébergeur'),
+  ('contenus-publies-par-les-joueurs', 'Contenus publiés par les joueurs'),
+  ('signaler-un-contenu', 'Signaler un contenu'),
+] %}
 {% block legal_body %}
 
-<section>
+<section id="editeur-du-site">
   <h2>Éditeur du site</h2>
   {% if not publisher.complete %}
   <p class="v-legal-warning" role="alert">
@@ -30,7 +40,7 @@
   {% endif %}
 </section>
 
-<section>
+<section id="hebergeur">
   <h2>Hébergeur</h2>
   <dl>
     <dt>Raison sociale</dt><dd>{{ host.name }}</dd>
@@ -41,7 +51,7 @@
   <p>Les serveurs et la base de données sont situés en France.</p>
 </section>
 
-<section>
+<section id="contenus-publies-par-les-joueurs">
   <h2>Contenus publiés par les joueurs</h2>
   <p>
     Les textes de jeu — fiches de pays, messages du forum, échanges — restent la
@@ -50,7 +60,7 @@
   </p>
 </section>
 
-<section>
+<section id="signaler-un-contenu">
   <h2>Signaler un contenu</h2>
   <p>
     Un contenu illicite peut être signalé au contact ci-dessus. Le signalement

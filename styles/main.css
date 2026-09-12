@@ -1243,11 +1243,97 @@ img {
 }
 
 /* ── Pages légales ────────────────────────────────────────────────────────── */
+/* Les pages légales occupent la coquille du site, comme le règlement et le
+   forum RP. Elles étaient une colonne de 52rem centrée dans 1600 px : le texte
+   flottait au milieu du vide pendant que toutes les pages voisines
+   remplissaient l'écran. `52rem` n'apparaissait qu'une fois dans cette
+   feuille — ces trois pages étaient les seules dans ce cas.
+
+   Élargir le texte n'était pas le remède : 1600 px de longueur de ligne ne se
+   lisent pas. La mesure reste à 52rem, et c'est la colonne de gauche qui
+   occupe le reste. */
+.v-legal-shell {
+	display: grid;
+	grid-template-columns: 250px minmax(0, 1fr);
+	align-items: start;
+	gap: 2.5rem;
+	max-width: var(--v-shell, 1600px);
+	margin: 0 auto;
+	padding: 0 1.25rem;
+}
+
+.v-legal-aside {
+	position: sticky;
+	top: 84px;
+	padding: 2.5rem 0 2rem;
+	/* `min-width: 0` : sans lui, un descendant de grille garde `min-width:
+	   auto` et un titre long repousserait la colonne du texte. */
+	min-width: 0;
+}
+
+.v-legal-aside__title {
+	display: block;
+	font-size: 0.78rem;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	color: var(--text-muted, #7c828d);
+	margin-bottom: 0.75rem;
+}
+
+.v-legal-toc {
+	display: flex;
+	flex-direction: column;
+	gap: 0.1rem;
+	border-left: 1px solid var(--bg-tertiary, #23262c);
+}
+
+.v-legal-toc a {
+	padding: 0.4rem 0 0.4rem 0.9rem;
+	margin-left: -1px;
+	border-left: 2px solid transparent;
+	color: var(--text-secondary, #a8adb7);
+	text-decoration: none;
+	font-size: 0.92rem;
+	line-height: 1.35;
+	transition: color 0.15s, border-color 0.15s;
+}
+
+.v-legal-toc a:hover,
+.v-legal-toc a:focus-visible {
+	color: var(--primary-gold, #d5b654);
+	border-left-color: var(--primary-gold, #d5b654);
+}
+
 .v-legal {
 	max-width: 52rem;
-	margin: 0 auto;
-	padding: 2.5rem 1.25rem 4rem;
+	padding: 2.5rem 0 4rem;
 	line-height: 1.65;
+	min-width: 0;
+}
+
+/* Une ancre amène le titre sous l'en-tête collant si rien ne l'en empêche :
+   le lecteur clique « Vos droits » et atterrit sur le paragraphe d'avant. */
+.v-legal section {
+	scroll-margin-top: 96px;
+}
+
+/* Sous 1040 px l'aside cesse d'être une colonne : le sommaire passe au-dessus
+   du texte, comme celui du règlement. Le seuil est le même à dessein — deux
+   valeurs différentes donneraient deux ruptures visibles en redimensionnant. */
+@media (max-width: 1040px) {
+	.v-legal-shell {
+		display: block;
+	}
+
+	.v-legal-aside {
+		position: static;
+		padding: 2rem 0 0;
+	}
+
+	.v-legal {
+		max-width: 52rem;
+		margin: 0 auto;
+	}
 }
 
 .v-legal h1 {

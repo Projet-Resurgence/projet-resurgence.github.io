@@ -1,7 +1,18 @@
 {% extends "_legal_layout.html" %}
+{# Le sommaire de la colonne de gauche. Chaque entrée doit viser une
+   section existante et porter son titre exact :
+   `test_legal_pages_use_their_width` le vérifie, parce qu'une ancre
+   vers un id absent ne lève pas — elle dépose en haut de page. #}
+{% set legal_sections = [
+  ('ce-que-sont-ces-conditions', 'Ce que sont ces conditions'),
+  ('acces-au-jeu', 'Accès au jeu'),
+  ('ce-que-vous-ecrivez', 'Ce que vous écrivez'),
+  ('sanctions-et-arbitrage', 'Sanctions et arbitrage'),
+  ('modification', 'Modification'),
+] %}
 {% block legal_body %}
 
-<section>
+<section id="ce-que-sont-ces-conditions">
   <h2>Ce que sont ces conditions</h2>
   <p>
     Des conditions d'<em>utilisation</em>, pas de vente : le jeu est gratuit et
@@ -10,7 +21,7 @@
   </p>
 </section>
 
-<section>
+<section id="acces-au-jeu">
   <h2>Accès au jeu</h2>
   <p>
     L'accès se fait par un compte Discord. Le staff peut refuser, suspendre ou
@@ -23,7 +34,7 @@
   </p>
 </section>
 
-<section>
+<section id="ce-que-vous-ecrivez">
   <h2>Ce que vous écrivez</h2>
   <p>
     Vous restez propriétaire de vos textes. Vous accordez au site le droit de
@@ -32,7 +43,7 @@
   </p>
 </section>
 
-<section>
+<section id="sanctions-et-arbitrage">
   <h2>Sanctions et arbitrage</h2>
   <p>
     Les décisions du staff sont journalisées, avec leur auteur et leur date.
@@ -41,7 +52,7 @@
   </p>
 </section>
 
-<section>
+<section id="modification">
   <h2>Modification</h2>
   <p>
     Ces conditions peuvent évoluer. La date de dernière mise à jour figure en

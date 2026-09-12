@@ -13,12 +13,35 @@
 {% extends "_vitrine_base.html" %}
 
 {% block content %}
-{# `_vitrine_base` ouvre déjà <main id="main-content"> autour de ce bloc. #}
-<article class="v-legal">
-  <header class="v-legal-head">
-    <h1>{{ legal_title }}</h1>
-    {% if legal_updated %}<p class="v-legal-date">Dernière mise à jour : {{ legal_updated }}</p>{% endif %}
-  </header>
-  {% block legal_body %}{% endblock %}
-</article>
+{# `_vitrine_base` ouvre déjà <main id="main-content"> autour de ce bloc.
+
+   La coquille occupe la même largeur que le règlement et le forum RP
+   (`--v-shell`), avec un sommaire collant à gauche. Auparavant ces pages
+   étaient une colonne de 52rem centrée dans 1600 px : le texte flottait au
+   milieu du vide pendant que toutes les pages voisines remplissaient l'écran.
+
+   Élargir le texte n'était pas le remède — 1600 px de longueur de ligne ne se
+   lisent pas, et 52rem est la bonne mesure. Ce qui manquait, c'est la colonne
+   de gauche que les voisines ont déjà. Elle est utile ici : on arrive sur une
+   page légale en cherchant une clause, pas pour la lire d'un bout à l'autre. #}
+<div class="v-legal-shell">
+  {% if legal_sections %}
+  <aside class="v-legal-aside" aria-label="Sommaire de {{ legal_title }}">
+    <span class="v-legal-aside__title">Sur cette page</span>
+    <nav class="v-legal-toc">
+      {% for id, titre in legal_sections %}
+      <a href="#{{ id }}">{{ titre }}</a>
+      {% endfor %}
+    </nav>
+  </aside>
+  {% endif %}
+
+  <article class="v-legal">
+    <header class="v-legal-head">
+      <h1>{{ legal_title }}</h1>
+      {% if legal_updated %}<p class="v-legal-date">Dernière mise à jour : {{ legal_updated }}</p>{% endif %}
+    </header>
+    {% block legal_body %}{% endblock %}
+  </article>
+</div>
 {% endblock %}
