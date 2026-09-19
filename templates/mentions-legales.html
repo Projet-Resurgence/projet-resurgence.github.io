@@ -1,0 +1,72 @@
+{% extends "_legal_layout.html" %}
+{# Le sommaire de la colonne de gauche. Chaque entrée doit viser une
+   section existante et porter son titre exact :
+   `test_legal_pages_use_their_width` le vérifie, parce qu'une ancre
+   vers un id absent ne lève pas — elle dépose en haut de page. #}
+{% set legal_sections = [
+  ('editeur-du-site', 'Éditeur du site'),
+  ('hebergeur', 'Hébergeur'),
+  ('contenus-publies-par-les-joueurs', 'Contenus publiés par les joueurs'),
+  ('signaler-un-contenu', 'Signaler un contenu'),
+] %}
+{% block legal_body %}
+
+<section id="editeur-du-site">
+  <h2>Éditeur du site</h2>
+  {% if not publisher.complete %}
+  <p class="v-legal-warning" role="alert">
+    Cette page est incomplète : {{ publisher.missing | join(', ') }}
+    {{ 'n\'est pas défini' if publisher.missing | length == 1 else 'ne sont pas définis' }}.
+  </p>
+  {% endif %}
+  <dl>
+    <dt>Responsable de la publication</dt><dd>{{ publisher.name }}</dd>
+    {% if publisher.address %}<dt>Adresse</dt><dd>{{ publisher.address }}</dd>{% endif %}
+    {% if publisher.registration %}<dt>Immatriculation</dt><dd>{{ publisher.registration }}</dd>{% endif %}
+    <dt>Contact</dt><dd><a href="mailto:{{ publisher.contact }}">{{ publisher.contact }}</a></dd>
+  </dl>
+  <p>
+    Projet Résurgence est un jeu de rôle amateur, gratuit et sans but lucratif.
+    Aucun bien ni service n'y est vendu.
+  </p>
+  {% if publisher.individual %}
+  <p class="v-legal-note">
+    Le site est édité à titre non professionnel. L'article 6-III-2 de la LCEN
+    permet dans ce cas de ne pas publier l'adresse de l'éditeur, dès lors que
+    son identité complète a été communiquée à l'hébergeur — c'est le cas — et
+    qu'un moyen de contact reste ouvert : c'est l'adresse ci-dessus, à laquelle
+    tout signalement aboutit.
+  </p>
+  {% endif %}
+</section>
+
+<section id="hebergeur">
+  <h2>Hébergeur</h2>
+  <dl>
+    <dt>Raison sociale</dt><dd>{{ host.name }}</dd>
+    <dt>Adresse</dt><dd>{{ host.address }}</dd>
+    <dt>Téléphone</dt><dd>{{ host.phone }}</dd>
+    <dt>Site</dt><dd><a href="{{ host.site }}" rel="noopener">{{ host.site }}</a></dd>
+  </dl>
+  <p>Les serveurs et la base de données sont situés en France.</p>
+</section>
+
+<section id="contenus-publies-par-les-joueurs">
+  <h2>Contenus publiés par les joueurs</h2>
+  <p>
+    Les textes de jeu — fiches de pays, messages du forum, échanges — restent la
+    propriété de leurs auteurs. Le site les affiche pour faire vivre la partie ;
+    il ne s'en attribue pas la propriété et ne les exploite pas ailleurs.
+  </p>
+</section>
+
+<section id="signaler-un-contenu">
+  <h2>Signaler un contenu</h2>
+  <p>
+    Un contenu illicite peut être signalé au contact ci-dessus. Le signalement
+    est traité par le staff, qui peut retirer le contenu et sanctionner son
+    auteur selon le règlement.
+  </p>
+</section>
+
+{% endblock %}

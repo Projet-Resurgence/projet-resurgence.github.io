@@ -3,7 +3,11 @@
 // already written in the HTML (used as the count-up animation's target by
 // styles/main.js ResurgenceWebsite.animateStats) is left untouched.
 (function () {
-    var STATS_ENDPOINT = 'https://api.projet-resurgence.fr/statistics/public-overview';
+    // Origin comes from /env.js (window.PR_ENV), so a local stack hits its own
+    // API instead of production. The literal is the production fallback for the
+    // case where /env.js failed to load.
+    var API_BASE = (window.PR_ENV && window.PR_ENV.apiUrl) || 'https://api.projet-resurgence.fr';
+    var STATS_ENDPOINT = API_BASE + '/statistics/public-overview';
 
     var STAT_KEYS = {
         countries: 'countries',
@@ -21,7 +25,13 @@
         elements.forEach(function (el) {
             var key = STAT_KEYS[el.dataset.stat];
             var value = key ? data[key] : undefined;
-            if (typeof value !== 'number') return;
+            // Un zero n'est pas une mesure, c'est une source absente. Le
+            // compte des commandes du bot vient de fichiers deposes par CLEA et
+            // MARC dans le volume bot_stats ; tant qu'un bot n'a pas publie le
+            // sien, l'API renvoie 0 en toute bonne foi. Ecrire « 0+ » dans le
+            // bulletin d'accueil serait pire que la valeur de repli ecrite dans
+            // le HTML, que ce module est justement cense preserver.
+            if (typeof value !== 'number' || !isFinite(value) || value <= 0) return;
             el.dataset.statValue = value;
             el.textContent = value + '+';
         });

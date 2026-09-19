@@ -11,12 +11,14 @@ things a static file server cannot do:
     without going through the VPN-only admin panel.
 """
 
+import json
 import os
 from urllib.parse import urlencode
 
 import requests
 from flask import (
     Flask,
+    Response,
     jsonify,
     redirect,
     render_template,
@@ -26,6 +28,8 @@ from flask import (
 
 from settings import (
     BASE_DIR,
+    MAP_PUBLIC_URL,
+    PR_API_PUBLIC_URL,
     PR_API_URL,
     PUBLIC_URL,
     SECRET_KEY,
@@ -63,9 +67,13 @@ _PRIVATE_FILES = {
     "CLAUDE.md",
     "README.md",
     "LICENSE",
-    "CNAME",
     "verify-seo.sh",
     "analytics-report.txt",
+    # Banc de test interne — une page en anglais, intitulée « Comprehensive
+    # Website Testing Suite », qui répondait 200 à qui devinait l'URL. Elle ne
+    # fait aucun appel réseau, donc rien ne fuitait ; mais un outil interne
+    # n'est pas une page du site, et cette liste existe pour ça.
+    "test-website.html",
 }
 _PRIVATE_DIRS = (
     "scripts/",
@@ -364,6 +372,11 @@ def update_playdays_per_month():
 def force_advance_game_date():
     """Force the playday forward by one, ignoring the pause + duplicate checks."""
     try:
+        # Les cycles mensuels — centrales, production, développement — partent
+        # de PR_API, dans la même requête que l'avancement. Rien à demander
+        # ici : c'était justement le défaut. Ce chemin ne les lançait pas, et
+        # 176 technologies en développement n'avançaient pas quand un
+        # administrateur passait par ce calendrier.
         resp = api_post(
             "/game/date/force-advance",
             json_data={"skip_checks": True},
@@ -391,6 +404,36 @@ def _is_private(rel_path: str) -> bool:
 
 def _send(rel_path: str):
     return send_from_directory(BASE_DIR, rel_path)
+
+
+@app.route("/env.js")
+def env_js():
+    """Runtime origins for the browser, as ``window.PR_ENV``.
+
+    Most of this site is static HTML served straight off disk, so there is no
+    template pass in which to interpolate an origin. Serving them from a tiny
+    script instead keeps the pages environment-agnostic: the same index.html
+    talks to api.projet-resurgence.fr in production and api.pr.localhost on a
+    local stack, with nothing to edit in between.
+
+    Deliberately uncached — it is a few hundred bytes and getting a stale origin
+    after a domain change is far more expensive than re-fetching it.
+    """
+    payload = json.dumps(
+        {
+            "apiUrl": PR_API_PUBLIC_URL,
+            "authUrl": WEBAUTH_PUBLIC_URL,
+            "siteUrl": PUBLIC_URL,
+            "mapUrl": MAP_PUBLIC_URL,
+        },
+        separators=(",", ":"),
+    )
+    response = Response(
+        f"window.PR_ENV=Object.freeze({payload});\n",
+        mimetype="application/javascript",
+    )
+    response.headers["Cache-Control"] = "no-store"
+    return response
 
 
 @app.route("/health")
@@ -487,6 +530,130 @@ def page_forum_rp():
     return _render_editorial("forum-rp")
 
 
+# ── Pages légales ───────────────────────────────────────────────────────────
+#
+# Elles ne passent PAS par `_render_editorial` : ce dernier sert le contenu que
+# le staff modifie depuis le site (règlement, univers, forum RP), stocké dans
+# PR_API. Une mention légale n'est pas du contenu éditorial — son historique
+# doit être traçable, et une page qui dépend d'un service distant peut se
+# retrouver vide le jour où ce service tombe. Or l'absence de mentions légales
+# est la seule de ces obligations qui soit directement sanctionnée.
+#
+# Elles sont donc rendues depuis le dépôt, côté serveur, sans appel réseau.
+
+LEGAL_UPDATED = "7 septembre 2026"
+
+# `_vitrine_base.html` construit le <title>, les balises Open Graph, la
+# canonique et le JSON-LD à partir de `page` et `slug`. Les pages éditoriales
+# les reçoivent de PR_API ; celles-ci les déclarent ici, une fois.
+_LEGAL_PAGES = {
+    "mentions-legales": {
+        "meta_title": "Mentions légales — Projet Résurgence",
+        "meta_description": (
+            "Éditeur, hébergeur et contacts du site Projet Résurgence, "
+            "serveur de jeu de rôle géopolitique francophone."
+        ),
+        "nav_page": "",
+    },
+    "confidentialite": {
+        "meta_title": "Politique de confidentialité — Projet Résurgence",
+        "meta_description": (
+            "Quelles données Projet Résurgence conserve, pendant combien de "
+            "temps, pourquoi, et comment en demander la suppression."
+        ),
+        "nav_page": "",
+    },
+    "cgu": {
+        "meta_title": "Conditions générales d'utilisation — Projet Résurgence",
+        "meta_description": (
+            "Les règles d'accès au site et au serveur Projet Résurgence : "
+            "compte, contenus publiés, sanctions, responsabilités."
+        ),
+        "nav_page": "",
+    },
+}
+
+
+@app.route("/mentions-legales")
+def page_mentions_legales():
+    from legal_identity import HOST, publisher
+
+    return render_template(
+        "mentions-legales.html",
+        page=_LEGAL_PAGES["mentions-legales"],
+        slug="mentions-legales",
+        legal_title="Mentions légales",
+        legal_updated=LEGAL_UPDATED,
+        publisher=publisher(),
+        host=HOST,
+        public_url=PUBLIC_URL,
+    )
+
+
+@app.route("/confidentialite")
+def page_confidentialite():
+    from data_retention import rows
+    from legal_identity import PROCESSORS
+
+    return render_template(
+        "confidentialite.html",
+        page=_LEGAL_PAGES["confidentialite"],
+        slug="confidentialite",
+        legal_title="Politique de confidentialité",
+        legal_updated=LEGAL_UPDATED,
+        retentions=rows(),
+        processors=PROCESSORS,
+        public_url=PUBLIC_URL,
+    )
+
+
+@app.route("/cgu")
+def page_cgu():
+    return render_template(
+        "cgu.html",
+        page=_LEGAL_PAGES["cgu"],
+        slug="cgu",
+        legal_title="Conditions générales d'utilisation",
+        legal_updated=LEGAL_UPDATED,
+        public_url=PUBLIC_URL,
+    )
+
+
+# Ces pages n'existent pas sur le disque : le passage `.html` -> canonique du
+# gestionnaire attrape-tout ne les voit donc pas, et `/cgu.html` tomberait en
+# 404. Le lien a pourtant toutes les chances d'être écrit comme ça quelque part.
+@app.route("/mentions-legales.html")
+@app.route("/confidentialite.html")
+@app.route("/cgu.html")
+def legal_html_redirect():
+    return redirect(request.path[: -len(".html")], code=301)
+
+
+# Les pages sans extension sont la forme canonique du site. `/guide.html`
+# servait le même document avec un 200, ce qui donnait deux URL indexables pour
+# une page — et les trois signaux se contredisaient : `guide.html` déclarait sa
+# canonique à `/guide`, le sitemap soumettait `/guide.html`, et la navigation
+# interne pointait `guide.html` sur chaque page du site. Une canonique que tous
+# les liens contredisent ne vaut pas grand-chose.
+#
+# La redirection permanente rend la canonique auto-portante : il n'existe plus
+# qu'une seule URL servie. Les liens `.html` déjà postés sur Discord continuent
+# de fonctionner — c'est justement ce que fait un 301.
+#
+# `404.html` est exclu : il est rendu par le gestionnaire d'erreur avec son
+# propre code, pas atteint par une requête.
+_NO_PRETTY_REDIRECT = {"404.html"}
+
+
+def _pretty_target(filename: str):
+    """L'URL canonique d'un chemin `.html`, ou None s'il n'y en a pas."""
+    if not filename.endswith(".html") or filename in _NO_PRETTY_REDIRECT:
+        return None
+    if filename == "index.html":
+        return "/"
+    return "/" + filename[: -len(".html")]
+
+
 @app.route("/<path:filename>")
 def site_file(filename):
     if _is_private(filename):
@@ -496,6 +663,12 @@ def site_file(filename):
         candidate.relative_to(BASE_DIR)
     except ValueError:
         return not_found(None)
+
+    target = _pretty_target(filename)
+    if target and candidate.is_file():
+        query = request.query_string.decode()
+        return redirect(f"{target}?{query}" if query else target, code=301)
+
     if candidate.is_file():
         return _send(filename)
     # Pretty URLs: /calendrier -> calendrier.html

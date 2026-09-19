@@ -115,8 +115,8 @@
  }
 </script>
 
- <link rel="stylesheet" href="https://projet-resurgence.fr/assets/pr-design-system/pr-design-system.css?v=11">
- <script defer src="https://projet-resurgence.fr/assets/pr-design-system/pr-design-system.js?v=11"></script>
+ <link rel="stylesheet" href="https://projet-resurgence.fr/assets/pr-design-system/pr-design-system.css?v=12">
+ <script defer src="https://projet-resurgence.fr/assets/pr-design-system/pr-design-system.js?v=12"></script>
 </head>
 
 <body class="pr-scope v-page">
@@ -249,8 +249,19 @@
 </main>
 
  <resurgence-footer></resurgence-footer>
+    <!-- Rendu côté serveur, hors du shadow DOM du pied de page : sans JS, ces
+         liens sont la seule voie d'accès aux mentions légales. -->
+    <nav class="legal-strip" aria-label="Informations légales">
+      <a href="/mentions-legales">Mentions légales</a>
+      <a href="/confidentialite">Confidentialité</a>
+      <a href="/cgu">Conditions d'utilisation</a>
+    </nav>
 
- <script type="module" src="./components/components.js?v=4.1.0"></script>
+
+ <!-- Runtime origins (window.PR_ENV). Classic script: runs before the
+      deferred/module scripts below, which read it. -->
+ <script src="/env.js"></script>
+ <script type="module" src="./components/components.js?v=4.2.0"></script>
  <script src="./styles/main.js?v=1.4.0" defer></script>
 </body>
 

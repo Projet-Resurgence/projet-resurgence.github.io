@@ -70,7 +70,7 @@
 
  <!-- Open Graph / Facebook -->
  <meta property="og:type" content="website">
- <meta property="og:url" content="https://projet-resurgence.fr/calendrier.html">
+ <meta property="og:url" content="https://projet-resurgence.fr/calendrier">
  <meta property="og:title" content="Calendrier de Jeu - Projet Résurgence">
  <meta property="og:description"
  content="Jours de jeu, périodes de pause et reprise annoncée : le calendrier officiel de Projet Résurgence.">
@@ -80,14 +80,14 @@
 
  <!-- Twitter -->
  <meta property="twitter:card" content="summary_large_image">
- <meta property="twitter:url" content="https://projet-resurgence.fr/calendrier.html">
+ <meta property="twitter:url" content="https://projet-resurgence.fr/calendrier">
  <meta property="twitter:title" content="Calendrier de Jeu - Projet Résurgence">
  <meta property="twitter:description"
  content="Jours de jeu, périodes de pause et reprise annoncée du RP.">
  <meta property="twitter:image" content="https://projet-resurgence.fr/images/banners/calendrier.png">
 
  <!-- Canonical URL -->
- <link rel="canonical" href="https://projet-resurgence.fr/calendrier.html">
+ <link rel="canonical" href="https://projet-resurgence.fr/calendrier">
 
  <link rel="preconnect" href="https://fonts.googleapis.com">
  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -111,7 +111,7 @@
  "@type": "WebPage",
  "name": "Calendrier de Jeu - Projet Résurgence",
  "description": "Calendrier officiel de Projet Résurgence : jours de jeu, pauses et reprise annoncée du RP.",
- "url": "https://projet-resurgence.fr/calendrier.html",
+ "url": "https://projet-resurgence.fr/calendrier",
  "inLanguage": "fr",
  "isPartOf": {
  "@type": "WebSite",
@@ -121,8 +121,8 @@
  }
 </script>
 
- <link rel="stylesheet" href="https://projet-resurgence.fr/assets/pr-design-system/pr-design-system.css?v=11">
- <script defer src="https://projet-resurgence.fr/assets/pr-design-system/pr-design-system.js?v=11"></script>
+ <link rel="stylesheet" href="https://projet-resurgence.fr/assets/pr-design-system/pr-design-system.css?v=12">
+ <script defer src="https://projet-resurgence.fr/assets/pr-design-system/pr-design-system.js?v=12"></script>
 </head>
 
 <body class="pr-scope v-page">
@@ -273,8 +273,19 @@
  <div class="cal-toasts" id="cal-toasts"></div>
 
  <resurgence-footer></resurgence-footer>
+    <!-- Rendu côté serveur, hors du shadow DOM du pied de page : sans JS, ces
+         liens sont la seule voie d'accès aux mentions légales. -->
+    <nav class="legal-strip" aria-label="Informations légales">
+      <a href="/mentions-legales">Mentions légales</a>
+      <a href="/confidentialite">Confidentialité</a>
+      <a href="/cgu">Conditions d'utilisation</a>
+    </nav>
 
- <script type="module" src="./components/components.js?v=4.1.0"></script>
+
+ <!-- Runtime origins (window.PR_ENV). Classic script: runs before the
+      deferred/module scripts below, which read it. -->
+ <script src="/env.js"></script>
+ <script type="module" src="./components/components.js?v=4.2.0"></script>
  <script type="module" src="./styles/calendar.js?v=2.6.0"></script>
  <script src="./styles/main.js?v=1.4.0" defer></script>
 </body>

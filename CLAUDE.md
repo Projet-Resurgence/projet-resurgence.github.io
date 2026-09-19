@@ -41,7 +41,6 @@ resurgence-web/
 ├── manifest.json               # PWA manifest
 ├── sitemap.xml                 # XML sitemap (9 URLs)
 ├── robots.txt                  # Robots directives
-├── CNAME                       # GitHub Pages domain mapping
 ├── Dockerfile                  # python:3.12-slim + gunicorn on port 80
 ├── components/
 │   ├── components.js           # ComponentManager loader (dynamic imports)
@@ -580,7 +579,7 @@ Plus `no-store` on any 4xx (so a missing `.js` is not cached for a year) and on
 4. **Theme localStorage key** is `resurgence-theme` (values: `dark` | `light`)
 5. **Header component** uses `current-page` attribute for active nav highlighting. Page values: `home`, `universe`, `rules`, `forum-rp`, `guide`, `rp-geopolitique`, `mecaniques`, `resources`, `calendar`, `join`
 6. **Font file** is `pressgothic.otf` – preload with `as="font" type="font/otf" crossorigin`
-7. **Dockerfile removes** `.git`, `.vscode`, `test-results`, `test-scripts`, `CNAME`, `LICENSE`, `README.md`, `verify-seo.sh`, `analytics-report.txt` during build. The Python sources stay in the image (they run it) but `app.py` refuses to serve them — add any new source file to `_PRIVATE_FILES`
+7. **Dockerfile removes** `.git`, `.vscode`, `test-results`, `test-scripts`, `test-website.html`, `LICENSE`, `README.md`, `verify-seo.sh`, `analytics-report.txt` during build. The Python sources stay in the image (they run it) but `app.py` refuses to serve them — add any new source file to `_PRIVATE_FILES`
 8. **All analytics requires Axeptio consent** – `hasAnalyticsConsent()` checks `window.axeptio.getUserConsent()` before any tracking
 9. **sw.js is never cached** – changing SW requires no nginx config change, but update version in inline script to force client cache purge
 10. **Cloudflare ignores origin no-cache headers for `/components/` and `/styles/`** — see dedicated section above. Any content change to a file under those paths needs its referencing `?v=` query string bumped in every HTML page that loads it, or Cloudflare can keep serving the old version indefinitely regardless of origin state. When in doubt, verify with a real browser against the live page (not a direct curl to the changed asset)

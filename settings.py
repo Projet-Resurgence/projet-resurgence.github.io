@@ -27,6 +27,19 @@ JWT_EXPIRATION_HOURS = 24
 # MUST stay the internal Docker hostname: the external URL goes through
 # Cloudflare, which challenges server-to-server requests.
 PR_API_URL = os.getenv("RESURGENCE_WEB_PR_API_URL", "http://pr-api:5000").rstrip("/")
+
+# ── Origins the *browser* talks to ──────────────────────────────────────────
+# PR_API_URL above is the internal Docker hostname and is unreachable from a
+# page. Anything the client fetches needs the public origin instead, which
+# differs per environment — so it is served to the page as window.PR_ENV by the
+# /env.js route rather than baked into the static HTML. Rule 10 in the root
+# CLAUDE.md: never hardcode an environment URL in code.
+PR_API_PUBLIC_URL = os.getenv(
+    "RESURGENCE_WEB_PR_API_PUBLIC_URL", "https://api.projet-resurgence.fr"
+).rstrip("/")
+MAP_PUBLIC_URL = os.getenv(
+    "RESURGENCE_WEB_MAP_PUBLIC_URL", "https://map.projet-resurgence.fr"
+).rstrip("/")
 PR_API_CLIENT_ID = os.getenv("RESURGENCE_WEB_PR_API_CLIENT_ID", "resurgence-web")
 PR_API_CLIENT_SECRET = os.getenv("RESURGENCE_WEB_PR_API_CLIENT_SECRET", "")
 

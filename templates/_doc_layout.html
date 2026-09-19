@@ -11,7 +11,24 @@
 {% block content %}
 <div class="v-doc">
 
-  <aside class="v-doc__aside" aria-label="Navigation dans {{ page.title }}">
+  {# Navigation mobile. Sous 1040 px l'aside cesse d'être une colonne collante
+     et s'empile au-dessus du texte : trois chapitres plus bas, changer de
+     section obligeait à remonter tout le document. Ce bouton la rouvre en
+     panneau, sans dupliquer un seul lien — c'est le MÊME aside qui glisse.
+
+     Le bouton et le voile sont des frères de l'aside, jamais ses enfants :
+     l'aside défile (`overflow-y: auto`), et un élément positionné à
+     l'intérieur d'une boîte qui rogne est coupé. C'est exactement ce qui avait
+     cassé le menu déroulant de l'en-tête. #}
+  <button type="button" class="v-doc__navfab" id="doc-nav-toggle"
+          aria-controls="doc-aside" aria-expanded="false"
+          aria-label="Ouvrir la navigation du document">
+    <span class="v-doc__navfab-bars" aria-hidden="true"></span>
+    <span class="v-doc__navfab-text">Sommaire</span>
+  </button>
+  <div class="v-doc__scrim" id="doc-nav-scrim" hidden></div>
+
+  <aside class="v-doc__aside" id="doc-aside" aria-label="Navigation dans {{ page.title }}">
     <div class="v-search">
       <span aria-hidden="true">⌕</span>
       <input type="search" id="doc-search" placeholder="Chercher…"
@@ -117,9 +134,9 @@
     title: {{ page.title | tojson }},
   };
 </script>
-<link rel="stylesheet" href="/assets/rp-text-block/rp-text-block.css?v=1.4.0">
-<script src="/assets/rp-text-block/rp-text-block.js?v=1.4.0"></script>
-<script type="module" src="/styles/content-doc.js?v=1.1.0"></script>
+<link rel="stylesheet" href="/assets/rp-text-block/rp-text-block.css?v=56">
+<script src="/assets/rp-text-block/rp-text-block.js?v=56"></script>
+<script type="module" src="/styles/content-doc.js?v=1.2.0"></script>
 <script type="module" src="/styles/content-admin.js?v=1.6.0"></script>
 <script type="module" src="/styles/command-guide.js?v=1.0.0"></script>
 <script type="module" src="/styles/link-preview.js?v=1.0.2"></script>

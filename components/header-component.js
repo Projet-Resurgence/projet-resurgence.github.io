@@ -10,8 +10,15 @@
 // shadow DOM, the injected <head> CSS won't reach slotted nav links — we
 // import NAV_CSS from site-header.js and include it in our own shadow styles.
 
-import { NAV_CSS } from './site-header.js?v=2.6.0';
+import { NAV_CSS } from './site-header.js?v=2.14.0';
 import { attachHeaderAuth } from './auth.js?v=1.0.0';
+
+// Served by /env.js so the same static HTML works on every environment; the
+// literal is only the production fallback if that script failed to load.
+// Root CLAUDE.md rule 10: never bake an environment URL into code.
+const PR_API_ORIGIN =
+    (typeof window !== 'undefined' && window.PR_ENV && window.PR_ENV.apiUrl) ||
+    'https://api.projet-resurgence.fr';
 
 // Univers, Règlement and Forum RP are the three administrator-editable pages —
 // same data shape, same layout — so they share one "Documentation" menu rather
@@ -23,13 +30,13 @@ const DOC_LINKS = [
 ];
 
 const NAV_LINKS = [
-    { href: 'index.html', page: 'home', label: 'Accueil', aria: "Retour à l'accueil" },
+    { href: '/', page: 'home', label: 'Accueil', aria: "Retour à l'accueil" },
     { dropdown: 'documentation', label: 'Documentation', aria: 'Univers, règlement et forum RP', items: DOC_LINKS },
-    { href: 'guide.html', page: 'guide', label: 'Guide', aria: 'Lire le guide du débutant' },
-    { href: 'rp-geopolitique.html', page: 'rp-geopolitique', label: 'RP Géopolitique', aria: 'Les types de RP géopolitique' },
-    { href: 'mecaniques.html', page: 'mecaniques', label: 'Mécaniques', aria: 'Les mécaniques et systèmes du jeu' },
-    { href: 'ressources.html', page: 'resources', label: 'Ressources', aria: 'Liens utiles et outils' },
-    { href: 'calendrier.html', page: 'calendar', label: 'Calendrier', aria: 'Le calendrier de jeu' },
+    { href: '/guide', page: 'guide', label: 'Guide', aria: 'Lire le guide du débutant' },
+    { href: '/rp-geopolitique', page: 'rp-geopolitique', label: 'RP Géopolitique', aria: 'Les types de RP géopolitique' },
+    { href: '/mecaniques', page: 'mecaniques', label: 'Mécaniques', aria: 'Les mécaniques et systèmes du jeu' },
+    { href: '/ressources', page: 'resources', label: 'Ressources', aria: 'Liens utiles et outils' },
+    { href: '/calendrier', page: 'calendar', label: 'Calendrier', aria: 'Le calendrier de jeu' },
     // The Discord invite is the destination, not an anchor on the home page —
     // "Rejoindre" only ever meant "join the server".
     { href: 'https://discord.projet-resurgence.fr', page: 'join', label: 'Rejoindre', aria: 'Rejoindre le Discord', external: true },
@@ -222,7 +229,7 @@ class ResurgenceHeader extends HTMLElement {
                             subtitle="Site Officiel"
                             logo-src="./favicon/favicon-96x96.png"
                             theme-key="resurgence-theme"
-                            year-endpoint="https://api.projet-resurgence.fr/game/date">
+                            year-endpoint="${PR_API_ORIGIN}/game/date">
                 <div slot="nav" class="tabs">
                     <ul class="nav-list">${links}</ul>
                 </div>

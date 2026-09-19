@@ -315,7 +315,7 @@
 
         console.log('[TechTree] Initializing with', totalNodes, 'nodes, default maxLevel:', maxLevel);
 
-        fetch('https://api.projet-resurgence.fr/statistics/public-overview', { 
+        fetch(((window.PR_ENV && window.PR_ENV.apiUrl) || 'https://api.projet-resurgence.fr') + '/statistics/public-overview', { 
             mode: 'cors',
             headers: { 'Accept': 'application/json' }
         })

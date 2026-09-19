@@ -1,0 +1,136 @@
+{% extends "_legal_layout.html" %}
+{# Le sommaire de la colonne de gauche. Chaque entrée doit viser une
+   section existante et porter son titre exact :
+   `test_legal_pages_use_their_width` le vérifie, parce qu'une ancre
+   vers un id absent ne lève pas — elle dépose en haut de page. #}
+{% set legal_sections = [
+  ('ce-qu-on-collecte-et-pourquoi', "Ce qu'on collecte, et pourquoi"),
+  ('combien-de-temps', 'Combien de temps'),
+  ('a-qui-les-donnees-sont-transmises', 'À qui les données sont transmises'),
+  ('cookies', 'Cookies'),
+  ('vos-droits', 'Vos droits'),
+  ('mineurs', 'Mineurs'),
+] %}
+{% block legal_body %}
+
+<section id="ce-qu-on-collecte-et-pourquoi">
+  <h2>Ce qu'on collecte, et pourquoi</h2>
+  <p>
+    Projet Résurgence n'a ni régie publicitaire, ni traceur d'audience, ni
+    revente de données. Les seules informations conservées sont celles dont la
+    partie a besoin pour fonctionner.
+  </p>
+  <p>
+    La base légale est l'exécution du service que vous demandez en créant un
+    compte, et l'intérêt légitime à protéger le jeu contre les abus pour les
+    journaux techniques.
+  </p>
+</section>
+
+<section id="combien-de-temps">
+  <h2>Combien de temps</h2>
+  <p>
+    Ce tableau est rendu depuis la même déclaration que celle que le programme
+    applique : une durée affichée ici est une durée que le code connaît, et un
+    test refuse que les deux divergent. Quand une purge n'est pas encore
+    automatisée, c'est écrit — plutôt qu'une promesse que rien n'applique.
+    « Anonymisation » signifie que la ligne demeure mais que ce qui vous
+    désigne en est retiré ; c'est le cas des décisions du staff, qui doivent
+    rester contestables sans rester nominatives.
+  </p>
+  <table class="v-legal-table">
+    <thead>
+      <tr><th>Données</th><th>Durée</th><th>Au terme</th><th>Finalité</th></tr>
+    </thead>
+    <tbody>
+      {% for row in retentions %}
+      <tr>
+        <td>{{ row.label }}</td>
+        <td>{{ row.duration }}</td>
+        {# Une ligne sans durée fixe n'a pas de « terme » à automatiser : ce qui
+           l'emporte est la fermeture du compte, dite dans la colonne Durée.
+           Y afficher « purge manuelle » laisserait croire à un retard, alors
+           qu'il n'y a rien à planifier. #}
+        <td>{% if row.fixed %}{{ row.mode }}{% if not row.enforced %}, <em>à la demande pour l'instant</em>{% endif %}{% else %}—{% endif %}</td>
+        <td>{{ row.purpose }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<section id="a-qui-les-donnees-sont-transmises">
+  <h2>À qui les données sont transmises</h2>
+  <dl>
+    {% for p in processors %}
+    <dt>{{ p.name }} — {{ p.role }}</dt><dd>{{ p.note }}</dd>
+    {% endfor %}
+  </dl>
+</section>
+
+<section id="cookies">
+  <h2>Cookies</h2>
+  <p>
+    Le site ne dépose que des cookies <strong>strictement nécessaires</strong> :
+    votre session, votre authentification, et le cookie technique de Cloudflare
+    qui distingue un humain d'un robot. Ces cookies-là sont dispensés de
+    consentement — c'est pourquoi vous ne voyez pas de bandeau.
+  </p>
+  <p>
+    Si un outil de mesure d'audience était ajouté un jour, un consentement
+    préalable deviendrait obligatoire, et cette page devrait le dire avant lui.
+  </p>
+</section>
+
+<section id="vos-droits">
+  <h2>Vos droits</h2>
+  <p>
+    Vous pouvez demander l'accès, la rectification, l'effacement de vos données,
+    ou vous opposer à leur traitement, en écrivant au contact des
+    <a href="/mentions-legales">mentions légales</a>.
+  </p>
+  <h3>Ce que « effacement » veut dire ici, précisément</h3>
+  <p>
+    Le journal des actions de jeu est <strong>append-only</strong> : c'est lui
+    que le bilan annuel relit pour reconstituer l'économie du monde. L'effacer
+    fausserait l'histoire de tous les autres pays, pas seulement la vôtre.
+  </p>
+  <p>
+    À votre demande, le lien vers votre personne est donc <strong>coupé</strong>
+    — identifiant Discord, adresse e-mail, adresses IP — tandis que l'événement
+    économique demeure, sans plus vous nommer. C'est une pseudonymisation, et on
+    préfère vous le dire plutôt que promettre une suppression totale qui
+    casserait la partie.
+  </p>
+  <h3>Ce qui se passe quand vous le demandez</h3>
+  <p>
+    La demande est traitée <strong>dans un délai d'un mois</strong>, comme le
+    prévoit le RGPD. Concrètement, votre identifiant Discord et votre adresse
+    e-mail sont effacés, et partout où votre nom apparaissait — journal de jeu,
+    messages, demandes au staff — il est remplacé par un pseudonyme stable :
+    vos anciens messages restent lisibles dans leur fil, du même auteur, mais
+    plus rien ne remonte jusqu'à vous.
+  </p>
+  <p>
+    Deux exceptions, et on préfère les nommer. Les <strong>décisions du
+    staff</strong> vous concernant restent attribuées : une sanction dont on
+    efface la cible cesse d'être contestable, y compris par vous. Et les
+    <strong>montants</strong> restent dans le journal, sans votre nom, parce
+    que le bilan annuel du monde les relit.
+  </p>
+  <p>
+    Vous pouvez enfin introduire une réclamation auprès de la
+    <a href="https://www.cnil.fr" rel="noopener">CNIL</a>.
+  </p>
+</section>
+
+<section id="mineurs">
+  <h2>Mineurs</h2>
+  <p>
+    En France, un mineur de moins de 15 ans ne peut consentir seul au traitement
+    de ses données : l'accord d'un titulaire de l'autorité parentale est requis.
+    Le staff peut demander confirmation et fermer un compte à défaut.
+  </p>
+</section>
+
+{% endblock %}

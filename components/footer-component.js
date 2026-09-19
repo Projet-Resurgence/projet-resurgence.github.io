@@ -134,6 +134,22 @@ class ResurgenceFooter extends HTMLElement {
  font-size: 0.9rem;
  }
 
+ /* Les mentions légales doivent rester lisibles : la couleur « muted » du pied
+ de page les rendait presque invisibles, or ce sont les seuls liens du site
+ dont la présence est une obligation et pas un choix de navigation.
+ (Pas d'accent grave dans ce commentaire : il vit dans un template literal,
+ et une paire de backticks y refermerait la chaîne — le fichier entier
+ cesserait alors d'être du JavaScript valide.) */
+ .footer-bottom .legal-links a {
+ color: var(--text-secondary);
+ text-decoration: none;
+ }
+
+ .footer-bottom .legal-links a:hover {
+ color: var(--primary-gold);
+ text-decoration: underline;
+ }
+
  /* Responsive Design */
  @media (max-width: var(--breakpoint-tablet)) {
  .footer {
@@ -211,6 +227,7 @@ class ResurgenceFooter extends HTMLElement {
 </div>
 
  <div class="footer-bottom">
+ <p class="legal-links"><a href="/mentions-legales">Mentions légales</a> &middot; <a href="/confidentialite">Confidentialité</a> &middot; <a href="/cgu">Conditions d'utilisation</a></p>
  <p>&copy; ${this.currentYear} Projet Résurgence. Construit avec pour la communauté RP géopolitique francophone.</p>
  <p>Serveur Discord de roleplay géopolitique post-apocalyptique</p>
 </div>
