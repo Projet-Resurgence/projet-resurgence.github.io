@@ -1,4 +1,4 @@
-const v = "projet-resurgence.fr", k = /* @__PURE__ */ new Set([
+const l = "projet-resurgence.fr", b = /* @__PURE__ */ new Set([
   "www",
   "api",
   "auth",
@@ -13,7 +13,7 @@ const v = "projet-resurgence.fr", k = /* @__PURE__ */ new Set([
   "map",
   "calc",
   "catalog"
-]), l = [
+]), m = [
   {
     id: "home",
     label: "Site Principal",
@@ -28,13 +28,7 @@ const v = "projet-resurgence.fr", k = /* @__PURE__ */ new Set([
     icon: "play",
     description: "Dashboard joueur"
   },
-  {
-    id: "tech",
-    label: "Panel Tech",
-    sub: "tech",
-    icon: "tech",
-    description: "Arbre technologique"
-  },
+  { id: "tech", label: "Panel Tech", sub: "tech", icon: "tech", description: "Arbre technologique" },
   {
     id: "map",
     label: "Carte Interactive",
@@ -49,13 +43,7 @@ const v = "projet-resurgence.fr", k = /* @__PURE__ */ new Set([
     icon: "calc",
     description: "Économie & énergie"
   },
-  {
-    id: "catalog",
-    label: "Catalogue Militaire",
-    sub: "catalog",
-    icon: "catalog",
-    description: "Équipements militaires"
-  },
+  { id: "catalog", label: "Catalogue Militaire", sub: "catalog", icon: "catalog", description: "Équipements militaires" },
   {
     // Community invite — always the public Discord, never rewritten to the
     // local or staging domain.
@@ -67,32 +55,40 @@ const v = "projet-resurgence.fr", k = /* @__PURE__ */ new Set([
     external: !0
   }
 ];
-function _(n) {
-  if (!n) return null;
-  const e = n.split(".");
-  return e.length > 1 && k.has(e[0]) ? e.slice(1).join(".") : n;
+function E(i) {
+  if (!i) return null;
+  const e = i.split(".");
+  return i === `tests.${l}` || e.slice(1).join(".") === l && e[0].endsWith("-tests") && b.has(e[0].slice(0, -6)) ? l : e.length > 1 && b.has(e[0]) ? e.slice(1).join(".") : i;
 }
-function h(n) {
+function c(i) {
   let e = "https:", t = "";
   try {
     e = window.location.protocol, t = window.location.port ? `:${window.location.port}` : "";
   } catch {
   }
-  const a = (n && typeof n.getAttribute == "function" ? n.getAttribute("base-domain") : null) || (typeof window < "u" ? window.PR_BASE_DOMAIN : null);
-  if (a) return { baseDomain: a, protocol: e, port: t };
-  let o = null;
+  const a = (i && typeof i.getAttribute == "function" ? i.getAttribute("base-domain") : null) || (typeof window < "u" ? window.PR_BASE_DOMAIN : null), o = typeof window < "u" ? window.location.hostname : "", s = o === `tests.${l}` || o.endsWith(`-tests.${l}`) && b.has(o.split(".")[0].slice(0, -6)), r = s || o.endsWith(".localhost");
+  if (a) return { baseDomain: a, protocol: e, port: t, preprod: s, integrated: r };
+  let d = null;
   try {
-    o = _(window.location.hostname);
+    d = E(window.location.hostname);
   } catch {
   }
-  return o ? { baseDomain: o, protocol: e, port: t } : { baseDomain: v, protocol: "https:", port: "" };
+  return d ? { baseDomain: d, protocol: e, port: t, preprod: s, integrated: r } : { baseDomain: l, protocol: "https:", port: "" };
 }
-function p(n, e) {
-  if (n.url) return n.url;
-  const { baseDomain: t, protocol: i, port: a } = e, o = n.sub ? `${n.sub}.${t}` : t;
-  return `${i}//${o}${a}`;
+function f(i, e) {
+  if (i.url) return i.url;
+  const { baseDomain: t, protocol: n, port: a } = e, o = { tech: "/arsenal", catalog: "/arsenal/marche", calc: "/calculateur" };
+  if (e.integrated && o[i.id]) {
+    const r = e.preprod ? `play-tests.${t}` : `play.${t}`;
+    return `${n}//${r}${a}${o[i.id]}`;
+  }
+  const s = e.preprod ? i.sub ? `${i.sub}-tests.${t}` : `tests.${t}` : i.sub ? `${i.sub}.${t}` : t;
+  return `${n}//${s}${a}`;
 }
-const g = {
+function u(i) {
+  return i.integrated ? m.filter((e) => !["tech", "catalog"].includes(e.id)) : m;
+}
+const x = {
   "chevron-left": '<polyline points="15 18 9 12 15 6"/>',
   home: '<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',
   play: '<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>',
@@ -102,10 +98,10 @@ const g = {
   catalog: '<circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/>',
   discord: '<path fill="currentColor" stroke="none" d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>'
 };
-function b(n) {
-  return `<svg class="pr-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${g[n] || g.home}</svg>`;
+function v(i) {
+  return `<svg class="pr-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${x[i] || x.home}</svg>`;
 }
-const c = "pr-intersite-navbar-open", E = `
+const g = "pr-intersite-navbar-open", A = `
 :host {
   all: initial;
   display: block;
@@ -427,41 +423,41 @@ const c = "pr-intersite-navbar-open", E = `
     margin: 8px;
   }
 }
-`, m = "intersite-navbar-offset-style", d = "--intersite-navbar-offset";
-function A() {
-  if (document.getElementById(m)) return;
-  const n = document.createElement("style");
-  n.id = m, n.textContent = `
+`, y = "intersite-navbar-offset-style", h = "--intersite-navbar-offset";
+function S() {
+  if (document.getElementById(y)) return;
+  const i = document.createElement("style");
+  i.id = y, i.textContent = `
 html body {
-  margin-left: var(${d}, 56px);
+  margin-left: var(${h}, 56px);
   transition: margin-left 0.28s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* On phone the folded tab is a small floating circle, not a full-height
    rail — it overlaps content like any other floating UI instead of
    reserving permanent layout space. (Components that explicitly read
-   ${d} themselves for their own fixed-position offset, e.g. a
+   ${h} themselves for their own fixed-position offset, e.g. a
    site header, are unaffected — only this generic body push is disabled.) */
 @media (max-width: 768px) {
   html body {
     margin-left: 0;
   }
 }
-`, document.head.appendChild(n);
+`, document.head.appendChild(i);
 }
-function f(n) {
-  const e = getComputedStyle(n).getPropertyValue("--tab-width").trim() || "56px";
-  document.documentElement.style.setProperty(d, e);
+function w(i) {
+  const e = getComputedStyle(i).getPropertyValue("--tab-width").trim() || "56px";
+  document.documentElement.style.setProperty(h, e);
 }
-class y extends HTMLElement {
+class _ extends HTMLElement {
   constructor() {
-    super(), this.attachShadow({ mode: "open" }), this._isOpen = localStorage.getItem(c) === "true", this._rendered = !1;
+    super(), this.attachShadow({ mode: "open" }), this._isOpen = localStorage.getItem(g) === "true", this._rendered = !1;
   }
   static get observedAttributes() {
     return ["current-site"];
   }
-  attributeChangedCallback(e, t, i) {
-    t !== i && this._rendered && this._updateActive();
+  attributeChangedCallback(e, t, n) {
+    t !== n && this._rendered && this._updateActive();
   }
   connectedCallback() {
     if (window.self !== window.top) {
@@ -493,41 +489,41 @@ class y extends HTMLElement {
   // just create the empty "gap" this mode exists to avoid.
   _bindHostOffset() {
     if (this.hasAttribute("hide-toggle")) {
-      document.documentElement.style.setProperty(d, "0px");
+      document.documentElement.style.setProperty(h, "0px");
       return;
     }
-    A(), f(this), this._mq = window.matchMedia("(max-width: 480px)"), this._onMqChange = () => f(this), this._mq.addEventListener("change", this._onMqChange);
+    S(), w(this), this._mq = window.matchMedia("(max-width: 480px)"), this._onMqChange = () => w(this), this._mq.addEventListener("change", this._onMqChange);
   }
   // ── Detect which site is active ──
   _detectCurrentSite() {
     const e = this.getAttribute("current-site");
     if (e) return e;
     try {
-      const t = window.location.hostname, i = h(this);
-      for (const a of l)
-        if (new URL(p(a, i)).hostname === t) return a.id;
+      const t = window.location.hostname, n = c(this);
+      for (const a of u(n))
+        if (new URL(f(a, n)).hostname === t) return a.id;
     } catch {
     }
     return null;
   }
   // ── Render into Shadow DOM ──
   _render() {
-    const e = this._detectCurrentSite(), t = this._isOpen, i = this.hasAttribute("hide-toggle"), a = this.getAttribute("logo-src") || "/favicon/favicon-96x96.png", o = h(this), r = l.map((s) => {
-      const u = e === s.id, w = s.external ? ' target="_blank" rel="noopener noreferrer"' : "";
+    const e = this._detectCurrentSite(), t = this._isOpen, n = this.hasAttribute("hide-toggle"), a = this.getAttribute("logo-src") || "/favicon/favicon-96x96.png", o = c(this), s = u(o).map((r) => {
+      const d = e === r.id, p = r.external ? ' target="_blank" rel="noopener noreferrer"' : "";
       return `
-        <li class="site-item${u ? " active" : ""}">
-          <a href="${p(s, o)}" class="site-link"${w}${u ? ' aria-current="page"' : ""}>
-            <span class="site-icon" aria-hidden="true">${b(s.icon)}</span>
+        <li class="site-item${d ? " active" : ""}">
+          <a href="${f(r, o)}" class="site-link"${p}${d ? ' aria-current="page"' : ""}>
+            <span class="site-icon" aria-hidden="true">${v(r.icon)}</span>
             <span class="site-content">
-              <span class="site-label">${s.label}</span>
-              <span class="site-desc">${s.description}</span>
+              <span class="site-label">${r.label}</span>
+              <span class="site-desc">${r.description}</span>
             </span>
             <span class="active-dot" aria-hidden="true"></span>
           </a>
         </li>`;
     }).join("");
     this.shadowRoot.innerHTML = `
-      <style>${E}</style>
+      <style>${A}</style>
       <div class="wrapper${t ? " open" : ""}" id="wrapper">
         <div class="panel" id="panel" role="navigation" aria-label="Navigation inter-sites" aria-hidden="${!t}">
           <div class="panel-header">
@@ -537,15 +533,15 @@ class y extends HTMLElement {
               <span class="header-sub">Navigation</span>
             </span>
             <button class="panel-close" id="closeBtn" type="button" aria-label="Fermer la navigation inter-sites">
-              ${b("chevron-left")}
+              ${v("chevron-left")}
             </button>
           </div>
-          <ul class="site-list">${r}</ul>
+          <ul class="site-list">${s}</ul>
           <div class="panel-footer">
             <span class="footer-hint"><kbd>Alt</kbd>+<kbd>N</kbd> pour basculer</span>
           </div>
         </div>
-        ${i ? "" : `
+        ${n ? "" : `
         <button class="toggle-tab" id="toggleBtn"
           aria-label="${t ? "Fermer" : "Ouvrir"} la navigation inter-sites"
           aria-expanded="${t}"
@@ -557,9 +553,9 @@ class y extends HTMLElement {
   // ── Update active item without full re-render ──
   _updateActive() {
     const e = this._detectCurrentSite();
-    this.shadowRoot.querySelectorAll(".site-item").forEach((t, i) => {
-      var r;
-      const a = ((r = l[i]) == null ? void 0 : r.id) === e;
+    this.shadowRoot.querySelectorAll(".site-item").forEach((t, n) => {
+      var s;
+      const a = ((s = u(c(this))[n]) == null ? void 0 : s.id) === e;
       t.classList.toggle("active", a);
       const o = t.querySelector(".site-link");
       a ? o == null || o.setAttribute("aria-current", "page") : o == null || o.removeAttribute("aria-current");
@@ -569,10 +565,10 @@ class y extends HTMLElement {
   _bindEvents() {
     var t;
     const e = this.shadowRoot.getElementById("toggleBtn");
-    e == null || e.addEventListener("click", () => this.toggle()), (t = this.shadowRoot.getElementById("closeBtn")) == null || t.addEventListener("click", () => this.close()), this._onDocClick = (i) => {
-      this._isOpen && !this.contains(i.target) && this.close();
-    }, document.addEventListener("click", this._onDocClick), this._onKeyDown = (i) => {
-      i.altKey && (i.key === "n" || i.key === "N") && (i.preventDefault(), this.toggle()), i.key === "Escape" && this._isOpen && this.close();
+    e == null || e.addEventListener("click", () => this.toggle()), (t = this.shadowRoot.getElementById("closeBtn")) == null || t.addEventListener("click", () => this.close()), this._onDocClick = (n) => {
+      this._isOpen && !this.contains(n.target) && this.close();
+    }, document.addEventListener("click", this._onDocClick), this._onKeyDown = (n) => {
+      n.altKey && (n.key === "n" || n.key === "N") && (n.preventDefault(), this.toggle()), n.key === "Escape" && this._isOpen && this.close();
     }, document.addEventListener("keydown", this._onKeyDown);
   }
   _cleanup() {
@@ -584,47 +580,48 @@ class y extends HTMLElement {
     this._isOpen ? this.close() : this.open();
   }
   open() {
-    this._isOpen = !0, localStorage.setItem(c, "true");
-    const e = this.shadowRoot.getElementById("wrapper"), t = this.shadowRoot.getElementById("panel"), i = this.shadowRoot.getElementById("toggleBtn");
-    e == null || e.classList.add("open"), t == null || t.setAttribute("aria-hidden", "false"), i == null || i.setAttribute("aria-expanded", "true"), i == null || i.setAttribute("aria-label", "Fermer la navigation inter-sites"), this.dispatchEvent(new CustomEvent("navbar-open", { bubbles: !0, composed: !0 }));
+    this._isOpen = !0, localStorage.setItem(g, "true");
+    const e = this.shadowRoot.getElementById("wrapper"), t = this.shadowRoot.getElementById("panel"), n = this.shadowRoot.getElementById("toggleBtn");
+    e == null || e.classList.add("open"), t == null || t.setAttribute("aria-hidden", "false"), n == null || n.setAttribute("aria-expanded", "true"), n == null || n.setAttribute("aria-label", "Fermer la navigation inter-sites"), this.dispatchEvent(new CustomEvent("navbar-open", { bubbles: !0, composed: !0 }));
   }
   close() {
-    this._isOpen = !1, localStorage.setItem(c, "false");
-    const e = this.shadowRoot.getElementById("wrapper"), t = this.shadowRoot.getElementById("panel"), i = this.shadowRoot.getElementById("toggleBtn");
-    e == null || e.classList.remove("open"), t == null || t.setAttribute("aria-hidden", "true"), i == null || i.setAttribute("aria-expanded", "false"), i == null || i.setAttribute("aria-label", "Ouvrir la navigation inter-sites"), this.dispatchEvent(new CustomEvent("navbar-close", { bubbles: !0, composed: !0 }));
+    this._isOpen = !1, localStorage.setItem(g, "false");
+    const e = this.shadowRoot.getElementById("wrapper"), t = this.shadowRoot.getElementById("panel"), n = this.shadowRoot.getElementById("toggleBtn");
+    e == null || e.classList.remove("open"), t == null || t.setAttribute("aria-hidden", "true"), n == null || n.setAttribute("aria-expanded", "false"), n == null || n.setAttribute("aria-label", "Ouvrir la navigation inter-sites"), this.dispatchEvent(new CustomEvent("navbar-close", { bubbles: !0, composed: !0 }));
   }
   get isOpen() {
     return this._isOpen;
   }
 }
-customElements.get("intersite-navbar") || customElements.define("intersite-navbar", y);
-function x() {
-  document.querySelectorAll("[data-intersite-navbar]:not([data-in-initialized])").forEach((n) => {
-    const e = document.createElement("intersite-navbar"), t = n.getAttribute("data-current-site");
-    t && e.setAttribute("current-site", t), document.body.appendChild(e), n.setAttribute("data-in-initialized", "");
+customElements.get("intersite-navbar") || customElements.define("intersite-navbar", _);
+function k() {
+  document.querySelectorAll("[data-intersite-navbar]:not([data-in-initialized])").forEach((i) => {
+    const e = document.createElement("intersite-navbar"), t = i.getAttribute("data-current-site");
+    t && e.setAttribute("current-site", t), document.body.appendChild(e), i.setAttribute("data-in-initialized", "");
   });
 }
-document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", x) : x();
+document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", k) : k();
 typeof window < "u" && (window.IntersiteNavbar = {
-  IntersiteNavbar: y,
-  SITES: l,
-  DEFAULT_BASE_DOMAIN: v,
-  resolveOrigin: h,
-  siteUrl: p,
+  IntersiteNavbar: _,
+  SITES: m,
+  DEFAULT_BASE_DOMAIN: l,
+  resolveOrigin: c,
+  siteUrl: f,
   /**
    * Programmatically mount the navbar.
    * @param {{ currentSite?: string, baseDomain?: string }} options
    * @returns {IntersiteNavbar}
    */
-  create(n = {}) {
+  create(i = {}) {
     const e = document.createElement("intersite-navbar");
-    return n.currentSite && e.setAttribute("current-site", n.currentSite), n.baseDomain && e.setAttribute("base-domain", n.baseDomain), document.body.appendChild(e), e;
+    return i.currentSite && e.setAttribute("current-site", i.currentSite), i.baseDomain && e.setAttribute("base-domain", i.baseDomain), document.body.appendChild(e), e;
   }
 });
 export {
-  v as DEFAULT_BASE_DOMAIN,
-  l as SITES,
-  y as default,
-  h as resolveOrigin,
-  p as siteUrl
+  l as DEFAULT_BASE_DOMAIN,
+  m as SITES,
+  _ as default,
+  c as resolveOrigin,
+  f as siteUrl,
+  u as visibleSites
 };
