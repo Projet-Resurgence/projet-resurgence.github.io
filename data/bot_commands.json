@@ -1922,11 +1922,9 @@
               ],
               "features": [
                 "Informations générales (nom, dirigeants, idéologies, capitale)",
-                "Ressources économiques (balance, points politiques/diplomatiques)",
                 "Territoires possédés avec population totale",
                 "Capacité de logement (nombre de personnes pouvant être logées)",
                 "Forces militaires (soldats actifs, réserve, police)",
-                "Technologies publiques développées",
                 "Statistiques économiques (PIB, inflation, chômage, pauvreté)"
               ],
               "name": "country_infos",
