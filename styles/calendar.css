@@ -322,6 +322,7 @@
 .cal-stat {
   display: flex;
   justify-content: space-between;
+  gap: 12px;
   padding: 12px 14px;
   background: var(--v-bg-panel, #0e0e0e);
 }
@@ -568,8 +569,12 @@
 @media (max-width: 1040px) {
   .cal-layout { grid-template-columns: 1fr; }
   .cal-month { border-right: 0; border-bottom: 1px solid var(--v-line, rgba(255, 255, 255, 0.07)); }
-  .cal-side { max-width: 600px; margin: 0 auto; }
+  /* `margin: auto` dans une grille réduit l'élément à son contenu : le bloc
+     « Ce mois-ci » tombait à 178 px et collait « Avance du jeu1 j ». */
+  .cal-side { max-width: 600px; margin: 0 auto; width: 100%; box-sizing: border-box; }
 }
+
+.cal-month-short { display: none; }
 
 @media (max-width: 720px) {
   .cal-hero__inner { flex-direction: column; align-items: flex-start; padding-top: 40px; padding-bottom: 32px; }
@@ -579,6 +584,8 @@
   .cal-side { padding: 20px 18px 30px; }
   .cal-cell { min-height: 58px; }
   .cal-gamedate, .cal-tag { font-size: 9px; }
+  .cal-month-long { display: none; }
+  .cal-month-short { display: inline; }
   .cal-legend { width: 100%; margin-left: 0; }
   .cal-toasts { left: 16px; right: 16px; bottom: 16px; }
   .cal-toast { max-width: none; }

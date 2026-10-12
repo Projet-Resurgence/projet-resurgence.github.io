@@ -9,9 +9,10 @@ from datetime import datetime, timedelta
 from functools import wraps
 
 import jwt
+import requests
 from flask import jsonify, request
 
-from settings import JWT_ALGORITHM, JWT_EXPIRATION_HOURS, JWT_SECRET
+from settings import JWT_ALGORITHM, JWT_EXPIRATION_HOURS, JWT_SECRET, WEBAUTH_URL
 
 
 def generate_jwt_token(payload: dict) -> str:
@@ -45,14 +46,69 @@ def require_auth(f):
     return decorated
 
 
+class AuthorityUnavailable(Exception):
+    """WebAuth n'a pas pu dire qui est le porteur maintenant."""
+
+
+def load_current_account(user: dict):
+    """Transport seul : le compte tel que WebAuth le reconstruit maintenant.
+
+    Rend None quand le compte n'existe plus ou est désactivé (404) ; lève
+    AuthorityUnavailable pour tout le reste, que la décision refuse aussi.
+    """
+    account_id = str(user.get("account_id") or "")
+    discord_id = str(user.get("discord_id") or "")
+    if account_id.isdigit():
+        path = f"/api/accounts/{account_id}"
+    elif discord_id.isdigit():
+        path = f"/api/accounts/discord/{discord_id}"
+    else:
+        return None
+    try:
+        response = requests.get(f"{WEBAUTH_URL}{path}", timeout=5)
+    except requests.RequestException as exc:
+        raise AuthorityUnavailable(str(exc)) from exc
+    if response.status_code == 404:
+        return None
+    try:
+        payload = response.json()
+    except ValueError as exc:
+        raise AuthorityUnavailable("réponse illisible") from exc
+    if response.status_code != 200 or not isinstance(payload, dict) or not payload.get("success"):
+        raise AuthorityUnavailable(f"HTTP {response.status_code}")
+    account = payload.get("account")
+    return account if isinstance(account, dict) else None
+
+
 def require_admin(f):
-    """Pure administrator only — the gate for every game- or content-editing endpoint."""
+    """Pure administrator only — the gate for every game- or content-editing endpoint.
+
+    Le jeton du site vit 24 h : son `is_admin` dit ce qu'était le porteur à la
+    connexion. Une action d'administration se décide sur l'autorité actuelle,
+    relue auprès de WebAuth, et se refuse quand elle est illisible.
+    """
 
     @wraps(f)
     @require_auth
     def decorated(*args, **kwargs):
         if not request.user.get("is_admin"):
             return jsonify({"success": False, "error": "Admin access required"}), 403
+        try:
+            account = load_current_account(request.user)
+        except AuthorityUnavailable:
+            return jsonify({
+                "success": False,
+                "error": "authority_unavailable",
+                "message": "Vos droits n'ont pas pu être vérifiés. Réessayez.",
+            }), 503
+        token_discord = str(request.user.get("discord_id") or "")
+        same_person = not token_discord or str((account or {}).get("discord_id") or "") == token_discord
+        if not account or not account.get("is_admin") or not same_person:
+            return jsonify({
+                "success": False,
+                "error": "Admin access required",
+                "message": "Vos droits ont changé. Reconnectez-vous.",
+            }), 403
         return f(*args, **kwargs)
 
     return decorated

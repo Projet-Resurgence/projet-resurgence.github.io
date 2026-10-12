@@ -132,6 +132,12 @@ pr-site-header .nav-link {
   box-sizing: border-box;
 }
 
+/* Palier avant le menu : un débordement de quelques dizaines de pixels (36 à
+   1440 px avec un pays et l'onglet Staff) ne doit pas cacher TOUTE la rangée
+   derrière un bouton. sync() essaie d'abord ces marges serrées. */
+pr-site-header[data-nav-compact] .tab-btn,
+pr-site-header[data-nav-compact] .nav-link { padding: 0 8px; }
+
 pr-site-header .tab-btn:hover,
 pr-site-header .nav-link:hover {
   color: #f0f0f0;
@@ -231,6 +237,15 @@ pr-site-header .tab-dropdown-item:hover,
 pr-site-header .tab-dropdown-item.active,
 .tab-dropdown.rp-floating .tab-dropdown-item.active {
   color: #D5B654;
+  background: rgba(213,182,84,0.12);
+}
+
+/* Au clavier, l'entrée courante doit se voir : les flèches déplacent le
+   focus dans le menu, et sans anneau on ne savait pas où l'on était. */
+pr-site-header .tab-dropdown-item:focus-visible,
+.tab-dropdown.rp-floating .tab-dropdown-item:focus-visible {
+  outline: 2px solid #D5B654;
+  outline-offset: -2px;
   background: rgba(213,182,84,0.12);
 }
 
@@ -827,6 +842,7 @@ class PrSiteHeader extends HTMLElement {
     document.removeEventListener('click', this._onDocClick);
     document.removeEventListener('click', this._onNavDocClick);
     if (this._resizeObserver) this._resizeObserver.disconnect();
+    if (this._navMutationObserver) this._navMutationObserver.disconnect();
     if (this._navResizeFallback) window.removeEventListener('resize', this._navResizeFallback);
   }
 
@@ -1031,7 +1047,14 @@ class PrSiteHeader extends HTMLElement {
 
     const sync = () => {
       this.removeAttribute('data-nav-overflow');
-      const overflow = !!scroller && scroller.scrollWidth > scroller.clientWidth + 2;
+      this.removeAttribute('data-nav-compact');
+      const overflows = () => !!scroller && scroller.scrollWidth > scroller.clientWidth + 2;
+      let overflow = overflows();
+      if (overflow) {
+        this.setAttribute('data-nav-compact', '');
+        overflow = overflows();
+        if (overflow) this.removeAttribute('data-nav-compact');
+      }
       this.toggleAttribute('data-nav-overflow', overflow);
       if (!overflow) {
         this.removeAttribute('data-nav-menu-open');
@@ -1041,6 +1064,7 @@ class PrSiteHeader extends HTMLElement {
     const attach = () => {
       scroller = slot.assignedElements({ flatten: true })[0] || null;
       this._navScroller = scroller;
+      this._watchNavRow?.();
       requestAnimationFrame(() => {
         sync();
       });
@@ -1062,8 +1086,40 @@ class PrSiteHeader extends HTMLElement {
     };
     document.addEventListener('click', this._onNavDocClick);
     slot.addEventListener('slotchange', attach);
+    // Re-mesurer quand la RANGÉE change, pas seulement l'en-tête. L'onglet
+    // Staff, le pays et le solde arrivent après l'authentification : l'en-tête
+    // garde sa taille, la rangée déborde, et la mesure faite au chargement
+    // restait « pas de débordement » — « Staff » coupé en « St » à 1440 px
+    // (constat 4 du banc visuel, 2026-10-11). Une mesure par image au plus.
+    let pending = false;
+    const resync = () => {
+      if (pending) return;
+      pending = true;
+      requestAnimationFrame(() => { pending = false; sync(); });
+    };
+    this._navMutationObserver = typeof MutationObserver === 'function'
+      ? new MutationObserver(resync) : null;
+    this._watchNavRow = () => {
+      const mo = this._navMutationObserver;
+      if (mo) {
+        mo.disconnect();
+        if (scroller) {
+          mo.observe(scroller, {
+            childList: true, subtree: true, characterData: true,
+            attributes: true, attributeFilter: ['hidden', 'style', 'class'],
+          });
+        }
+      }
+      // La rangée rétrécit aussi quand l'identité ou le solde, à sa gauche,
+      // s'allonge : seule sa propre taille le dit.
+      if (this._resizeObserver && scroller && scroller !== this._observedRow) {
+        if (this._observedRow) this._resizeObserver.unobserve(this._observedRow);
+        this._resizeObserver.observe(scroller);
+        this._observedRow = scroller;
+      }
+    };
     if (typeof ResizeObserver === 'function') {
-      this._resizeObserver = new ResizeObserver(sync);
+      this._resizeObserver = new ResizeObserver(resync);
       this._resizeObserver.observe(this);
     } else {
       window.addEventListener('resize', sync);

@@ -14,6 +14,13 @@ const CAL_MONTHS = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil
     'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
 const CAL_MONTHS_SHORT = ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.',
     'août', 'sept.', 'oct.', 'nov.', 'déc.'];
+
+// Une case fait ~50 px à 390 px : « Septembre » y était coupé en « Septemb ».
+// Les deux formes sont rendues, la feuille de style choisit selon la largeur.
+function calCellMonth(month) {
+    return `<span class="cal-month-long">${CAL_MONTHS[month - 1]}</span>`
+        + `<span class="cal-month-short">${CAL_MONTHS_SHORT[month - 1]}</span>`;
+}
 const CAL_WEEKDAYS = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
 
 const calState = {
@@ -383,14 +390,14 @@ function renderCalendar() {
             // Show the full 2303 date inside the cell — "Mars 2303 · 14/30".
             const gd = info.gds[info.gds.length - 1];
             const total = calMonthTotal(gd.year, gd.month, gd.playday);
-            body = `<span class="cal-gamedate">${CAL_MONTHS[gd.month - 1]} ${gd.year} · ${gd.playday}/${total}</span>`;
+            body = `<span class="cal-gamedate">${calCellMonth(gd.month)} ${gd.year} · ${gd.playday}/${total}</span>`;
             if (info.gds.length > 1) {
                 body += `<span class="cal-tag">${info.gds.length}j</span>`;
             }
         } else if (info.type === 'preview') {
             const pv = info.preview;
             const total = calMonthTotal(pv.year, pv.month, pv.playday);
-            body = `<span class="cal-gamedate">${CAL_MONTHS[pv.month - 1]} ${pv.year} · ${pv.playday}/${total}</span>`
+            body = `<span class="cal-gamedate">${calCellMonth(pv.month)} ${pv.year} · ${pv.playday}/${total}</span>`
                   + `<span class="cal-preview-badge" title="Date prévisionnelle — non garantie, peut changer">★</span>`;
         } else if (info.type === 'pause') {
             const p = calPausePeriod(iso);
