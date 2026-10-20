@@ -155,9 +155,13 @@ The pages are still plain HTML; `app.py` only adds what a file server cannot do.
 | `/api/admin/playdays-per-month` | PUT | **admin** | `PUT /game/playdays-per-month` (service token) |
 | `/api/admin/game-date/advance` | POST | **admin** | `POST /game/date/force-advance` (service token) |
 
-`@require_admin` = valid site JWT **and** `is_admin` (which comes from the
-WebAuth account payload: any `admin.*` scope). The client-side `isAdmin()` only
-decides whether to render the panel — never trust it alone.
+`@require_admin` = valid site JWT **and** `is_admin` in it **and** the same
+answer from WebAuth *now* (`GET /api/accounts/<account_id>`, rebuilt from
+PR_API). `is_admin` means the `admin.*.*` scope — a staff role's `admin.x.read`
+/ `admin.staff_dashboard.*` scopes are not administration. A token minted
+before a revocation is refused (403), and WebAuth unreachable is a 503, never a
+pass. The client-side `isAdmin()` only decides whether to render the panel —
+never trust it alone.
 
 **Client side:** `components/auth.js` exports `ready/getUser/isAdmin/apiFetch/login/logout`
 and also publishes them as `window.PRAuth`. `header-component.js` calls

@@ -112,6 +112,8 @@ def webauth_post(endpoint: str, json_data: dict = None, **kwargs) -> requests.Re
 
 def _build_user_payload(account: dict) -> dict:
     return {
+        # Clé de relecture de l'autorité actuelle (`require_admin`).
+        "account_id": account.get("account_id"),
         "discord_id": account.get("discord_id"),
         "username": account.get("discord_username") or account.get("username"),
         "guild_username": account.get("guild_nickname")
