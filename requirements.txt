@@ -1,7 +1,7 @@
 Flask==3.1.3
 PyJWT==2.15.1
 requests==2.34.2
-gunicorn==26.0.0
+gunicorn==27.0.1
 
 # Plancher de version imposé suite à la compromission des intermédiaires
 # eMudhra (Mozilla bug 2083449, 2026-10-17) : les bundles certifi < 2026.10.19
