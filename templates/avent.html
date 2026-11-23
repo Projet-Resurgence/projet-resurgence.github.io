@@ -1,0 +1,107 @@
+{% extends "_vitrine_base.html" %}
+
+{% block head_extra %}
+ <link rel="stylesheet" href="/styles/loyalty.css?v=1.1.0">
+{% endblock %}
+
+{% block content %}
+<div class="sig-page" data-event-key="{{ event_key }}" data-currency="{{ currency }}">
+
+ <header class="sig-hero v-shell">
+  <p class="sig-kicker">Calendrier de l'Avent 2026 · Pause du RP</p>
+  <h1 class="sig-title">{{ (event and event.title) or "Le Signal" }}</h1>
+  <p class="sig-lede">
+   {% if event and event.subtitle %}{{ event.subtitle }}{% else %}
+   Pendant que le monde se tait, une station capte des transmissions venues d'on ne sait où.
+   Chaque jour de décembre, une nouvelle fréquence s'ouvre. Accordez la radio.
+   {% endif %}
+  </p>
+
+  <div class="sig-console" aria-live="polite">
+   <div class="sig-dial" aria-hidden="true">
+    <div class="sig-dial-scale">
+     {% for i in range(1, 26) %}<span class="sig-tick{% if i % 5 == 0 %} is-major{% endif %}"></span>{% endfor %}
+    </div>
+    <div class="sig-needle" data-needle></div>
+   </div>
+   <div class="sig-status">
+    <p class="sig-status-line" data-status>
+     {% if not event %}Le signal n'est pas encore capté. Revenez le 1er décembre.{% else %}Prochaine transmission
+     <time data-next-unlock datetime="{{ event.next_unlock_at or '' }}">{{ event.next_unlock_at or "—" }}</time>{% endif %}
+    </p>
+    <div class="sig-wallet" data-wallet hidden>
+     <span class="sig-wallet-value" data-balance>0</span>
+     <span class="sig-wallet-unit">{{ currency }}</span>
+     <a class="sig-wallet-link" href="/collection">Ma collection →</a>
+    </div>
+    <button type="button" class="sig-login" data-login hidden>Se connecter avec Discord pour participer</button>
+   </div>
+  </div>
+ </header>
+
+ <section class="sig-supply v-shell" data-daily hidden aria-labelledby="sig-supply-title">
+  <div>
+   <h2 id="sig-supply-title" class="sig-h2">Ravitaillement du jour</h2>
+   <p class="sig-muted" data-daily-text>Une caisse de ravitaillement attend à la station.</p>
+  </div>
+  <button type="button" class="sig-btn" data-daily-claim>Récupérer</button>
+ </section>
+
+ <section class="sig-grid-wrap v-shell" aria-labelledby="sig-grid-title">
+  <h2 id="sig-grid-title" class="sig-h2">Les fréquences</h2>
+  <ol class="sig-grid" data-grid>
+   {% if event %}{% for slot in event.slots %}
+   <li class="sig-slot is-{{ slot.state }}" data-position="{{ slot.position }}">
+    <button type="button" class="sig-slot-btn" data-open="{{ slot.position }}"
+            {% if slot.state == 'locked' %}aria-disabled="true"{% endif %}>
+     <span class="sig-slot-num">{{ '%02d' % slot.position }}</span>
+     <span class="sig-slot-freq">{{ slot.frequency or "— MHz" }}</span>
+     <span class="sig-slot-state">{% if slot.state == 'locked' %}Brouillé{% else %}Capté{% endif %}</span>
+     {% if slot.teaser %}<span class="sig-slot-teaser">{{ slot.teaser }}</span>{% endif %}
+    </button>
+   </li>
+   {% endfor %}{% endif %}
+  </ol>
+  <p class="sig-muted sig-note">
+   Une case ouverte reste récupérable jusqu'au 31 décembre. Une seule fois par joueur et par case.
+  </p>
+  <p class="sig-complete" data-completion hidden></p>
+ </section>
+
+ <section class="sig-beacons v-shell" data-community aria-labelledby="sig-beacons-title">
+  <h2 id="sig-beacons-title" class="sig-h2">Le réseau de balises</h2>
+  <p class="sig-muted">Chaque transmission captée par un joueur allume le réseau. Ensemble, débloquez des récompenses communes.</p>
+  <div class="sig-beacons-bar" role="progressbar" aria-valuemin="0" data-community-bar
+       aria-valuenow="{{ (event and event.community and event.community.total_claims) or 0 }}">
+   <div class="sig-beacons-fill" data-community-fill></div>
+  </div>
+  <p class="sig-beacons-count"><strong data-community-total>{{ (event and event.community and event.community.total_claims) or 0 }}</strong> transmissions captées
+   · <span data-community-participants>{{ (event and event.community and event.community.participants) or 0 }}</span> veilleurs</p>
+  <ol class="sig-tiers" data-tiers>
+   {% if event and event.community %}{% for goal in event.community.goals %}{% for tier in goal.tiers %}
+   <li class="sig-tier{% if tier.reached %} is-reached{% endif %}">
+    <span class="sig-tier-threshold">{{ tier.threshold }}</span>
+    <span class="sig-tier-title">{{ tier.title }}</span>
+   </li>
+   {% endfor %}{% endfor %}{% endif %}
+  </ol>
+ </section>
+
+ <dialog class="sig-dialog" data-dialog aria-labelledby="sig-dialog-title">
+  <form method="dialog" class="sig-dialog-close"><button aria-label="Fermer">×</button></form>
+  <p class="sig-kicker" data-dialog-kicker></p>
+  <h2 id="sig-dialog-title" class="sig-dialog-title" data-dialog-title></h2>
+  <div class="sig-dialog-media" data-dialog-media></div>
+  <div class="pr-content sig-dialog-body" data-dialog-body></div>
+  <div class="sig-dialog-rewards" data-dialog-rewards></div>
+  <p class="sig-dialog-msg" data-dialog-msg role="status"></p>
+  <button type="button" class="sig-btn" data-dialog-claim hidden>Capter la transmission</button>
+ </dialog>
+
+ <noscript><p class="v-shell sig-muted">Activez JavaScript pour ouvrir les transmissions.</p></noscript>
+</div>
+{% endblock %}
+
+{% block body_extra %}
+ <script type="module" src="/styles/advent.js?v=1.1.0"></script>
+{% endblock %}

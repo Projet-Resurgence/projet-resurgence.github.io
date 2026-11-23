@@ -37,6 +37,7 @@ const NAV_LINKS = [
     { href: '/mecaniques', page: 'mecaniques', label: 'Mécaniques', aria: 'Les mécaniques et systèmes du jeu' },
     { href: '/ressources', page: 'resources', label: 'Ressources', aria: 'Liens utiles et outils' },
     { href: '/calendrier', page: 'calendar', label: 'Calendrier', aria: 'Le calendrier de jeu' },
+    { href: '/avent', page: 'advent', label: 'Avent', aria: "Le calendrier de l'Avent : une transmission par jour" },
     // The Discord invite is the destination, not an anchor on the home page —
     // "Rejoindre" only ever meant "join the server".
     { href: 'https://discord.projet-resurgence.fr', page: 'join', label: 'Rejoindre', aria: 'Rejoindre le Discord', external: true },
