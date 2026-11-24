@@ -39,3 +39,10 @@ def service_auth_headers() -> dict:
         _token, expires_in = _fetch_token()
         _token_expiry = now + expires_in
     return {"Authorization": f"Bearer {_token}"}
+
+
+def invalidate_service_token() -> None:
+    """Oublier le jeton en cache : le suivant reprendra les scopes ACTUELS du client
+    (un scope accordé après l'émission n'apparaît qu'au jeton suivant)."""
+    global _token, _token_expiry
+    _token, _token_expiry = None, 0.0

@@ -1,0 +1,36 @@
+{% extends "_vitrine_base.html" %}
+
+{% block head_extra %}
+ <link rel="stylesheet" href="/styles/loyalty.css?v=1.1.0">
+{% endblock %}
+
+{% block content %}
+<div class="sig-page col-page" data-currency="{{ currency }}">
+ <header class="sig-hero v-shell">
+  <p class="sig-kicker">Programme de fidélité</p>
+  <h1 class="sig-title">Ma collection</h1>
+  <p class="sig-lede">Vos {{ currency }}, les objets que vous avez rapportés des transmissions, et tout ce qui vous a été donné.
+   Ils vous suivent d'une saison à l'autre, quel que soit votre pays.</p>
+  <button type="button" class="sig-login" data-login hidden>Se connecter avec Discord</button>
+ </header>
+
+ <section class="v-shell col-wallet" data-wallet hidden aria-label="Solde">
+  <div class="col-stat"><span class="col-stat-value" data-balance>0</span><span class="col-stat-label">{{ currency }} disponibles</span></div>
+  <div class="col-stat"><span class="col-stat-value" data-lifetime>0</span><span class="col-stat-label">{{ currency }} gagnés au total</span></div>
+  <div class="col-stat"><span class="col-stat-value" data-count>0</span><span class="col-stat-label">objets</span></div>
+ </section>
+
+ <section class="v-shell" data-collections aria-label="Collections"></section>
+
+ <section class="v-shell col-history" data-history hidden aria-labelledby="col-history-title">
+  <h2 id="col-history-title" class="sig-h2">Historique</h2>
+  <ol class="col-ledger" data-ledger></ol>
+  <button type="button" class="sig-btn sig-btn-ghost" data-more hidden>Plus ancien</button>
+ </section>
+ <noscript><p class="v-shell sig-muted">Activez JavaScript pour afficher votre collection.</p></noscript>
+</div>
+{% endblock %}
+
+{% block body_extra %}
+ <script type="module" src="/styles/collection.js?v=1.0.0"></script>
+{% endblock %}

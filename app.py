@@ -44,12 +44,14 @@ from auth_guard import (
     verify_jwt_token,
 )
 from content_api import content_bp, render_space
+from loyalty_api import loyalty_bp
 from link_preview import link_preview_bp
 from pr_api_service_auth import service_auth_headers
 
 app = Flask(__name__, static_folder=None)
 app.config["SECRET_KEY"] = SECRET_KEY
 app.register_blueprint(content_bp)
+app.register_blueprint(loyalty_bp)
 app.register_blueprint(link_preview_bp)
 
 # Source files that live in the repo but must never be served over HTTP.
@@ -59,6 +61,7 @@ _PRIVATE_FILES = {
     "auth_guard.py",
     "content_api.py",
     "content_markdown.py",
+    "loyalty_api.py",
     "link_preview.py",
     "bot_commands.py",
     "pr_api_service_auth.py",

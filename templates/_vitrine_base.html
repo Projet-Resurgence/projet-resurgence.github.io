@@ -69,7 +69,7 @@
  <title>{{ page.meta_title }}</title>
  <meta name="title" content="{{ page.meta_title }}">
  <meta name="description" content="{{ page.meta_description }}">
- <meta name="robots" content="index, follow">
+ <meta name="robots" content="{{ 'noindex, follow' if page.noindex else 'index, follow' }}">
  <meta name="language" content="French">
  <meta name="author" content="Projet Résurgence">
 
@@ -157,7 +157,7 @@
  <!-- Runtime origins (window.PR_ENV). Classic script: runs before the
       deferred/module scripts below, which read it. -->
  <script src="/env.js"></script>
- <script type="module" src="/components/components.js?v=4.2.2"></script>
+ <script type="module" src="/components/components.js?v=4.3.0"></script>
  <script src="/styles/main.js?v=1.4.0" defer></script>
  {% block body_extra %}{% endblock %}
 </body>

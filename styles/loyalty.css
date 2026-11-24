@@ -1,0 +1,223 @@
+/* Programme de fidélité — « Le Signal » (calendrier de l'Avent) et « Ma collection ».
+   Jetons du site (--v-*) uniquement : le thème clair/sombre suit sans règle dédiée. */
+
+.sig-page [hidden] { display: none !important; } /* l'attribut l'emporte sur display:flex/grid */
+
+.sig-page {
+  --sig-amber: var(--v-gold, #D5B654);
+  --sig-amber-glow: rgba(224, 168, 79, 0.35);
+  --sig-static: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 3px);
+  padding-bottom: 4rem;
+}
+
+.sig-hero { padding-top: clamp(2rem, 6vw, 4.5rem); padding-bottom: 2rem; }
+.sig-kicker {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.78rem;
+  color: var(--sig-amber); margin: 0 0 0.6rem;
+}
+.sig-title {
+  font-family: "PressGothic", "Archivo", sans-serif;
+  font-size: clamp(2.4rem, 7vw, 4.6rem); line-height: 1; margin: 0 0 1rem;
+  letter-spacing: 0.02em;
+}
+.sig-lede { max-width: 62ch; color: var(--v-ink-soft); font-size: 1.08rem; line-height: 1.6; margin: 0 0 2rem; }
+.sig-h2 { font-family: "Archivo", sans-serif; font-weight: 700; font-size: 1.35rem; margin: 0 0 0.75rem; }
+.sig-muted { color: var(--v-ink-muted); }
+.sig-note { font-size: 0.9rem; margin-top: 1rem; }
+
+/* ── Console : cadran + état ─────────────────────────────────────────────── */
+.sig-console {
+  display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 1.5rem; align-items: center;
+  border: 1px solid var(--v-line-strong); border-radius: 14px; padding: 1.25rem 1.5rem;
+  background: var(--sig-static), var(--v-bg-panel);
+}
+.sig-dial {
+  position: relative; height: 72px; border-radius: 10px; overflow: hidden;
+  background: linear-gradient(180deg, rgba(224, 168, 79, 0.10), transparent 70%), var(--v-bg-void);
+  border: 1px solid var(--v-gold-line);
+}
+.sig-dial-scale { position: absolute; inset: 14px 16px; display: flex; justify-content: space-between; align-items: flex-end; }
+.sig-tick { width: 1px; height: 14px; background: var(--v-ink-faint); }
+.sig-tick.is-major { height: 26px; background: var(--v-ink-muted); }
+.sig-needle {
+  --sig-pos: 0;
+  position: absolute; top: 8px; bottom: 8px; width: 2px; border-radius: 2px;
+  left: calc(16px + (100% - 32px) * var(--sig-pos));
+  background: var(--sig-amber); box-shadow: 0 0 12px var(--sig-amber-glow);
+  transition: left 1.2s cubic-bezier(.2, .8, .2, 1);
+}
+.sig-status { display: grid; gap: 0.75rem; }
+.sig-status-line { margin: 0; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.92rem; }
+.sig-status-line time { color: var(--sig-amber); }
+.sig-wallet { display: flex; align-items: baseline; gap: 0.5rem; flex-wrap: wrap; }
+.sig-wallet-value { font-family: "Archivo", sans-serif; font-weight: 800; font-size: 2rem; color: var(--sig-amber); }
+.sig-wallet-unit { color: var(--v-ink-soft); }
+.sig-wallet-link { margin-left: auto; color: var(--v-ink-soft); font-size: 0.9rem; }
+
+.sig-btn, .sig-login {
+  appearance: none; cursor: pointer; border-radius: 999px; padding: 0.7rem 1.3rem;
+  font: 600 0.95rem "IBM Plex Sans", system-ui, sans-serif;
+  background: var(--sig-amber); color: #15110a; border: 1px solid var(--sig-amber);
+  transition: transform .15s ease, box-shadow .15s ease, opacity .15s ease;
+}
+.sig-btn:hover:not(:disabled), .sig-login:hover { box-shadow: 0 0 0 4px var(--v-gold-veil); }
+.sig-btn:focus-visible, .sig-login:focus-visible, .sig-slot-btn:focus-visible { outline: 2px solid var(--sig-amber); outline-offset: 3px; }
+.sig-btn:disabled { opacity: .55; cursor: default; }
+.sig-btn-ghost { background: transparent; color: var(--v-ink); border-color: var(--v-line-strong); }
+.sig-btn-small { padding: 0.35rem 0.9rem; font-size: 0.82rem; }
+.sig-login { justify-self: start; }
+
+/* ── Ravitaillement ──────────────────────────────────────────────────────── */
+.sig-supply {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+  margin-bottom: 2.5rem; padding-block: 1rem;
+  border-top: 1px dashed var(--v-line-strong); border-bottom: 1px dashed var(--v-line-strong);
+}
+.sig-supply p { margin: 0; }
+.sig-supply[hidden] { display: none; }
+
+/* ── Grille des fréquences ───────────────────────────────────────────────── */
+.sig-grid-wrap { margin-bottom: 3rem; }
+.sig-grid {
+  list-style: none; padding: 0; margin: 0;
+  display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+}
+.sig-slot-btn {
+  appearance: none; width: 100%; min-height: 150px; text-align: left; cursor: pointer;
+  display: grid; grid-template-rows: auto auto 1fr auto; gap: 0.3rem;
+  padding: 0.9rem 1rem; border-radius: 12px; color: var(--v-ink);
+  background: var(--sig-static), var(--v-bg-panel); border: 1px solid var(--v-line-strong);
+  transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+.sig-slot-btn:hover { transform: translateY(-2px); border-color: var(--v-gold-line); }
+.sig-slot-num { font-family: "Archivo", sans-serif; font-weight: 800; font-size: 1.9rem; line-height: 1; }
+.sig-slot-freq { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.8rem; color: var(--v-ink-muted); }
+.sig-slot-teaser { font-size: 0.85rem; color: var(--v-ink-soft); line-height: 1.35; align-self: start; }
+.sig-slot-state {
+  justify-self: start; font: 600 0.7rem "IBM Plex Mono", ui-monospace, monospace; text-transform: uppercase;
+  letter-spacing: 0.1em; padding: 0.15rem 0.5rem; border-radius: 999px; border: 1px solid var(--v-line-strong);
+  order: 4;
+}
+.sig-slot.is-locked .sig-slot-btn { cursor: default; opacity: 0.62; }
+.sig-slot.is-locked .sig-slot-num { color: var(--v-ink-faint); }
+.sig-slot.is-locked .sig-slot-btn:hover { transform: none; border-color: var(--v-line-strong); }
+.sig-slot.is-open .sig-slot-btn, .sig-slot.is-catch_up .sig-slot-btn {
+  border-color: var(--sig-amber); box-shadow: 0 0 0 1px var(--sig-amber), 0 0 24px var(--sig-amber-glow);
+}
+.sig-slot.is-open .sig-slot-state, .sig-slot.is-catch_up .sig-slot-state { background: var(--sig-amber); color: #15110a; border-color: var(--sig-amber); }
+.sig-slot.is-open .sig-slot-num { color: var(--sig-amber); }
+.sig-slot.is-claimed .sig-slot-btn { background: linear-gradient(160deg, var(--v-gold-wash), transparent 60%), var(--v-bg-panel); }
+.sig-slot.is-claimed .sig-slot-state { color: var(--sig-amber); border-color: var(--v-gold-line); }
+.sig-slot.is-missed .sig-slot-btn { opacity: 0.45; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .sig-slot.is-open .sig-slot-btn { animation: sig-pulse 2.4s ease-in-out infinite; }
+  .sig-page.is-celebrating .sig-needle { animation: sig-flicker .4s steps(3) 4; }
+}
+@keyframes sig-pulse { 50% { box-shadow: 0 0 0 1px var(--sig-amber), 0 0 38px var(--sig-amber-glow); } }
+@keyframes sig-flicker { 50% { opacity: .2; } }
+
+.sig-complete { margin: .5rem 0 0; padding: .75rem 1rem; border-radius: 10px; border: 1px dashed var(--v-gold-line); color: var(--v-ink-soft); }
+.sig-complete strong { color: var(--sig-amber); }
+.sig-complete-count { font-family: "IBM Plex Mono", ui-monospace, monospace; color: var(--sig-amber); margin-left: .35rem; }
+
+/* ── Balises communautaires ──────────────────────────────────────────────── */
+.sig-beacons { margin-bottom: 3rem; }
+.sig-beacons-bar {
+  position: relative; height: 12px; border-radius: 999px; margin: 1.25rem 0 0.5rem;
+  background: var(--v-bg-void); border: 1px solid var(--v-line-strong); overflow: hidden;
+}
+.sig-beacons-fill { height: 100%; width: 0; background: linear-gradient(90deg, rgba(224, 168, 79, .5), var(--sig-amber)); transition: width 1s ease; }
+.sig-beacons-count { margin: 0 0 1rem; color: var(--v-ink-soft); }
+.sig-beacons-count strong { color: var(--sig-amber); font-size: 1.15rem; }
+.sig-tiers { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.6rem; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+.sig-tier {
+  display: grid; gap: 0.35rem; padding: 0.8rem 1rem; border-radius: 10px;
+  border: 1px solid var(--v-line-strong); background: var(--v-bg-panel);
+}
+.sig-tier-threshold { font: 700 1.2rem "Archivo", sans-serif; color: var(--v-ink-faint); }
+.sig-tier-threshold::before { content: "◉ "; font-size: 0.8em; }
+.sig-tier.is-reached { border-color: var(--v-gold-line); }
+.sig-tier.is-reached .sig-tier-threshold { color: var(--sig-amber); text-shadow: 0 0 10px var(--sig-amber-glow); }
+.sig-tier-title { font-weight: 600; }
+.sig-tier-desc { font-size: 0.88rem; color: var(--v-ink-soft); }
+.sig-tier-done { font-size: 0.82rem; color: var(--sig-amber); }
+.sig-tier .sig-btn { justify-self: start; }
+
+/* ── Dialogue de transmission ────────────────────────────────────────────── */
+.sig-dialog {
+  /* `margin: auto` : la remise à zéro globale du site (margin: 0) annule le centrage natif. */
+  position: fixed; inset: 0; margin: auto; height: fit-content;
+  width: min(680px, calc(100vw - 2rem)); max-height: calc(100vh - 3rem); overflow: auto;
+  border: 1px solid var(--v-gold-line); border-radius: 16px; padding: 1.75rem;
+  background: var(--sig-static), var(--v-bg-base); color: var(--v-ink);
+}
+.sig-dialog::backdrop { background: rgba(0, 0, 0, 0.72); backdrop-filter: blur(2px); }
+.sig-dialog-close { position: absolute; top: 0.6rem; right: 0.8rem; }
+.sig-dialog-close button { appearance: none; background: none; border: 0; color: var(--v-ink-muted); font-size: 1.8rem; cursor: pointer; }
+.sig-dialog-title { font-family: "Archivo", sans-serif; font-size: 1.7rem; margin: 0 0 1rem; }
+.sig-dialog-media img { max-width: 100%; border-radius: 10px; margin-bottom: 1rem; }
+.sig-audio { margin: 0 0 1.2rem; padding: 0.9rem 1rem; border-radius: 12px; border: 1px solid var(--v-gold-line); background: var(--v-gold-wash); }
+.sig-audio figcaption { font: 600 0.85rem "IBM Plex Mono", ui-monospace, monospace; color: var(--sig-amber); margin-bottom: 0.5rem; }
+.sig-audio audio { width: 100%; }
+.sig-dialog-body { margin-bottom: 1rem; }
+.sig-rewards { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.5rem 0 1rem; }
+.sig-reward { padding: 0.35rem 0.8rem; border-radius: 999px; font-size: 0.88rem; font-weight: 600; border: 1px solid var(--v-line-strong); }
+.sig-reward.is-points { border-color: var(--sig-amber); color: var(--sig-amber); }
+.sig-reward.is-item { border-color: var(--v-gold-line); background: var(--v-gold-wash); }
+.sig-reward.is-converted { color: var(--v-ink-muted); }
+.sig-dialog-msg { min-height: 1.4em; color: var(--v-ink-soft); }
+
+/* Raretés (partagées avec la collection) */
+.rarity-rare { --rarity: #6fa8dc; }
+.rarity-epique { --rarity: #b48ee0; }
+.rarity-legendaire { --rarity: #e0a84f; }
+.rarity-unique { --rarity: #e06f6f; }
+.sig-reward[class*="rarity-"] { border-color: var(--rarity, var(--v-gold-line)); }
+
+/* ── Ma collection ───────────────────────────────────────────────────────── */
+.col-wallet { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 2.5rem; }
+.col-wallet[hidden] { display: none; }
+.col-stat { padding: 1rem 1.2rem; border-radius: 12px; border: 1px solid var(--v-line-strong); background: var(--v-bg-panel); display: grid; }
+.col-stat-value { font: 800 2rem "Archivo", sans-serif; color: var(--sig-amber); }
+.col-stat-label { color: var(--v-ink-muted); font-size: 0.9rem; }
+.col-collection { margin-bottom: 2.5rem; }
+.col-collection-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.col-progress { font-family: "IBM Plex Mono", ui-monospace, monospace; color: var(--v-ink-muted); }
+.col-grid { display: grid; gap: 0.9rem; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); margin-top: 0.75rem; }
+.col-item {
+  display: grid; gap: 0.35rem; align-content: start; padding: 1rem; border-radius: 12px;
+  border: 1px solid var(--rarity, var(--v-line-strong)); background: var(--v-bg-panel);
+}
+.col-item img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 8px; }
+.col-item-glyph {
+  display: grid; place-items: center; aspect-ratio: 1; border-radius: 8px; font-size: 3rem;
+  color: var(--rarity, var(--sig-amber)); background: var(--sig-static), var(--v-bg-void);
+}
+.col-item-name { font: 700 1rem "Archivo", sans-serif; margin: 0.3rem 0 0; }
+.col-item-meta, .col-item-date, .col-item-serial { margin: 0; font-size: 0.82rem; color: var(--v-ink-muted); }
+.col-item-serial { color: var(--sig-amber); font-family: "IBM Plex Mono", ui-monospace, monospace; }
+.col-item-desc { margin: 0.2rem 0; font-size: 0.88rem; color: var(--v-ink-soft); }
+.col-item audio { width: 100%; margin-top: 0.4rem; }
+.col-item.is-missing { opacity: 0.5; border-style: dashed; }
+.col-item.is-missing .col-item-glyph { color: var(--v-ink-faint); }
+.col-history[hidden] { display: none; }
+.col-ledger { list-style: none; padding: 0; margin: 0 0 1rem; }
+.col-ledger-row {
+  display: grid; grid-template-columns: 9rem 1fr auto; gap: 1rem; padding: 0.6rem 0;
+  border-bottom: 1px solid var(--v-line);
+}
+.col-ledger-date { color: var(--v-ink-muted); font-size: 0.88rem; }
+.col-ledger-delta { font-family: "IBM Plex Mono", ui-monospace, monospace; font-weight: 600; }
+.col-ledger-row.is-plus .col-ledger-delta { color: var(--sig-amber); }
+.col-ledger-row.is-minus .col-ledger-delta { color: #e06f6f; }
+
+@media (max-width: 720px) {
+  .sig-console { grid-template-columns: 1fr; }
+  .sig-grid { grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); }
+  .sig-slot-btn { min-height: 128px; }
+  .sig-slot-teaser { display: none; }
+  .col-ledger-row { grid-template-columns: 1fr auto; }
+  .col-ledger-date { grid-column: 1 / -1; }
+}

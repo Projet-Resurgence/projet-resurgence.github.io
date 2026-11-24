@@ -597,3 +597,25 @@ Plus `no-store` on any 4xx (so a missing `.js` is not cached for a year) and on
 18. **Never widen the video allow-list without widening `frame-src`, and never widen `frame-src` without a reason.** An editor being able to frame an arbitrary origin into this page is a hole, not a feature
 20. **The bot command guide is generated, never typed.** Touch a cog, rerun `scripts/generate_bot_command_guide.py`; a staff command must never appear in it
 19. **The forum RP has no template of its own.** It extends `_doc_layout.html` unchanged; that is what makes "same presentation as the règlement" survive future edits
+
+### Programme de fidélité : `/avent` et `/collection` (`loyalty_api.py`)
+
+Pages du calendrier de l'Avent (« Le Signal ») et de la collection du joueur.
+**Le site relaie, il ne décide rien** : le compte crédité est l'`account_id` du
+jeton du site, transmis à PR_API en `X-Loyalty-Account-Id` avec le jeton de
+service (scope `loyalty.player.relay`, à faire converger par
+`add_resurgence_web_client.py`). Le relais renouvelle une fois son jeton de
+service sur un refus de scope (un scope accordé après l'émission n'apparaît
+qu'au jeton suivant).
+
+- `body_md` d'une case ouverte → `body_html` par `content_markdown.render` (règle
+  6b) ; le navigateur ne reçoit jamais de markdown.
+- Rendu serveur avec la projection PUBLIQUE seulement ; l'état personnel arrive
+  par `/api/loyalty/*` en `no-store`. Les deux pages sont `no-store`.
+- Médias : `/api/loyalty/media/<clé>` relaie PR_API en flux avec `Range`
+  (Safari) ; même origine, donc couvert par `default-src 'self'`.
+- Fichiers : `templates/avent.html`, `templates/collection.html`,
+  `styles/loyalty.css`, `styles/advent.js`, `styles/collection.js`. Entrée
+  « Avent » dans `header-component.js` (versions bumpées : header 3.3.0,
+  components.js 4.3.0 dans toutes les pages — Cloudflare).
+- L'événement présenté : `LOYALTY_ADVENT_EVENT` (défaut `avent-2026`).
